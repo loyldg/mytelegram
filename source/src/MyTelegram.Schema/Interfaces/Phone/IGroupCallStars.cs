@@ -10,7 +10,7 @@ namespace MyTelegram.Schema.Phone;
 /// <see cref="TGroupCallStars"/> See <a href="https://corefork.telegram.org/constructor/phone.groupCallStars" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TGroupCallStars), nameof(TGroupCallStars))]
-public interface IGroupCallStars : IObject
+public partial interface IGroupCallStars : IObject
 {
     /// <summary>
     ///  

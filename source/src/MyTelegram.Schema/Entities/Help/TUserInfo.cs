@@ -31,13 +31,9 @@ public sealed partial class TUserInfo : IUserInfo
     /// </summary>
     public int Date { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Message);
         writer.Write(Entities);

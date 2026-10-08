@@ -22,13 +22,9 @@ public sealed partial class TPageBlockSlideshow : IPageBlock
     /// </summary>
     public MyTelegram.Schema.IPageCaption Caption { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Items);
         writer.Write(Caption);

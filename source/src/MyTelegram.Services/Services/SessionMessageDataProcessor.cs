@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Services.Services;
 
-public class SessionMessageDataProcessor(IEventBus eventBus, IGZipHelper gZipHelper) : IDataProcessor<ISessionMessage>
+public class SessionMessageDataProcessor(IEventBus eventBus) : IDataProcessor<ISessionMessage>
 {
     //private static readonly IGZipHelper gZipHelper = new GZipHelper();
 
@@ -17,28 +17,28 @@ public class SessionMessageDataProcessor(IEventBus eventBus, IGZipHelper gZipHel
                         using var writer = new ArrayPoolBufferWriter<byte>();
                         dataResultResponseReceivedEvent.DataObject.Serialize(writer);
 
-                        if (writer.WrittenCount > 500)
-                        {
-                            //await eventBus.PublishAsync(newData);
-                            using var writer2 = new ArrayPoolBufferWriter<byte>();
-                            rpcResult.Result.Serialize(writer2);
-                            using var writer3 = new ArrayPoolBufferWriter<byte>();
-                            gZipHelper.Compress(writer2.WrittenSpan, writer3);
-                            rpcResult.Result = new TGzipPacked
-                            {
-                                PackedData = writer3.WrittenMemory
-                            };
-                            using var writer4 = new ArrayPoolBufferWriter<byte>();
-                            rpcResult.Serialize(writer4);
+                        //if (writer.WrittenCount > 500)
+                        //{
+                        //    //await eventBus.PublishAsync(newData);
+                        //    using var writer2 = new ArrayPoolBufferWriter<byte>();
+                        //    rpcResult.Result.Serialize(writer2);
+                        //    using var writer3 = new ArrayPoolBufferWriter<byte>();
+                        //    gZipHelper.Compress(writer2.WrittenSpan, writer3);
+                        //    rpcResult.Result = new TGzipPacked
+                        //    {
+                        //        PackedData = writer3.WrittenMemory
+                        //    };
+                        //    using var writer4 = new ArrayPoolBufferWriter<byte>();
+                        //    rpcResult.Serialize(writer4);
 
-                            await eventBus.PublishAsync(dataResultResponseReceivedEvent with
-                            {
-                                DataObject = null,
-                                Data = writer4.WrittenMemory
-                            });
+                        //    await eventBus.PublishAsync(dataResultResponseReceivedEvent with
+                        //    {
+                        //        DataObject = null,
+                        //        Data = writer4.WrittenMemory
+                        //    });
 
-                        }
-                        else
+                        //}
+                        //else
                         {
                             await eventBus.PublishAsync(dataResultResponseReceivedEvent with
                             {
@@ -46,6 +46,15 @@ public class SessionMessageDataProcessor(IEventBus eventBus, IGZipHelper gZipHel
                                 Data = writer.WrittenMemory
                             });
                         }
+                        //if (writer.WrittenCount < 280 && writer.WrittenCount > 270)
+                        //{
+                        //    logger.LogInformation("rpcResult ReqMsgId:{ReqMsgId} :{@Data}",
+                        //        dataResultResponseReceivedEvent.ReqMsgId, dataResultResponseReceivedEvent.DataObject);
+                        //    writer.WrittenSpan.Dump($"[1]ReqMsgId:{dataResultResponseReceivedEvent.ReqMsgId}");
+                        //    using var writer2 = new ArrayPoolBufferWriter<byte>();
+                        //    dataResultResponseReceivedEvent.DataObject.Serialize(writer2);
+                        //    writer2.WrittenSpan.Dump($"[2]ReqMsgId:{dataResultResponseReceivedEvent.ReqMsgId}");
+                        //}
                     }
                     else
                     {
@@ -77,13 +86,6 @@ public class SessionMessageDataProcessor(IEventBus eventBus, IGZipHelper gZipHel
                 case PushMessageToPeerEvent pushMessageToPeerEvent:
                     await eventBus.PublishAsync(pushMessageToPeerEvent);
                     break;
-                //case PushSessionMessageToAuthKeyIdEvent pushSessionMessageToAuthKeyIdEvent:
-                //    await _eventBus.PublishAsync(pushSessionMessageToAuthKeyIdEvent);
-                //    break;
-                //case PushSessionMessageToPeerEvent pushSessionMessageToPeerEvent:
-                //    await _eventBus.PublishAsync(pushSessionMessageToPeerEvent);
-                //    break;
-
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(data));
@@ -93,6 +95,5 @@ public class SessionMessageDataProcessor(IEventBus eventBus, IGZipHelper gZipHel
         {
             data.MemoryOwner?.Dispose();
         }
-        //return Task.CompletedTask;
     }
 }

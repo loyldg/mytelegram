@@ -29,13 +29,9 @@ public sealed partial class RequestReplaceSticker : IRequest<MyTelegram.Schema.M
     /// </summary>
     public MyTelegram.Schema.IInputStickerSetItem NewSticker { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Sticker);
         writer.Write(NewSticker);

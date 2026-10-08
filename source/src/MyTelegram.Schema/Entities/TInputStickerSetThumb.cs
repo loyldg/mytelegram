@@ -21,13 +21,9 @@ public sealed partial class TInputStickerSetThumb : IInputFileLocation
     /// </summary>
     public int ThumbVersion { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Stickerset);
         writer.Write(ThumbVersion);

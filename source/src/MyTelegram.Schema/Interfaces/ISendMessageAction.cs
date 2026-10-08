@@ -27,6 +27,9 @@ namespace MyTelegram.Schema;
 /// <see cref="TSendMessageEmojiInteraction"/> See <a href="https://corefork.telegram.org/constructor/sendMessageEmojiInteraction" /><br/>
 /// <see cref="TSendMessageEmojiInteractionSeen"/> See <a href="https://corefork.telegram.org/constructor/sendMessageEmojiInteractionSeen" /><br/>
 /// <see cref="TSendMessageTextDraftAction"/> See <a href="https://corefork.telegram.org/constructor/sendMessageTextDraftAction" /><br/>
+/// <see cref="TInputSendMessageRichMessageDraftAction"/> See <a href="" /><br/>
+/// <see cref="TSendMessageRichMessageDraftAction"/> See <a href="" /><br/>
+/// <see cref="TSendMessageStopDraftAction"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TSendMessageTypingAction), nameof(TSendMessageTypingAction))]
 [JsonDerivedType(typeof(TSendMessageCancelAction), nameof(TSendMessageCancelAction))]
@@ -47,6 +50,9 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TSendMessageEmojiInteraction), nameof(TSendMessageEmojiInteraction))]
 [JsonDerivedType(typeof(TSendMessageEmojiInteractionSeen), nameof(TSendMessageEmojiInteractionSeen))]
 [JsonDerivedType(typeof(TSendMessageTextDraftAction), nameof(TSendMessageTextDraftAction))]
-public interface ISendMessageAction : IObject
+[JsonDerivedType(typeof(TInputSendMessageRichMessageDraftAction), nameof(TInputSendMessageRichMessageDraftAction))]
+[JsonDerivedType(typeof(TSendMessageRichMessageDraftAction), nameof(TSendMessageRichMessageDraftAction))]
+[JsonDerivedType(typeof(TSendMessageStopDraftAction), nameof(TSendMessageStopDraftAction))]
+public partial interface ISendMessageAction : IObject
 {
 }

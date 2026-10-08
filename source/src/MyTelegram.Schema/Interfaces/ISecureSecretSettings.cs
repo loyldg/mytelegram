@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TSecureSecretSettings"/> See <a href="https://corefork.telegram.org/constructor/secureSecretSettings" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TSecureSecretSettings), nameof(TSecureSecretSettings))]
-public interface ISecureSecretSettings : IObject
+public partial interface ISecureSecretSettings : IObject
 {
     /// <summary>
     /// Secure KDF algo

@@ -37,17 +37,19 @@ public sealed partial class TTodoList : ITodoList
     /// </summary>
     public TVector<MyTelegram.Schema.ITodoItem> List { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (OthersCanAppend) { Flags = Flags.SetBit(0); }
-        if (OthersCanComplete) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (OthersCanAppend) { flags = flags.SetBit(0); }
+        if (OthersCanComplete) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Title);
         writer.Write(List);
     }

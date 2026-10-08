@@ -29,13 +29,9 @@ public sealed partial class RequestGetSavedMusicByID : IRequest<MyTelegram.Schem
     /// </summary>
     public TVector<MyTelegram.Schema.IInputDocument> Documents { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
         writer.Write(Documents);

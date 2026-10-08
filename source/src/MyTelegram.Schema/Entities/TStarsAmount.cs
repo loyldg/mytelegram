@@ -20,13 +20,9 @@ public sealed partial class TStarsAmount : IStarsAmount
     /// </summary>
     public int Nanos { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Amount);
         writer.Write(Nanos);

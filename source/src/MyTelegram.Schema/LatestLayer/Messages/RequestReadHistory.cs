@@ -32,13 +32,9 @@ public sealed partial class RequestReadHistory : IRequest<MyTelegram.Schema.Mess
     /// </summary>
     public int MaxId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(MaxId);

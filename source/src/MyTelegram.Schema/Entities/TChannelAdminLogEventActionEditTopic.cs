@@ -22,13 +22,9 @@ public sealed partial class TChannelAdminLogEventActionEditTopic : IChannelAdmin
     /// </summary>
     public MyTelegram.Schema.IForumTopic NewTopic { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PrevTopic);
         writer.Write(NewTopic);

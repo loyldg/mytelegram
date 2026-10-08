@@ -16,13 +16,9 @@ public sealed partial class TGroupCallStreamChannels : IGroupCallStreamChannels
     /// </summary>
     public TVector<MyTelegram.Schema.IGroupCallStreamChannel> Channels { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Channels);
     }

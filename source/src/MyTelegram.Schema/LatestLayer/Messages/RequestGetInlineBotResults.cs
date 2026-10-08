@@ -57,19 +57,21 @@ public sealed partial class RequestGetInlineBotResults : IRequest<MyTelegram.Sch
     /// </summary>
     public string Offset { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (GeoPoint != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (GeoPoint != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Bot);
         writer.Write(Peer);
-        if (Flags.IsBitSet(0)) { writer.Write(GeoPoint); }
+        if (flags.IsBitSet(0)) { writer.Write(GeoPoint); }
         writer.Write(Query);
         writer.Write(Offset);
     }

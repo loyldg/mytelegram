@@ -5,12 +5,20 @@ namespace MyTelegram.Schema.E2e;
 
 
 [TlObject(0x83f4f9d8)]
-public sealed class TGroupBroadcastNonceReveal : IGroupBroadcast
+public sealed partial class TGroupBroadcastNonceReveal : IGroupBroadcast
 {
     public uint ConstructorId => 0x83f4f9d8;
+
+    /// <summary>
+    /// int512
+    /// </summary>
     public ReadOnlyMemory<byte> Signature { get; set; }
     public long UserId { get; set; }
     public int ChainHeight { get; set; }
+
+    /// <summary>
+    /// int256
+    /// </summary>
     public ReadOnlyMemory<byte> ChainHash { get; set; }
     public ReadOnlyMemory<byte> Nonce { get; set; }
 

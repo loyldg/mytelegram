@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TFoundStory"/> See <a href="https://corefork.telegram.org/constructor/foundStory" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TFoundStory), nameof(TFoundStory))]
-public interface IFoundStory : IObject
+public partial interface IFoundStory : IObject
 {
     /// <summary>
     /// The peer that posted the story.

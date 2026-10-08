@@ -16,13 +16,9 @@ public sealed partial class TInputMediaGeoPoint : IInputMedia
     /// </summary>
     public MyTelegram.Schema.IInputGeoPoint GeoPoint { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(GeoPoint);
     }

@@ -16,13 +16,9 @@ public sealed partial class TStickerSetNoCovered : IStickerSetCovered
     /// </summary>
     public MyTelegram.Schema.IStickerSet Set { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Set);
     }

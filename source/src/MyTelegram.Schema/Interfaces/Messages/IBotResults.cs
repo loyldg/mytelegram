@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TBotResults"/> See <a href="https://corefork.telegram.org/constructor/messages.botResults" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TBotResults), nameof(TBotResults))]
-public interface IBotResults : IObject
+public partial interface IBotResults : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

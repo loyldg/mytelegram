@@ -14,13 +14,9 @@ public sealed partial class RequestGetTermsOfServiceUpdate : IRequest<MyTelegram
 {
     public uint ConstructorId => 0x2ca51fd1;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

@@ -25,13 +25,9 @@ public sealed partial class TSecureData : ISecureData
     /// </summary>
     public ReadOnlyMemory<byte> Secret { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Data);
         writer.Write(DataHash);

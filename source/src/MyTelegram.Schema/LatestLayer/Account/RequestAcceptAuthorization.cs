@@ -45,13 +45,9 @@ public sealed partial class RequestAcceptAuthorization : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.ISecureCredentialsEncrypted Credentials { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(BotId);
         writer.Write(Scope);

@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Payments;
 /// </remarks>
 [JsonDerivedType(typeof(TStarGiftCollectionsNotModified), nameof(TStarGiftCollectionsNotModified))]
 [JsonDerivedType(typeof(TStarGiftCollections), nameof(TStarGiftCollections))]
-public interface IStarGiftCollections : IObject
+public partial interface IStarGiftCollections : IObject
 {
 }

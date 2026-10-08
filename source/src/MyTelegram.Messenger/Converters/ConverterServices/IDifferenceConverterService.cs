@@ -4,7 +4,7 @@ namespace MyTelegram.Messenger.Converters.ConverterServices;
 
 public interface IDifferenceConverterService
 {
-    IChannelDifference ToChannelDifference(
+    Task<IChannelDifference> ToChannelDifferenceAsync(
         IRequestWithAccessHashKeyId request,
         GetMessageOutput output,
         bool isChannelMember,
@@ -15,7 +15,7 @@ public interface IDifferenceConverterService
         int layer = 0
     );
 
-    IDifference ToDifference(
+    Task<IDifference> ToDifferenceAsync(
         IRequestWithAccessHashKeyId request,
         GetMessageOutput output,
         IPtsReadModel? pts,

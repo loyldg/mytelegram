@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Contacts;
 public sealed partial class TTopPeersDisabled : ITopPeers
 {
     public uint ConstructorId => 0xb52c939d;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

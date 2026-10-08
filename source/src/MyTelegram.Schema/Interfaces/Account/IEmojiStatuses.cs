@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Account;
 /// </remarks>
 [JsonDerivedType(typeof(TEmojiStatusesNotModified), nameof(TEmojiStatusesNotModified))]
 [JsonDerivedType(typeof(TEmojiStatuses), nameof(TEmojiStatuses))]
-public interface IEmojiStatuses : IObject
+public partial interface IEmojiStatuses : IObject
 {
 }

@@ -13,6 +13,6 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TInputStickeredMediaPhoto), nameof(TInputStickeredMediaPhoto))]
 [JsonDerivedType(typeof(TInputStickeredMediaDocument), nameof(TInputStickeredMediaDocument))]
-public interface IInputStickeredMedia : IObject
+public partial interface IInputStickeredMedia : IObject
 {
 }

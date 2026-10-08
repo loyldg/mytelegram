@@ -20,13 +20,9 @@ public sealed partial class RequestToggleAllStoriesHidden : IRequest<IBool>
     /// </summary>
     public bool Hidden { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Hidden);
     }

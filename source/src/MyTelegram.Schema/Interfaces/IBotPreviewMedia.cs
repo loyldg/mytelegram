@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TBotPreviewMedia"/> See <a href="https://corefork.telegram.org/constructor/botPreviewMedia" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TBotPreviewMedia), nameof(TBotPreviewMedia))]
-public interface IBotPreviewMedia : IObject
+public partial interface IBotPreviewMedia : IObject
 {
     /// <summary>
     /// When was this media last updated.

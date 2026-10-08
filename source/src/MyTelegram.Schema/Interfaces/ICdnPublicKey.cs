@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TCdnPublicKey"/> See <a href="https://corefork.telegram.org/constructor/cdnPublicKey" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TCdnPublicKey), nameof(TCdnPublicKey))]
-public interface ICdnPublicKey : IObject
+public partial interface ICdnPublicKey : IObject
 {
     /// <summary>
     /// <a href="https://corefork.telegram.org/cdn">CDN DC</a> ID

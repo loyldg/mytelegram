@@ -71,13 +71,9 @@ public sealed partial class TStarGiftAuctionState : IStarGiftAuctionState
     /// </summary>
     public TVector<MyTelegram.Schema.IStarGiftAuctionRound> Rounds { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Version);
         writer.Write(StartDate);

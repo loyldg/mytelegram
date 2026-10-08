@@ -49,22 +49,24 @@ public sealed partial class RequestSendGroupCallMessage : IRequest<MyTelegram.Sc
     /// </summary>
     public MyTelegram.Schema.IInputPeer? SendAs { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*AllowPaidStars != 0 &&*/ AllowPaidStars.HasValue) { Flags = Flags.SetBit(0); }
-        if (SendAs != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (/*AllowPaidStars != 0 &&*/ AllowPaidStars.HasValue) { flags = flags.SetBit(0); }
+        if (SendAs != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Call);
         writer.Write(RandomId);
         writer.Write(Message);
-        if (Flags.IsBitSet(0)) { writer.Write(AllowPaidStars.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(SendAs); }
+        if (flags.IsBitSet(0)) { writer.Write(AllowPaidStars.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(SendAs); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

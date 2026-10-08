@@ -91,34 +91,36 @@ public sealed partial class TInvoice : IInvoice
     /// </summary>
     public int? SubscriptionPeriod { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Test) { Flags = Flags.SetBit(0); }
-        if (NameRequested) { Flags = Flags.SetBit(1); }
-        if (PhoneRequested) { Flags = Flags.SetBit(2); }
-        if (EmailRequested) { Flags = Flags.SetBit(3); }
-        if (ShippingAddressRequested) { Flags = Flags.SetBit(4); }
-        if (Flexible) { Flags = Flags.SetBit(5); }
-        if (PhoneToProvider) { Flags = Flags.SetBit(6); }
-        if (EmailToProvider) { Flags = Flags.SetBit(7); }
-        if (Recurring) { Flags = Flags.SetBit(9); }
-        if (/*MaxTipAmount != 0 &&*/ MaxTipAmount.HasValue) { Flags = Flags.SetBit(8); }
-        if (SuggestedTipAmounts?.Count > 0) { Flags = Flags.SetBit(8); }
-        if (TermsUrl != null) { Flags = Flags.SetBit(10); }
-        if (/*SubscriptionPeriod != 0 && */SubscriptionPeriod.HasValue) { Flags = Flags.SetBit(11); }
+        var flags = 0;
+        if (Test) { flags = flags.SetBit(0); }
+        if (NameRequested) { flags = flags.SetBit(1); }
+        if (PhoneRequested) { flags = flags.SetBit(2); }
+        if (EmailRequested) { flags = flags.SetBit(3); }
+        if (ShippingAddressRequested) { flags = flags.SetBit(4); }
+        if (Flexible) { flags = flags.SetBit(5); }
+        if (PhoneToProvider) { flags = flags.SetBit(6); }
+        if (EmailToProvider) { flags = flags.SetBit(7); }
+        if (Recurring) { flags = flags.SetBit(9); }
+        if (/*MaxTipAmount != 0 &&*/ MaxTipAmount.HasValue) { flags = flags.SetBit(8); }
+        if (SuggestedTipAmounts?.Count > 0) { flags = flags.SetBit(8); }
+        if (TermsUrl != null) { flags = flags.SetBit(10); }
+        if (/*SubscriptionPeriod != 0 && */SubscriptionPeriod.HasValue) { flags = flags.SetBit(11); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Currency);
         writer.Write(Prices);
-        if (Flags.IsBitSet(8)) { writer.Write(MaxTipAmount.Value); }
-        if (Flags.IsBitSet(8)) { writer.Write(SuggestedTipAmounts); }
-        if (Flags.IsBitSet(10)) { writer.Write(TermsUrl); }
-        if (Flags.IsBitSet(11)) { writer.Write(SubscriptionPeriod.Value); }
+        if (flags.IsBitSet(8)) { writer.Write(MaxTipAmount.Value); }
+        if (flags.IsBitSet(8)) { writer.Write(SuggestedTipAmounts); }
+        if (flags.IsBitSet(10)) { writer.Write(TermsUrl); }
+        if (flags.IsBitSet(11)) { writer.Write(SubscriptionPeriod.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

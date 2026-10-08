@@ -118,42 +118,44 @@ public sealed partial class TGroupCallParticipant : IGroupCallParticipant
     /// </summary>
     public long? PaidStarsTotal { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Muted) { Flags = Flags.SetBit(0); }
-        if (Left) { Flags = Flags.SetBit(1); }
-        if (CanSelfUnmute) { Flags = Flags.SetBit(2); }
-        if (JustJoined) { Flags = Flags.SetBit(4); }
-        if (Versioned) { Flags = Flags.SetBit(5); }
-        if (Min) { Flags = Flags.SetBit(8); }
-        if (MutedByYou) { Flags = Flags.SetBit(9); }
-        if (VolumeByAdmin) { Flags = Flags.SetBit(10); }
-        if (Self) { Flags = Flags.SetBit(12); }
-        if (VideoJoined) { Flags = Flags.SetBit(15); }
-        if (/*ActiveDate != 0 && */ActiveDate.HasValue) { Flags = Flags.SetBit(3); }
-        if (/*Volume != 0 && */Volume.HasValue) { Flags = Flags.SetBit(7); }
-        if (About != null) { Flags = Flags.SetBit(11); }
-        if (/*RaiseHandRating != 0 &&*/ RaiseHandRating.HasValue) { Flags = Flags.SetBit(13); }
-        if (Video != null) { Flags = Flags.SetBit(6); }
-        if (Presentation != null) { Flags = Flags.SetBit(14); }
-        if (/*PaidStarsTotal != 0 &&*/ PaidStarsTotal.HasValue) { Flags = Flags.SetBit(16); }
+        var flags = 0;
+        if (Muted) { flags = flags.SetBit(0); }
+        if (Left) { flags = flags.SetBit(1); }
+        if (CanSelfUnmute) { flags = flags.SetBit(2); }
+        if (JustJoined) { flags = flags.SetBit(4); }
+        if (Versioned) { flags = flags.SetBit(5); }
+        if (Min) { flags = flags.SetBit(8); }
+        if (MutedByYou) { flags = flags.SetBit(9); }
+        if (VolumeByAdmin) { flags = flags.SetBit(10); }
+        if (Self) { flags = flags.SetBit(12); }
+        if (VideoJoined) { flags = flags.SetBit(15); }
+        if (/*ActiveDate != 0 && */ActiveDate.HasValue) { flags = flags.SetBit(3); }
+        if (/*Volume != 0 && */Volume.HasValue) { flags = flags.SetBit(7); }
+        if (About != null) { flags = flags.SetBit(11); }
+        if (/*RaiseHandRating != 0 &&*/ RaiseHandRating.HasValue) { flags = flags.SetBit(13); }
+        if (Video != null) { flags = flags.SetBit(6); }
+        if (Presentation != null) { flags = flags.SetBit(14); }
+        if (/*PaidStarsTotal != 0 &&*/ PaidStarsTotal.HasValue) { flags = flags.SetBit(16); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Date);
-        if (Flags.IsBitSet(3)) { writer.Write(ActiveDate.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(ActiveDate.Value); }
         writer.Write(Source);
-        if (Flags.IsBitSet(7)) { writer.Write(Volume.Value); }
-        if (Flags.IsBitSet(11)) { writer.Write(About); }
-        if (Flags.IsBitSet(13)) { writer.Write(RaiseHandRating.Value); }
-        if (Flags.IsBitSet(6)) { writer.Write(Video); }
-        if (Flags.IsBitSet(14)) { writer.Write(Presentation); }
-        if (Flags.IsBitSet(16)) { writer.Write(PaidStarsTotal.Value); }
+        if (flags.IsBitSet(7)) { writer.Write(Volume.Value); }
+        if (flags.IsBitSet(11)) { writer.Write(About); }
+        if (flags.IsBitSet(13)) { writer.Write(RaiseHandRating.Value); }
+        if (flags.IsBitSet(6)) { writer.Write(Video); }
+        if (flags.IsBitSet(14)) { writer.Write(Presentation); }
+        if (flags.IsBitSet(16)) { writer.Write(PaidStarsTotal.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -13,7 +13,7 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TBotInlineResult), nameof(TBotInlineResult))]
 [JsonDerivedType(typeof(TBotInlineMediaResult), nameof(TBotInlineMediaResult))]
-public interface IBotInlineResult : IObject
+public partial interface IBotInlineResult : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

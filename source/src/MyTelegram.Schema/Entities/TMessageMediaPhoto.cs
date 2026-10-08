@@ -38,23 +38,25 @@ public sealed partial class TMessageMediaPhoto : IMessageMedia
     /// </summary>
     public MyTelegram.Schema.IDocument? Video { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Spoiler) { Flags = Flags.SetBit(3); }
-        if (LivePhoto) { Flags = Flags.SetBit(4); }
-        if (Photo != null) { Flags = Flags.SetBit(0); }
-        if (/*TtlSeconds != 0 && */TtlSeconds.HasValue) { Flags = Flags.SetBit(2); }
-        if (Video != null) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (Spoiler) { flags = flags.SetBit(3); }
+        if (LivePhoto) { flags = flags.SetBit(4); }
+        if (Photo != null) { flags = flags.SetBit(0); }
+        if (/*TtlSeconds != 0 && */TtlSeconds.HasValue) { flags = flags.SetBit(2); }
+        if (Video != null) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(Photo); }
-        if (Flags.IsBitSet(2)) { writer.Write(TtlSeconds.Value); }
-        if (Flags.IsBitSet(4)) { writer.Write(Video); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(Photo); }
+        if (flags.IsBitSet(2)) { writer.Write(TtlSeconds.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(Video); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

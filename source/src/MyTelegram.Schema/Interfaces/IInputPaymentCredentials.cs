@@ -17,6 +17,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputPaymentCredentials), nameof(TInputPaymentCredentials))]
 [JsonDerivedType(typeof(TInputPaymentCredentialsApplePay), nameof(TInputPaymentCredentialsApplePay))]
 [JsonDerivedType(typeof(TInputPaymentCredentialsGooglePay), nameof(TInputPaymentCredentialsGooglePay))]
-public interface IInputPaymentCredentials : IObject
+public partial interface IInputPaymentCredentials : IObject
 {
 }

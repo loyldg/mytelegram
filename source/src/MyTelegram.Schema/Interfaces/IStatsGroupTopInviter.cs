@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TStatsGroupTopInviter"/> See <a href="https://corefork.telegram.org/constructor/statsGroupTopInviter" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStatsGroupTopInviter), nameof(TStatsGroupTopInviter))]
-public interface IStatsGroupTopInviter : IObject
+public partial interface IStatsGroupTopInviter : IObject
 {
     /// <summary>
     /// User ID

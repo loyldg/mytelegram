@@ -30,16 +30,18 @@ public sealed partial class TMessageEntityBlockquote : IMessageEntity
     /// </summary>
     public int Length { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Collapsed) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Collapsed) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Offset);
         writer.Write(Length);
     }

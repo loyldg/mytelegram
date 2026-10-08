@@ -40,18 +40,20 @@ public sealed partial class RequestToggleStickerSets : IRequest<IBool>
     /// </summary>
     public TVector<MyTelegram.Schema.IInputStickerSet> Stickersets { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Uninstall) { Flags = Flags.SetBit(0); }
-        if (Archive) { Flags = Flags.SetBit(1); }
-        if (Unarchive) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Uninstall) { flags = flags.SetBit(0); }
+        if (Archive) { flags = flags.SetBit(1); }
+        if (Unarchive) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Stickersets);
     }
 

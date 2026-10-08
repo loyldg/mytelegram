@@ -38,18 +38,23 @@ public sealed partial class RequestGetAdminedPublicChannels : IRequest<MyTelegra
     /// </summary>
     public bool ForPersonal { get; set; }
 
-    public void ComputeFlag()
+    public bool ForCommunityPeer { get; set; }
+
+    public int CalculateFlags()
     {
-        if (ByLocation) { Flags = Flags.SetBit(0); }
-        if (CheckLimit) { Flags = Flags.SetBit(1); }
-        if (ForPersonal) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (ByLocation) { flags = flags.SetBit(0); }
+        if (CheckLimit) { flags = flags.SetBit(1); }
+        if (ForPersonal) { flags = flags.SetBit(2); }
+        if (ForCommunityPeer) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -58,5 +63,6 @@ public sealed partial class RequestGetAdminedPublicChannels : IRequest<MyTelegra
         if (Flags.IsBitSet(0)) { ByLocation = true; }
         if (Flags.IsBitSet(1)) { CheckLimit = true; }
         if (Flags.IsBitSet(2)) { ForPersonal = true; }
+        if (Flags.IsBitSet(3)) { ForCommunityPeer = true; }
     }
 }

@@ -34,18 +34,20 @@ public sealed partial class RequestDeleteAccount : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IInputCheckPasswordSRP? Password { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Password != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Password != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Reason);
-        if (Flags.IsBitSet(0)) { writer.Write(Password); }
+        if (flags.IsBitSet(0)) { writer.Write(Password); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

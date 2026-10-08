@@ -23,6 +23,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputPeerChannel), nameof(TInputPeerChannel))]
 [JsonDerivedType(typeof(TInputPeerUserFromMessage), nameof(TInputPeerUserFromMessage))]
 [JsonDerivedType(typeof(TInputPeerChannelFromMessage), nameof(TInputPeerChannelFromMessage))]
-public interface IInputPeer : IObject
+public partial interface IInputPeer : IObject
 {
 }

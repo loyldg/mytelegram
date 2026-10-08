@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Upload;
 /// <see cref="TWebFile"/> See <a href="https://corefork.telegram.org/constructor/upload.webFile" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TWebFile), nameof(TWebFile))]
-public interface IWebFile : IObject
+public partial interface IWebFile : IObject
 {
     /// <summary>
     /// File size

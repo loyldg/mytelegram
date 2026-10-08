@@ -14,13 +14,9 @@ public sealed partial class RequestGetAccountTTL : IRequest<MyTelegram.Schema.IA
 {
     public uint ConstructorId => 0x8fc711d;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

@@ -1,13 +1,14 @@
 ﻿// ReSharper disable All
 namespace MyTelegram.Schema;
 
-public interface ILayeredUser : IUser
+public partial interface ILayeredUser : IUser
 {
     //long Id { get; set; }
     long? AccessHash { get; set; }
     MyTelegram.Schema.IUserStatus? Status { get; set; }
     bool Self { get; set; }
     bool Contact { get; set; }
+    bool Bot { get; set; }
     string? Phone { get; set; }
     string? FirstName { get; set; }
     string? LastName { get; set; }
@@ -28,4 +29,10 @@ public interface ILayeredUser : IUser
     ///</summary>
     bool Deleted { get; set; }
     TVector<MyTelegram.Schema.IUsername>? Usernames { get; set; }
+	string? Username { get; set; }
+    long? BotVerificationIcon { get; set; }
+    bool StoriesUnavailable { get; set; }
+    bool StoriesHidden { get; set; }
+    bool BotCanEdit { get; set; }
+    long? SendPaidMessagesStars { get; set; }
 }

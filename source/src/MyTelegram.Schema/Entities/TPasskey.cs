@@ -39,22 +39,24 @@ public sealed partial class TPasskey : IPasskey
     /// </summary>
     public int? LastUsageDate { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*SoftwareEmojiId != 0 &&*/ SoftwareEmojiId.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*LastUsageDate != 0 && */LastUsageDate.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (/*SoftwareEmojiId != 0 &&*/ SoftwareEmojiId.HasValue) { flags = flags.SetBit(0); }
+        if (/*LastUsageDate != 0 && */LastUsageDate.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(Name);
         writer.Write(Date);
-        if (Flags.IsBitSet(0)) { writer.Write(SoftwareEmojiId.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(LastUsageDate.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(SoftwareEmojiId.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(LastUsageDate.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

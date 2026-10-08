@@ -20,13 +20,9 @@ public sealed partial class TWebPageAttributeStarGiftAuction : IWebPageAttribute
     /// </summary>
     public int EndDate { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Gift);
         writer.Write(EndDate);

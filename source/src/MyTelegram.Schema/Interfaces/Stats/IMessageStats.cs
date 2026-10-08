@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Stats;
 /// <see cref="TMessageStats"/> See <a href="https://corefork.telegram.org/constructor/stats.messageStats" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TMessageStats), nameof(TMessageStats))]
-public interface IMessageStats : IObject
+public partial interface IMessageStats : IObject
 {
     /// <summary>
     /// Message view graph

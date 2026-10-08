@@ -10,7 +10,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TStarGiftBackground"/> See <a href="https://corefork.telegram.org/constructor/starGiftBackground" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStarGiftBackground), nameof(TStarGiftBackground))]
-public interface IStarGiftBackground : IObject
+public partial interface IStarGiftBackground : IObject
 {
     /// <summary>
     ///  

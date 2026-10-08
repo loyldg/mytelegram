@@ -13,10 +13,6 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TPageListOrderedItemText), nameof(TPageListOrderedItemText))]
 [JsonDerivedType(typeof(TPageListOrderedItemBlocks), nameof(TPageListOrderedItemBlocks))]
-public interface IPageListOrderedItem : IObject
+public partial interface IPageListOrderedItem : IObject
 {
-    /// <summary>
-    /// Number of element within ordered list
-    /// </summary>
-    string Num { get; set; }
 }

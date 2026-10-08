@@ -15,6 +15,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TBotInlineMessageMediaContact"/> See <a href="https://corefork.telegram.org/constructor/botInlineMessageMediaContact" /><br/>
 /// <see cref="TBotInlineMessageMediaInvoice"/> See <a href="https://corefork.telegram.org/constructor/botInlineMessageMediaInvoice" /><br/>
 /// <see cref="TBotInlineMessageMediaWebPage"/> See <a href="https://corefork.telegram.org/constructor/botInlineMessageMediaWebPage" /><br/>
+/// <see cref="TBotInlineMessageRichMessage"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TBotInlineMessageMediaAuto), nameof(TBotInlineMessageMediaAuto))]
 [JsonDerivedType(typeof(TBotInlineMessageText), nameof(TBotInlineMessageText))]
@@ -23,15 +24,12 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TBotInlineMessageMediaContact), nameof(TBotInlineMessageMediaContact))]
 [JsonDerivedType(typeof(TBotInlineMessageMediaInvoice), nameof(TBotInlineMessageMediaInvoice))]
 [JsonDerivedType(typeof(TBotInlineMessageMediaWebPage), nameof(TBotInlineMessageMediaWebPage))]
-public interface IBotInlineMessage : IObject
+[JsonDerivedType(typeof(TBotInlineMessageRichMessage), nameof(TBotInlineMessageRichMessage))]
+public partial interface IBotInlineMessage : IObject
 {
-    /// <summary>
-    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
-    /// </summary>
     int Flags { get; set; }
 
     /// <summary>
-    /// Inline keyboard
     /// See <a href="https://corefork.telegram.org/type/ReplyMarkup" />
     /// </summary>
     MyTelegram.Schema.IReplyMarkup? ReplyMarkup { get; set; }

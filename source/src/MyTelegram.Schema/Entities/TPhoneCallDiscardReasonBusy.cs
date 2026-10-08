@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TPhoneCallDiscardReasonBusy : IPhoneCallDiscardReason
 {
     public uint ConstructorId => 0xfaf7e8c9;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

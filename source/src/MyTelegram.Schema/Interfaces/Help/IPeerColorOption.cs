@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Help;
 /// <see cref="TPeerColorOption"/> See <a href="https://corefork.telegram.org/constructor/help.peerColorOption" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPeerColorOption), nameof(TPeerColorOption))]
-public interface IPeerColorOption : IObject
+public partial interface IPeerColorOption : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

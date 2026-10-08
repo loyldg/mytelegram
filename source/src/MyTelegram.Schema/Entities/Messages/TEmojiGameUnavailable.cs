@@ -9,13 +9,9 @@ namespace MyTelegram.Schema.Messages;
 public sealed partial class TEmojiGameUnavailable : IEmojiGameInfo
 {
     public uint ConstructorId => 0x59e65335;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

@@ -28,13 +28,9 @@ public sealed partial class TStarGiftUpgradePreview : IStarGiftUpgradePreview
     /// </summary>
     public TVector<MyTelegram.Schema.IStarGiftUpgradePrice> NextPrices { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(SampleAttributes);
         writer.Write(Prices);

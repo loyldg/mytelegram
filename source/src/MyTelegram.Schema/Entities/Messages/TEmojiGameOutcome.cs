@@ -24,13 +24,9 @@ public sealed partial class TEmojiGameOutcome : IEmojiGameOutcome
     /// </summary>
     public long TonAmount { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Seed);
         writer.Write(StakeTonAmount);

@@ -91,27 +91,29 @@ public sealed partial class RequestGetSavedStarGifts : IRequest<MyTelegram.Schem
     /// </summary>
     public int Limit { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ExcludeUnsaved) { Flags = Flags.SetBit(0); }
-        if (ExcludeSaved) { Flags = Flags.SetBit(1); }
-        if (ExcludeUnlimited) { Flags = Flags.SetBit(2); }
-        if (ExcludeUnique) { Flags = Flags.SetBit(4); }
-        if (SortByValue) { Flags = Flags.SetBit(5); }
-        if (ExcludeUpgradable) { Flags = Flags.SetBit(7); }
-        if (ExcludeUnupgradable) { Flags = Flags.SetBit(8); }
-        if (PeerColorAvailable) { Flags = Flags.SetBit(9); }
-        if (ExcludeHosted) { Flags = Flags.SetBit(10); }
-        if (/*CollectionId != 0 && */CollectionId.HasValue) { Flags = Flags.SetBit(6); }
+        var flags = 0;
+        if (ExcludeUnsaved) { flags = flags.SetBit(0); }
+        if (ExcludeSaved) { flags = flags.SetBit(1); }
+        if (ExcludeUnlimited) { flags = flags.SetBit(2); }
+        if (ExcludeUnique) { flags = flags.SetBit(4); }
+        if (SortByValue) { flags = flags.SetBit(5); }
+        if (ExcludeUpgradable) { flags = flags.SetBit(7); }
+        if (ExcludeUnupgradable) { flags = flags.SetBit(8); }
+        if (PeerColorAvailable) { flags = flags.SetBit(9); }
+        if (ExcludeHosted) { flags = flags.SetBit(10); }
+        if (/*CollectionId != 0 && */CollectionId.HasValue) { flags = flags.SetBit(6); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
-        if (Flags.IsBitSet(6)) { writer.Write(CollectionId.Value); }
+        if (flags.IsBitSet(6)) { writer.Write(CollectionId.Value); }
         writer.Write(Offset);
         writer.Write(Limit);
     }

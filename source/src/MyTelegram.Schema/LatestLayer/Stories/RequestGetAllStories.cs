@@ -34,19 +34,21 @@ public sealed partial class RequestGetAllStories : IRequest<MyTelegram.Schema.St
     /// </summary>
     public string? State { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Next) { Flags = Flags.SetBit(1); }
-        if (Hidden) { Flags = Flags.SetBit(2); }
-        if (State != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Next) { flags = flags.SetBit(1); }
+        if (Hidden) { flags = flags.SetBit(2); }
+        if (State != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(State); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(State); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

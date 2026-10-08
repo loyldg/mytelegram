@@ -16,13 +16,9 @@ public sealed partial class TUpdatePaidReactionPrivacy : IUpdate
     /// </summary>
     public MyTelegram.Schema.IPaidReactionPrivacy Private { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Private);
     }

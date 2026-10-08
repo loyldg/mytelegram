@@ -36,13 +36,9 @@ public sealed partial class RequestReportReaction : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IInputPeer ReactionPeer { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(Id);

@@ -26,13 +26,9 @@ public sealed partial class RequestGetExtendedMedia : IRequest<MyTelegram.Schema
     /// </summary>
     public TVector<int> Id { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(Id);

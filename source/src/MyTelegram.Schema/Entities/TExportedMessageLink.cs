@@ -20,13 +20,9 @@ public sealed partial class TExportedMessageLink : IExportedMessageLink
     /// </summary>
     public string Html { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Link);
         writer.Write(Html);

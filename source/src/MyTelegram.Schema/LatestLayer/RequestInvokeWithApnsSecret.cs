@@ -29,13 +29,9 @@ public sealed partial class RequestInvokeWithApnsSecret : IRequest<IObject>, IHa
     /// </summary>
     public IObject Query { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Nonce);
         writer.Write(Secret);

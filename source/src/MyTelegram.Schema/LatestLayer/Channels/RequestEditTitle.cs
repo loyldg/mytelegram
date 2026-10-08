@@ -34,13 +34,9 @@ public sealed partial class RequestEditTitle : IRequest<MyTelegram.Schema.IUpdat
     /// </summary>
     public string Title { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Channel);
         writer.Write(Title);

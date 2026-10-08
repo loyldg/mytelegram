@@ -31,13 +31,9 @@ public sealed partial class TChannelAdminLogEvent : IChannelAdminLogEvent
     /// </summary>
     public MyTelegram.Schema.IChannelAdminLogEventAction Action { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
         writer.Write(Date);

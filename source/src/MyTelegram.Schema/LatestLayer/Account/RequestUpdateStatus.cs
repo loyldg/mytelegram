@@ -20,13 +20,9 @@ public sealed partial class RequestUpdateStatus : IRequest<IBool>
     /// </summary>
     public bool Offline { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Offline);
     }

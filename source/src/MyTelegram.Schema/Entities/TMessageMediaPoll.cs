@@ -29,19 +29,21 @@ public sealed partial class TMessageMediaPoll : IMessageMedia
     /// </summary>
     public MyTelegram.Schema.IMessageMedia? AttachedMedia { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (AttachedMedia != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (AttachedMedia != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Poll);
         writer.Write(Results);
-        if (Flags.IsBitSet(0)) { writer.Write(AttachedMedia); }
+        if (flags.IsBitSet(0)) { writer.Write(AttachedMedia); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

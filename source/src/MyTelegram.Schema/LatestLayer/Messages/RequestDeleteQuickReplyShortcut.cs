@@ -23,13 +23,9 @@ public sealed partial class RequestDeleteQuickReplyShortcut : IRequest<IBool>
     /// </summary>
     public int ShortcutId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ShortcutId);
     }

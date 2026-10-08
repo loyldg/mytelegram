@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TPopularContact"/> See <a href="https://corefork.telegram.org/constructor/popularContact" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPopularContact), nameof(TPopularContact))]
-public interface IPopularContact : IObject
+public partial interface IPopularContact : IObject
 {
     /// <summary>
     /// Contact identifier

@@ -14,13 +14,9 @@ public sealed partial class TStarGiftAttributeRarity : IStarGiftAttributeRarity
     /// </summary>
     public int Permille { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Permille);
     }

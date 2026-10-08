@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputPhoneCall"/> See <a href="https://corefork.telegram.org/constructor/inputPhoneCall" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputPhoneCall), nameof(TInputPhoneCall))]
-public interface IInputPhoneCall : IObject
+public partial interface IInputPhoneCall : IObject
 {
     /// <summary>
     /// Call ID

@@ -20,13 +20,9 @@ public sealed partial class TMessageActionChatCreate : IMessageAction
     /// </summary>
     public TVector<long> Users { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Title);
         writer.Write(Users);

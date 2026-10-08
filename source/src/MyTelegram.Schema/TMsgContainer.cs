@@ -3,7 +3,7 @@
 namespace MyTelegram.Schema;
 
 [TlObject(0x73f1f8dc)]
-public class TMsgContainer : IRequest<IObject>
+public sealed partial class TMsgContainer : IRequest<IObject>
 {
     public uint ConstructorId => 0x73f1f8dc;
     public TContainerMessage[] Messages { get; set; }
@@ -16,6 +16,11 @@ public class TMsgContainer : IRequest<IObject>
         {
             writer.Write(containerMessage);
         }
+    }
+
+    public void ComputeFlag()
+    {
+
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

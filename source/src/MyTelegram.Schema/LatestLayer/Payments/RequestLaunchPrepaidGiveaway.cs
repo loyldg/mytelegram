@@ -34,13 +34,9 @@ public sealed partial class RequestLaunchPrepaidGiveaway : IRequest<MyTelegram.S
     /// </summary>
     public MyTelegram.Schema.IInputStorePaymentPurpose Purpose { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(GiveawayId);

@@ -7,7 +7,6 @@ internal sealed class EmojiStatusMapper
 {
     public int Layer => Layers.LayerLatest;
     
-
     public TEmojiStatus Map(EmojiStatus source)
     {
         return Map(source, new TEmojiStatus());

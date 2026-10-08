@@ -37,20 +37,22 @@ public sealed partial class TInputSingleMedia : IInputSingleMedia
     /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Entities?.Count > 0) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Entities?.Count > 0) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Media);
         writer.Write(RandomId);
         writer.Write(Message);
-        if (Flags.IsBitSet(0)) { writer.Write(Entities); }
+        if (flags.IsBitSet(0)) { writer.Write(Entities); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

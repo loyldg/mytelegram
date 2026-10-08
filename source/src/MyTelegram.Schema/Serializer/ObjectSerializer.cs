@@ -59,6 +59,15 @@ public class ObjectSerializer<T> : ISerializer<T>
                     var baseType = typeof(IObject);
                     var interfaceType = type.GetInterfaces()
                         .FirstOrDefault(p => p.IsAssignableTo(baseType) && p.FullName != baseType.FullName);
+                    // fix ILayeredXXX interface
+                    if (interfaceType?.Name.StartsWith("ILayered") ?? false)
+                    {
+                        var baseInterfaceType = interfaceType.GetInterfaces().FirstOrDefault(p => p.IsAssignableTo(baseType) &&
+                            p.FullName != baseType.FullName
+                        );
+
+                        interfaceType = baseInterfaceType;
+                    }
 
                     var genericType = interfaceType ?? type;
 

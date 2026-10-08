@@ -36,18 +36,20 @@ public sealed partial class TBotApp : IBotApp
     /// </summary>
     public MyTelegram.Schema.IBotApp App { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Inactive) { Flags = Flags.SetBit(0); }
-        if (RequestWriteAccess) { Flags = Flags.SetBit(1); }
-        if (HasSettings) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Inactive) { flags = flags.SetBit(0); }
+        if (RequestWriteAccess) { flags = flags.SetBit(1); }
+        if (HasSettings) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(App);
     }
 

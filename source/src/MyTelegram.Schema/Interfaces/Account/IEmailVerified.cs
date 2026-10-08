@@ -13,7 +13,7 @@ namespace MyTelegram.Schema.Account;
 /// </remarks>
 [JsonDerivedType(typeof(TEmailVerified), nameof(TEmailVerified))]
 [JsonDerivedType(typeof(TEmailVerifiedLogin), nameof(TEmailVerifiedLogin))]
-public interface IEmailVerified : IObject
+public partial interface IEmailVerified : IObject
 {
     /// <summary>
     /// The verified email address.

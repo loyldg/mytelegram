@@ -60,23 +60,25 @@ public sealed partial class RequestRequestMainWebView : IRequest<MyTelegram.Sche
     /// </summary>
     public string Platform { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Compact) { Flags = Flags.SetBit(7); }
-        if (Fullscreen) { Flags = Flags.SetBit(8); }
-        if (StartParam != null) { Flags = Flags.SetBit(1); }
-        if (ThemeParams != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Compact) { flags = flags.SetBit(7); }
+        if (Fullscreen) { flags = flags.SetBit(8); }
+        if (StartParam != null) { flags = flags.SetBit(1); }
+        if (ThemeParams != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Bot);
-        if (Flags.IsBitSet(1)) { writer.Write(StartParam); }
-        if (Flags.IsBitSet(0)) { writer.Write(ThemeParams); }
+        if (flags.IsBitSet(1)) { writer.Write(StartParam); }
+        if (flags.IsBitSet(0)) { writer.Write(ThemeParams); }
         writer.Write(Platform);
     }
 

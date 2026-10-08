@@ -58,27 +58,29 @@ public sealed partial class TInputBotInlineResult : IInputBotInlineResult
     /// </summary>
     public MyTelegram.Schema.IInputBotInlineMessage SendMessage { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Title != null) { Flags = Flags.SetBit(1); }
-        if (Description != null) { Flags = Flags.SetBit(2); }
-        if (Url != null) { Flags = Flags.SetBit(3); }
-        if (Thumb != null) { Flags = Flags.SetBit(4); }
-        if (Content != null) { Flags = Flags.SetBit(5); }
+        var flags = 0;
+        if (Title != null) { flags = flags.SetBit(1); }
+        if (Description != null) { flags = flags.SetBit(2); }
+        if (Url != null) { flags = flags.SetBit(3); }
+        if (Thumb != null) { flags = flags.SetBit(4); }
+        if (Content != null) { flags = flags.SetBit(5); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(Type);
-        if (Flags.IsBitSet(1)) { writer.Write(Title); }
-        if (Flags.IsBitSet(2)) { writer.Write(Description); }
-        if (Flags.IsBitSet(3)) { writer.Write(Url); }
-        if (Flags.IsBitSet(4)) { writer.Write(Thumb); }
-        if (Flags.IsBitSet(5)) { writer.Write(Content); }
+        if (flags.IsBitSet(1)) { writer.Write(Title); }
+        if (flags.IsBitSet(2)) { writer.Write(Description); }
+        if (flags.IsBitSet(3)) { writer.Write(Url); }
+        if (flags.IsBitSet(4)) { writer.Write(Thumb); }
+        if (flags.IsBitSet(5)) { writer.Write(Content); }
         writer.Write(SendMessage);
     }
 

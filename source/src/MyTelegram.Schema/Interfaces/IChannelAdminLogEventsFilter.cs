@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TChannelAdminLogEventsFilter"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEventsFilter" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TChannelAdminLogEventsFilter), nameof(TChannelAdminLogEventsFilter))]
-public interface IChannelAdminLogEventsFilter : IObject
+public partial interface IChannelAdminLogEventsFilter : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

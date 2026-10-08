@@ -1,4 +1,4 @@
-﻿#nullable disable
+﻿#nullable enable
 namespace MyTelegram.GatewayServer.Serializers;
 
 public static class BufferExtensions
@@ -16,7 +16,7 @@ public static class BufferExtensions
         }
     }
 
-    public static string ReadString2(this ref ReadOnlyMemory<byte> buffer)
+    public static string? ReadString2(this ref ReadOnlyMemory<byte> buffer)
     {
         var isNull = buffer.ReadByte() == 0;
         if (isNull)

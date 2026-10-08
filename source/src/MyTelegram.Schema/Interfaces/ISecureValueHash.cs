@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TSecureValueHash"/> See <a href="https://corefork.telegram.org/constructor/secureValueHash" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TSecureValueHash), nameof(TSecureValueHash))]
-public interface ISecureValueHash : IObject
+public partial interface ISecureValueHash : IObject
 {
     /// <summary>
     /// Secure value type

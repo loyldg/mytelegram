@@ -36,17 +36,19 @@ public sealed partial class TDocumentAttributeCustomEmoji : IDocumentAttribute
     /// </summary>
     public MyTelegram.Schema.IInputStickerSet Stickerset { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Free) { Flags = Flags.SetBit(0); }
-        if (TextColor) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Free) { flags = flags.SetBit(0); }
+        if (TextColor) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Alt);
         writer.Write(Stickerset);
     }

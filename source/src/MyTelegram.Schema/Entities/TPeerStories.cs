@@ -32,18 +32,20 @@ public sealed partial class TPeerStories : IPeerStories
     /// </summary>
     public TVector<MyTelegram.Schema.IStoryItem> Stories { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*MaxReadId != 0 && */MaxReadId.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*MaxReadId != 0 && */MaxReadId.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
-        if (Flags.IsBitSet(0)) { writer.Write(MaxReadId.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(MaxReadId.Value); }
         writer.Write(Stories);
     }
 

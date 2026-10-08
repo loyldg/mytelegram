@@ -20,13 +20,9 @@ public sealed partial class TBusinessAwayMessageScheduleCustom : IBusinessAwayMe
     /// </summary>
     public int EndDate { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(StartDate);
         writer.Write(EndDate);

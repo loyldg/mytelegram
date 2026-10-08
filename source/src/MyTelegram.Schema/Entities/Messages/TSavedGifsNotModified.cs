@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Messages;
 public sealed partial class TSavedGifsNotModified : ISavedGifs
 {
     public uint ConstructorId => 0xe8025ca2;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

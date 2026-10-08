@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Channels;
 public sealed partial class TSponsoredMessageReportResultReported : ISponsoredMessageReportResult
 {
     public uint ConstructorId => 0xad798849;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

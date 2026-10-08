@@ -13,6 +13,12 @@ public class BooleanSerializer : ISerializer<bool>
         writer.Write(value ? True : False);
     }
 
+    public int Serialize(bool value, Span<byte> dest)
+    {
+        BinaryPrimitives.WriteInt32LittleEndian(dest, value ? True : False);
+        return sizeof(int);
+    }
+
     public bool Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         if (BinaryPrimitives.TryReadInt32LittleEndian(buffer.Span, out var value))

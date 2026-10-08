@@ -14,13 +14,9 @@ public sealed partial class RequestGetStarsGiveawayOptions : IRequest<TVector<My
 {
     public uint ConstructorId => 0xbd1efd3e;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

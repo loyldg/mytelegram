@@ -25,13 +25,9 @@ public sealed partial class TTextImage : IRichText
     /// </summary>
     public int H { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(DocumentId);
         writer.Write(W);

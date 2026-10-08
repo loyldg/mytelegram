@@ -67,18 +67,20 @@ public sealed partial class RequestGetPaymentForm : IRequest<MyTelegram.Schema.P
     /// </summary>
     public MyTelegram.Schema.IDataJSON? ThemeParams { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ThemeParams != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (ThemeParams != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Invoice);
-        if (Flags.IsBitSet(0)) { writer.Write(ThemeParams); }
+        if (flags.IsBitSet(0)) { writer.Write(ThemeParams); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

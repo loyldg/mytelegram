@@ -12,6 +12,6 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TInputStarGiftAuction), nameof(TInputStarGiftAuction))]
 [JsonDerivedType(typeof(TInputStarGiftAuctionSlug), nameof(TInputStarGiftAuctionSlug))]
-public interface IInputStarGiftAuction : IObject
+public partial interface IInputStarGiftAuction : IObject
 {
 }

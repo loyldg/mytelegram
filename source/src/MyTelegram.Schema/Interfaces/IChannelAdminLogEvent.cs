@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TChannelAdminLogEvent"/> See <a href="https://corefork.telegram.org/constructor/channelAdminLogEvent" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TChannelAdminLogEvent), nameof(TChannelAdminLogEvent))]
-public interface IChannelAdminLogEvent : IObject
+public partial interface IChannelAdminLogEvent : IObject
 {
     /// <summary>
     /// Event ID

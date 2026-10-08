@@ -35,13 +35,9 @@ public sealed partial class TInputSecureFileUploaded : IInputSecureFile
     /// </summary>
     public ReadOnlyMemory<byte> Secret { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
         writer.Write(Parts);

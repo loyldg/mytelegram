@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TGeoPointAddress"/> See <a href="https://corefork.telegram.org/constructor/geoPointAddress" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TGeoPointAddress), nameof(TGeoPointAddress))]
-public interface IGeoPointAddress : IObject
+public partial interface IGeoPointAddress : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

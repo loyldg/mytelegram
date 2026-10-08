@@ -13,13 +13,9 @@ public sealed partial class RequestGetPasskeys : IRequest<MyTelegram.Schema.Acco
 {
     public uint ConstructorId => 0xea1f0c52;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

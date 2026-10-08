@@ -6,6 +6,7 @@ using MyTelegram.EventBus.RabbitMQ.Extensions;
 using MyTelegram.Messenger;
 using MyTelegram.Messenger.QueryServer.BackgroundServices;
 using MyTelegram.Messenger.QueryServer.Extensions;
+using MyTelegram.Messenger.Services;
 using MyTelegram.Services.NativeAot;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
@@ -67,43 +68,26 @@ builder.ConfigureAppConfiguration(options =>
     options.AddEnvironmentVariables();
     options.AddCommandLine(args);
 });
-builder.ConfigureServices((ctx,
+builder.ConfigureServices((context,
     services) =>
 {
     services.AddOptions<MyTelegramMessengerServerOptions>()
-        .Bind(ctx.Configuration.GetRequiredSection("App"))
+        .Bind(context.Configuration.GetRequiredSection("App"))
         .ValidateDataAnnotations()
         .ValidateOnStart()
         ;
 
-    services.Configure<EventBusRabbitMqOptions>(ctx.Configuration.GetRequiredSection("RabbitMQ:EventBus"));
-    services.Configure<RabbitMqOptions>(ctx.Configuration.GetRequiredSection("RabbitMQ:Connections:Default"));
-
-    var eventBusOptions = ctx.Configuration.GetRequiredSection("RabbitMQ:EventBus").Get<EventBusRabbitMqOptions>();
-    var rabbitMqOptions = ctx.Configuration.GetRequiredSection("RabbitMQ:Connections:Default").Get<RabbitMqOptions>();
-
-    services.AddMyTelegramRabbitMqEventBus();
-    //services.AddRebusEventBus(options =>
-    //{
-    //    options.Transport(t =>
-    //    {
-    //        t.UseRabbitMq(
-    //                $"amqp://{rabbitMqOptions!.UserName}:{rabbitMqOptions.Password}@{rabbitMqOptions.HostName}:{rabbitMqOptions.Port}",
-    //                eventBusOptions!.ClientName)
-    //            .ExchangeNames(eventBusOptions.ExchangeName, eventBusOptions.TopicExchangeName ?? "RebusTopics")
-    //            ;
-    //    });
-    //    options.AddSystemTextJson(jsonOptions =>
-    //    {
-    //        jsonOptions.TypeInfoResolverChain.Add(MyJsonSerializeContext.Default);
-    //    });
-    //});
+#if USE_REDIS_EVENTBUS
+    services.AddMyTelegramRedisEventBus(context.Configuration);
+#else
+    services.AddMyTelegramRabbitMqEventBus(context.Configuration);
+#endif
 
     services.AddMyTelegramMessengerQueryServer();
 
     services.AddMyTelegramStackExchangeRedisCache(options =>
     {
-        options.Configuration = ctx.Configuration.GetValue<string>("Redis:Configuration");
+        options.Configuration = context.Configuration.GetValue<string>("Redis:Configuration");
     });
 
     services.AddHostedService<MessageQueueDataProcessorBackgroundService<IDomainEvent>>();
@@ -112,6 +96,8 @@ builder.ConfigureServices((ctx,
     services.AddHostedService<ObjectMessageSenderBackgroundService>();
     services.AddHostedService<MyTelegramInvokeAfterMsgProcessorBackgroundService>();
     services.AddHostedService<QueuedCommandExecutorBackgroundService>();
+    services.AddHostedService<DeleteExpiredRpcResultBackgroundService>();
+    services.AddShardMessageQueueProcessor();
 
     services.Configure<HostOptions>(options =>
     {

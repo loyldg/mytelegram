@@ -21,13 +21,9 @@ public sealed partial class TSupport : ISupport
     /// </summary>
     public MyTelegram.Schema.IUser User { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PhoneNumber);
         writer.Write(User);

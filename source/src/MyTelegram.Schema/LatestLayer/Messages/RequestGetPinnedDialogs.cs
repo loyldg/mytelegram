@@ -22,13 +22,9 @@ public sealed partial class RequestGetPinnedDialogs : IRequest<MyTelegram.Schema
     /// </summary>
     public int FolderId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(FolderId);
     }

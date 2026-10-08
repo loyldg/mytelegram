@@ -19,7 +19,7 @@ public class UserSnapshot(
     long? fallbackPhotoId,
     PeerColor? color,
     PeerColor? profileColor,
-    GlobalPrivacySettings globalPrivacySettings,
+    GlobalPrivacySettings? globalPrivacySettings,
     bool premium,
     long? personalChannelId,
     Birthday? birthday,
@@ -47,7 +47,7 @@ public class UserSnapshot(
     public long? FallbackPhotoId { get; } = fallbackPhotoId;
     public PeerColor? Color { get; } = color;
     public PeerColor? ProfileColor { get; } = profileColor;
-    public GlobalPrivacySettings GlobalPrivacySettings { get; } = globalPrivacySettings;
+    public GlobalPrivacySettings? GlobalPrivacySettings { get; } = globalPrivacySettings;
     public bool Premium { get; } = premium;
     public long? PersonalChannelId { get; } = personalChannelId;
     public Birthday? Birthday { get; } = birthday;

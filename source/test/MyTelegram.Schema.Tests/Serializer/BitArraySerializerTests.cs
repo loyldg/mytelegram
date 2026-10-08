@@ -20,13 +20,13 @@ public class BitArraySerializerTests
         writer.WrittenSpan.ToArray().ShouldBeEquivalentTo(expectedValue);
     }
 
-    [MemberData(nameof(GetData), parameters: new[] { 0 })]
-    [MemberData(nameof(GetData), parameters: new[] { 1 })]
-    [MemberData(nameof(GetData), parameters: new[] { 2 })]
-    [MemberData(nameof(GetData), parameters: new[] { 31 })]
-    [MemberData(nameof(GetData), parameters: new[] { 1, 2 })]
-    [MemberData(nameof(GetData), parameters: new[] { 1, 2, 3 })]
-    [MemberData(nameof(GetData), parameters: new[] { 1, 2, 31 })]
+    [MemberData(nameof(GetData), arguments: new[] { 0 })]
+    [MemberData(nameof(GetData), arguments: new[] { 1 })]
+    [MemberData(nameof(GetData), arguments: new[] { 2 })]
+    [MemberData(nameof(GetData), arguments: new[] { 31 })]
+    [MemberData(nameof(GetData), arguments: new[] { 1, 2 })]
+    [MemberData(nameof(GetData), arguments: new[] { 1, 2, 3 })]
+    [MemberData(nameof(GetData), arguments: new[] { 1, 2, 31 })]
     [Theory]
     public void DeserializeTest(byte[] value, BitArray expectedValue)
     {

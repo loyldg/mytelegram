@@ -16,13 +16,9 @@ public sealed partial class TPageBlockCover : IPageBlock
     /// </summary>
     public MyTelegram.Schema.IPageBlock Cover { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Cover);
     }

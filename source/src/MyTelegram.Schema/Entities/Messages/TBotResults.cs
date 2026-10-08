@@ -59,23 +59,25 @@ public sealed partial class TBotResults : IBotResults
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Gallery) { Flags = Flags.SetBit(0); }
-        if (NextOffset != null) { Flags = Flags.SetBit(1); }
-        if (SwitchPm != null) { Flags = Flags.SetBit(2); }
-        if (SwitchWebview != null) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (Gallery) { flags = flags.SetBit(0); }
+        if (NextOffset != null) { flags = flags.SetBit(1); }
+        if (SwitchPm != null) { flags = flags.SetBit(2); }
+        if (SwitchWebview != null) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(QueryId);
-        if (Flags.IsBitSet(1)) { writer.Write(NextOffset); }
-        if (Flags.IsBitSet(2)) { writer.Write(SwitchPm); }
-        if (Flags.IsBitSet(3)) { writer.Write(SwitchWebview); }
+        if (flags.IsBitSet(1)) { writer.Write(NextOffset); }
+        if (flags.IsBitSet(2)) { writer.Write(SwitchPm); }
+        if (flags.IsBitSet(3)) { writer.Write(SwitchWebview); }
         writer.Write(Results);
         writer.Write(CacheTime);
         writer.Write(Users);

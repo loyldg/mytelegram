@@ -15,13 +15,9 @@ public sealed partial class TSecurePlainPhone : ISecurePlainData
     /// </summary>
     public string Phone { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Phone);
     }

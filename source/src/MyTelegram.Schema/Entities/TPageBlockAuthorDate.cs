@@ -21,13 +21,9 @@ public sealed partial class TPageBlockAuthorDate : IPageBlock
     /// </summary>
     public int PublishedDate { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Author);
         writer.Write(PublishedDate);

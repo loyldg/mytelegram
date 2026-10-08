@@ -5,7 +5,7 @@ namespace MyTelegram.Schema.E2e;
 
 
 [TlObject(0x85FE42B7)]
-public sealed class TPersonalEmojiNonces : IPersonal
+public sealed partial class TPersonalEmojiNonces : IPersonal
 {
     public uint ConstructorId => 0x85FE42B7;
     public int Flags { get; set; }
@@ -13,21 +13,23 @@ public sealed class TPersonalEmojiNonces : IPersonal
     public ReadOnlyMemory<byte>? ContactNonceHash { get; set; }
     public ReadOnlyMemory<byte>? ContactNonce { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (SelfNonce != null) { Flags = Flags.SetBit(0); }
-        if (ContactNonceHash != null) { Flags = Flags.SetBit(1); }
-        if (ContactNonce != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (SelfNonce != null) { flags = flags.SetBit(0); }
+        if (ContactNonceHash != null) { flags = flags.SetBit(1); }
+        if (ContactNonce != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.WriteRawBytes(SelfNonce); }
-        if (Flags.IsBitSet(1)) { writer.WriteRawBytes(ContactNonceHash); }
-        if (Flags.IsBitSet(2)) { writer.WriteRawBytes(ContactNonce); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.WriteRawBytes(SelfNonce); }
+        if (flags.IsBitSet(1)) { writer.WriteRawBytes(ContactNonceHash); }
+        if (flags.IsBitSet(2)) { writer.WriteRawBytes(ContactNonce); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

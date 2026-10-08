@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TBotAppNotModified : IBotApp
 {
     public uint ConstructorId => 0x5da674b7;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

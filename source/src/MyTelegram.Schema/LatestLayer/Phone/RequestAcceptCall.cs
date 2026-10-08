@@ -40,13 +40,9 @@ public sealed partial class RequestAcceptCall : IRequest<MyTelegram.Schema.Phone
     /// </summary>
     public MyTelegram.Schema.IPhoneCallProtocol Protocol { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(GB);

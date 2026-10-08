@@ -30,19 +30,21 @@ public sealed partial class TInputGeoPoint : IInputGeoPoint
     /// </summary>
     public int? AccuracyRadius { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*AccuracyRadius != 0 && */AccuracyRadius.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*AccuracyRadius != 0 && */AccuracyRadius.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Lat);
         writer.Write(Long);
-        if (Flags.IsBitSet(0)) { writer.Write(AccuracyRadius.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(AccuracyRadius.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

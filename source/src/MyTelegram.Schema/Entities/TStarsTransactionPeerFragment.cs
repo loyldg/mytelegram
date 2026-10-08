@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TStarsTransactionPeerFragment : IStarsTransactionPeer
 {
     public uint ConstructorId => 0xe92fd902;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

@@ -14,13 +14,9 @@ public sealed partial class RequestRequestPasswordRecovery : IRequest<MyTelegram
 {
     public uint ConstructorId => 0xd897bc66;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

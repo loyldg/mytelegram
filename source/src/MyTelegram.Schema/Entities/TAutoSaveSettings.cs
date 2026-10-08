@@ -30,19 +30,21 @@ public sealed partial class TAutoSaveSettings : IAutoSaveSettings
     /// </summary>
     public long? VideoMaxSize { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Photos) { Flags = Flags.SetBit(0); }
-        if (Videos) { Flags = Flags.SetBit(1); }
-        if (/*VideoMaxSize != 0 &&*/ VideoMaxSize.HasValue) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Photos) { flags = flags.SetBit(0); }
+        if (Videos) { flags = flags.SetBit(1); }
+        if (/*VideoMaxSize != 0 &&*/ VideoMaxSize.HasValue) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(2)) { writer.Write(VideoMaxSize.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(2)) { writer.Write(VideoMaxSize.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

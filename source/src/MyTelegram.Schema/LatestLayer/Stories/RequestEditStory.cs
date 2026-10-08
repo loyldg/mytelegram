@@ -68,29 +68,31 @@ public sealed partial class RequestEditStory : IRequest<MyTelegram.Schema.IUpdat
     /// </summary>
     public MyTelegram.Schema.IInputDocument? Music { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Media != null) { Flags = Flags.SetBit(0); }
-        if (MediaAreas?.Count > 0) { Flags = Flags.SetBit(3); }
-        if (Caption != null) { Flags = Flags.SetBit(1); }
-        if (Entities?.Count > 0) { Flags = Flags.SetBit(1); }
-        if (PrivacyRules?.Count > 0) { Flags = Flags.SetBit(2); }
-        if (Music != null) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (Media != null) { flags = flags.SetBit(0); }
+        if (MediaAreas?.Count > 0) { flags = flags.SetBit(3); }
+        if (Caption != null) { flags = flags.SetBit(1); }
+        if (Entities?.Count > 0) { flags = flags.SetBit(1); }
+        if (PrivacyRules?.Count > 0) { flags = flags.SetBit(2); }
+        if (Music != null) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Id);
-        if (Flags.IsBitSet(0)) { writer.Write(Media); }
-        if (Flags.IsBitSet(3)) { writer.Write(MediaAreas); }
-        if (Flags.IsBitSet(1)) { writer.Write(Caption); }
-        if (Flags.IsBitSet(1)) { writer.Write(Entities); }
-        if (Flags.IsBitSet(2)) { writer.Write(PrivacyRules); }
-        if (Flags.IsBitSet(4)) { writer.Write(Music); }
+        if (flags.IsBitSet(0)) { writer.Write(Media); }
+        if (flags.IsBitSet(3)) { writer.Write(MediaAreas); }
+        if (flags.IsBitSet(1)) { writer.Write(Caption); }
+        if (flags.IsBitSet(1)) { writer.Write(Entities); }
+        if (flags.IsBitSet(2)) { writer.Write(PrivacyRules); }
+        if (flags.IsBitSet(4)) { writer.Write(Music); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

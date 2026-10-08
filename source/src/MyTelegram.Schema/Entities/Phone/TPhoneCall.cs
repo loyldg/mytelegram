@@ -22,13 +22,9 @@ public sealed partial class TPhoneCall : IPhoneCall
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PhoneCall);
         writer.Write(Users);

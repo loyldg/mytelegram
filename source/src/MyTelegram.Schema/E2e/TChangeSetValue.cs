@@ -5,7 +5,7 @@ namespace MyTelegram.Schema.E2e;
 
 
 [TlObject(0xFE0139CC)]
-public sealed class TChangeSetValue : IChange
+public sealed partial class TChangeSetValue : IChange
 {
     public uint ConstructorId => 0xFE0139CC;
     public ReadOnlyMemory<byte> Key { get; set; }

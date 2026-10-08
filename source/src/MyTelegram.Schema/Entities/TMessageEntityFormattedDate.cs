@@ -29,21 +29,23 @@ public sealed partial class TMessageEntityFormattedDate : IMessageEntity
 
     public int Date { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Relative) { Flags = Flags.SetBit(0); }
-        if (ShortTime) { Flags = Flags.SetBit(1); }
-        if (LongTime) { Flags = Flags.SetBit(2); }
-        if (ShortDate) { Flags = Flags.SetBit(3); }
-        if (LongDate) { Flags = Flags.SetBit(4); }
-        if (DayOfWeek) { Flags = Flags.SetBit(5); }
+        var flags = 0;
+        if (Relative) { flags = flags.SetBit(0); }
+        if (ShortTime) { flags = flags.SetBit(1); }
+        if (LongTime) { flags = flags.SetBit(2); }
+        if (ShortDate) { flags = flags.SetBit(3); }
+        if (LongDate) { flags = flags.SetBit(4); }
+        if (DayOfWeek) { flags = flags.SetBit(5); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Offset);
         writer.Write(Length);
         writer.Write(Date);

@@ -21,13 +21,9 @@ public sealed partial class TMessageActionRequestedPeer : IMessageAction
     /// </summary>
     public TVector<MyTelegram.Schema.IPeer> Peers { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ButtonId);
         writer.Write(Peers);

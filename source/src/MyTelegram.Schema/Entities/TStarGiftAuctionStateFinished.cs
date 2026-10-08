@@ -44,24 +44,26 @@ public sealed partial class TStarGiftAuctionStateFinished : IStarGiftAuctionStat
     /// </summary>
     public string? FragmentListedUrl { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*ListedCount != 0 && */ListedCount.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*FragmentListedCount != 0 && */FragmentListedCount.HasValue) { Flags = Flags.SetBit(1); }
-        if (FragmentListedUrl != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (/*ListedCount != 0 && */ListedCount.HasValue) { flags = flags.SetBit(0); }
+        if (/*FragmentListedCount != 0 && */FragmentListedCount.HasValue) { flags = flags.SetBit(1); }
+        if (FragmentListedUrl != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(StartDate);
         writer.Write(EndDate);
         writer.Write(AveragePrice);
-        if (Flags.IsBitSet(0)) { writer.Write(ListedCount.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(FragmentListedCount.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(FragmentListedUrl); }
+        if (flags.IsBitSet(0)) { writer.Write(ListedCount.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(FragmentListedCount.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(FragmentListedUrl); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

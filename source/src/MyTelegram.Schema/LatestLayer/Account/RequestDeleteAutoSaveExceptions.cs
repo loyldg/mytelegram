@@ -14,13 +14,9 @@ public sealed partial class RequestDeleteAutoSaveExceptions : IRequest<IBool>
 {
     public uint ConstructorId => 0x53bc0020;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

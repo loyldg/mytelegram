@@ -5,7 +5,7 @@ namespace MyTelegram.Domain.Aggregates.AppCode;
 public class AppCodeAggregate : SnapshotAggregateRoot<AppCodeAggregate, AppCodeId, AppCodeSnapshot>
 {
     private readonly int _expireMinutes = 10;
-    private readonly int _maxAllowedSendCountPerDay = 100;
+    //private readonly int _maxAllowedSendCountPerDay = 100;
     private readonly int _maxFailedCount = 5;
     private readonly AppCodeState _state = new();
 

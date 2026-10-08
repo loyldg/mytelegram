@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputChatThemeEmpty), nameof(TInputChatThemeEmpty))]
 [JsonDerivedType(typeof(TInputChatTheme), nameof(TInputChatTheme))]
 [JsonDerivedType(typeof(TInputChatThemeUniqueGift), nameof(TInputChatThemeUniqueGift))]
-public interface IInputChatTheme : IObject
+public partial interface IInputChatTheme : IObject
 {
 }

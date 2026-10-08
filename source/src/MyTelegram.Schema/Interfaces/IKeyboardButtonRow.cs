@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TKeyboardButtonRow"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonRow" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TKeyboardButtonRow), nameof(TKeyboardButtonRow))]
-public interface IKeyboardButtonRow : IObject
+public partial interface IKeyboardButtonRow : IObject
 {
     /// <summary>
     /// Bot or inline keyboard buttons

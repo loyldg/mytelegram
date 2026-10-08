@@ -22,13 +22,9 @@ public sealed partial class TInputInvoicePremiumGiftCode : IInputInvoice
     /// </summary>
     public MyTelegram.Schema.IPremiumGiftCodeOption Option { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Purpose);
         writer.Write(Option);

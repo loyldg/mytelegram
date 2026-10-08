@@ -35,16 +35,18 @@ public sealed partial class RequestGetStarsStatus : IRequest<MyTelegram.Schema.P
     /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Ton) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Ton) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
     }
 

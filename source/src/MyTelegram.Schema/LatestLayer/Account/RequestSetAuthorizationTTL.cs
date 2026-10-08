@@ -23,13 +23,9 @@ public sealed partial class RequestSetAuthorizationTTL : IRequest<IBool>
     /// </summary>
     public int AuthorizationTtlDays { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(AuthorizationTtlDays);
     }

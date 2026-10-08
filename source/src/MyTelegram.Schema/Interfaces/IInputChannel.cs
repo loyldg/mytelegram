@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputChannelEmpty), nameof(TInputChannelEmpty))]
 [JsonDerivedType(typeof(TInputChannel), nameof(TInputChannel))]
 [JsonDerivedType(typeof(TInputChannelFromMessage), nameof(TInputChannelFromMessage))]
-public interface IInputChannel : IObject
+public partial interface IInputChannel : IObject
 {
 }

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TStoriesStealthMode"/> See <a href="https://corefork.telegram.org/constructor/storiesStealthMode" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStoriesStealthMode), nameof(TStoriesStealthMode))]
-public interface IStoriesStealthMode : IObject
+public partial interface IStoriesStealthMode : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

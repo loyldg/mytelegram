@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TUpdateSavedRingtones : IUpdate
 {
     public uint ConstructorId => 0x74d8be99;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

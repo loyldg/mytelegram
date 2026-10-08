@@ -20,13 +20,9 @@ public sealed partial class TEligibleToJoin : IEligibilityToJoin
     /// </summary>
     public int MonthlySentSms { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(TermsUrl);
         writer.Write(MonthlySentSms);

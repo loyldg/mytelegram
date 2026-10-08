@@ -5,9 +5,13 @@ namespace MyTelegram.Schema.E2e;
 
 
 [TlObject(0x8A847E7F)]
-public sealed class TSharedKey : ISharedKey
+public sealed partial class TSharedKey : ISharedKey
 {
     public uint ConstructorId => 0x8A847E7F;
+
+    /// <summary>
+    /// int256
+    /// </summary>
     public ReadOnlyMemory<byte> Ek { get; set; }
     public string EncryptedSharedKey { get; set; }
     public TVector<long> DestUserId { get; set; }

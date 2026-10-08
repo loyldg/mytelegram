@@ -4,7 +4,7 @@ namespace MyTelegram.Schema;
 
 
 [TlObject(0xb5890dba)]
-public sealed class TServerDHInnerData : IObject
+public sealed partial class TServerDHInnerData : IObject
 {
     public uint ConstructorId => 0xb5890dba;
     public byte[] Nonce { get; set; }

@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TStatsGraphAsync), nameof(TStatsGraphAsync))]
 [JsonDerivedType(typeof(TStatsGraphError), nameof(TStatsGraphError))]
 [JsonDerivedType(typeof(TStatsGraph), nameof(TStatsGraph))]
-public interface IStatsGraph : IObject
+public partial interface IStatsGraph : IObject
 {
 }

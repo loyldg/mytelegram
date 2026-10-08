@@ -14,13 +14,9 @@ public sealed partial class RequestGetConnectedBots : IRequest<MyTelegram.Schema
 {
     public uint ConstructorId => 0x4ea4c80f;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

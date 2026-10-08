@@ -13,7 +13,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetParticipantsHandler(IQueryProcessor queryProcessor, IChatConverterService chatConverterService, IUserConverterService userConverterService, IPhotoAppService photoAppService, IRpcErrorHelper rpcErrorHelper, IChannelAdminRightsChecker channelAdminRightsChecker, IChannelAppService channelAppService) : RpcResultObjectHandler<RequestGetParticipants, IChannelParticipants>
+internal sealed class GetParticipantsHandler(IQueryProcessor queryProcessor, IChatConverterService chatConverterService, IUserConverterService userConverterService, IPhotoAppService photoAppService, IChannelAdminRightsChecker channelAdminRightsChecker, IChannelAppService channelAppService) : RpcResultObjectHandler<RequestGetParticipants, IChannelParticipants>
 {
     protected override async Task<IChannelParticipants> HandleCoreAsync(IRequestInput input, RequestGetParticipants obj)
     {

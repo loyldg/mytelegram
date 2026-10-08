@@ -14,13 +14,9 @@ public sealed partial class RequestGetBirthdays : IRequest<MyTelegram.Schema.Con
 {
     public uint ConstructorId => 0xdaeda864;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

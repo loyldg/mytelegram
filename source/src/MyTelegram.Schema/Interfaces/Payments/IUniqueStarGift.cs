@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Payments;
 /// <see cref="TUniqueStarGift"/> See <a href="https://corefork.telegram.org/constructor/payments.uniqueStarGift" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TUniqueStarGift), nameof(TUniqueStarGift))]
-public interface IUniqueStarGift : IObject
+public partial interface IUniqueStarGift : IObject
 {
     /// <summary>
     /// The <a href="https://corefork.telegram.org/constructor/starGiftUnique">starGiftUnique</a> constructor.

@@ -24,13 +24,9 @@ public sealed partial class RequestGetThemes : IRequest<MyTelegram.Schema.Accoun
     /// </summary>
     public long Hash { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Format);
         writer.Write(Hash);

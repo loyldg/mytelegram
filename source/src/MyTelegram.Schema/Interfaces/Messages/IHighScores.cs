@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="THighScores"/> See <a href="https://corefork.telegram.org/constructor/messages.highScores" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(THighScores), nameof(THighScores))]
-public interface IHighScores : IObject
+public partial interface IHighScores : IObject
 {
     /// <summary>
     /// Highscores

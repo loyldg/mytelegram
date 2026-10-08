@@ -41,23 +41,25 @@ public sealed partial class TStarRefProgram : IStarRefProgram
     /// </summary>
     public MyTelegram.Schema.IStarsAmount? DailyRevenuePerUser { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*DurationMonths != 0 && */DurationMonths.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*EndDate != 0 && */EndDate.HasValue) { Flags = Flags.SetBit(1); }
-        if (DailyRevenuePerUser != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (/*DurationMonths != 0 && */DurationMonths.HasValue) { flags = flags.SetBit(0); }
+        if (/*EndDate != 0 && */EndDate.HasValue) { flags = flags.SetBit(1); }
+        if (DailyRevenuePerUser != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(BotId);
         writer.Write(CommissionPermille);
-        if (Flags.IsBitSet(0)) { writer.Write(DurationMonths.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(EndDate.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(DailyRevenuePerUser); }
+        if (flags.IsBitSet(0)) { writer.Write(DurationMonths.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(EndDate.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(DailyRevenuePerUser); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

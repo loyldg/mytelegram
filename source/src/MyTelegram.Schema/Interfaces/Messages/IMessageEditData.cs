@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TMessageEditData"/> See <a href="https://corefork.telegram.org/constructor/messages.messageEditData" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TMessageEditData), nameof(TMessageEditData))]
-public interface IMessageEditData : IObject
+public partial interface IMessageEditData : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

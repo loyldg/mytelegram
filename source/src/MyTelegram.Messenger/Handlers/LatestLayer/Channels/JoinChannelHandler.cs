@@ -23,9 +23,9 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class JoinChannelHandler(ICommandBus commandBus, IChannelAppService channelAppService, IQueryProcessor queryProcessor) : RpcResultObjectHandler<RequestJoinChannel, IUpdates>
+internal sealed class JoinChannelHandler(ICommandBus commandBus, IChannelAppService channelAppService, IQueryProcessor queryProcessor) : RpcResultObjectHandler<RequestJoinChannel, MyTelegram.Schema.Messages.IChatInviteJoinResult>
 {
-    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestJoinChannel obj)
+    protected override async Task<MyTelegram.Schema.Messages.IChatInviteJoinResult> HandleCoreAsync(IRequestInput input, RequestJoinChannel obj)
     {
         if (obj.Channel is TInputChannel inputChannel)
         {

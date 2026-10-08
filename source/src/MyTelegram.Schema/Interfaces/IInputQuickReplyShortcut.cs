@@ -13,6 +13,6 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TInputQuickReplyShortcut), nameof(TInputQuickReplyShortcut))]
 [JsonDerivedType(typeof(TInputQuickReplyShortcutId), nameof(TInputQuickReplyShortcutId))]
-public interface IInputQuickReplyShortcut : IObject
+public partial interface IInputQuickReplyShortcut : IObject
 {
 }

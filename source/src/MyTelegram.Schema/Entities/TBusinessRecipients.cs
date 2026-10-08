@@ -45,22 +45,24 @@ public sealed partial class TBusinessRecipients : IBusinessRecipients
     /// </summary>
     public TVector<long>? Users { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ExistingChats) { Flags = Flags.SetBit(0); }
-        if (NewChats) { Flags = Flags.SetBit(1); }
-        if (Contacts) { Flags = Flags.SetBit(2); }
-        if (NonContacts) { Flags = Flags.SetBit(3); }
-        if (ExcludeSelected) { Flags = Flags.SetBit(5); }
-        if (Users?.Count > 0) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (ExistingChats) { flags = flags.SetBit(0); }
+        if (NewChats) { flags = flags.SetBit(1); }
+        if (Contacts) { flags = flags.SetBit(2); }
+        if (NonContacts) { flags = flags.SetBit(3); }
+        if (ExcludeSelected) { flags = flags.SetBit(5); }
+        if (Users?.Count > 0) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(4)) { writer.Write(Users); }
+        writer.Write(flags);
+        if (flags.IsBitSet(4)) { writer.Write(Users); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

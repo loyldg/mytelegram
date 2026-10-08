@@ -6,10 +6,14 @@ namespace MyTelegram.Schema;
 /// Quote (equivalent to the HTML <code>&lt;blockquote&gt;</code>)
 /// <para>See <a href="https://corefork.telegram.org/constructor/pageBlockBlockquote" /></para>
 /// </summary>
-[TlObject(0x263d7c26)]
+[TlObject(0x66d1670b)]
 public sealed partial class TPageBlockBlockquote : IPageBlock
 {
-    public uint ConstructorId => 0x263d7c26;
+    public uint ConstructorId => 0x66d1670b;
+    public int Flags { get; set; }
+
+    public bool Collapsed { get; set; }
+
     /// <summary>
     /// Quote contents
     /// See <a href="https://corefork.telegram.org/type/RichText" />
@@ -22,20 +26,26 @@ public sealed partial class TPageBlockBlockquote : IPageBlock
     /// </summary>
     public MyTelegram.Schema.IRichText Caption { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
+        var flags = 0;
+        if (Collapsed) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
+        writer.Write(flags);
         writer.Write(Text);
         writer.Write(Caption);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(0)) { Collapsed = true; }
         Text = buffer.Read<MyTelegram.Schema.IRichText>();
         Caption = buffer.Read<MyTelegram.Schema.IRichText>();
     }

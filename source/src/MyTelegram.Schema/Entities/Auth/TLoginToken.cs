@@ -20,13 +20,9 @@ public sealed partial class TLoginToken : ILoginToken
     /// </summary>
     public ReadOnlyMemory<byte> Token { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Expires);
         writer.Write(Token);

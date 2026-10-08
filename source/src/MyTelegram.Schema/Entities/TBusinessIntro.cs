@@ -31,19 +31,21 @@ public sealed partial class TBusinessIntro : IBusinessIntro
     /// </summary>
     public MyTelegram.Schema.IDocument? Sticker { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Sticker != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Sticker != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Title);
         writer.Write(Description);
-        if (Flags.IsBitSet(0)) { writer.Write(Sticker); }
+        if (flags.IsBitSet(0)) { writer.Write(Sticker); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

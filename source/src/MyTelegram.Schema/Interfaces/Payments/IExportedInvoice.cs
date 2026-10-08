@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Payments;
 /// <see cref="TExportedInvoice"/> See <a href="https://corefork.telegram.org/constructor/payments.exportedInvoice" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TExportedInvoice), nameof(TExportedInvoice))]
-public interface IExportedInvoice : IObject
+public partial interface IExportedInvoice : IObject
 {
     /// <summary>
     /// Exported <a href="https://corefork.telegram.org/api/links#invoice-links">invoice deep link</a>

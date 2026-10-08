@@ -20,13 +20,9 @@ public sealed partial class RequestGetRecentMeUrls : IRequest<MyTelegram.Schema.
     /// </summary>
     public string Referer { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Referer);
     }

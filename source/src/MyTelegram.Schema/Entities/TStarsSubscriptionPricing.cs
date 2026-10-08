@@ -20,13 +20,9 @@ public sealed partial class TStarsSubscriptionPricing : IStarsSubscriptionPricin
     /// </summary>
     public long Amount { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Period);
         writer.Write(Amount);

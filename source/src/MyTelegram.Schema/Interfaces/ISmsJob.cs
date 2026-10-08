@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TSmsJob"/> See <a href="https://corefork.telegram.org/constructor/smsJob" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TSmsJob), nameof(TSmsJob))]
-public interface ISmsJob : IObject
+public partial interface ISmsJob : IObject
 {
     /// <summary>
     /// Job ID

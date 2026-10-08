@@ -44,13 +44,9 @@ public sealed partial class RequestGetGroupParticipants : IRequest<MyTelegram.Sc
     /// </summary>
     public int Limit { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Call);
         writer.Write(Ids);

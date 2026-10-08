@@ -21,3 +21,5 @@ global using System.Net;
 global using System.Net.WebSockets;
 global using System.Security.Cryptography.X509Certificates;
 global using System.Threading.Channels;
+global using Microsoft.AspNetCore.HttpOverrides;
+global using MyTelegram.EventBus.RabbitMQ.Extensions;

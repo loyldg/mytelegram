@@ -26,18 +26,20 @@ public sealed partial class TUpdateDialogFilter : IUpdate
     /// </summary>
     public MyTelegram.Schema.IDialogFilter? Filter { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Filter != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Filter != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
-        if (Flags.IsBitSet(0)) { writer.Write(Filter); }
+        if (flags.IsBitSet(0)) { writer.Write(Filter); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

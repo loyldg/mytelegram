@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputWallPaper), nameof(TInputWallPaper))]
 [JsonDerivedType(typeof(TInputWallPaperSlug), nameof(TInputWallPaperSlug))]
 [JsonDerivedType(typeof(TInputWallPaperNoFile), nameof(TInputWallPaperNoFile))]
-public interface IInputWallPaper : IObject
+public partial interface IInputWallPaper : IObject
 {
 }

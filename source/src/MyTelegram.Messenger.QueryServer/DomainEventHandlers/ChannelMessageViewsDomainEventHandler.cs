@@ -3,7 +3,7 @@
 namespace MyTelegram.Messenger.QueryServer.DomainEventHandlers;
 
 public class ChannelMessageViewsDomainEventHandler(IChannelMessageViewsAppService channelMessageViewsAppService)
-    : ISubscribeSynchronousTo<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedSagaEvent>
+    : ISubscribeAsynchronousTo<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedSagaEvent>
 {
     public async Task HandleAsync(IDomainEvent<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedSagaEvent> domainEvent,
         CancellationToken cancellationToken)

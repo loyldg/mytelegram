@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Account;
 public sealed partial class TEmojiStatusesNotModified : IEmojiStatuses
 {
     public uint ConstructorId => 0xd08ce645;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

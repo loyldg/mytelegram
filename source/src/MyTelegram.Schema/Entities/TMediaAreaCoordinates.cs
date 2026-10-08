@@ -45,22 +45,24 @@ public sealed partial class TMediaAreaCoordinates : IMediaAreaCoordinates
     /// </summary>
     public double? Radius { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Radius>0) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Radius>0) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(X);
         writer.Write(Y);
         writer.Write(W);
         writer.Write(H);
         writer.Write(Rotation);
-        if (Flags.IsBitSet(0)) { writer.Write(Radius.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(Radius.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -34,13 +34,9 @@ public sealed partial class TMessages : IMessages
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Messages);
         writer.Write(Topics);

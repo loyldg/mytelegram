@@ -29,13 +29,9 @@ public sealed partial class RequestSaveGif : IRequest<IBool>
     /// </summary>
     public bool Unsave { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
         writer.Write(Unsave);

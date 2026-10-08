@@ -21,13 +21,9 @@ public sealed partial class TMessageActionGroupCallScheduled : IMessageAction
     /// </summary>
     public int ScheduleDate { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Call);
         writer.Write(ScheduleDate);

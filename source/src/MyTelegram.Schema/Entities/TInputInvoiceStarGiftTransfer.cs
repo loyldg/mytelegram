@@ -22,13 +22,9 @@ public sealed partial class TInputInvoiceStarGiftTransfer : IInputInvoice
     /// </summary>
     public MyTelegram.Schema.IInputPeer ToId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Stargift);
         writer.Write(ToId);

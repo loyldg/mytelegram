@@ -61,23 +61,25 @@ public sealed partial class RequestDeleteHistory : IRequest<MyTelegram.Schema.Me
     /// </summary>
     public int? MaxDate { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (JustClear) { Flags = Flags.SetBit(0); }
-        if (Revoke) { Flags = Flags.SetBit(1); }
-        if (/*MinDate != 0 && */MinDate.HasValue) { Flags = Flags.SetBit(2); }
-        if (/*MaxDate != 0 && */MaxDate.HasValue) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (JustClear) { flags = flags.SetBit(0); }
+        if (Revoke) { flags = flags.SetBit(1); }
+        if (/*MinDate != 0 && */MinDate.HasValue) { flags = flags.SetBit(2); }
+        if (/*MaxDate != 0 && */MaxDate.HasValue) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(MaxId);
-        if (Flags.IsBitSet(2)) { writer.Write(MinDate.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(MaxDate.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(MinDate.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(MaxDate.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

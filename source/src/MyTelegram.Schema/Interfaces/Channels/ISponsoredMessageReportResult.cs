@@ -15,6 +15,6 @@ namespace MyTelegram.Schema.Channels;
 [JsonDerivedType(typeof(TSponsoredMessageReportResultChooseOption), nameof(TSponsoredMessageReportResultChooseOption))]
 [JsonDerivedType(typeof(TSponsoredMessageReportResultAdsHidden), nameof(TSponsoredMessageReportResultAdsHidden))]
 [JsonDerivedType(typeof(TSponsoredMessageReportResultReported), nameof(TSponsoredMessageReportResultReported))]
-public interface ISponsoredMessageReportResult : IObject
+public partial interface ISponsoredMessageReportResult : IObject
 {
 }

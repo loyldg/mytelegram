@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Bots;
 /// <see cref="TPopularAppBots"/> See <a href="https://corefork.telegram.org/constructor/bots.popularAppBots" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPopularAppBots), nameof(TPopularAppBots))]
-public interface IPopularAppBots : IObject
+public partial interface IPopularAppBots : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

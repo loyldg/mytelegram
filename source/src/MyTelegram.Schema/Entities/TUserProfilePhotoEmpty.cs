@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TUserProfilePhotoEmpty : IUserProfilePhoto
 {
     public uint ConstructorId => 0x4f11bae1;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

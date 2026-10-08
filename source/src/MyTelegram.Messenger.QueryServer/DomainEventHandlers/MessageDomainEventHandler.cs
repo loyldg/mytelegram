@@ -25,12 +25,12 @@ public partial class MessageDomainEventHandler(
             commandBus,
             idGenerator,
             ackCacheService),
-        ISubscribeSynchronousTo<EditMessageSaga, EditMessageSagaId, OutboxMessageEditCompletedSagaEvent>,
-        ISubscribeSynchronousTo<EditMessageSaga, EditMessageSagaId, InboxMessageEditCompletedSagaEvent>,
-        ISubscribeSynchronousTo<MessageAggregate, MessageId, ChannelMessagePinnedEvent>,
-        ISubscribeSynchronousTo<MessageAggregate, MessageId, MessageReplyUpdatedEvent>,
-        ISubscribeSynchronousTo<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedSagaEvent>,
-        ISubscribeSynchronousTo<SendMessageSaga, SendMessageSagaId, ReceiveInboxMessageCompletedSagaEvent>
+        ISubscribeAsynchronousTo<EditMessageSaga, EditMessageSagaId, OutboxMessageEditCompletedSagaEvent>,
+        ISubscribeAsynchronousTo<EditMessageSaga, EditMessageSagaId, InboxMessageEditCompletedSagaEvent>,
+        ISubscribeAsynchronousTo<MessageAggregate, MessageId, ChannelMessagePinnedEvent>,
+        ISubscribeAsynchronousTo<MessageAggregate, MessageId, MessageReplyUpdatedEvent>,
+        ISubscribeAsynchronousTo<SendMessageSaga, SendMessageSagaId, SendOutboxMessageCompletedSagaEvent>,
+        ISubscribeAsynchronousTo<SendMessageSaga, SendMessageSagaId, ReceiveInboxMessageCompletedSagaEvent>
 {
     public Task HandleAsync(
         IDomainEvent<EditMessageSaga, EditMessageSagaId, InboxMessageEditCompletedSagaEvent> domainEvent,
@@ -184,16 +184,27 @@ public partial class MessageDomainEventHandler(
         var item = aggregateEvent.MessageItem;
 
         var updates = updatesConverterService.ToInboxForwardMessageUpdates(aggregateEvent);
-        if (aggregateEvent.MessageItem.FwdHeader?.FromId?.PeerType == PeerType.Channel)
+        var fromId = aggregateEvent.MessageItem.FwdHeader?.FromId;
+        switch (fromId?.PeerType)
         {
-            if (updates is TUpdates tUpdates)
-            {
-                var channelId = aggregateEvent.MessageItem.FwdHeader.FromId.PeerId;
-                var channel = await chatConverterService.GetChannelAsync(RequestInfo.Empty, channelId, true, null);
+            case PeerType.Channel:
+                if (updates is TUpdates tUpdates)
+                {
+                    var channelId = fromId.PeerId;
+                    var channel = await chatConverterService.GetChannelAsync(RequestInfo.Empty, channelId, true, null);
 
-                tUpdates.Chats.Add(channel);
-            }
+                    tUpdates.Chats.Add(channel);
+                }
+                break;
+            case PeerType.User:
+                if (updates is TUpdates tUpdates2)
+                {
+                    var user = await userConverterService.GetUserAsync(RequestInfo.Empty, fromId.PeerId, false, false, 0);
+                    tUpdates2.Users.Add(user);
+                }
+                break;
         }
+
         await PushUpdatesToPeerAsync(item.OwnerPeer,
             updates,
             pts: item.Pts);
@@ -523,7 +534,7 @@ public partial class MessageDomainEventHandler(
             MessageSubType.AutoCreateChannelFromChat => HandleCreateChannelAsync(aggregateEvent),
             MessageSubType.InviteToChannel => HandleInviteToChannelAsync(aggregateEvent),
             MessageSubType.UpdatePinnedMessage => HandleUpdatePinnedMessageAsync(aggregateEvent),
-            MessageSubType.ChatJoinByLink => HandleJoinChannelAsync(aggregateEvent),
+            MessageSubType.ChatJoinByChatInvite => HandleJoinChannelAsync(aggregateEvent),
             MessageSubType.ChatJoinBySelf => HandleJoinChannelAsync(aggregateEvent),
             _ => HandleSendMessageAsync(aggregateEvent)
         };

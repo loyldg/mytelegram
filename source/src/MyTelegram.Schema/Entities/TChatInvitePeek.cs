@@ -21,13 +21,9 @@ public sealed partial class TChatInvitePeek : IChatInvite
     /// </summary>
     public int Expires { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Chat);
         writer.Write(Expires);

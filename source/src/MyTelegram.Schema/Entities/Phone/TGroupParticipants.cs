@@ -43,13 +43,9 @@ public sealed partial class TGroupParticipants : IGroupParticipants
     /// </summary>
     public int Version { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Count);
         writer.Write(Participants);

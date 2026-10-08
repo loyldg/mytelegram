@@ -49,24 +49,26 @@ public sealed partial class RequestSetBotInfo : IRequest<IBool>
     /// </summary>
     public string? Description { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Bot != null) { Flags = Flags.SetBit(2); }
-        if (Name != null) { Flags = Flags.SetBit(3); }
-        if (About != null) { Flags = Flags.SetBit(0); }
-        if (Description != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Bot != null) { flags = flags.SetBit(2); }
+        if (Name != null) { flags = flags.SetBit(3); }
+        if (About != null) { flags = flags.SetBit(0); }
+        if (Description != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(2)) { writer.Write(Bot); }
+        writer.Write(flags);
+        if (flags.IsBitSet(2)) { writer.Write(Bot); }
         writer.Write(LangCode);
-        if (Flags.IsBitSet(3)) { writer.Write(Name); }
-        if (Flags.IsBitSet(0)) { writer.Write(About); }
-        if (Flags.IsBitSet(1)) { writer.Write(Description); }
+        if (flags.IsBitSet(3)) { writer.Write(Name); }
+        if (flags.IsBitSet(0)) { writer.Write(About); }
+        if (flags.IsBitSet(1)) { writer.Write(Description); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

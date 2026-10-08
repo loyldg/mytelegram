@@ -16,13 +16,9 @@ public sealed partial class TDialogPeer : IDialogPeer
     /// </summary>
     public MyTelegram.Schema.IPeer Peer { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
     }

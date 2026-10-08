@@ -22,13 +22,9 @@ public sealed partial class TChannelAdminLogEventActionExportedInviteEdit : ICha
     /// </summary>
     public MyTelegram.Schema.IExportedChatInvite NewInvite { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PrevInvite);
         writer.Write(NewInvite);

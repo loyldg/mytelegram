@@ -158,60 +158,62 @@ public sealed partial class TStarGift : ILayeredStarGift
     /// </summary>
     public MyTelegram.Schema.IStarGiftBackground? Background { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Limited) { Flags = Flags.SetBit(0); }
-        if (SoldOut) { Flags = Flags.SetBit(1); }
-        if (Birthday) { Flags = Flags.SetBit(2); }
-        if (RequirePremium) { Flags = Flags.SetBit(7); }
-        if (LimitedPerUser) { Flags = Flags.SetBit(8); }
-        if (PeerColorAvailable) { Flags = Flags.SetBit(10); }
-        if (Auction) { Flags = Flags.SetBit(11); }
-        if (/*AvailabilityRemains != 0 && */AvailabilityRemains.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*AvailabilityTotal != 0 && */AvailabilityTotal.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*AvailabilityResale != 0 &&*/ AvailabilityResale.HasValue) { Flags = Flags.SetBit(4); }
-        if (/*FirstSaleDate != 0 && */FirstSaleDate.HasValue) { Flags = Flags.SetBit(1); }
-        if (/*LastSaleDate != 0 && */LastSaleDate.HasValue) { Flags = Flags.SetBit(1); }
-        if (/*UpgradeStars != 0 &&*/ UpgradeStars.HasValue) { Flags = Flags.SetBit(3); }
-        if (/*ResellMinStars != 0 &&*/ ResellMinStars.HasValue) { Flags = Flags.SetBit(4); }
-        if (Title != null) { Flags = Flags.SetBit(5); }
-        if (ReleasedBy != null) { Flags = Flags.SetBit(6); }
-        if (/*PerUserTotal != 0 && */PerUserTotal.HasValue) { Flags = Flags.SetBit(8); }
-        if (/*PerUserRemains != 0 && */PerUserRemains.HasValue) { Flags = Flags.SetBit(8); }
-        if (/*LockedUntilDate != 0 && */LockedUntilDate.HasValue) { Flags = Flags.SetBit(9); }
-        if (AuctionSlug != null) { Flags = Flags.SetBit(11); }
-        if (/*GiftsPerRound != 0 && */GiftsPerRound.HasValue) { Flags = Flags.SetBit(11); }
-        if (/*AuctionStartDate != 0 && */AuctionStartDate.HasValue) { Flags = Flags.SetBit(11); }
-        if (/*UpgradeVariants != 0 && */UpgradeVariants.HasValue) { Flags = Flags.SetBit(12); }
-        if (Background != null) { Flags = Flags.SetBit(13); }
+        var flags = 0;
+        if (Limited) { flags = flags.SetBit(0); }
+        if (SoldOut) { flags = flags.SetBit(1); }
+        if (Birthday) { flags = flags.SetBit(2); }
+        if (RequirePremium) { flags = flags.SetBit(7); }
+        if (LimitedPerUser) { flags = flags.SetBit(8); }
+        if (PeerColorAvailable) { flags = flags.SetBit(10); }
+        if (Auction) { flags = flags.SetBit(11); }
+        if (/*AvailabilityRemains != 0 && */AvailabilityRemains.HasValue) { flags = flags.SetBit(0); }
+        if (/*AvailabilityTotal != 0 && */AvailabilityTotal.HasValue) { flags = flags.SetBit(0); }
+        if (/*AvailabilityResale != 0 &&*/ AvailabilityResale.HasValue) { flags = flags.SetBit(4); }
+        if (/*FirstSaleDate != 0 && */FirstSaleDate.HasValue) { flags = flags.SetBit(1); }
+        if (/*LastSaleDate != 0 && */LastSaleDate.HasValue) { flags = flags.SetBit(1); }
+        if (/*UpgradeStars != 0 &&*/ UpgradeStars.HasValue) { flags = flags.SetBit(3); }
+        if (/*ResellMinStars != 0 &&*/ ResellMinStars.HasValue) { flags = flags.SetBit(4); }
+        if (Title != null) { flags = flags.SetBit(5); }
+        if (ReleasedBy != null) { flags = flags.SetBit(6); }
+        if (/*PerUserTotal != 0 && */PerUserTotal.HasValue) { flags = flags.SetBit(8); }
+        if (/*PerUserRemains != 0 && */PerUserRemains.HasValue) { flags = flags.SetBit(8); }
+        if (/*LockedUntilDate != 0 && */LockedUntilDate.HasValue) { flags = flags.SetBit(9); }
+        if (AuctionSlug != null) { flags = flags.SetBit(11); }
+        if (/*GiftsPerRound != 0 && */GiftsPerRound.HasValue) { flags = flags.SetBit(11); }
+        if (/*AuctionStartDate != 0 && */AuctionStartDate.HasValue) { flags = flags.SetBit(11); }
+        if (/*UpgradeVariants != 0 && */UpgradeVariants.HasValue) { flags = flags.SetBit(12); }
+        if (Background != null) { flags = flags.SetBit(13); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(Sticker);
         writer.Write(Stars);
-        if (Flags.IsBitSet(0)) { writer.Write(AvailabilityRemains.Value); }
-        if (Flags.IsBitSet(0)) { writer.Write(AvailabilityTotal.Value); }
-        if (Flags.IsBitSet(4)) { writer.Write(AvailabilityResale.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(AvailabilityRemains.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(AvailabilityTotal.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(AvailabilityResale.Value); }
         writer.Write(ConvertStars);
-        if (Flags.IsBitSet(1)) { writer.Write(FirstSaleDate.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(LastSaleDate.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(UpgradeStars.Value); }
-        if (Flags.IsBitSet(4)) { writer.Write(ResellMinStars.Value); }
-        if (Flags.IsBitSet(5)) { writer.Write(Title); }
-        if (Flags.IsBitSet(6)) { writer.Write(ReleasedBy); }
-        if (Flags.IsBitSet(8)) { writer.Write(PerUserTotal.Value); }
-        if (Flags.IsBitSet(8)) { writer.Write(PerUserRemains.Value); }
-        if (Flags.IsBitSet(9)) { writer.Write(LockedUntilDate.Value); }
-        if (Flags.IsBitSet(11)) { writer.Write(AuctionSlug); }
-        if (Flags.IsBitSet(11)) { writer.Write(GiftsPerRound.Value); }
-        if (Flags.IsBitSet(11)) { writer.Write(AuctionStartDate.Value); }
-        if (Flags.IsBitSet(12)) { writer.Write(UpgradeVariants.Value); }
-        if (Flags.IsBitSet(13)) { writer.Write(Background); }
+        if (flags.IsBitSet(1)) { writer.Write(FirstSaleDate.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(LastSaleDate.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(UpgradeStars.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(ResellMinStars.Value); }
+        if (flags.IsBitSet(5)) { writer.Write(Title); }
+        if (flags.IsBitSet(6)) { writer.Write(ReleasedBy); }
+        if (flags.IsBitSet(8)) { writer.Write(PerUserTotal.Value); }
+        if (flags.IsBitSet(8)) { writer.Write(PerUserRemains.Value); }
+        if (flags.IsBitSet(9)) { writer.Write(LockedUntilDate.Value); }
+        if (flags.IsBitSet(11)) { writer.Write(AuctionSlug); }
+        if (flags.IsBitSet(11)) { writer.Write(GiftsPerRound.Value); }
+        if (flags.IsBitSet(11)) { writer.Write(AuctionStartDate.Value); }
+        if (flags.IsBitSet(12)) { writer.Write(UpgradeVariants.Value); }
+        if (flags.IsBitSet(13)) { writer.Write(Background); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -15,6 +15,6 @@ namespace MyTelegram.Schema.Contacts;
 [JsonDerivedType(typeof(TTopPeersNotModified), nameof(TTopPeersNotModified))]
 [JsonDerivedType(typeof(TTopPeers), nameof(TTopPeers))]
 [JsonDerivedType(typeof(TTopPeersDisabled), nameof(TTopPeersDisabled))]
-public interface ITopPeers : IObject
+public partial interface ITopPeers : IObject
 {
 }

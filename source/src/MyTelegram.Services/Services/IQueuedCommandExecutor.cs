@@ -1,5 +1,4 @@
-﻿using EventFlow.Aggregates;
-using EventFlow.Aggregates.ExecutionResults;
+﻿using EventFlow.Aggregates.ExecutionResults;
 using EventFlow.Commands;
 using EventFlow.Core;
 

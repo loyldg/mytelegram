@@ -25,13 +25,9 @@ public sealed partial class TInputFileBig : IInputFile
     /// </summary>
     public string Name { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
         writer.Write(Parts);

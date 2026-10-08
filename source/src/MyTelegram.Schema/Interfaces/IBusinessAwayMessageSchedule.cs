@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TBusinessAwayMessageScheduleAlways), nameof(TBusinessAwayMessageScheduleAlways))]
 [JsonDerivedType(typeof(TBusinessAwayMessageScheduleOutsideWorkHours), nameof(TBusinessAwayMessageScheduleOutsideWorkHours))]
 [JsonDerivedType(typeof(TBusinessAwayMessageScheduleCustom), nameof(TBusinessAwayMessageScheduleCustom))]
-public interface IBusinessAwayMessageSchedule : IObject
+public partial interface IBusinessAwayMessageSchedule : IObject
 {
 }

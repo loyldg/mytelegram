@@ -35,23 +35,25 @@ public sealed partial class TPollAnswer : IPollAnswer
 
     public int? Date { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Media != null) { Flags = Flags.SetBit(0); }
-        if (AddedBy != null) { Flags = Flags.SetBit(1); }
-        if (/*Date != 0 && */Date.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Media != null) { flags = flags.SetBit(0); }
+        if (AddedBy != null) { flags = flags.SetBit(1); }
+        if (/*Date != 0 && */Date.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Text);
         writer.Write(Option);
-        if (Flags.IsBitSet(0)) { writer.Write(Media); }
-        if (Flags.IsBitSet(1)) { writer.Write(AddedBy); }
-        if (Flags.IsBitSet(1)) { writer.Write(Date.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(Media); }
+        if (flags.IsBitSet(1)) { writer.Write(AddedBy); }
+        if (flags.IsBitSet(1)) { writer.Write(Date.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

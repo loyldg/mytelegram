@@ -6,7 +6,7 @@ internal sealed class PollMapper
         ITransientDependency
 {
     public int Layer => Layers.LayerLatest;
-    
+
 
     public TPoll Map(IPollReadModel source)
     {
@@ -30,17 +30,49 @@ internal sealed class PollMapper
                 ? [.. source.QuestionEntities2]
                 : source.QuestionEntities.ToTObject<TVector<IMessageEntity>>() ?? []
         };
-        destination.Answers = new TVector<IPollAnswer>(source.Answers.Select(p => new TPollAnswer
-        {
-            Option = p.Option,
-            Text = new TTextWithEntities
-            {
-                Text = p.Text,
-                Entities = p.Entities.ToTObject<TVector<IMessageEntity>>() ?? []
-            }
-        }));
+        //destination.Answers = new TVector<IPollAnswer>(source.Answers.Select(p => new TPollAnswer
+        //{
+        //    Option = p.Option,
+        //    Text = new TTextWithEntities
+        //    {
+        //        Text = p.Text,
+        //        Entities = p.Entities.ToTObject<TVector<IMessageEntity>>() ?? []
+        //    }
+        //}));
         destination.ClosePeriod = source.ClosePeriod;
         destination.CloseDate = source.CloseDate;
+
+        if (source.CloseDate != null)
+        {
+            var now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            if (source.CloseDate < now)
+            {
+                destination.Closed = true;
+            }
+        }
+        
+        if (source.Answers?.Count > 0)
+        {
+            destination.Answers = new TVector<IPollAnswer>(source.Answers.Select(p => new TPollAnswer
+            {
+                Option = p.Option,
+                Text = new TTextWithEntities
+                {
+                    Text = p.Text,
+                    Entities = p.Entities.ToTObject<TVector<IMessageEntity>>() ?? []
+                }
+            }));
+        }
+
+        if (source.Answers2?.Count > 0)
+        {
+            destination.Answers = [.. source.Answers2];
+        }
+
+        destination.OpenAnswers = source.OpenAnswers;
+        destination.RevotingDisabled = source.RevotingDisabled;
+        destination.ShuffleAnswers = source.ShuffleAnswers;
+        destination.HideResultsUntilClose=source.HideResultsUntilClose;
 
         return destination;
     }

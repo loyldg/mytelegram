@@ -31,13 +31,9 @@ public sealed partial class TInputStorePaymentStarsGift : IInputStorePaymentPurp
     /// </summary>
     public long Amount { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(UserId);
         writer.Write(Stars);

@@ -14,13 +14,9 @@ public sealed partial class RequestGetAllSecureValues : IRequest<TVector<MyTeleg
 {
     public uint ConstructorId => 0xb288bc7d;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

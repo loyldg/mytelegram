@@ -22,13 +22,9 @@ public sealed partial class RequestResolvePhone : IRequest<MyTelegram.Schema.Con
     /// </summary>
     public string Phone { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Phone);
     }

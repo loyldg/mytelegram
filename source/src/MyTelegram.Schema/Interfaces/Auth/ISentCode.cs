@@ -15,6 +15,6 @@ namespace MyTelegram.Schema.Auth;
 [JsonDerivedType(typeof(TSentCode), nameof(TSentCode))]
 [JsonDerivedType(typeof(TSentCodeSuccess), nameof(TSentCodeSuccess))]
 [JsonDerivedType(typeof(TSentCodePaymentRequired), nameof(TSentCodePaymentRequired))]
-public interface ISentCode : IObject
+public partial interface ISentCode : IObject
 {
 }

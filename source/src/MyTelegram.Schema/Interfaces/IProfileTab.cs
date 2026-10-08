@@ -25,6 +25,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TProfileTabVoice), nameof(TProfileTabVoice))]
 [JsonDerivedType(typeof(TProfileTabLinks), nameof(TProfileTabLinks))]
 [JsonDerivedType(typeof(TProfileTabGifs), nameof(TProfileTabGifs))]
-public interface IProfileTab : IObject
+public partial interface IProfileTab : IObject
 {
 }

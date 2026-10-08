@@ -83,38 +83,40 @@ public sealed partial class TMessageFwdHeader : IMessageFwdHeader
     /// </summary>
     public string? PsaType { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Imported) { Flags = Flags.SetBit(7); }
-        if (SavedOut) { Flags = Flags.SetBit(11); }
-        if (FromId != null) { Flags = Flags.SetBit(0); }
-        if (FromName != null) { Flags = Flags.SetBit(5); }
-        if (/*ChannelPost != 0 && */ChannelPost.HasValue) { Flags = Flags.SetBit(2); }
-        if (PostAuthor != null) { Flags = Flags.SetBit(3); }
-        if (SavedFromPeer != null) { Flags = Flags.SetBit(4); }
-        if (/*SavedFromMsgId != 0 && */SavedFromMsgId.HasValue) { Flags = Flags.SetBit(4); }
-        if (SavedFromId != null) { Flags = Flags.SetBit(8); }
-        if (SavedFromName != null) { Flags = Flags.SetBit(9); }
-        if (/*SavedDate != 0 && */SavedDate.HasValue) { Flags = Flags.SetBit(10); }
-        if (PsaType != null) { Flags = Flags.SetBit(6); }
+        var flags = 0;
+        if (Imported) { flags = flags.SetBit(7); }
+        if (SavedOut) { flags = flags.SetBit(11); }
+        if (FromId != null) { flags = flags.SetBit(0); }
+        if (FromName != null) { flags = flags.SetBit(5); }
+        if (/*ChannelPost != 0 && */ChannelPost.HasValue) { flags = flags.SetBit(2); }
+        if (PostAuthor != null) { flags = flags.SetBit(3); }
+        if (SavedFromPeer != null) { flags = flags.SetBit(4); }
+        if (/*SavedFromMsgId != 0 && */SavedFromMsgId.HasValue) { flags = flags.SetBit(4); }
+        if (SavedFromId != null) { flags = flags.SetBit(8); }
+        if (SavedFromName != null) { flags = flags.SetBit(9); }
+        if (/*SavedDate != 0 && */SavedDate.HasValue) { flags = flags.SetBit(10); }
+        if (PsaType != null) { flags = flags.SetBit(6); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(FromId); }
-        if (Flags.IsBitSet(5)) { writer.Write(FromName); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(FromId); }
+        if (flags.IsBitSet(5)) { writer.Write(FromName); }
         writer.Write(Date);
-        if (Flags.IsBitSet(2)) { writer.Write(ChannelPost.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(PostAuthor); }
-        if (Flags.IsBitSet(4)) { writer.Write(SavedFromPeer); }
-        if (Flags.IsBitSet(4)) { writer.Write(SavedFromMsgId.Value); }
-        if (Flags.IsBitSet(8)) { writer.Write(SavedFromId); }
-        if (Flags.IsBitSet(9)) { writer.Write(SavedFromName); }
-        if (Flags.IsBitSet(10)) { writer.Write(SavedDate.Value); }
-        if (Flags.IsBitSet(6)) { writer.Write(PsaType); }
+        if (flags.IsBitSet(2)) { writer.Write(ChannelPost.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(PostAuthor); }
+        if (flags.IsBitSet(4)) { writer.Write(SavedFromPeer); }
+        if (flags.IsBitSet(4)) { writer.Write(SavedFromMsgId.Value); }
+        if (flags.IsBitSet(8)) { writer.Write(SavedFromId); }
+        if (flags.IsBitSet(9)) { writer.Write(SavedFromName); }
+        if (flags.IsBitSet(10)) { writer.Write(SavedDate.Value); }
+        if (flags.IsBitSet(6)) { writer.Write(PsaType); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

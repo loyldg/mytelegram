@@ -47,26 +47,28 @@ public sealed partial class TInputMediaPoll : IInputMedia
     /// </summary>
     public MyTelegram.Schema.IInputMedia? SolutionMedia { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (CorrectAnswers?.Count > 0) { Flags = Flags.SetBit(0); }
-        if (AttachedMedia != null) { Flags = Flags.SetBit(3); }
-        if (Solution != null) { Flags = Flags.SetBit(1); }
-        if (SolutionEntities?.Count > 0) { Flags = Flags.SetBit(1); }
-        if (SolutionMedia != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (CorrectAnswers?.Count > 0) { flags = flags.SetBit(0); }
+        if (AttachedMedia != null) { flags = flags.SetBit(3); }
+        if (Solution != null) { flags = flags.SetBit(1); }
+        if (SolutionEntities?.Count > 0) { flags = flags.SetBit(1); }
+        if (SolutionMedia != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Poll);
-        if (Flags.IsBitSet(0)) { writer.Write(CorrectAnswers); }
-        if (Flags.IsBitSet(3)) { writer.Write(AttachedMedia); }
-        if (Flags.IsBitSet(1)) { writer.Write(Solution); }
-        if (Flags.IsBitSet(1)) { writer.Write(SolutionEntities); }
-        if (Flags.IsBitSet(2)) { writer.Write(SolutionMedia); }
+        if (flags.IsBitSet(0)) { writer.Write(CorrectAnswers); }
+        if (flags.IsBitSet(3)) { writer.Write(AttachedMedia); }
+        if (flags.IsBitSet(1)) { writer.Write(Solution); }
+        if (flags.IsBitSet(1)) { writer.Write(SolutionEntities); }
+        if (flags.IsBitSet(2)) { writer.Write(SolutionMedia); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

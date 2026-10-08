@@ -41,19 +41,21 @@ public sealed partial class RequestGetLocated : IRequest<MyTelegram.Schema.IUpda
     /// </summary>
     public int? SelfExpires { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Background) { Flags = Flags.SetBit(1); }
-        if (/*SelfExpires != 0 && */SelfExpires.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Background) { flags = flags.SetBit(1); }
+        if (/*SelfExpires != 0 && */SelfExpires.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(GeoPoint);
-        if (Flags.IsBitSet(0)) { writer.Write(SelfExpires.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(SelfExpires.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

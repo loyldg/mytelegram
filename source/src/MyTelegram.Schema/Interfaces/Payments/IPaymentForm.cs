@@ -15,7 +15,7 @@ namespace MyTelegram.Schema.Payments;
 [JsonDerivedType(typeof(TPaymentForm), nameof(TPaymentForm))]
 [JsonDerivedType(typeof(TPaymentFormStars), nameof(TPaymentFormStars))]
 [JsonDerivedType(typeof(TPaymentFormStarGift), nameof(TPaymentFormStarGift))]
-public interface IPaymentForm : IObject
+public partial interface IPaymentForm : IObject
 {
     /// <summary>
     /// Form ID.

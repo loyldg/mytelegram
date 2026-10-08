@@ -15,10 +15,10 @@ namespace MyTelegram.Schema.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-[TlObject(0x83557dba)]
+[TlObject(0xa423bb51)]
 public sealed partial class RequestEditInlineBotMessage : IRequest<IBool>
 {
-    public uint ConstructorId => 0x83557dba;
+    public uint ConstructorId => 0xa423bb51;
 
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
@@ -64,26 +64,35 @@ public sealed partial class RequestEditInlineBotMessage : IRequest<IBool>
     /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
-    public void ComputeFlag()
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/InputRichMessage" />
+    /// </summary>
+    public MyTelegram.Schema.IInputRichMessage? RichMessage { get; set; }
+
+    public int CalculateFlags()
     {
-        if (NoWebpage) { Flags = Flags.SetBit(1); }
-        if (InvertMedia) { Flags = Flags.SetBit(16); }
-        if (Message != null) { Flags = Flags.SetBit(11); }
-        if (Media != null) { Flags = Flags.SetBit(14); }
-        if (ReplyMarkup != null) { Flags = Flags.SetBit(2); }
-        if (Entities?.Count > 0) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (NoWebpage) { flags = flags.SetBit(1); }
+        if (InvertMedia) { flags = flags.SetBit(16); }
+        if (Message != null) { flags = flags.SetBit(11); }
+        if (Media != null) { flags = flags.SetBit(14); }
+        if (ReplyMarkup != null) { flags = flags.SetBit(2); }
+        if (Entities?.Count > 0) { flags = flags.SetBit(3); }
+        if (RichMessage != null) { flags = flags.SetBit(23); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
-        if (Flags.IsBitSet(11)) { writer.Write(Message); }
-        if (Flags.IsBitSet(14)) { writer.Write(Media); }
-        if (Flags.IsBitSet(2)) { writer.Write(ReplyMarkup); }
-        if (Flags.IsBitSet(3)) { writer.Write(Entities); }
+        if (flags.IsBitSet(11)) { writer.Write(Message); }
+        if (flags.IsBitSet(14)) { writer.Write(Media); }
+        if (flags.IsBitSet(2)) { writer.Write(ReplyMarkup); }
+        if (flags.IsBitSet(3)) { writer.Write(Entities); }
+        if (flags.IsBitSet(23)) { writer.Write(RichMessage); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -96,5 +105,6 @@ public sealed partial class RequestEditInlineBotMessage : IRequest<IBool>
         if (Flags.IsBitSet(14)) { Media = buffer.Read<MyTelegram.Schema.IInputMedia>(); }
         if (Flags.IsBitSet(2)) { ReplyMarkup = buffer.Read<MyTelegram.Schema.IReplyMarkup>(); }
         if (Flags.IsBitSet(3)) { Entities = buffer.Read<TVector<MyTelegram.Schema.IMessageEntity>>(); }
+        if (Flags.IsBitSet(23)) { RichMessage = buffer.Read<MyTelegram.Schema.IInputRichMessage>(); }
     }
 }

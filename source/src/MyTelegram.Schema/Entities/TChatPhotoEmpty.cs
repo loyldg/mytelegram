@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TChatPhotoEmpty : IChatPhoto
 {
     public uint ConstructorId => 0x37c1011c;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

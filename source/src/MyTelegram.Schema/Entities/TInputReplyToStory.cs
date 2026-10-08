@@ -21,13 +21,9 @@ public sealed partial class TInputReplyToStory : IInputReplyTo
     /// </summary>
     public int StoryId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(StoryId);

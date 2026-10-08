@@ -44,6 +44,6 @@ internal sealed class GetMessagesHandler(IMessageAppService messageAppService, I
         }
 
         var getMessageOutput = await messageAppService.GetMessagesAsync(new GetMessagesInput(input.UserId, channelId, idList, new Peer(PeerType.Channel, channelId)) { Limit = 50 });
-        return getHistoryConverterService.ToMessages(input, getMessageOutput, input.Layer);
+        return await getHistoryConverterService.ToMessagesAsync(input, getMessageOutput, input.Layer);
     }
 }

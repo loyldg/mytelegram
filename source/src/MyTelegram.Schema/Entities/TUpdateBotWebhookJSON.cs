@@ -16,13 +16,9 @@ public sealed partial class TUpdateBotWebhookJSON : IUpdate
     /// </summary>
     public MyTelegram.Schema.IDataJSON Data { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Data);
     }

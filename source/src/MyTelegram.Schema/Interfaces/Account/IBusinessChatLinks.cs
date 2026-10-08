@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Account;
 /// <see cref="TBusinessChatLinks"/> See <a href="https://corefork.telegram.org/constructor/account.businessChatLinks" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TBusinessChatLinks), nameof(TBusinessChatLinks))]
-public interface IBusinessChatLinks : IObject
+public partial interface IBusinessChatLinks : IObject
 {
     /// <summary>
     /// Links

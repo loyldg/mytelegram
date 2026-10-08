@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TTodoList"/> See <a href="https://corefork.telegram.org/constructor/todoList" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TTodoList), nameof(TTodoList))]
-public interface ITodoList : IObject
+public partial interface ITodoList : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

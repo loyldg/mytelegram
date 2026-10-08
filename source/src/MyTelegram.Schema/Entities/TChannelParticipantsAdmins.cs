@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TChannelParticipantsAdmins : IChannelParticipantsFilter
 {
     public uint ConstructorId => 0xb4608969;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

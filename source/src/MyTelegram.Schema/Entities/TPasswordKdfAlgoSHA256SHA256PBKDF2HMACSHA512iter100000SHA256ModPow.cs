@@ -30,13 +30,9 @@ public sealed partial class TPasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter1000
     /// </summary>
     public ReadOnlyMemory<byte> P { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Salt1);
         writer.Write(Salt2);

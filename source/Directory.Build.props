@@ -5,12 +5,12 @@
 
   <PropertyGroup>
     <!-- <VersionSuffix>0.6.$([System.DateTime]::Now.ToString(MMdd)).$([System.DateTime]::Now.ToString("HHmm"))</VersionSuffix> -->
-    <VersionSuffix>0.40.224.$([System.DateTime]::Now.ToString("Mdd"))</VersionSuffix>
+    <VersionSuffix>0.44.229.$([System.DateTime]::Now.ToString("Mdd"))</VersionSuffix>
     <AssemblyVersion Condition="'$(VersionSuffix)' =='' ">0.0.0.1</AssemblyVersion>
     <AssemblyVersion Condition="'$(VersionSuffix)' !='' ">$(VersionSuffix)</AssemblyVersion>
     <Version Condition="'$(VersionSuffix)' =='' ">0.0.1.0</Version>
     <Version Condition="'$(VersionSuffix)' !='' ">$(VersionSuffix)</Version>
-    <NoWarn>$(NoWarn);CS1591;CS0436;NU1803;</NoWarn>
+    <NoWarn>$(NoWarn);CS1591;CS0436;NU1803;IDE0001;</NoWarn>
     <Authors>MyTelegram</Authors>
     <RepositoryUrl>https://github.com/loyldg/mytelegram</RepositoryUrl>
     <Company>MyTelegram</Company>

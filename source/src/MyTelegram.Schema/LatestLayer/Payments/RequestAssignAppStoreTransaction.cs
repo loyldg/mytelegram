@@ -29,13 +29,9 @@ public sealed partial class RequestAssignAppStoreTransaction : IRequest<MyTelegr
     /// </summary>
     public MyTelegram.Schema.IInputStorePaymentPurpose Purpose { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Receipt);
         writer.Write(Purpose);

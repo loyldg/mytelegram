@@ -22,13 +22,9 @@ public sealed partial class TChatAdminsWithInvites : IChatAdminsWithInvites
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Admins);
         writer.Write(Users);

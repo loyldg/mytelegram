@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Contains info about a <a href="https://corefork.telegram.org/api/bots/connected-business-bots">connected business bot »</a>.
 /// <para>See <a href="https://corefork.telegram.org/constructor/connectedBot" /></para>
 /// </summary>
-[TlObject(0xcd64636c)]
+[TlObject(0x33ed001)]
 public sealed partial class TConnectedBot : IConnectedBot
 {
-    public uint ConstructorId => 0xcd64636c;
+    public uint ConstructorId => 0x33ed001;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -32,18 +32,32 @@ public sealed partial class TConnectedBot : IConnectedBot
     /// </summary>
     public MyTelegram.Schema.IBusinessBotRights Rights { get; set; }
 
-    public void ComputeFlag()
+    public string? Device { get; set; }
+
+    public int? Date { get; set; }
+
+    public string? Location { get; set; }
+
+    public int CalculateFlags()
     {
+        var flags = 0;
+        if (Device != null) { flags = flags.SetBit(0); }
+        if (/*Date != 0 && */Date.HasValue) { flags = flags.SetBit(1); }
+        if (Location != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(BotId);
         writer.Write(Recipients);
         writer.Write(Rights);
+        if (flags.IsBitSet(0)) { writer.Write(Device); }
+        if (flags.IsBitSet(1)) { writer.Write(Date.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(Location); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -52,5 +66,8 @@ public sealed partial class TConnectedBot : IConnectedBot
         BotId = buffer.ReadInt64();
         Recipients = buffer.Read<MyTelegram.Schema.IBusinessBotRecipients>();
         Rights = buffer.Read<MyTelegram.Schema.IBusinessBotRights>();
+        if (Flags.IsBitSet(0)) { Device = buffer.ReadString(); }
+        if (Flags.IsBitSet(1)) { Date = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(2)) { Location = buffer.ReadString(); }
     }
 }

@@ -23,16 +23,16 @@ public class OtherDomainEventHandler(
             commandBus,
             idGenerator,
             ackCacheService),
-        ISubscribeSynchronousTo<SignInSaga, SignInSagaId, SignInSuccessSagaEvent>,
-        ISubscribeSynchronousTo<SignInSaga, SignInSagaId, SignUpRequiredSagaEvent>,
-        ISubscribeSynchronousTo<ClearHistorySaga, ClearHistorySagaId, ClearSingleUserHistoryCompletedSagaEvent>,
-        ISubscribeSynchronousTo<PeerNotifySettingsAggregate, PeerNotifySettingsId, PeerNotifySettingsUpdatedEvent>,
-        ISubscribeSynchronousTo<UserAggregate, UserId, UserGlobalPrivacySettingsChangedEvent>,
-        ISubscribeSynchronousTo<PinForwardedChannelMessageSaga, PinForwardedChannelMessageSagaId,
+        ISubscribeAsynchronousTo<SignInSaga, SignInSagaId, SignInSuccessSagaEvent>,
+        ISubscribeAsynchronousTo<SignInSaga, SignInSagaId, SignUpRequiredSagaEvent>,
+        ISubscribeAsynchronousTo<ClearHistorySaga, ClearHistorySagaId, ClearSingleUserHistoryCompletedSagaEvent>,
+        ISubscribeAsynchronousTo<PeerNotifySettingsAggregate, PeerNotifySettingsId, PeerNotifySettingsUpdatedEvent>,
+        ISubscribeAsynchronousTo<UserAggregate, UserId, UserGlobalPrivacySettingsChangedEvent>,
+        ISubscribeAsynchronousTo<PinForwardedChannelMessageSaga, PinForwardedChannelMessageSagaId,
             PinChannelMessagePtsIncrementedSagaEvent>,
-        //ISubscribeSynchronousTo<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdateSavedMessagesPinnedCompletedSagaEvent>,
-        ISubscribeSynchronousTo<AppCodeAggregate, AppCodeId, CheckSignInCodeCompletedEvent>,
-        ISubscribeSynchronousTo<UserNameAggregate, UserNameId, UserNameChangedEvent>
+        //ISubscribeAsynchronousTo<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdateSavedMessagesPinnedCompletedSagaEvent>,
+        ISubscribeAsynchronousTo<AppCodeAggregate, AppCodeId, CheckSignInCodeCompletedEvent>,
+        ISubscribeAsynchronousTo<UserNameAggregate, UserNameId, UserNameChangedEvent>
 {
     private readonly IObjectMessageSender _objectMessageSender = objectMessageSender;
 

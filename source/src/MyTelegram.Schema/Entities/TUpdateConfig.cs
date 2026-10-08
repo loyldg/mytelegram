@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TUpdateConfig : IUpdate
 {
     public uint ConstructorId => 0xa229dd06;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

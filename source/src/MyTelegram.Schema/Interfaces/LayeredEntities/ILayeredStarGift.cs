@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Schema;
 
-public interface ILayeredStarGift : IStarGift
+public partial interface ILayeredStarGift : IStarGift
 {
     MyTelegram.Schema.IDocument Sticker { get; set; }
     bool Limited { get; set; }

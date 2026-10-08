@@ -56,24 +56,26 @@ public sealed partial class TPhoneCallWaiting : IPhoneCall
     /// </summary>
     public int? ReceiveDate { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Video) { Flags = Flags.SetBit(6); }
-        if (/*ReceiveDate != 0 && */ReceiveDate.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Video) { flags = flags.SetBit(6); }
+        if (/*ReceiveDate != 0 && */ReceiveDate.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(AccessHash);
         writer.Write(Date);
         writer.Write(AdminId);
         writer.Write(ParticipantId);
         writer.Write(Protocol);
-        if (Flags.IsBitSet(0)) { writer.Write(ReceiveDate.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(ReceiveDate.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

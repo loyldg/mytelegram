@@ -15,13 +15,9 @@ public sealed partial class TMessageActionChatJoinedByLink : IMessageAction
     /// </summary>
     public long InviterId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(InviterId);
     }

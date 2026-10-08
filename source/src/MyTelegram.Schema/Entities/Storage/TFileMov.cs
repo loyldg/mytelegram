@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Storage;
 public sealed partial class TFileMov : IFileType
 {
     public uint ConstructorId => 0x4b09ebbc;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

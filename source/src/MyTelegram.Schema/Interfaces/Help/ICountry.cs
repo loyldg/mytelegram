@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Help;
 /// <see cref="TCountry"/> See <a href="https://corefork.telegram.org/constructor/help.country" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TCountry), nameof(TCountry))]
-public interface ICountry : IObject
+public partial interface ICountry : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

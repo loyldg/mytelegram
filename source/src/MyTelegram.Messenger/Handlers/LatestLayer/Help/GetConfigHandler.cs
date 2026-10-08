@@ -6,7 +6,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Help;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✔]
 /// </remarks>
-internal sealed class GetConfigHandler(IOptions<MyTelegramMessengerServerOptions> optionsAccessor, IDataCenterHelper dataCenterHelper, IUserAppService userAppService, ILayeredService<IConfigConverter> layeredService) : RpcResultObjectHandler<MyTelegram.Schema.Help.RequestGetConfig, MyTelegram.Schema.IConfig>
+internal sealed class GetConfigHandler(IOptions<MyTelegramMessengerServerOptions> optionsAccessor, IDataCenterHelper dataCenterHelper, ILayeredService<IConfigConverter> layeredService) : RpcResultObjectHandler<MyTelegram.Schema.Help.RequestGetConfig, MyTelegram.Schema.IConfig>
 {
     private readonly MyTelegramMessengerServerOptions _options = optionsAccessor.Value;
     protected override async Task<IConfig> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Help.RequestGetConfig obj)

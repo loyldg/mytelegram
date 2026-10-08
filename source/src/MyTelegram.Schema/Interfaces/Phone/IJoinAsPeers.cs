@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Phone;
 /// <see cref="TJoinAsPeers"/> See <a href="https://corefork.telegram.org/constructor/phone.joinAsPeers" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TJoinAsPeers), nameof(TJoinAsPeers))]
-public interface IJoinAsPeers : IObject
+public partial interface IJoinAsPeers : IObject
 {
     /// <summary>
     /// Peers

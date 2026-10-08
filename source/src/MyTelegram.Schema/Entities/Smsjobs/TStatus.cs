@@ -55,23 +55,25 @@ public sealed partial class TStatus : IStatus
     /// </summary>
     public string TermsUrl { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (AllowInternational) { Flags = Flags.SetBit(0); }
-        if (LastGiftSlug != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (AllowInternational) { flags = flags.SetBit(0); }
+        if (LastGiftSlug != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(RecentSent);
         writer.Write(RecentSince);
         writer.Write(RecentRemains);
         writer.Write(TotalSent);
         writer.Write(TotalSince);
-        if (Flags.IsBitSet(1)) { writer.Write(LastGiftSlug); }
+        if (flags.IsBitSet(1)) { writer.Write(LastGiftSlug); }
         writer.Write(TermsUrl);
     }
 

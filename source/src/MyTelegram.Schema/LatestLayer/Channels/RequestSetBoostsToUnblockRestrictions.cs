@@ -28,13 +28,9 @@ public sealed partial class RequestSetBoostsToUnblockRestrictions : IRequest<MyT
     /// </summary>
     public int Boosts { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Channel);
         writer.Write(Boosts);

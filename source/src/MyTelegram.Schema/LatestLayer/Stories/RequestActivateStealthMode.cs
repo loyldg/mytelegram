@@ -32,17 +32,19 @@ public sealed partial class RequestActivateStealthMode : IRequest<MyTelegram.Sch
     /// </summary>
     public bool Future { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Past) { Flags = Flags.SetBit(0); }
-        if (Future) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Past) { flags = flags.SetBit(0); }
+        if (Future) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

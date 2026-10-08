@@ -44,21 +44,23 @@ public sealed partial class RequestUpdateColor : IRequest<MyTelegram.Schema.IUpd
     /// </summary>
     public long? BackgroundEmojiId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ForProfile) { Flags = Flags.SetBit(1); }
-        if (/*Color != 0 && */Color.HasValue) { Flags = Flags.SetBit(2); }
-        if (/*BackgroundEmojiId != 0 &&*/ BackgroundEmojiId.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (ForProfile) { flags = flags.SetBit(1); }
+        if (/*Color != 0 && */Color.HasValue) { flags = flags.SetBit(2); }
+        if (/*BackgroundEmojiId != 0 &&*/ BackgroundEmojiId.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Channel);
-        if (Flags.IsBitSet(2)) { writer.Write(Color.Value); }
-        if (Flags.IsBitSet(0)) { writer.Write(BackgroundEmojiId.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(Color.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(BackgroundEmojiId.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

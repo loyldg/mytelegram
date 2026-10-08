@@ -22,13 +22,9 @@ public sealed partial class TAutoSaveException : IAutoSaveException
     /// </summary>
     public MyTelegram.Schema.IAutoSaveSettings Settings { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(Settings);

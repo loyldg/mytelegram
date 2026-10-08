@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TDisallowedGiftsSettings"/> See <a href="https://corefork.telegram.org/constructor/disallowedGiftsSettings" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TDisallowedGiftsSettings), nameof(TDisallowedGiftsSettings))]
-public interface IDisallowedGiftsSettings : IObject
+public partial interface IDisallowedGiftsSettings : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

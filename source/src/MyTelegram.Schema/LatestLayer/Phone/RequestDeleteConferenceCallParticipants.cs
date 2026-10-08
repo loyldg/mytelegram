@@ -48,17 +48,19 @@ public sealed partial class RequestDeleteConferenceCallParticipants : IRequest<M
     /// </summary>
     public ReadOnlyMemory<byte> Block { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (OnlyLeft) { Flags = Flags.SetBit(0); }
-        if (Kick) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (OnlyLeft) { flags = flags.SetBit(0); }
+        if (Kick) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Call);
         writer.Write(Ids);
         writer.Write(Block);

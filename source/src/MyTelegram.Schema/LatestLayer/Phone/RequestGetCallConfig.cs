@@ -14,13 +14,9 @@ public sealed partial class RequestGetCallConfig : IRequest<MyTelegram.Schema.ID
 {
     public uint ConstructorId => 0x55451fa9;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

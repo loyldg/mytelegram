@@ -21,13 +21,9 @@ public sealed partial class TInputMessageReadMetric : IInputMessageReadMetric
 
     public int SeenRangeRatioPermille { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(MsgId);
         writer.Write(ViewId);

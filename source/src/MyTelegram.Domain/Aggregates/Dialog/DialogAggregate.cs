@@ -1,5 +1,14 @@
 ﻿namespace MyTelegram.Domain.Aggregates.Dialog;
 
+// For compatibility with existing historical data.
+public partial class DialogLastMessageDateUpdatedEvent(
+    int lastMessageDate
+) : AggregateEvent<DialogAggregate, DialogId>
+{
+    public int LastMessageDate { get; } = lastMessageDate;
+
+}
+
 [EnableAutoGeneration]
 public class DialogAggregate : MyInMemorySnapshotAggregateRoot<DialogAggregate, DialogId, DialogSnapshot>
 {

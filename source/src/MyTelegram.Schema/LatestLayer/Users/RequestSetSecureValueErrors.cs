@@ -32,13 +32,9 @@ public sealed partial class RequestSetSecureValueErrors : IRequest<IBool>
     /// </summary>
     public TVector<MyTelegram.Schema.ISecureValueError> Errors { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
         writer.Write(Errors);

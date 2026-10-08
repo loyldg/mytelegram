@@ -15,13 +15,9 @@ public sealed partial class TUpdateEncryptedChatTyping : IUpdate
     /// </summary>
     public int ChatId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ChatId);
     }

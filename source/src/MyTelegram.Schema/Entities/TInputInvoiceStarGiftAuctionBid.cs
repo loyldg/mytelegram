@@ -46,23 +46,25 @@ public sealed partial class TInputInvoiceStarGiftAuctionBid : IInputInvoice
     /// </summary>
     public MyTelegram.Schema.ITextWithEntities? Message { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (HideName) { Flags = Flags.SetBit(0); }
-        if (UpdateBid) { Flags = Flags.SetBit(2); }
-        if (Peer != null) { Flags = Flags.SetBit(3); }
-        if (Message != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (HideName) { flags = flags.SetBit(0); }
+        if (UpdateBid) { flags = flags.SetBit(2); }
+        if (Peer != null) { flags = flags.SetBit(3); }
+        if (Message != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(3)) { writer.Write(Peer); }
+        writer.Write(flags);
+        if (flags.IsBitSet(3)) { writer.Write(Peer); }
         writer.Write(GiftId);
         writer.Write(BidAmount);
-        if (Flags.IsBitSet(1)) { writer.Write(Message); }
+        if (flags.IsBitSet(1)) { writer.Write(Message); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

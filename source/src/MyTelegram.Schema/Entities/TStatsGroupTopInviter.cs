@@ -20,13 +20,9 @@ public sealed partial class TStatsGroupTopInviter : IStatsGroupTopInviter
     /// </summary>
     public int Invitations { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(UserId);
         writer.Write(Invitations);

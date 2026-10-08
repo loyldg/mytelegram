@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TChannelAdminLogEventActionParticipantLeave : IChannelAdminLogEventAction
 {
     public uint ConstructorId => 0xf89777f2;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

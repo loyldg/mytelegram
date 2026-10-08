@@ -32,19 +32,21 @@ public sealed partial class TAttachMenuBotIcon : IAttachMenuBotIcon
     /// </summary>
     public TVector<MyTelegram.Schema.IAttachMenuBotIconColor>? Colors { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Colors?.Count > 0) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Colors?.Count > 0) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Name);
         writer.Write(Icon);
-        if (Flags.IsBitSet(0)) { writer.Write(Colors); }
+        if (flags.IsBitSet(0)) { writer.Write(Colors); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

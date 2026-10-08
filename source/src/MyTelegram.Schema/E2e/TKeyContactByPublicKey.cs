@@ -5,7 +5,7 @@ namespace MyTelegram.Schema.E2e;
 
 
 [TlObject(0x6C4F8C98)]
-public sealed class TKeyContactByPublicKey : IKey
+public sealed partial class TKeyContactByPublicKey : IKey
 {
     public uint ConstructorId => 0x6C4F8C98;
     public ReadOnlyMemory<byte> PublicKey { get; set; }

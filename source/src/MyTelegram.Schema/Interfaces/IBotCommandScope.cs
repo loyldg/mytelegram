@@ -23,6 +23,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TBotCommandScopePeer), nameof(TBotCommandScopePeer))]
 [JsonDerivedType(typeof(TBotCommandScopePeerAdmins), nameof(TBotCommandScopePeerAdmins))]
 [JsonDerivedType(typeof(TBotCommandScopePeerUser), nameof(TBotCommandScopePeerUser))]
-public interface IBotCommandScope : IObject
+public partial interface IBotCommandScope : IObject
 {
 }

@@ -21,13 +21,9 @@ public sealed partial class TUpdateShort : IUpdates
     /// </summary>
     public int Date { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Update);
         writer.Write(Date);

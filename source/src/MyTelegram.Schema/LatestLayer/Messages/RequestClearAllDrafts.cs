@@ -14,13 +14,9 @@ public sealed partial class RequestClearAllDrafts : IRequest<IBool>
 {
     public uint ConstructorId => 0x7e58ee9c;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

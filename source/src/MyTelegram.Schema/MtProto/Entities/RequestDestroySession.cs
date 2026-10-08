@@ -3,7 +3,7 @@
 namespace MyTelegram.Schema;
 
 [TlObject(0xe7512126)]
-public sealed class RequestDestroySession : IRequest<MyTelegram.Schema.IDestroySessionRes>
+public sealed partial class RequestDestroySession : IRequest<MyTelegram.Schema.IDestroySessionRes>
 {
     public uint ConstructorId => 0xe7512126;
     public long SessionId { get; set; }

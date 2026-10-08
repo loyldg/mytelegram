@@ -4,7 +4,7 @@ internal sealed class GetHistoryConverterService(IUserConverterService userConve
     IMessageConverterService messageConverterService
     ) : IGetHistoryConverterService, ITransientDependency
 {
-    public IMessages ToMessages(IRequestWithAccessHashKeyId request, GetMessageOutput output, int layer)
+    public async Task<IMessages> ToMessagesAsync(IRequestWithAccessHashKeyId request, GetMessageOutput output, int layer)
     {
         var messages = messageConverterService.ToMessageList(output.SelfUserId,
             output.MessageList,
@@ -13,7 +13,7 @@ internal sealed class GetHistoryConverterService(IUserConverterService userConve
             output.UserReactionList,
             layer);
 
-        var users = userConverterService.ToUserList(request,
+        var users = await userConverterService.ToUserListAsync(request,
             output.UserList,
             output.PhotoList,
             output.ContactList,

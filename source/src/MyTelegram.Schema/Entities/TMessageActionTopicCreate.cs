@@ -35,20 +35,22 @@ public sealed partial class TMessageActionTopicCreate : IMessageAction
     /// </summary>
     public long? IconEmojiId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (TitleMissing) { Flags = Flags.SetBit(1); }
-        if (/*IconEmojiId != 0 &&*/ IconEmojiId.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (TitleMissing) { flags = flags.SetBit(1); }
+        if (/*IconEmojiId != 0 &&*/ IconEmojiId.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Title);
         writer.Write(IconColor);
-        if (Flags.IsBitSet(0)) { writer.Write(IconEmojiId.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(IconEmojiId.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

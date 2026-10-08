@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TInactiveChats"/> See <a href="https://corefork.telegram.org/constructor/messages.inactiveChats" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInactiveChats), nameof(TInactiveChats))]
-public interface IInactiveChats : IObject
+public partial interface IInactiveChats : IObject
 {
     /// <summary>
     /// When was the chat last active

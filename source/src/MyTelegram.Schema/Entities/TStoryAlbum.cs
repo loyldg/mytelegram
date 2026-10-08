@@ -37,21 +37,23 @@ public sealed partial class TStoryAlbum : IStoryAlbum
     /// </summary>
     public MyTelegram.Schema.IDocument? IconVideo { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (IconPhoto != null) { Flags = Flags.SetBit(0); }
-        if (IconVideo != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (IconPhoto != null) { flags = flags.SetBit(0); }
+        if (IconVideo != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(AlbumId);
         writer.Write(Title);
-        if (Flags.IsBitSet(0)) { writer.Write(IconPhoto); }
-        if (Flags.IsBitSet(1)) { writer.Write(IconVideo); }
+        if (flags.IsBitSet(0)) { writer.Write(IconPhoto); }
+        if (flags.IsBitSet(1)) { writer.Write(IconVideo); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

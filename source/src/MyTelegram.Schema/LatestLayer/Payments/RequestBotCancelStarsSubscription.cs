@@ -39,16 +39,18 @@ public sealed partial class RequestBotCancelStarsSubscription : IRequest<IBool>
     /// </summary>
     public string ChargeId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Restore) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Restore) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(UserId);
         writer.Write(ChargeId);
     }

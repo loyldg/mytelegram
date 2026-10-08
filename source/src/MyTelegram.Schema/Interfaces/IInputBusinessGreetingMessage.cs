@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputBusinessGreetingMessage"/> See <a href="https://corefork.telegram.org/constructor/inputBusinessGreetingMessage" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputBusinessGreetingMessage), nameof(TInputBusinessGreetingMessage))]
-public interface IInputBusinessGreetingMessage : IObject
+public partial interface IInputBusinessGreetingMessage : IObject
 {
     /// <summary>
     /// ID of a <a href="https://corefork.telegram.org/api/business#quick-reply-shortcuts">quick reply shorcut, containing the greeting messages to send, see here » for more info</a>.

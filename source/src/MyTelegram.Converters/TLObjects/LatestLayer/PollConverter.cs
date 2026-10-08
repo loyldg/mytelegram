@@ -4,7 +4,7 @@ namespace MyTelegram.Converters.TLObjects.LatestLayer;
 
 internal sealed class PollConverter(IObjectMapper objectMapper) : IPollConverter, ITransientDependency
 {
-    
+
     public int Layer => Layers.LayerLatest;
 
     public IPoll ToPoll(IPollReadModel readModel)
@@ -16,6 +16,7 @@ internal sealed class PollConverter(IObjectMapper objectMapper) : IPollConverter
     {
         var pollResults = objectMapper.Map<IPollReadModel, TPollResults>(pollReadModel);
         chosenOptions ??= [];
+
         if (pollReadModel.AnswerVoters != null)
         {
             var voters = pollReadModel.AnswerVoters.Select(p => new TPollAnswerVoters
@@ -23,19 +24,21 @@ internal sealed class PollConverter(IObjectMapper objectMapper) : IPollConverter
                 Correct = p.Correct,
                 Voters = p.Voters,
                 Option = Encoding.UTF8.GetBytes(p.Option),
-                Chosen = chosenOptions.Contains(p.Option)
+                Chosen = chosenOptions.Contains(p.Option),
+                RecentVoters = p.RecentVoters?.Count > 0 ? [.. p.RecentVoters.Select(p => p.ToPeer().ToPeer())] : []
             });
             pollResults.Results = new TVector<IPollAnswerVoters>(voters);
         }
         else
         {
-            var voters = pollReadModel.Answers.Select(p => new TPollAnswerVoters
+            var voters = pollReadModel.Answers?.Select(p => new TPollAnswerVoters
             {
                 Correct = false,
                 Voters = 0,
                 Option = Encoding.UTF8.GetBytes(p.Option),
-                Chosen = chosenOptions.Contains(p.Option)
-            });
+                Chosen = chosenOptions.Contains(p.Option),
+                RecentVoters = []
+            }) ?? [];
             pollResults.Results = new TVector<IPollAnswerVoters>(voters);
         }
 

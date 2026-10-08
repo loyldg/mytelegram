@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TMessageViews"/> See <a href="https://corefork.telegram.org/constructor/messages.messageViews" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TMessageViews), nameof(TMessageViews))]
-public interface IMessageViews : IObject
+public partial interface IMessageViews : IObject
 {
     /// <summary>
     /// View, forward counter + info about replies

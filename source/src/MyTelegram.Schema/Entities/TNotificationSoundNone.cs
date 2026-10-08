@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TNotificationSoundNone : INotificationSound
 {
     public uint ConstructorId => 0x6f0c34df;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Schema;
 
-public interface ILayeredDraftMessage : IDraftMessage
+public partial interface ILayeredDraftMessage : IDraftMessage
 {
     IInputMedia? Media { get; set; }
 }

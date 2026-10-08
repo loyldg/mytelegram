@@ -9,6 +9,7 @@ public class IdGenerator(
     IQueryProcessor queryProcessor,
     IQueryFilterScope queryFilterScope,
     IHiLoStateBlockSizeHelper stateBlockSizeHelper,
+    //IIdMappingService idMappingService,
     ILogger<IdGenerator> logger)
     : IIdGenerator, ITransientDependency
 {
@@ -37,14 +38,13 @@ public class IdGenerator(
                     state = await GetStateAsync(idType, id, maxMessageId);
                 }
                 break;
+           
             case IdType.UserId:
                 if (!cache.Exists(idType, id))
                 {
                     var maxUserId = await GetMaxUserIdAsync();
                     if (maxUserId > 0)
                     {
-                        var initId = GetInitId(idType);
-                        maxUserId = maxUserId - initId;
                         maxUserId = Math.Max(maxUserId, 0);
                     }
                     state = await GetStateAsync(idType, id, maxUserId);
@@ -57,14 +57,13 @@ public class IdGenerator(
                         var maxChannelId = await GetMaxChannelIdAsync();
                         if (maxChannelId > 0)
                         {
-                            var initId = GetInitId(idType);
-                            maxChannelId = maxChannelId - initId;
                             maxChannelId = Math.Max(maxChannelId, 0);
                         }
                         state = await GetStateAsync(idType, id, maxChannelId);
                     }
                 }
                 break;
+           
         }
 
         state ??= cache.GetOrAdd(idType, id);
@@ -78,19 +77,25 @@ public class IdGenerator(
             logger.LogWarning("[{Timespan}] Generate id too slow, idType: {IdType}, id: {Id}", sw.Elapsed, idType, id);
         }
 
-        return nextId + GetInitId(idType);
+        return nextId + GetInitialId(idType);
     }
 
-    private static long GetInitId(IdType idType)
+    public long GetSequence(IdType idType, long id)
+    {
+        return id - GetInitialId(idType);
+    }
+
+    public long GetInitialId(IdType idType)
     {
         return idType switch
         {
-            IdType.ChannelId => MyTelegramConsts.ChannelInitId,
-            IdType.UserId => MyTelegramConsts.UserIdInitId + 10000, // First 10000 for testing
-            IdType.BotUserId => MyTelegramConsts.BotUserInitId,
-            IdType.ChatId => MyTelegramConsts.ChatIdInitId,
-            IdType.Pts => MyTelegramConsts.PtsInitId,
-            IdType.FolderId => MyTelegramConsts.FolderInitId,
+            IdType.ChannelId => MyTelegramConsts.ChannelIdBase + 100_000,
+            IdType.UserId => MyTelegramConsts.UserIdBase + 100_000,
+            IdType.BotUserId => MyTelegramConsts.BotUserIdBase + 100_000,
+            IdType.ChatId => MyTelegramConsts.ChatIdBase + 100_000,
+            IdType.Pts => MyTelegramConsts.PtsIdBase,
+            IdType.FolderId => MyTelegramConsts.FolderIdBase,
+            //IdType.UserSequence => 100,
             _ => 0
         };
     }
@@ -135,7 +140,10 @@ public class IdGenerator(
         }
     }
 
-    private async Task<HiLoValueGeneratorState> GetStateAsync(IdType idType, long id, long oldMaxId)
+    private async Task<HiLoValueGeneratorState> GetStateAsync(
+        IdType idType,
+        long id,
+        long oldMaxId)
     {
         if (oldMaxId > 0)
         {
@@ -150,6 +158,28 @@ public class IdGenerator(
                         blockSize,
                         oldMaxId,
                         (high + 1) * blockSize)));
+        }
+
+        return cache.GetOrAdd(idType, id);
+    }
+
+    private async Task<HiLoValueGeneratorState> GetMessageIdStateAsync(IdType idType, long id)
+    {
+        var maxId = await GetMaxMessageIdAsync(id);
+        if (maxId > 0)
+        {
+            var blockSize = stateBlockSizeHelper.GetBlockSize(idType);
+            var high = maxId / blockSize;
+            return await cache.GetOrAddAsync(idType, id, () => Task.FromResult(new HiLoValueGeneratorState(blockSize, maxId, (high + 1) * blockSize + 1)));
+
+            //var aggregate = new MessageAggregate(MessageId.Create(id, maxId + 1));
+            //await aggregate.LoadAsync(eventStore, snapshotStore, CancellationToken.None);
+            //if (aggregate.IsNew)
+            //{
+            //    var blockSize = stateBlockSizeHelper.GetBlockSize(idType);
+            //    var high = maxId / blockSize;
+            //    return await cache.GetOrAddAsync(idType, id, () => Task.FromResult(new HiLoValueGeneratorState(blockSize, maxId, (high + 1) * blockSize + 1)));
+            //}
         }
 
         return cache.GetOrAdd(idType, id);

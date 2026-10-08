@@ -25,6 +25,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TStarsTransactionPeer), nameof(TStarsTransactionPeer))]
 [JsonDerivedType(typeof(TStarsTransactionPeerAds), nameof(TStarsTransactionPeerAds))]
 [JsonDerivedType(typeof(TStarsTransactionPeerAPI), nameof(TStarsTransactionPeerAPI))]
-public interface IStarsTransactionPeer : IObject
+public partial interface IStarsTransactionPeer : IObject
 {
 }

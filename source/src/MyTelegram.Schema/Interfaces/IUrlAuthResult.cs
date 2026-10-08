@@ -8,13 +8,13 @@ namespace MyTelegram.Schema;
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TUrlAuthResultRequest"/> See <a href="https://corefork.telegram.org/constructor/urlAuthResultRequest" /><br/>
 /// <see cref="TUrlAuthResultAccepted"/> See <a href="https://corefork.telegram.org/constructor/urlAuthResultAccepted" /><br/>
 /// <see cref="TUrlAuthResultDefault"/> See <a href="https://corefork.telegram.org/constructor/urlAuthResultDefault" /><br/>
+/// <see cref="TUrlAuthResultRequest"/> See <a href="https://corefork.telegram.org/constructor/urlAuthResultRequest" /><br/>
 /// </remarks>
-[JsonDerivedType(typeof(TUrlAuthResultRequest), nameof(TUrlAuthResultRequest))]
 [JsonDerivedType(typeof(TUrlAuthResultAccepted), nameof(TUrlAuthResultAccepted))]
 [JsonDerivedType(typeof(TUrlAuthResultDefault), nameof(TUrlAuthResultDefault))]
-public interface IUrlAuthResult : IObject
+[JsonDerivedType(typeof(TUrlAuthResultRequest), nameof(TUrlAuthResultRequest))]
+public partial interface IUrlAuthResult : IObject
 {
 }

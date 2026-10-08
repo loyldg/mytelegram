@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TEmojiLanguage"/> See <a href="https://corefork.telegram.org/constructor/emojiLanguage" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TEmojiLanguage), nameof(TEmojiLanguage))]
-public interface IEmojiLanguage : IObject
+public partial interface IEmojiLanguage : IObject
 {
     /// <summary>
     /// Language code

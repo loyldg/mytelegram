@@ -6,10 +6,10 @@ namespace MyTelegram.Schema.Auth;
 /// Official apps may receive this constructor, indicating that due to the high cost of SMS verification codes for the user's country/provider, the user must purchase a <a href="https://corefork.telegram.org/api/premium">Telegram Premium</a> subscription in order to proceed with the login/signup.
 /// <para>See <a href="https://corefork.telegram.org/constructor/auth.sentCodePaymentRequired" /></para>
 /// </summary>
-[TlObject(0xe0955a3c)]
+[TlObject(0xf8827ebf)]
 public sealed partial class TSentCodePaymentRequired : ISentCode
 {
-    public uint ConstructorId => 0xe0955a3c;
+    public uint ConstructorId => 0xf8827ebf;
     /// <summary>
     /// Store identifier of the Telegram Premium subscription.
     /// </summary>
@@ -30,6 +30,8 @@ public sealed partial class TSentCodePaymentRequired : ISentCode
     /// </summary>
     public string SupportEmailSubject { get; set; }
 
+    public int PremiumDays { get; set; }
+
     /// <summary>
     ///  
     /// </summary>
@@ -40,18 +42,15 @@ public sealed partial class TSentCodePaymentRequired : ISentCode
     /// </summary>
     public long Amount { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(StoreProduct);
         writer.Write(PhoneCodeHash);
         writer.Write(SupportEmailAddress);
         writer.Write(SupportEmailSubject);
+        writer.Write(PremiumDays);
         writer.Write(Currency);
         writer.Write(Amount);
     }
@@ -62,6 +61,7 @@ public sealed partial class TSentCodePaymentRequired : ISentCode
         PhoneCodeHash = buffer.ReadString();
         SupportEmailAddress = buffer.ReadString();
         SupportEmailSubject = buffer.ReadString();
+        PremiumDays = buffer.ReadInt32();
         Currency = buffer.ReadString();
         Amount = buffer.ReadInt64();
     }

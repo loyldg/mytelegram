@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Messages;
 public sealed partial class TAllStickersNotModified : IAllStickers
 {
     public uint ConstructorId => 0xe86602c3;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

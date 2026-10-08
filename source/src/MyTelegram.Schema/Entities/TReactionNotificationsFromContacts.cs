@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TReactionNotificationsFromContacts : IReactionNotificationsFrom
 {
     public uint ConstructorId => 0xbac3a61a;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

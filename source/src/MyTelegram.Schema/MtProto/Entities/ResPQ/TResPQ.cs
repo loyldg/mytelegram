@@ -4,7 +4,7 @@ namespace MyTelegram.Schema;
 
 
 [TlObject(0x05162463)]
-public sealed class TResPQ : IResPQ
+public sealed partial class TResPQ : IResPQ
 {
     public uint ConstructorId => 0x05162463;
     public byte[] Nonce { get; set; }

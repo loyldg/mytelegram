@@ -52,24 +52,26 @@ public sealed partial class TUpdateBusinessBotCallbackQuery : IUpdate
     /// </summary>
     public ReadOnlyMemory<byte>? Data { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ReplyToMessage != null) { Flags = Flags.SetBit(2); }
-        if (Data != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (ReplyToMessage != null) { flags = flags.SetBit(2); }
+        if (Data != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(QueryId);
         writer.Write(UserId);
         writer.Write(ConnectionId);
         writer.Write(Message);
-        if (Flags.IsBitSet(2)) { writer.Write(ReplyToMessage); }
+        if (flags.IsBitSet(2)) { writer.Write(ReplyToMessage); }
         writer.Write(ChatInstance);
-        if (Flags.IsBitSet(0)) { writer.Write(Data); }
+        if (flags.IsBitSet(0)) { writer.Write(Data); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

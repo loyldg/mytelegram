@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TPremiumGiftCodeOption"/> See <a href="https://corefork.telegram.org/constructor/premiumGiftCodeOption" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPremiumGiftCodeOption), nameof(TPremiumGiftCodeOption))]
-public interface IPremiumGiftCodeOption : IObject
+public partial interface IPremiumGiftCodeOption : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

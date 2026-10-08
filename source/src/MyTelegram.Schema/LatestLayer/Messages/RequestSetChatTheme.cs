@@ -31,13 +31,9 @@ public sealed partial class RequestSetChatTheme : IRequest<MyTelegram.Schema.IUp
     /// </summary>
     public MyTelegram.Schema.IInputChatTheme Theme { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(Theme);

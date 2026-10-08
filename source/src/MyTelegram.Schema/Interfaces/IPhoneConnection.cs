@@ -13,7 +13,7 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TPhoneConnection), nameof(TPhoneConnection))]
 [JsonDerivedType(typeof(TPhoneConnectionWebrtc), nameof(TPhoneConnectionWebrtc))]
-public interface IPhoneConnection : IObject
+public partial interface IPhoneConnection : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

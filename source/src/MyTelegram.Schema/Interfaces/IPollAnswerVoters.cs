@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TPollAnswerVoters"/> See <a href="https://corefork.telegram.org/constructor/pollAnswerVoters" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPollAnswerVoters), nameof(TPollAnswerVoters))]
-public interface IPollAnswerVoters : IObject
+public partial interface IPollAnswerVoters : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
@@ -32,14 +32,4 @@ public interface IPollAnswerVoters : IObject
     /// The param that has to be passed to <a href="https://corefork.telegram.org/method/messages.sendVote">messages.sendVote</a>.
     /// </summary>
     ReadOnlyMemory<byte> Option { get; set; }
-
-    /// <summary>
-    /// How many users voted for this option
-    /// </summary>
-    int? Voters { get; set; }
-
-    /// <summary>
-    /// See <a href="https://corefork.telegram.org/type/Peer" />
-    /// </summary>
-    TVector<MyTelegram.Schema.IPeer>? RecentVoters { get; set; }
 }

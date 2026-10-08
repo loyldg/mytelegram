@@ -20,13 +20,9 @@ public sealed partial class TMessageActionPaidMessagesRefunded : IMessageAction
     /// </summary>
     public long Stars { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Count);
         writer.Write(Stars);

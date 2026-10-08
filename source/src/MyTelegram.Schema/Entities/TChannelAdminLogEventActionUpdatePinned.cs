@@ -16,13 +16,9 @@ public sealed partial class TChannelAdminLogEventActionUpdatePinned : IChannelAd
     /// </summary>
     public MyTelegram.Schema.IMessage Message { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Message);
     }

@@ -14,13 +14,9 @@ public sealed partial class RequestGetGlobalPrivacySettings : IRequest<MyTelegra
 {
     public uint ConstructorId => 0xeb2b4cf6;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

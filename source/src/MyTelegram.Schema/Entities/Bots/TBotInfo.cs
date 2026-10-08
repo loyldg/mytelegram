@@ -25,13 +25,9 @@ public sealed partial class TBotInfo : IBotInfo
     /// </summary>
     public string Description { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Name);
         writer.Write(About);

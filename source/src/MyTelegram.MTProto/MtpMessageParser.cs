@@ -193,6 +193,10 @@ public class MtpMessageParser(
         IClientData d)
     {
         var data = firstPacketParser.Parse(buffer);
+        if (data.ProtocolType != ProtocolType.Unknown)
+        {
+            logger.LogInformation("[{ConnectionId}] [{ProtocolType}] protocol detected, bytes: {Bytes}", d.ConnectionId, data.ProtocolType, buffer.Length);
+        }
 
         d.IsFirstPacketParsed = true;
         d.ObfuscationEnabled = data.ObfuscationEnabled;

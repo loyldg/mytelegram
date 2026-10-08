@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TExportedMessageLink"/> See <a href="https://corefork.telegram.org/constructor/exportedMessageLink" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TExportedMessageLink), nameof(TExportedMessageLink))]
-public interface IExportedMessageLink : IObject
+public partial interface IExportedMessageLink : IObject
 {
     /// <summary>
     /// URL

@@ -27,13 +27,9 @@ public sealed partial class TUpdateGroupCallParticipants : IUpdate
     /// </summary>
     public int Version { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Call);
         writer.Write(Participants);

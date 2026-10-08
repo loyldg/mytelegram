@@ -9,13 +9,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TPrivacyKeySavedMusic : IPrivacyKey
 {
     public uint ConstructorId => 0xff7a571b;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

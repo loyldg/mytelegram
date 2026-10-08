@@ -1,5 +1,4 @@
-﻿using System.Reflection.Emit;
-using System.Threading;
+﻿using System.Threading;
 using CommunityToolkit.HighPerformance.Buffers;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
@@ -10,7 +9,7 @@ namespace MyTelegram.EventBus.RabbitMQ;
 public sealed class RabbitMqEventBus(
     ILogger<RabbitMqEventBus> logger,
     IServiceProvider serviceProvider,
-    IOptions<EventBusRabbitMqOptions> options,
+    IOptions<EventBusOptions> options,
     IOptionsMonitor<RabbitMqOptions> rabbitmqOptions,
     IRabbitMqSerializer rabbitMqSerializer,
     IOptions<EventBusSubscriptionInfo> subscriptionOptions) : IEventBus,
@@ -21,9 +20,9 @@ public sealed class RabbitMqEventBus(
     private readonly ResiliencePipeline _pipeline = CreateResiliencePipeline(options.Value.RetryCount);
     private readonly string _queueName = options.Value.ClientName;
     private readonly EventBusSubscriptionInfo _subscriptionInfo = subscriptionOptions.Value;
-    private IConnection _rabbitMQConnection;
+    private IConnection? _rabbitMqConnection;
 
-    private IChannel _consumerChannel;
+    private IChannel? _consumerChannel;
 
     public async Task PublishAsync<TEventData>(TEventData eventData, string? eventType = null)
         where TEventData : class
@@ -35,7 +34,7 @@ public sealed class RabbitMqEventBus(
             logger.LogTrace("Creating RabbitMQ channel to publish event: ({EventName})", routingKey);
         }
 
-        await using var channel = await _rabbitMQConnection?.CreateChannelAsync() ?? throw new InvalidOperationException("RabbitMQ connection is not open");
+        await using var channel = await _rabbitMqConnection?.CreateChannelAsync()! ?? throw new InvalidOperationException("RabbitMQ connection is not open");
 
         if (logger.IsEnabled(LogLevel.Trace))
         {
@@ -44,24 +43,10 @@ public sealed class RabbitMqEventBus(
 
         await channel.ExchangeDeclareAsync(exchange: ExchangeName, type: "direct");
 
-        ReadOnlyMemory<byte> body;
-        ArrayPoolBufferWriter<byte>? writer = null;
-
-        //if (eventData is EventBusRawDataReceivedEvent eventBusRawDataReceivedEvent)
-        //{
-        //    body = eventBusRawDataReceivedEvent.RawData;
-        //}
-        //else
-        //{
-        //    writer = new ArrayPoolBufferWriter<byte>();
-        //    rabbitMqSerializer.Serialize(writer, eventData);
-        //    body = writer.WrittenMemory;
-        //}
-
-        writer = new ArrayPoolBufferWriter<byte>();
+        var writer = new ArrayPoolBufferWriter<byte>();
         rabbitMqSerializer.Serialize(writer, eventData);
-        body = writer.WrittenMemory;
-
+        var body = writer.WrittenMemory;
+        
         await _pipeline.Execute(async () =>
         {
 
@@ -91,7 +76,7 @@ public sealed class RabbitMqEventBus(
             }
             finally
             {
-                writer?.Dispose();
+                writer.Dispose();
             }
         });
     }
@@ -116,7 +101,14 @@ public sealed class RabbitMqEventBus(
         // Even on exception we take the message off the queue.
         // in a REAL WORLD app this should be handled with a Dead Letter Exchange (DLX). 
         // For more information see: https://www.rabbitmq.com/dlx.html
-        await _consumerChannel.BasicAckAsync(eventArgs.DeliveryTag, multiple: false);
+        if (_consumerChannel != null)
+        {
+            await _consumerChannel.BasicAckAsync(eventArgs.DeliveryTag, multiple: false);
+        }
+        else
+        {
+            logger.LogWarning("Consumer channel is null");
+        }
     }
 
     private async Task ProcessEvent(string eventName, ReadOnlyMemory<byte> body)
@@ -167,79 +159,79 @@ public sealed class RabbitMqEventBus(
         // Messaging is async so we don't need to wait for it to complete. On top of this
         // the APIs are blocking, so we need to run this on a background thread.
         _ = Task.Factory.StartNew(async () =>
-        {
-        LabelStart:
-            try
             {
-                logger.LogInformation("Starting RabbitMQ connection on a background thread");
-                //var connectionFactory = serviceProvider.GetRequiredService<IConnectionFactory>();
-                var connectionFactory = new ConnectionFactory
+            LabelStart:
+                try
                 {
-                    HostName = rabbitmqOptions.CurrentValue.HostName,
-                    Port = rabbitmqOptions.CurrentValue.Port,
-                    UserName = rabbitmqOptions.CurrentValue.UserName,
-                    Password = rabbitmqOptions.CurrentValue.Password,
-                    AutomaticRecoveryEnabled = true
-                };
-                _rabbitMQConnection = await connectionFactory.CreateConnectionAsync(cancellationToken);// serviceProvider.GetRequiredService<IConnection>();
-                if (!_rabbitMQConnection.IsOpen)
-                {
-                    return;
-                }
+                    logger.LogInformation("Starting RabbitMQ connection on a background thread");
+                    //var connectionFactory = serviceProvider.GetRequiredService<IConnectionFactory>();
+                    var connectionFactory = new ConnectionFactory
+                    {
+                        HostName = rabbitmqOptions.CurrentValue.HostName,
+                        Port = rabbitmqOptions.CurrentValue.Port,
+                        UserName = rabbitmqOptions.CurrentValue.UserName,
+                        Password = rabbitmqOptions.CurrentValue.Password,
+                        AutomaticRecoveryEnabled = true
+                    };
+                    _rabbitMqConnection = await connectionFactory.CreateConnectionAsync(cancellationToken);// serviceProvider.GetRequiredService<IConnection>();
+                    if (!_rabbitMqConnection.IsOpen)
+                    {
+                        return;
+                    }
 
-                if (logger.IsEnabled(LogLevel.Trace))
-                {
-                    logger.LogTrace("Creating RabbitMQ consumer channel");
-                }
+                    if (logger.IsEnabled(LogLevel.Trace))
+                    {
+                        logger.LogTrace("Creating RabbitMQ consumer channel");
+                    }
 
-                _consumerChannel = await _rabbitMQConnection.CreateChannelAsync(cancellationToken: cancellationToken);
-                _consumerChannel.CallbackExceptionAsync += (_, ea) =>
-                {
-                    logger.LogWarning(ea.Exception, "Error with RabbitMQ consumer channel");
-                    return Task.CompletedTask;
-                };
+                    _consumerChannel = await _rabbitMqConnection.CreateChannelAsync(cancellationToken: cancellationToken);
+                    _consumerChannel.CallbackExceptionAsync += (_, ea) =>
+                    {
+                        logger.LogWarning(ea.Exception, "Error with RabbitMQ consumer channel");
+                        return Task.CompletedTask;
+                    };
 
-                await _consumerChannel.ExchangeDeclareAsync(exchange: ExchangeName,
-                    type: "direct", cancellationToken: cancellationToken);
+                    await _consumerChannel.ExchangeDeclareAsync(exchange: ExchangeName,
+                        type: "direct", cancellationToken: cancellationToken);
 
-                await _consumerChannel.QueueDeclareAsync(queue: _queueName,
-                    durable: true,
-                    exclusive: false,
-                    autoDelete: false,
-                    arguments: null, cancellationToken: cancellationToken);
+                    await _consumerChannel.QueueDeclareAsync(queue: _queueName,
+                        durable: true,
+                        exclusive: false,
+                        autoDelete: false,
+                        arguments: null, cancellationToken: cancellationToken);
 
-                if (logger.IsEnabled(LogLevel.Trace))
-                {
-                    logger.LogTrace("Starting RabbitMQ basic consume");
-                }
+                    if (logger.IsEnabled(LogLevel.Trace))
+                    {
+                        logger.LogTrace("Starting RabbitMQ basic consume");
+                    }
 
-                var consumer = new AsyncEventingBasicConsumer(_consumerChannel);
+                    var consumer = new AsyncEventingBasicConsumer(_consumerChannel);
 
-                consumer.ReceivedAsync += OnMessageReceived;
+                    consumer.ReceivedAsync += OnMessageReceived;
 
-                await _consumerChannel.BasicConsumeAsync(
-                    queue: _queueName,
-                    autoAck: false,
-                    consumer: consumer, cancellationToken: cancellationToken);
-
-                foreach (var (eventName, _) in _subscriptionInfo.EventTypes)
-                {
-                    await _consumerChannel.QueueBindAsync(
+                    await _consumerChannel.BasicConsumeAsync(
                         queue: _queueName,
-                        exchange: ExchangeName,
-                        routingKey: eventName, cancellationToken: cancellationToken);
+                        autoAck: false,
+                        consumer: consumer, cancellationToken: cancellationToken);
+
+                    foreach (var (eventName, _) in _subscriptionInfo.EventTypes)
+                    {
+                        await _consumerChannel.QueueBindAsync(
+                            queue: _queueName,
+                            exchange: ExchangeName,
+                            routingKey: eventName, cancellationToken: cancellationToken);
+                    }
+
+                    logger.LogInformation("RabbitMQ connection created");
+
                 }
-
-                logger.LogInformation("RabbitMQ connection created");
-
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Error starting RabbitMQ connection");
-                await Task.Delay(2000, cancellationToken);
-                goto LabelStart;
-            }
-        },
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, "Error starting RabbitMQ connection");
+                    await Task.Delay(2000, cancellationToken);
+                    goto LabelStart;
+                }
+            },
             TaskCreationOptions.LongRunning);
 
         return Task.CompletedTask;

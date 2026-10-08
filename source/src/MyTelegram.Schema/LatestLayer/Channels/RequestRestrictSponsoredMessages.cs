@@ -29,13 +29,9 @@ public sealed partial class RequestRestrictSponsoredMessages : IRequest<MyTelegr
     /// </summary>
     public bool Restricted { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Channel);
         writer.Write(Restricted);

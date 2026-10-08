@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TInputStickerSetEmojiChannelDefaultStatuses : IInputStickerSet
 {
     public uint ConstructorId => 0x49748553;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

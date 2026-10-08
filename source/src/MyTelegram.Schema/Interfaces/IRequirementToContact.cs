@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TRequirementToContactEmpty), nameof(TRequirementToContactEmpty))]
 [JsonDerivedType(typeof(TRequirementToContactPremium), nameof(TRequirementToContactPremium))]
 [JsonDerivedType(typeof(TRequirementToContactPaidMessages), nameof(TRequirementToContactPaidMessages))]
-public interface IRequirementToContact : IObject
+public partial interface IRequirementToContact : IObject
 {
 }

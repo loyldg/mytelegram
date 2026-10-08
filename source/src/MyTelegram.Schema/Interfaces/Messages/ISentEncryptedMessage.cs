@@ -13,7 +13,7 @@ namespace MyTelegram.Schema.Messages;
 /// </remarks>
 [JsonDerivedType(typeof(TSentEncryptedMessage), nameof(TSentEncryptedMessage))]
 [JsonDerivedType(typeof(TSentEncryptedFile), nameof(TSentEncryptedFile))]
-public interface ISentEncryptedMessage : IObject
+public partial interface ISentEncryptedMessage : IObject
 {
     /// <summary>
     /// Date of sending

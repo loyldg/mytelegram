@@ -21,13 +21,9 @@ public sealed partial class TAllStickers : IAllStickers
     /// </summary>
     public TVector<MyTelegram.Schema.IStickerSet> Sets { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Hash);
         writer.Write(Sets);

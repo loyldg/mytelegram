@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TPostAddress"/> See <a href="https://corefork.telegram.org/constructor/postAddress" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPostAddress), nameof(TPostAddress))]
-public interface IPostAddress : IObject
+public partial interface IPostAddress : IObject
 {
     /// <summary>
     /// First line for the address

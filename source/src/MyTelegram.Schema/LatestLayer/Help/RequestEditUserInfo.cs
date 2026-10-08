@@ -35,13 +35,9 @@ public sealed partial class RequestEditUserInfo : IRequest<MyTelegram.Schema.Hel
     /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity> Entities { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(UserId);
         writer.Write(Message);

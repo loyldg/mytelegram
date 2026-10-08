@@ -49,21 +49,23 @@ public sealed partial class RequestEditExportedInvite : IRequest<MyTelegram.Sche
     /// </summary>
     public TVector<MyTelegram.Schema.IInputPeer>? Peers { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Title != null) { Flags = Flags.SetBit(1); }
-        if (Peers?.Count > 0) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Title != null) { flags = flags.SetBit(1); }
+        if (Peers?.Count > 0) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Chatlist);
         writer.Write(Slug);
-        if (Flags.IsBitSet(1)) { writer.Write(Title); }
-        if (Flags.IsBitSet(2)) { writer.Write(Peers); }
+        if (flags.IsBitSet(1)) { writer.Write(Title); }
+        if (flags.IsBitSet(2)) { writer.Write(Peers); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

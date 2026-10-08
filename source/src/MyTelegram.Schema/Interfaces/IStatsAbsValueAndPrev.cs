@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TStatsAbsValueAndPrev"/> See <a href="https://corefork.telegram.org/constructor/statsAbsValueAndPrev" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStatsAbsValueAndPrev), nameof(TStatsAbsValueAndPrev))]
-public interface IStatsAbsValueAndPrev : IObject
+public partial interface IStatsAbsValueAndPrev : IObject
 {
     /// <summary>
     /// Current value

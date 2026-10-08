@@ -21,13 +21,9 @@ public sealed partial class TMessageActionInviteToGroupCall : IMessageAction
     /// </summary>
     public TVector<long> Users { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Call);
         writer.Write(Users);

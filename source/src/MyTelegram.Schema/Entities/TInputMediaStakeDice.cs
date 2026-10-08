@@ -24,13 +24,9 @@ public sealed partial class TInputMediaStakeDice : IInputMedia
     /// </summary>
     public ReadOnlyMemory<byte> ClientSeed { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(GameHash);
         writer.Write(TonAmount);

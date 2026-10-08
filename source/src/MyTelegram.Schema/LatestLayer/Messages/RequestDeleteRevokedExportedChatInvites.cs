@@ -30,13 +30,9 @@ public sealed partial class RequestDeleteRevokedExportedChatInvites : IRequest<I
     /// </summary>
     public MyTelegram.Schema.IInputUser AdminId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(AdminId);

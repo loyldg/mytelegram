@@ -21,13 +21,9 @@ public sealed partial class TReactions : IReactions
     /// </summary>
     public TVector<MyTelegram.Schema.IReaction> Reactions { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Hash);
         writer.Write(Reactions);

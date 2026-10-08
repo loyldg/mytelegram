@@ -15,13 +15,9 @@ public sealed partial class TExportedGroupCallInvite : IExportedGroupCallInvite
     /// </summary>
     public string Link { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Link);
     }

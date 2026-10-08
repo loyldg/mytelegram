@@ -39,13 +39,9 @@ public sealed partial class RequestSetBotCommands : IRequest<IBool>
     /// </summary>
     public TVector<MyTelegram.Schema.IBotCommand> Commands { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Scope);
         writer.Write(LangCode);

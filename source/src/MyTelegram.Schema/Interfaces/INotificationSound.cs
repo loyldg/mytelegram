@@ -17,6 +17,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TNotificationSoundNone), nameof(TNotificationSoundNone))]
 [JsonDerivedType(typeof(TNotificationSoundLocal), nameof(TNotificationSoundLocal))]
 [JsonDerivedType(typeof(TNotificationSoundRingtone), nameof(TNotificationSoundRingtone))]
-public interface INotificationSound : IObject
+public partial interface INotificationSound : IObject
 {
 }

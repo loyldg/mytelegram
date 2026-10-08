@@ -35,6 +35,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TSecureValueTypeTemporaryRegistration), nameof(TSecureValueTypeTemporaryRegistration))]
 [JsonDerivedType(typeof(TSecureValueTypePhone), nameof(TSecureValueTypePhone))]
 [JsonDerivedType(typeof(TSecureValueTypeEmail), nameof(TSecureValueTypeEmail))]
-public interface ISecureValueType : IObject
+public partial interface ISecureValueType : IObject
 {
 }

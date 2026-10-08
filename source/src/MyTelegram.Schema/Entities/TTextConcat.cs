@@ -16,13 +16,9 @@ public sealed partial class TTextConcat : IRichText
     /// </summary>
     public TVector<MyTelegram.Schema.IRichText> Texts { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Texts);
     }

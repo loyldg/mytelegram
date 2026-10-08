@@ -31,19 +31,21 @@ public sealed partial class TDeepLinkInfo : IDeepLinkInfo
     /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (UpdateApp) { Flags = Flags.SetBit(0); }
-        if (Entities?.Count > 0) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (UpdateApp) { flags = flags.SetBit(0); }
+        if (Entities?.Count > 0) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Message);
-        if (Flags.IsBitSet(1)) { writer.Write(Entities); }
+        if (flags.IsBitSet(1)) { writer.Write(Entities); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

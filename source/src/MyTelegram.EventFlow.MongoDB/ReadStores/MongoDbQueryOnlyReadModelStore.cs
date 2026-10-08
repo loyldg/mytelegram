@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using MyTelegram.EventFlow.ReadStores;
 using System.Linq.Expressions;
+using MongoDB.Bson;
 
 namespace MyTelegram.EventFlow.MongoDB.ReadStores;
 
@@ -57,6 +58,51 @@ public class MongoDbQueryOnlyReadModelStore<TReadModel, TDbContext>(
         return await query
             .Group(keySelector, resultSelector)
             .ToListAsync();
+    }
+
+    public async Task<double> AverageAsync<TKey>(Expression<Func<TReadModel, bool>>? filter, Expression<Func<TReadModel, TKey>> keySelector,
+        Expression<Func<TReadModel, double>> valueSelector,
+        CancellationToken cancellationToken = default)
+    {
+        //var readModelDescription = readModelDescriptionProvider.GetReadModelDescription<TReadModel>();
+        //var collection = GetDatabase().GetCollection<TReadModel>(readModelDescription.RootCollectionName.Value);
+        //var query = collection.Aggregate();
+        //var finalFilter = ApplySoftDeleteFilter(filter);
+        //if (finalFilter != null!)
+        //{
+        //    query = query.Match(finalFilter);
+        //}
+
+        //var result = query.Group(keySelector, g => new { Average = g.Average(valueSelector) });
+
+        //return (await result.FirstOrDefaultAsync(cancellationToken: cancellationToken)).Average;
+
+        var readModelDescription = readModelDescriptionProvider.GetReadModelDescription<TReadModel>();
+        var collection = GetDatabase().GetCollection<TReadModel>(readModelDescription.RootCollectionName.Value);
+
+        var query = collection.Aggregate();
+        var finalFilter = ApplySoftDeleteFilter(filter);
+        if (finalFilter != null)
+        {
+            query = query.Match(finalFilter);
+        }
+
+        var fieldDef = new ExpressionFieldDefinition<TReadModel, double>(valueSelector);
+        var renderedField = fieldDef.Render(new RenderArgs<TReadModel>(
+            collection.DocumentSerializer,
+            collection.Settings.SerializerRegistry));
+
+        var groupStage = new BsonDocument
+        {
+            { "_id", BsonNull.Value },
+            { "Average", new BsonDocument("$avg", "$" + renderedField.FieldName) }
+        };
+
+        var result = await query
+            .Group<BsonDocument>(groupStage)
+            .FirstOrDefaultAsync(cancellationToken);
+
+        return result == null ? 0d : result["Average"].ToDouble();
     }
 
     public Task<IReadOnlyCollection<TReadModel>> FindAsync(Expression<Func<TReadModel, bool>> filter, int skip = 0,
@@ -151,12 +197,20 @@ public class MongoDbQueryOnlyReadModelStore<TReadModel, TDbContext>(
 
         if (sort != null)
         {
-            findOptions.Sort = sort.SortType switch
-            {
-                SortType.None or SortType.Ascending => Builders<T1>.Sort.Ascending(sort.Sort),
-                SortType.Descending => Builders<T1>.Sort.Descending(sort.Sort),
-                _ => throw new ArgumentOutOfRangeException()
-            };
+            var allSorts = sort.GetAll();
+
+            var sortDefinitions = allSorts.Select(s =>
+                s.SortType switch
+                {
+                    SortType.None or SortType.Ascending =>
+                        Builders<T1>.Sort.Ascending(s.Sort),
+
+                    SortType.Descending =>
+                        Builders<T1>.Sort.Descending(s.Sort),
+
+                    _ => throw new ArgumentOutOfRangeException()
+                }).ToList();
+            findOptions.Sort = Builders<T1>.Sort.Combine(sortDefinitions);
         }
 
         return findOptions;

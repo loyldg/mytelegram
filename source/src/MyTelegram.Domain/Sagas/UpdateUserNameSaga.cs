@@ -22,7 +22,7 @@ public class UpdateUserNameSaga(UpdateUserNameSagaId id, IEventStore eventStore)
             Publish(command);
         }
 
-       return CompleteAsync();
+        return CompleteAsync(cancellationToken);
     }
 
     public Task HandleAsync(IDomainEvent<UserAggregate, UserId, UserNameUpdatedEvent> domainEvent,
@@ -35,7 +35,7 @@ public class UpdateUserNameSaga(UpdateUserNameSagaId id, IEventStore eventStore)
             Publish(command);
         }
 
-        return CompleteAsync();
+        return CompleteAsync(cancellationToken);
     }
 
     public Task HandleAsync(IDomainEvent<UserNameAggregate, UserNameId, UserNameChangedEvent> domainEvent, ISagaContext sagaContext, CancellationToken cancellationToken)
@@ -45,7 +45,7 @@ public class UpdateUserNameSaga(UpdateUserNameSagaId id, IEventStore eventStore)
             case PeerType.User:
                 {
                     var command = new UpdateUserNameCommand2(UserId.Create(domainEvent.AggregateEvent.Peer.PeerId),
-                        domainEvent.AggregateEvent.RequestInfo,
+                        domainEvent.AggregateEvent.RequestInfo with { ReqMsgId = Random.Shared.NextInt64() },
                         domainEvent.AggregateEvent.UserName ?? string.Empty
                     );
                     Publish(command);

@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TEmailVerifyPurposePassport : IEmailVerifyPurpose
 {
     public uint ConstructorId => 0xbbf51685;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

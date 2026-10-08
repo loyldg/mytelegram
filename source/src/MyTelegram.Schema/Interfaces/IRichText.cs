@@ -24,6 +24,21 @@ namespace MyTelegram.Schema;
 /// <see cref="TTextPhone"/> See <a href="https://corefork.telegram.org/constructor/textPhone" /><br/>
 /// <see cref="TTextImage"/> See <a href="https://corefork.telegram.org/constructor/textImage" /><br/>
 /// <see cref="TTextAnchor"/> See <a href="https://corefork.telegram.org/constructor/textAnchor" /><br/>
+/// <see cref="TTextMath"/> See <a href="" /><br/>
+/// <see cref="TTextCustomEmoji"/> See <a href="" /><br/>
+/// <see cref="TTextSpoiler"/> See <a href="" /><br/>
+/// <see cref="TTextMention"/> See <a href="" /><br/>
+/// <see cref="TTextHashtag"/> See <a href="" /><br/>
+/// <see cref="TTextBotCommand"/> See <a href="" /><br/>
+/// <see cref="TTextCashtag"/> See <a href="" /><br/>
+/// <see cref="TTextAutoUrl"/> See <a href="" /><br/>
+/// <see cref="TTextAutoEmail"/> See <a href="" /><br/>
+/// <see cref="TTextAutoPhone"/> See <a href="" /><br/>
+/// <see cref="TTextBankCard"/> See <a href="" /><br/>
+/// <see cref="TTextMentionName"/> See <a href="" /><br/>
+/// <see cref="TTextDate"/> See <a href="" /><br/>
+/// <see cref="TTextDiff"/> See <a href="" /><br/>
+/// <see cref="TTextButton"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TTextEmpty), nameof(TTextEmpty))]
 [JsonDerivedType(typeof(TTextPlain), nameof(TTextPlain))]
@@ -41,6 +56,21 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TTextPhone), nameof(TTextPhone))]
 [JsonDerivedType(typeof(TTextImage), nameof(TTextImage))]
 [JsonDerivedType(typeof(TTextAnchor), nameof(TTextAnchor))]
-public interface IRichText : IObject
+[JsonDerivedType(typeof(TTextMath), nameof(TTextMath))]
+[JsonDerivedType(typeof(TTextCustomEmoji), nameof(TTextCustomEmoji))]
+[JsonDerivedType(typeof(TTextSpoiler), nameof(TTextSpoiler))]
+[JsonDerivedType(typeof(TTextMention), nameof(TTextMention))]
+[JsonDerivedType(typeof(TTextHashtag), nameof(TTextHashtag))]
+[JsonDerivedType(typeof(TTextBotCommand), nameof(TTextBotCommand))]
+[JsonDerivedType(typeof(TTextCashtag), nameof(TTextCashtag))]
+[JsonDerivedType(typeof(TTextAutoUrl), nameof(TTextAutoUrl))]
+[JsonDerivedType(typeof(TTextAutoEmail), nameof(TTextAutoEmail))]
+[JsonDerivedType(typeof(TTextAutoPhone), nameof(TTextAutoPhone))]
+[JsonDerivedType(typeof(TTextBankCard), nameof(TTextBankCard))]
+[JsonDerivedType(typeof(TTextMentionName), nameof(TTextMentionName))]
+[JsonDerivedType(typeof(TTextDate), nameof(TTextDate))]
+[JsonDerivedType(typeof(TTextDiff), nameof(TTextDiff))]
+[JsonDerivedType(typeof(TTextButton), nameof(TTextButton))]
+public partial interface IRichText : IObject
 {
 }

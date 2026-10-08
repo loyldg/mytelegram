@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TUpdateFavedStickers : IUpdate
 {
     public uint ConstructorId => 0xe511996d;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

@@ -1,8 +1,10 @@
-﻿using System.Text.Json;
+﻿using EventFlow.Subscribers;
+using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace MyTelegram.EventFlow.Extensions;
+
 public static class MyEventFlowExtensions
 {
     public static IServiceCollection AddMyEventFlow(this IServiceCollection services)
@@ -14,8 +16,8 @@ public static class MyEventFlowExtensions
 
         services.AddTransient<ISnapshotStore, SnapshotWithInMemoryCacheStore>();
         services.AddSingleton<IMyInMemorySnapshotPersistence, MyInMemorySnapshotPersistence>();
-
         services.AddSingleton<IQueryFilterScope, QueryFilterScope>();
+        services.AddSingleton<IDispatchToEventSubscribers, MyDispatchToEventSubscribers>();
 
         return services;
     }

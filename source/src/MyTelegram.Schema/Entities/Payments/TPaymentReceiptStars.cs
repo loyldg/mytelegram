@@ -68,21 +68,23 @@ public sealed partial class TPaymentReceiptStars : IPaymentReceipt
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Photo != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Photo != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Date);
         writer.Write(BotId);
         writer.Write(Title);
         writer.Write(Description);
-        if (Flags.IsBitSet(2)) { writer.Write(Photo); }
+        if (flags.IsBitSet(2)) { writer.Write(Photo); }
         writer.Write(Invoice);
         writer.Write(Currency);
         writer.Write(TotalAmount);

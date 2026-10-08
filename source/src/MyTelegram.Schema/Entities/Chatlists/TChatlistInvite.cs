@@ -49,19 +49,21 @@ public sealed partial class TChatlistInvite : IChatlistInvite
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (TitleNoanimate) { Flags = Flags.SetBit(1); }
-        if (Emoticon != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (TitleNoanimate) { flags = flags.SetBit(1); }
+        if (Emoticon != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Title);
-        if (Flags.IsBitSet(0)) { writer.Write(Emoticon); }
+        if (flags.IsBitSet(0)) { writer.Write(Emoticon); }
         writer.Write(Peers);
         writer.Write(Chats);
         writer.Write(Users);

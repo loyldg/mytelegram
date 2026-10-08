@@ -5,13 +5,25 @@ namespace MyTelegram.Schema.E2e;
 
 
 [TlObject(0xd1512ae7)]
-public sealed class TGroupBroadcastNonceCommit : IGroupBroadcast
+public sealed partial class TGroupBroadcastNonceCommit : IGroupBroadcast
 {
     public uint ConstructorId => 0xd1512ae7;
+
+    /// <summary>
+    /// int512
+    /// </summary>
     public ReadOnlyMemory<byte> Signature { get; set; }
     public long UserId { get; set; }
     public int ChainHeight { get; set; }
+
+    /// <summary>
+    /// int256
+    /// </summary>
     public ReadOnlyMemory<byte> ChainHash { get; set; }
+
+    /// <summary>
+    /// int256
+    /// </summary>
     public ReadOnlyMemory<byte> NonceHash { get; set; }
 
     public void ComputeFlag()

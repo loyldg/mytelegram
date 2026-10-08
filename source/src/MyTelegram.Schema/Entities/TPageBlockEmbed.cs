@@ -56,27 +56,29 @@ public sealed partial class TPageBlockEmbed : IPageBlock
     /// </summary>
     public MyTelegram.Schema.IPageCaption Caption { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (FullWidth) { Flags = Flags.SetBit(0); }
-        if (AllowScrolling) { Flags = Flags.SetBit(3); }
-        if (Url != null) { Flags = Flags.SetBit(1); }
-        if (Html != null) { Flags = Flags.SetBit(2); }
-        if (/*PosterPhotoId != 0 &&*/ PosterPhotoId.HasValue) { Flags = Flags.SetBit(4); }
-        if (/*W != 0 && */W.HasValue) { Flags = Flags.SetBit(5); }
-        if (/*H != 0 && */H.HasValue) { Flags = Flags.SetBit(5); }
+        var flags = 0;
+        if (FullWidth) { flags = flags.SetBit(0); }
+        if (AllowScrolling) { flags = flags.SetBit(3); }
+        if (Url != null) { flags = flags.SetBit(1); }
+        if (Html != null) { flags = flags.SetBit(2); }
+        if (/*PosterPhotoId != 0 &&*/ PosterPhotoId.HasValue) { flags = flags.SetBit(4); }
+        if (/*W != 0 && */W.HasValue) { flags = flags.SetBit(5); }
+        if (/*H != 0 && */H.HasValue) { flags = flags.SetBit(5); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(1)) { writer.Write(Url); }
-        if (Flags.IsBitSet(2)) { writer.Write(Html); }
-        if (Flags.IsBitSet(4)) { writer.Write(PosterPhotoId.Value); }
-        if (Flags.IsBitSet(5)) { writer.Write(W.Value); }
-        if (Flags.IsBitSet(5)) { writer.Write(H.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(1)) { writer.Write(Url); }
+        if (flags.IsBitSet(2)) { writer.Write(Html); }
+        if (flags.IsBitSet(4)) { writer.Write(PosterPhotoId.Value); }
+        if (flags.IsBitSet(5)) { writer.Write(W.Value); }
+        if (flags.IsBitSet(5)) { writer.Write(H.Value); }
         writer.Write(Caption);
     }
 

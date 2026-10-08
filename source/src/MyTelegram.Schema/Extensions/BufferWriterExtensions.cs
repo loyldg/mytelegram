@@ -187,6 +187,23 @@ public static class BufferWriterExtensions
         writer.Advance(size);
     }
 
+    public static void Write(
+        this IBufferWriter<byte> writer,
+        decimal value)
+    {
+        const int size = 16;
+
+        var span = writer.GetSpan(size);
+        var bits = decimal.GetBits(value);
+
+        BinaryPrimitives.WriteInt32LittleEndian(span, bits[0]);
+        BinaryPrimitives.WriteInt32LittleEndian(span.Slice(4), bits[1]);
+        BinaryPrimitives.WriteInt32LittleEndian(span.Slice(8), bits[2]);
+        BinaryPrimitives.WriteInt32LittleEndian(span.Slice(12), bits[3]);
+
+        writer.Advance(size);
+    }
+
     public static void Write(this IBufferWriter<byte> writer, Guid value)
     {
         const int size = 16;

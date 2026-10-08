@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Stats;
 /// <see cref="TStoryStats"/> See <a href="https://corefork.telegram.org/constructor/stats.storyStats" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStoryStats), nameof(TStoryStats))]
-public interface IStoryStats : IObject
+public partial interface IStoryStats : IObject
 {
     /// <summary>
     /// A graph containing the number of story views and shares

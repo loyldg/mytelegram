@@ -22,13 +22,9 @@ public sealed partial class RequestGetUniqueStarGift : IRequest<MyTelegram.Schem
     /// </summary>
     public string Slug { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Slug);
     }

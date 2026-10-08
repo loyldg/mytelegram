@@ -46,17 +46,19 @@ public sealed partial class RequestExportMessageLink : IRequest<MyTelegram.Schem
     /// </summary>
     public int Id { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Grouped) { Flags = Flags.SetBit(0); }
-        if (Thread) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Grouped) { flags = flags.SetBit(0); }
+        if (Thread) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Channel);
         writer.Write(Id);
     }

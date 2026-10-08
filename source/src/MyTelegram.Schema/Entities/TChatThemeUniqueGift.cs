@@ -22,13 +22,9 @@ public sealed partial class TChatThemeUniqueGift : IChatTheme
     /// </summary>
     public TVector<MyTelegram.Schema.IThemeSettings> ThemeSettings { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Gift);
         writer.Write(ThemeSettings);

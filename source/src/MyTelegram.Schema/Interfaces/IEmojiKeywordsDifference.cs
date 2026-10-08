@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TEmojiKeywordsDifference"/> See <a href="https://corefork.telegram.org/constructor/emojiKeywordsDifference" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TEmojiKeywordsDifference), nameof(TEmojiKeywordsDifference))]
-public interface IEmojiKeywordsDifference : IObject
+public partial interface IEmojiKeywordsDifference : IObject
 {
     /// <summary>
     /// Language code for keywords

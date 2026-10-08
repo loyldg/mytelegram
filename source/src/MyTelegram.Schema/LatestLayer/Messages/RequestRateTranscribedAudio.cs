@@ -36,13 +36,9 @@ public sealed partial class RequestRateTranscribedAudio : IRequest<IBool>
     /// </summary>
     public bool Good { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(MsgId);

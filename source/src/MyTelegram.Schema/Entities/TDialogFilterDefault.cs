@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TDialogFilterDefault : IDialogFilter
 {
     public uint ConstructorId => 0x363293ae;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

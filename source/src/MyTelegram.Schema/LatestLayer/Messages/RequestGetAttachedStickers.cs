@@ -23,13 +23,9 @@ public sealed partial class RequestGetAttachedStickers : IRequest<TVector<MyTele
     /// </summary>
     public MyTelegram.Schema.IInputStickeredMedia Media { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Media);
     }

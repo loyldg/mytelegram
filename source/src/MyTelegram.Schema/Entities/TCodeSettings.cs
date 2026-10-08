@@ -61,27 +61,29 @@ public sealed partial class TCodeSettings : ICodeSettings
     /// </summary>
     public bool? AppSandbox { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (AllowFlashcall) { Flags = Flags.SetBit(0); }
-        if (CurrentNumber) { Flags = Flags.SetBit(1); }
-        if (AllowAppHash) { Flags = Flags.SetBit(4); }
-        if (AllowMissedCall) { Flags = Flags.SetBit(5); }
-        if (AllowFirebase) { Flags = Flags.SetBit(7); }
-        if (UnknownNumber) { Flags = Flags.SetBit(9); }
-        if (LogoutTokens?.Count > 0) { Flags = Flags.SetBit(6); }
-        if (Token != null) { Flags = Flags.SetBit(8); }
-        if (AppSandbox != null) { Flags = Flags.SetBit(8); }
+        var flags = 0;
+        if (AllowFlashcall) { flags = flags.SetBit(0); }
+        if (CurrentNumber) { flags = flags.SetBit(1); }
+        if (AllowAppHash) { flags = flags.SetBit(4); }
+        if (AllowMissedCall) { flags = flags.SetBit(5); }
+        if (AllowFirebase) { flags = flags.SetBit(7); }
+        if (UnknownNumber) { flags = flags.SetBit(9); }
+        if (LogoutTokens?.Count > 0) { flags = flags.SetBit(6); }
+        if (Token != null) { flags = flags.SetBit(8); }
+        if (AppSandbox != null) { flags = flags.SetBit(8); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(6)) { writer.Write(LogoutTokens); }
-        if (Flags.IsBitSet(8)) { writer.Write(Token); }
-        if (Flags.IsBitSet(8)) { writer.Write(AppSandbox.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(6)) { writer.Write(LogoutTokens); }
+        if (flags.IsBitSet(8)) { writer.Write(Token); }
+        if (flags.IsBitSet(8)) { writer.Write(AppSandbox.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

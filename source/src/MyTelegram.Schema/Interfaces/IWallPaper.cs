@@ -13,7 +13,7 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TWallPaper), nameof(TWallPaper))]
 [JsonDerivedType(typeof(TWallPaperNoFile), nameof(TWallPaperNoFile))]
-public interface IWallPaper : IObject
+public partial interface IWallPaper : IObject
 {
     /// <summary>
     /// Wallpaper ID

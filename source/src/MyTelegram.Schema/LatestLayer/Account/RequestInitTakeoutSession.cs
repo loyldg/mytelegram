@@ -57,23 +57,25 @@ public sealed partial class RequestInitTakeoutSession : IRequest<MyTelegram.Sche
     /// </summary>
     public long? FileMaxSize { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Contacts) { Flags = Flags.SetBit(0); }
-        if (MessageUsers) { Flags = Flags.SetBit(1); }
-        if (MessageChats) { Flags = Flags.SetBit(2); }
-        if (MessageMegagroups) { Flags = Flags.SetBit(3); }
-        if (MessageChannels) { Flags = Flags.SetBit(4); }
-        if (Files) { Flags = Flags.SetBit(5); }
-        if (/*FileMaxSize != 0 &&*/ FileMaxSize.HasValue) { Flags = Flags.SetBit(5); }
+        var flags = 0;
+        if (Contacts) { flags = flags.SetBit(0); }
+        if (MessageUsers) { flags = flags.SetBit(1); }
+        if (MessageChats) { flags = flags.SetBit(2); }
+        if (MessageMegagroups) { flags = flags.SetBit(3); }
+        if (MessageChannels) { flags = flags.SetBit(4); }
+        if (Files) { flags = flags.SetBit(5); }
+        if (/*FileMaxSize != 0 &&*/ FileMaxSize.HasValue) { flags = flags.SetBit(5); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(5)) { writer.Write(FileMaxSize.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(5)) { writer.Write(FileMaxSize.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -14,13 +14,9 @@ public sealed partial class RequestGetNearestDc : IRequest<MyTelegram.Schema.INe
 {
     public uint ConstructorId => 0x1fb33026;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

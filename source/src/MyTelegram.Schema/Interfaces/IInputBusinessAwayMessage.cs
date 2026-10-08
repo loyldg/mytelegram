@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputBusinessAwayMessage"/> See <a href="https://corefork.telegram.org/constructor/inputBusinessAwayMessage" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputBusinessAwayMessage), nameof(TInputBusinessAwayMessage))]
-public interface IInputBusinessAwayMessage : IObject
+public partial interface IInputBusinessAwayMessage : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

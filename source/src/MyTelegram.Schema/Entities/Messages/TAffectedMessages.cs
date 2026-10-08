@@ -20,13 +20,9 @@ public sealed partial class TAffectedMessages : IAffectedMessages
     /// </summary>
     public int PtsCount { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Pts);
         writer.Write(PtsCount);

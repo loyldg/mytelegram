@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TExportedChatlistInvite"/> See <a href="https://corefork.telegram.org/constructor/exportedChatlistInvite" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TExportedChatlistInvite), nameof(TExportedChatlistInvite))]
-public interface IExportedChatlistInvite : IObject
+public partial interface IExportedChatlistInvite : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

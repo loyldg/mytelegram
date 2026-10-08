@@ -19,13 +19,9 @@ public sealed partial class RequestReceivedMessages : IRequest<TVector<MyTelegra
     /// </summary>
     public int MaxId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(MaxId);
     }

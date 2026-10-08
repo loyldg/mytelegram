@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Stories;
 /// <see cref="TStoryViews"/> See <a href="https://corefork.telegram.org/constructor/stories.storyViews" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStoryViews), nameof(TStoryViews))]
-public interface IStoryViews : IObject
+public partial interface IStoryViews : IObject
 {
     /// <summary>
     /// View date and reaction information of multiple stories

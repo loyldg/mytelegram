@@ -30,13 +30,9 @@ public sealed partial class TPrepaidGiveaway : IPrepaidGiveaway
     /// </summary>
     public int Date { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
         writer.Write(Months);

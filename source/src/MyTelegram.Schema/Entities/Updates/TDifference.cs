@@ -46,13 +46,9 @@ public sealed partial class TDifference : IDifference
     /// </summary>
     public MyTelegram.Schema.Updates.IState State { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(NewMessages);
         writer.Write(NewEncryptedMessages);

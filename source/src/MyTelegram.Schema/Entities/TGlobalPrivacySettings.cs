@@ -56,25 +56,27 @@ public sealed partial class TGlobalPrivacySettings : IGlobalPrivacySettings
     /// </summary>
     public MyTelegram.Schema.IDisallowedGiftsSettings? DisallowedGifts { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ArchiveAndMuteNewNoncontactPeers) { Flags = Flags.SetBit(0); }
-        if (KeepArchivedUnmuted) { Flags = Flags.SetBit(1); }
-        if (KeepArchivedFolders) { Flags = Flags.SetBit(2); }
-        if (HideReadMarks) { Flags = Flags.SetBit(3); }
-        if (NewNoncontactPeersRequirePremium) { Flags = Flags.SetBit(4); }
-        if (DisplayGiftsButton) { Flags = Flags.SetBit(7); }
-        if (/*NoncontactPeersPaidStars != 0 &&*/ NoncontactPeersPaidStars.HasValue) { Flags = Flags.SetBit(5); }
-        if (DisallowedGifts != null) { Flags = Flags.SetBit(6); }
+        var flags = 0;
+        if (ArchiveAndMuteNewNoncontactPeers) { flags = flags.SetBit(0); }
+        if (KeepArchivedUnmuted) { flags = flags.SetBit(1); }
+        if (KeepArchivedFolders) { flags = flags.SetBit(2); }
+        if (HideReadMarks) { flags = flags.SetBit(3); }
+        if (NewNoncontactPeersRequirePremium) { flags = flags.SetBit(4); }
+        if (DisplayGiftsButton) { flags = flags.SetBit(7); }
+        if (/*NoncontactPeersPaidStars != 0 &&*/ NoncontactPeersPaidStars.HasValue) { flags = flags.SetBit(5); }
+        if (DisallowedGifts != null) { flags = flags.SetBit(6); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(5)) { writer.Write(NoncontactPeersPaidStars.Value); }
-        if (Flags.IsBitSet(6)) { writer.Write(DisallowedGifts); }
+        writer.Write(flags);
+        if (flags.IsBitSet(5)) { writer.Write(NoncontactPeersPaidStars.Value); }
+        if (flags.IsBitSet(6)) { writer.Write(DisallowedGifts); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

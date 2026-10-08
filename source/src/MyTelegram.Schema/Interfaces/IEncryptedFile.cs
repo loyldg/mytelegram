@@ -13,6 +13,6 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TEncryptedFileEmpty), nameof(TEncryptedFileEmpty))]
 [JsonDerivedType(typeof(TEncryptedFile), nameof(TEncryptedFile))]
-public interface IEncryptedFile : IObject
+public partial interface IEncryptedFile : IObject
 {
 }

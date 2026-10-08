@@ -60,31 +60,33 @@ public sealed partial class TWallPaperSettings : IWallPaperSettings
     /// </summary>
     public string? Emoticon { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Blur) { Flags = Flags.SetBit(1); }
-        if (Motion) { Flags = Flags.SetBit(2); }
-        if (/*BackgroundColor != 0 && */BackgroundColor.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*SecondBackgroundColor != 0 && */SecondBackgroundColor.HasValue) { Flags = Flags.SetBit(4); }
-        if (/*ThirdBackgroundColor != 0 && */ThirdBackgroundColor.HasValue) { Flags = Flags.SetBit(5); }
-        if (/*FourthBackgroundColor != 0 && */FourthBackgroundColor.HasValue) { Flags = Flags.SetBit(6); }
-        if (/*Intensity != 0 && */Intensity.HasValue) { Flags = Flags.SetBit(3); }
-        if (/*Rotation != 0 && */Rotation.HasValue) { Flags = Flags.SetBit(4); }
-        if (Emoticon != null) { Flags = Flags.SetBit(7); }
+        var flags = 0;
+        if (Blur) { flags = flags.SetBit(1); }
+        if (Motion) { flags = flags.SetBit(2); }
+        if (/*BackgroundColor != 0 && */BackgroundColor.HasValue) { flags = flags.SetBit(0); }
+        if (/*SecondBackgroundColor != 0 && */SecondBackgroundColor.HasValue) { flags = flags.SetBit(4); }
+        if (/*ThirdBackgroundColor != 0 && */ThirdBackgroundColor.HasValue) { flags = flags.SetBit(5); }
+        if (/*FourthBackgroundColor != 0 && */FourthBackgroundColor.HasValue) { flags = flags.SetBit(6); }
+        if (/*Intensity != 0 && */Intensity.HasValue) { flags = flags.SetBit(3); }
+        if (/*Rotation != 0 && */Rotation.HasValue) { flags = flags.SetBit(4); }
+        if (Emoticon != null) { flags = flags.SetBit(7); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(BackgroundColor.Value); }
-        if (Flags.IsBitSet(4)) { writer.Write(SecondBackgroundColor.Value); }
-        if (Flags.IsBitSet(5)) { writer.Write(ThirdBackgroundColor.Value); }
-        if (Flags.IsBitSet(6)) { writer.Write(FourthBackgroundColor.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(Intensity.Value); }
-        if (Flags.IsBitSet(4)) { writer.Write(Rotation.Value); }
-        if (Flags.IsBitSet(7)) { writer.Write(Emoticon); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(BackgroundColor.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(SecondBackgroundColor.Value); }
+        if (flags.IsBitSet(5)) { writer.Write(ThirdBackgroundColor.Value); }
+        if (flags.IsBitSet(6)) { writer.Write(FourthBackgroundColor.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(Intensity.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(Rotation.Value); }
+        if (flags.IsBitSet(7)) { writer.Write(Emoticon); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

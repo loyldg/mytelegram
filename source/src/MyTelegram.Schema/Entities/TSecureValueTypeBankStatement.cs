@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TSecureValueTypeBankStatement : ISecureValueType
 {
     public uint ConstructorId => 0x89137c0d;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

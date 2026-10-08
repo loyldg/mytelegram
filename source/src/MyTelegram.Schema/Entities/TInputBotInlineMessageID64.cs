@@ -30,13 +30,9 @@ public sealed partial class TInputBotInlineMessageID64 : IInputBotInlineMessageI
     /// </summary>
     public long AccessHash { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(DcId);
         writer.Write(OwnerId);

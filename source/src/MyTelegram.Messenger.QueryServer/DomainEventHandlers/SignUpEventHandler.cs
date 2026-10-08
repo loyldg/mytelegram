@@ -3,7 +3,7 @@
 public class SignUpEventHandler(
     ICacheManager<UserCacheItem> cacheManager,
     ILogger<SignUpEventHandler> logger)
-    : ISubscribeSynchronousTo<UserAggregate, UserId, UserCreatedEvent>
+    : ISubscribeAsynchronousTo<UserAggregate, UserId, UserCreatedEvent>
 {
     public async Task HandleAsync(IDomainEvent<UserAggregate, UserId, UserCreatedEvent> domainEvent,
         CancellationToken cancellationToken)

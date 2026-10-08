@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TPaymentSavedCredentialsCard"/> See <a href="https://corefork.telegram.org/constructor/paymentSavedCredentialsCard" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPaymentSavedCredentialsCard), nameof(TPaymentSavedCredentialsCard))]
-public interface IPaymentSavedCredentials : IObject
+public partial interface IPaymentSavedCredentials : IObject
 {
     /// <summary>
     /// Card ID

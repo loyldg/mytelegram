@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Payments;
 /// <see cref="TSavedStarGifts"/> See <a href="https://corefork.telegram.org/constructor/payments.savedStarGifts" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TSavedStarGifts), nameof(TSavedStarGifts))]
-public interface ISavedStarGifts : IObject
+public partial interface ISavedStarGifts : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

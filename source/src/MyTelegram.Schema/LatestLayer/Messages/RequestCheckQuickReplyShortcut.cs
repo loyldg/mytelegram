@@ -22,13 +22,9 @@ public sealed partial class RequestCheckQuickReplyShortcut : IRequest<IBool>
     /// </summary>
     public string Shortcut { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Shortcut);
     }

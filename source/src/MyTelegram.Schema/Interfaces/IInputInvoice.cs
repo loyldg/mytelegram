@@ -18,11 +18,11 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputInvoiceStarGiftTransfer"/> See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftTransfer" /><br/>
 /// <see cref="TInputInvoicePremiumGiftStars"/> See <a href="https://corefork.telegram.org/constructor/inputInvoicePremiumGiftStars" /><br/>
 /// <see cref="TInputInvoiceBusinessBotTransferStars"/> See <a href="https://corefork.telegram.org/constructor/inputInvoiceBusinessBotTransferStars" /><br/>
-/// <see cref="TInputInvoiceStarGiftResale"/> See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftResale" /><br/>
 /// <see cref="TInputInvoiceStarGiftPrepaidUpgrade"/> See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftPrepaidUpgrade" /><br/>
 /// <see cref="TInputInvoicePremiumAuthCode"/> See <a href="https://corefork.telegram.org/constructor/inputInvoicePremiumAuthCode" /><br/>
 /// <see cref="TInputInvoiceStarGiftDropOriginalDetails"/> See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftDropOriginalDetails" /><br/>
 /// <see cref="TInputInvoiceStarGiftAuctionBid"/> See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftAuctionBid" /><br/>
+/// <see cref="TInputInvoiceStarGiftResale"/> See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftResale" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputInvoiceMessage), nameof(TInputInvoiceMessage))]
 [JsonDerivedType(typeof(TInputInvoiceSlug), nameof(TInputInvoiceSlug))]
@@ -34,11 +34,11 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputInvoiceStarGiftTransfer), nameof(TInputInvoiceStarGiftTransfer))]
 [JsonDerivedType(typeof(TInputInvoicePremiumGiftStars), nameof(TInputInvoicePremiumGiftStars))]
 [JsonDerivedType(typeof(TInputInvoiceBusinessBotTransferStars), nameof(TInputInvoiceBusinessBotTransferStars))]
-[JsonDerivedType(typeof(TInputInvoiceStarGiftResale), nameof(TInputInvoiceStarGiftResale))]
 [JsonDerivedType(typeof(TInputInvoiceStarGiftPrepaidUpgrade), nameof(TInputInvoiceStarGiftPrepaidUpgrade))]
 [JsonDerivedType(typeof(TInputInvoicePremiumAuthCode), nameof(TInputInvoicePremiumAuthCode))]
 [JsonDerivedType(typeof(TInputInvoiceStarGiftDropOriginalDetails), nameof(TInputInvoiceStarGiftDropOriginalDetails))]
 [JsonDerivedType(typeof(TInputInvoiceStarGiftAuctionBid), nameof(TInputInvoiceStarGiftAuctionBid))]
-public interface IInputInvoice : IObject
+[JsonDerivedType(typeof(TInputInvoiceStarGiftResale), nameof(TInputInvoiceStarGiftResale))]
+public partial interface IInputInvoice : IObject
 {
 }

@@ -24,13 +24,9 @@ public sealed partial class RequestGetTopReactions : IRequest<MyTelegram.Schema.
     /// </summary>
     public long Hash { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Limit);
         writer.Write(Hash);

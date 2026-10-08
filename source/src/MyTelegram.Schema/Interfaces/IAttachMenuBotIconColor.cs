@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TAttachMenuBotIconColor"/> See <a href="https://corefork.telegram.org/constructor/attachMenuBotIconColor" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TAttachMenuBotIconColor), nameof(TAttachMenuBotIconColor))]
-public interface IAttachMenuBotIconColor : IObject
+public partial interface IAttachMenuBotIconColor : IObject
 {
     /// <summary>
     /// One of the following values: <br/><code>light_icon</code> - Color of the attachment menu icon (light mode) <br/><code>light_text</code> - Color of the attachment menu label, once selected (light mode) <br/><code>dark_icon</code> - Color of the attachment menu icon (dark mode) <br/><code>dark_text</code> - Color of the attachment menu label, once selected (dark mode)

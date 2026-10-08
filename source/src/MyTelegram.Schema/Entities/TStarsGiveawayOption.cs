@@ -56,21 +56,23 @@ public sealed partial class TStarsGiveawayOption : IStarsGiveawayOption
     /// </summary>
     public TVector<MyTelegram.Schema.IStarsGiveawayWinnersOption> Winners { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Extended) { Flags = Flags.SetBit(0); }
-        if (Default) { Flags = Flags.SetBit(1); }
-        if (StoreProduct != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Extended) { flags = flags.SetBit(0); }
+        if (Default) { flags = flags.SetBit(1); }
+        if (StoreProduct != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Stars);
         writer.Write(YearlyBoosts);
-        if (Flags.IsBitSet(2)) { writer.Write(StoreProduct); }
+        if (flags.IsBitSet(2)) { writer.Write(StoreProduct); }
         writer.Write(Currency);
         writer.Write(Amount);
         writer.Write(Winners);

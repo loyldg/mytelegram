@@ -20,13 +20,9 @@ public sealed partial class TMessageActionGameScore : IMessageAction
     /// </summary>
     public int Score { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(GameId);
         writer.Write(Score);

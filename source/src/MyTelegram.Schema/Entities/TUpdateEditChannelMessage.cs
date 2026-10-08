@@ -26,13 +26,9 @@ public sealed partial class TUpdateEditChannelMessage : IUpdate
     /// </summary>
     public int PtsCount { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Message);
         writer.Write(Pts);

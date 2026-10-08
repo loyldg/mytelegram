@@ -15,13 +15,9 @@ public sealed partial class TMessageActionChatDeleteUser : IMessageAction
     /// </summary>
     public long UserId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(UserId);
     }

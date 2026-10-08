@@ -10,8 +10,14 @@ namespace MyTelegram.Schema;
 public sealed partial class TStarGiftAttributeModel : IStarGiftAttribute
 {
     public uint ConstructorId => 0x565251e2;
+    /// <summary>
+    /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
+    /// </summary>
     public int Flags { get; set; }
 
+    /// <summary>
+    ///  
+    /// </summary>
     public bool Crafted { get; set; }
 
     /// <summary>
@@ -26,15 +32,18 @@ public sealed partial class TStarGiftAttributeModel : IStarGiftAttribute
     public MyTelegram.Schema.IDocument Document { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGiftAttributeRarity" />
     /// </summary>
     public MyTelegram.Schema.IStarGiftAttributeRarity Rarity { get; set; }
 
     public int RarityPermille { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Crafted) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Crafted) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -43,9 +52,10 @@ public sealed partial class TStarGiftAttributeModel : IStarGiftAttribute
         {
             Rarity = new TStarGiftAttributeRarity { Permille = RarityPermille };
         }
-        ComputeFlag();
+
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Name);
         writer.Write(Document);
         writer.Write(Rarity);

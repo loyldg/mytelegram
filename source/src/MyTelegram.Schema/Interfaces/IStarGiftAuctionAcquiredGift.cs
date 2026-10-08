@@ -10,7 +10,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TStarGiftAuctionAcquiredGift"/> See <a href="https://corefork.telegram.org/constructor/starGiftAuctionAcquiredGift" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStarGiftAuctionAcquiredGift), nameof(TStarGiftAuctionAcquiredGift))]
-public interface IStarGiftAuctionAcquiredGift : IObject
+public partial interface IStarGiftAuctionAcquiredGift : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

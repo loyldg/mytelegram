@@ -53,21 +53,23 @@ public sealed partial class TPaymentFormStars : IPaymentForm
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Photo != null) { Flags = Flags.SetBit(5); }
+        var flags = 0;
+        if (Photo != null) { flags = flags.SetBit(5); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(FormId);
         writer.Write(BotId);
         writer.Write(Title);
         writer.Write(Description);
-        if (Flags.IsBitSet(5)) { writer.Write(Photo); }
+        if (flags.IsBitSet(5)) { writer.Write(Photo); }
         writer.Write(Invoice);
         writer.Write(Users);
     }

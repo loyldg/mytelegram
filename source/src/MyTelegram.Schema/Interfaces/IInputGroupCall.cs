@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputGroupCall), nameof(TInputGroupCall))]
 [JsonDerivedType(typeof(TInputGroupCallSlug), nameof(TInputGroupCallSlug))]
 [JsonDerivedType(typeof(TInputGroupCallInviteMessage), nameof(TInputGroupCallInviteMessage))]
-public interface IInputGroupCall : IObject
+public partial interface IInputGroupCall : IObject
 {
 }

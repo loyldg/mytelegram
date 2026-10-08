@@ -6,7 +6,7 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
 {
     public ChannelAggregateTests()
     {
-        Fixture.Customize<ChannelId>(x => x.FromFactory(() => ChannelId.Create(MyTelegramConsts.ChannelInitId + 1)));
+        Fixture.Customize<ChannelId>(x => x.FromFactory(() => ChannelId.Create(MyTelegramConsts.ChannelIdBase + 1)));
     }
 
     [Fact]
@@ -146,7 +146,7 @@ public class ChannelAggregateTests : TestsFor<ChannelAggregate>
             true,
             true,
             true,
-            true, true, true, true, true, true, true, true,
+            true, true, true, true, true, true, true, true, true, true, true,
             int.MaxValue);
         Sut.EditChannelDefaultBannedRights(requestInfo, bannedWriteMessageRights, creatorId);
 

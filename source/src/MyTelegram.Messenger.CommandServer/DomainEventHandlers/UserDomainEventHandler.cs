@@ -11,7 +11,7 @@ public class UserDomainEventHandler(
     IOptionsMonitor<MyTelegramMessengerServerOptions> options,
     IRandomHelper randomHelper)
     : DomainEventHandlerBase(objectMessageSender, commandBus, idGenerator, ackCacheService),
-        ISubscribeSynchronousTo<UserAggregate, UserId, UserCreatedEvent>
+        ISubscribeAsynchronousTo<UserAggregate, UserId, UserCreatedEvent>
 {
     private readonly ICommandBus _commandBus = commandBus;
 

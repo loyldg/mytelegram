@@ -13,7 +13,7 @@ public enum MessageActionType
     ChatDeleteUser = 8,
     ChatEditPhoto = 9,
     ChatEditTitle = 10,
-    ChatJoinedByLink = 11,
+    ChatJoinedByChatInvite = 11,
     ChatMigrateTo = 12,
     ContactSignUp = 13,
     CustomAction = 14,

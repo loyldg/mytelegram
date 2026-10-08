@@ -19,6 +19,6 @@ internal sealed class SearchGlobalHandler(IMessageAppService messageAppService, 
         var allJoinedChannelIdList = await queryProcessor.ProcessAsync(new GetAllJoinedChannelIdListQuery(input.UserId));
         var tokens = tokenizer.BuildSearchTokens(obj.Q);
         var getMessageOutput = await messageAppService.SearchGlobalAsync(new SearchGlobalInput { OwnerPeerId = userId, SelfUserId = userId, Limit = obj.Limit, Q = obj.Q, FolderId = obj.FolderId, OffsetId = obj.OffsetId, JoinedChannelList = allJoinedChannelIdList.ToList(), BroadcastsOnly = obj.BroadcastsOnly, GroupsOnly = obj.GroupsOnly, UsersOnly = obj.UsersOnly, Tokens = tokens });
-        return getHistoryConverterService.ToMessages(input, getMessageOutput, input.Layer);
+        return await getHistoryConverterService.ToMessagesAsync(input, getMessageOutput, input.Layer);
     }
 }

@@ -21,13 +21,9 @@ public sealed partial class TSentEncryptedFile : ISentEncryptedMessage
     /// </summary>
     public MyTelegram.Schema.IEncryptedFile File { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Date);
         writer.Write(File);

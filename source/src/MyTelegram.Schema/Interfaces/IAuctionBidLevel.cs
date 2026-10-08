@@ -10,7 +10,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TAuctionBidLevel"/> See <a href="https://corefork.telegram.org/constructor/auctionBidLevel" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TAuctionBidLevel), nameof(TAuctionBidLevel))]
-public interface IAuctionBidLevel : IObject
+public partial interface IAuctionBidLevel : IObject
 {
     /// <summary>
     ///  

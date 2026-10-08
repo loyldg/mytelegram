@@ -28,13 +28,9 @@ public sealed partial class TChannelParticipant : IChannelParticipant
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Participant);
         writer.Write(Chats);

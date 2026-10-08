@@ -43,13 +43,9 @@ public sealed partial class RequestSaveBigFilePart : IRequest<IBool>
     /// </summary>
     public ReadOnlyMemory<byte> Bytes { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(FileId);
         writer.Write(FilePart);

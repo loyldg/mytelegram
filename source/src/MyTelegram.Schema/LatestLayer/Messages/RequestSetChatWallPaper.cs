@@ -57,24 +57,26 @@ public sealed partial class RequestSetChatWallPaper : IRequest<MyTelegram.Schema
     /// </summary>
     public int? Id { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ForBoth) { Flags = Flags.SetBit(3); }
-        if (Revert) { Flags = Flags.SetBit(4); }
-        if (Wallpaper != null) { Flags = Flags.SetBit(0); }
-        if (Settings != null) { Flags = Flags.SetBit(2); }
-        if (/*Id != 0 && */Id.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (ForBoth) { flags = flags.SetBit(3); }
+        if (Revert) { flags = flags.SetBit(4); }
+        if (Wallpaper != null) { flags = flags.SetBit(0); }
+        if (Settings != null) { flags = flags.SetBit(2); }
+        if (/*Id != 0 && */Id.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
-        if (Flags.IsBitSet(0)) { writer.Write(Wallpaper); }
-        if (Flags.IsBitSet(2)) { writer.Write(Settings); }
-        if (Flags.IsBitSet(1)) { writer.Write(Id.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(Wallpaper); }
+        if (flags.IsBitSet(2)) { writer.Write(Settings); }
+        if (flags.IsBitSet(1)) { writer.Write(Id.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

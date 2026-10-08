@@ -14,13 +14,9 @@ public sealed partial class RequestGetSuggestedDialogFilters : IRequest<TVector<
 {
     public uint ConstructorId => 0xa29cd42c;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

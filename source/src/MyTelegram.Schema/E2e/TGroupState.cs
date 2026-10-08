@@ -5,7 +5,7 @@ namespace MyTelegram.Schema.E2e;
 
 
 [TlObject(0x1DDC7584)]
-public sealed class TGroupState : IGroupState
+public sealed partial class TGroupState : IGroupState
 {
     public uint ConstructorId => 0x1DDC7584;
     public TVector<MyTelegram.Schema.E2e.IGroupParticipant> Participants { get; set; }

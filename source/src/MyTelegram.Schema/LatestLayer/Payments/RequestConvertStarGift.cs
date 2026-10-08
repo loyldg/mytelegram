@@ -27,13 +27,9 @@ public sealed partial class RequestConvertStarGift : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IInputSavedStarGift Stargift { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Stargift);
     }

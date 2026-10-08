@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Used to buy a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift</a> currently up on resale, see <a href="https://corefork.telegram.org/api/gifts#reselling-collectible-gifts">here</a> for more info on the full flow.
 /// <para>See <a href="https://corefork.telegram.org/constructor/inputInvoiceStarGiftResale" /></para>
 /// </summary>
-[TlObject(0xc39f5324)]
+[TlObject(0xe9b0c658)]
 public sealed partial class TInputInvoiceStarGiftResale : IInputInvoice
 {
-    public uint ConstructorId => 0xc39f5324;
+    public uint ConstructorId => 0xe9b0c658;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -19,6 +19,8 @@ public sealed partial class TInputInvoiceStarGiftResale : IInputInvoice
     /// Buy the gift using TON.
     /// </summary>
     public bool Ton { get; set; }
+
+    public bool ShowName { get; set; }
 
     /// <summary>
     /// Slug of the gift to buy.
@@ -31,25 +33,37 @@ public sealed partial class TInputInvoiceStarGiftResale : IInputInvoice
     /// </summary>
     public MyTelegram.Schema.IInputPeer ToId { get; set; }
 
-    public void ComputeFlag()
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
+    /// </summary>
+    public MyTelegram.Schema.ITextWithEntities? Message { get; set; }
+
+    public int CalculateFlags()
     {
-        if (Ton) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Ton) { flags = flags.SetBit(0); }
+        if (ShowName) { flags = flags.SetBit(2); }
+        if (Message != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Slug);
         writer.Write(ToId);
+        if (flags.IsBitSet(1)) { writer.Write(Message); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(0)) { Ton = true; }
+        if (Flags.IsBitSet(2)) { ShowName = true; }
         Slug = buffer.ReadString();
         ToId = buffer.Read<MyTelegram.Schema.IInputPeer>();
+        if (Flags.IsBitSet(1)) { Message = buffer.Read<MyTelegram.Schema.ITextWithEntities>(); }
     }
 }

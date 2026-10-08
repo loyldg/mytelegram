@@ -26,13 +26,9 @@ public sealed partial class TInputPeerChannelFromMessage : IInputPeer
     /// </summary>
     public long ChannelId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(MsgId);

@@ -29,7 +29,7 @@ internal sealed class GetPollResultsHandler(IQueryProcessor queryProcessor, IPee
         }
 
         var pollAnswers = await queryProcessor.ProcessAsync(new GetPollAnswerVotersQuery(pollId.Value, input.UserId), default);
-        var updates = pollConverterService.ToPollUpdates(pollReadModel!, pollAnswers?.Select(p => p.Option).ToArray() ?? []);
+        var updates = pollConverterService.ToPollUpdates(input.UserId, pollReadModel!, pollAnswers?.Select(p => p.Option).ToArray() ?? []);
         return updates;
     }
 }

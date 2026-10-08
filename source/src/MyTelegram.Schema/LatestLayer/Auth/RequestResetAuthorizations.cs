@@ -14,13 +14,9 @@ public sealed partial class RequestResetAuthorizations : IRequest<IBool>
 {
     public uint ConstructorId => 0x9fab0d1a;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

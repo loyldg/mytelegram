@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TBoolFalse : IBool
 {
     public uint ConstructorId => 0xbc799737;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

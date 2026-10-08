@@ -6,14 +6,20 @@ namespace MyTelegram.Schema;
 /// Ordered list of text items
 /// <para>See <a href="https://corefork.telegram.org/constructor/pageListOrderedItemText" /></para>
 /// </summary>
-[TlObject(0x5e068047)]
+[TlObject(0x15031189)]
 public sealed partial class TPageListOrderedItemText : IPageListOrderedItem
 {
-    public uint ConstructorId => 0x5e068047;
+    public uint ConstructorId => 0x15031189;
+    public int Flags { get; set; }
+
+    public bool Checkbox { get; set; }
+
+    public bool Checked { get; set; }
+
     /// <summary>
     /// Number of element within ordered list
     /// </summary>
-    public string Num { get; set; }
+    public string? Num { get; set; }
 
     /// <summary>
     /// Text
@@ -21,21 +27,40 @@ public sealed partial class TPageListOrderedItemText : IPageListOrderedItem
     /// </summary>
     public MyTelegram.Schema.IRichText Text { get; set; }
 
-    public void ComputeFlag()
+    public int? Value { get; set; }
+
+    public string? Type { get; set; }
+
+    public int CalculateFlags()
     {
+        var flags = 0;
+        if (Checkbox) { flags = flags.SetBit(0); }
+        if (Checked) { flags = flags.SetBit(1); }
+        if (Num != null) { flags = flags.SetBit(2); }
+        if (/*Value != 0 && */Value.HasValue) { flags = flags.SetBit(3); }
+        if (Type != null) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Num);
+        writer.Write(flags);
+        if (flags.IsBitSet(2)) { writer.Write(Num); }
         writer.Write(Text);
+        if (flags.IsBitSet(3)) { writer.Write(Value.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(Type); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
-        Num = buffer.ReadString();
+        Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(0)) { Checkbox = true; }
+        if (Flags.IsBitSet(1)) { Checked = true; }
+        if (Flags.IsBitSet(2)) { Num = buffer.ReadString(); }
         Text = buffer.Read<MyTelegram.Schema.IRichText>();
+        if (Flags.IsBitSet(3)) { Value = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(4)) { Type = buffer.ReadString(); }
     }
 }

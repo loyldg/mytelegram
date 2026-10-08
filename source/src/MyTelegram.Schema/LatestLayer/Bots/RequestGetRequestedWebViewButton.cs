@@ -20,13 +20,9 @@ public sealed partial class RequestGetRequestedWebViewButton : IRequest<MyTelegr
 
     public string WebappReqId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Bot);
         writer.Write(WebappReqId);

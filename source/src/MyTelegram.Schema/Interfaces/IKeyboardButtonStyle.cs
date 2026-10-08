@@ -10,7 +10,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TKeyboardButtonStyle"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonStyle" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TKeyboardButtonStyle), nameof(TKeyboardButtonStyle))]
-public interface IKeyboardButtonStyle : IObject
+public partial interface IKeyboardButtonStyle : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

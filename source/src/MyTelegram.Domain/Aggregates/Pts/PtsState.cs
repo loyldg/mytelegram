@@ -6,8 +6,7 @@ public class PtsState : AggregateState<PtsAggregate, PtsId, PtsState>,
     IApply<PtsAckedEvent>,
     IApply<QtsAckedEvent>,
     IApply<PtsGlobalSeqNoUpdatedEvent>,
-    IApply<PtsForAuthKeyIdUpdatedEvent>//,
-    //IApply<ChannelPtsForUserUpdatedEvent>
+    IApply<PtsForAuthKeyIdUpdatedEvent>
 {
     public int Date { get; private set; }
     public long GlobalSeqNo { get; private set; }
@@ -47,15 +46,6 @@ public class PtsState : AggregateState<PtsAggregate, PtsId, PtsState>,
         Qts = aggregateEvent.NewQts;
     }
 
-    //public void Apply(PtsCreatedEvent aggregateEvent)
-    //{
-    //    PeerId = aggregateEvent.PeerId;
-    //    Pts = aggregateEvent.Pts;
-    //    Qts = aggregateEvent.Qts;
-    //    UnreadCount = aggregateEvent.UnreadCount;
-    //    Date = aggregateEvent.Date;
-    //}
-
     public void LoadSnapshot(PtsSnapshot snapshot)
     {
         PeerId = snapshot.PeerId;
@@ -64,15 +54,15 @@ public class PtsState : AggregateState<PtsAggregate, PtsId, PtsState>,
         UnreadCount = snapshot.UnreadCount;
         Date = snapshot.Date;
         GlobalSeqNo = snapshot.GlobalSeqNo;
-        PermAuthKeyId= snapshot.PermAuthKeyId;
+        PermAuthKeyId = snapshot.PermAuthKeyId;
     }
 
     public void Apply(PtsForAuthKeyIdUpdatedEvent aggregateEvent)
     {
         PeerId = aggregateEvent.PeerId;
         Pts = aggregateEvent.Pts;
-        GlobalSeqNo= aggregateEvent.GlobalSeqNo;
-        PermAuthKeyId= aggregateEvent.PermAuthKeyId;
+        GlobalSeqNo = aggregateEvent.GlobalSeqNo;
+        PermAuthKeyId = aggregateEvent.PermAuthKeyId;
     }
 
 

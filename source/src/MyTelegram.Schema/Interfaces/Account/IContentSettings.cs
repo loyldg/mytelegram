@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Account;
 /// <see cref="TContentSettings"/> See <a href="https://corefork.telegram.org/constructor/account.contentSettings" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TContentSettings), nameof(TContentSettings))]
-public interface IContentSettings : IObject
+public partial interface IContentSettings : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

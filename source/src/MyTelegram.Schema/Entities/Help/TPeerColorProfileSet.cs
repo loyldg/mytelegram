@@ -25,13 +25,9 @@ public sealed partial class TPeerColorProfileSet : IPeerColorSet
     /// </summary>
     public TVector<int> StoryColors { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PaletteColors);
         writer.Write(BgColors);

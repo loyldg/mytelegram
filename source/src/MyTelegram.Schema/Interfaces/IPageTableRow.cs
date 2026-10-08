@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TPageTableRow"/> See <a href="https://corefork.telegram.org/constructor/pageTableRow" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPageTableRow), nameof(TPageTableRow))]
-public interface IPageTableRow : IObject
+public partial interface IPageTableRow : IObject
 {
     /// <summary>
     /// Table cells

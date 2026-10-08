@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputAppEvent"/> See <a href="https://corefork.telegram.org/constructor/inputAppEvent" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputAppEvent), nameof(TInputAppEvent))]
-public interface IInputAppEvent : IObject
+public partial interface IInputAppEvent : IObject
 {
     /// <summary>
     /// Client's exact timestamp for the event

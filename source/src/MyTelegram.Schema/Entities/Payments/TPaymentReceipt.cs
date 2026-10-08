@@ -90,29 +90,31 @@ public sealed partial class TPaymentReceipt : IPaymentReceipt
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Photo != null) { Flags = Flags.SetBit(2); }
-        if (Info != null) { Flags = Flags.SetBit(0); }
-        if (Shipping != null) { Flags = Flags.SetBit(1); }
-        if (/*TipAmount != 0 &&*/ TipAmount.HasValue) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (Photo != null) { flags = flags.SetBit(2); }
+        if (Info != null) { flags = flags.SetBit(0); }
+        if (Shipping != null) { flags = flags.SetBit(1); }
+        if (/*TipAmount != 0 &&*/ TipAmount.HasValue) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Date);
         writer.Write(BotId);
         writer.Write(ProviderId);
         writer.Write(Title);
         writer.Write(Description);
-        if (Flags.IsBitSet(2)) { writer.Write(Photo); }
+        if (flags.IsBitSet(2)) { writer.Write(Photo); }
         writer.Write(Invoice);
-        if (Flags.IsBitSet(0)) { writer.Write(Info); }
-        if (Flags.IsBitSet(1)) { writer.Write(Shipping); }
-        if (Flags.IsBitSet(3)) { writer.Write(TipAmount.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(Info); }
+        if (flags.IsBitSet(1)) { writer.Write(Shipping); }
+        if (flags.IsBitSet(3)) { writer.Write(TipAmount.Value); }
         writer.Write(Currency);
         writer.Write(TotalAmount);
         writer.Write(CredentialsTitle);

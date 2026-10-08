@@ -27,13 +27,9 @@ public sealed partial class RequestGetForumTopicsByID : IRequest<MyTelegram.Sche
     /// </summary>
     public TVector<int> Topics { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(Topics);

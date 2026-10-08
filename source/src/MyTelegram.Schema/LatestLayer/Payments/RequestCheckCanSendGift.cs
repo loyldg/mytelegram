@@ -22,13 +22,9 @@ public sealed partial class RequestCheckCanSendGift : IRequest<MyTelegram.Schema
     /// </summary>
     public long GiftId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(GiftId);
     }

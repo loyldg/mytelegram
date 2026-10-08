@@ -1,11 +1,11 @@
 ﻿namespace MyTelegram.Domain.Aggregates.RpcResult;
 
 [EnableAutoGeneration]
-public class RpcResultAggregate : MyInMemorySnapshotAggregateRoot<RpcResultAggregate, RpcResultId, RpcResultSnapshot>, ISkipAggregateEvents
+public class RpcResultAggregate : AggregateRoot<RpcResultAggregate, RpcResultId>, ISkipAggregateEvents
 {
     private readonly RpcResultState _state = new();
 
-    public RpcResultAggregate(RpcResultId id) : base(id, SnapshotEveryFewVersionsStrategy.Default)
+    public RpcResultAggregate(RpcResultId id) : base(id)
     {
         Register(_state);
     }
@@ -24,13 +24,13 @@ public class RpcResultAggregate : MyInMemorySnapshotAggregateRoot<RpcResultAggre
         Emit(new RpcResultCreatedEvent(requestInfo, rpcData, date));
     }
 
-    protected override Task<RpcResultSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)
-    {
-        return Task.FromResult(new RpcResultSnapshot());
-    }
+    //protected override Task<RpcResultSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)
+    //{
+    //    return Task.FromResult(new RpcResultSnapshot());
+    //}
 
-    protected override Task LoadSnapshotAsync(RpcResultSnapshot snapshot, ISnapshotMetadata metadata, CancellationToken cancellationToken)
-    {
-        return Task.CompletedTask;
-    }
+    //protected override Task LoadSnapshotAsync(RpcResultSnapshot snapshot, ISnapshotMetadata metadata, CancellationToken cancellationToken)
+    //{
+    //    return Task.CompletedTask;
+    //}
 }

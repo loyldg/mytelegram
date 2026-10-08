@@ -10,7 +10,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TGroupCallDonor"/> See <a href="https://corefork.telegram.org/constructor/groupCallDonor" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TGroupCallDonor), nameof(TGroupCallDonor))]
-public interface IGroupCallDonor : IObject
+public partial interface IGroupCallDonor : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

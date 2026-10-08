@@ -22,13 +22,9 @@ public sealed partial class TUpdateStarsRevenueStatus : IUpdate
     /// </summary>
     public MyTelegram.Schema.IStarsRevenueStatus Status { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(Status);

@@ -55,7 +55,6 @@ namespace MyTelegram.Schema;
 /// <see cref="TMessageActionGiftStars"/> See <a href="https://corefork.telegram.org/constructor/messageActionGiftStars" /><br/>
 /// <see cref="TMessageActionPrizeStars"/> See <a href="https://corefork.telegram.org/constructor/messageActionPrizeStars" /><br/>
 /// <see cref="TMessageActionStarGift"/> See <a href="https://corefork.telegram.org/constructor/messageActionStarGift" /><br/>
-/// <see cref="TMessageActionStarGiftUnique"/> See <a href="https://corefork.telegram.org/constructor/messageActionStarGiftUnique" /><br/>
 /// <see cref="TMessageActionPaidMessagesRefunded"/> See <a href="https://corefork.telegram.org/constructor/messageActionPaidMessagesRefunded" /><br/>
 /// <see cref="TMessageActionPaidMessagesPrice"/> See <a href="https://corefork.telegram.org/constructor/messageActionPaidMessagesPrice" /><br/>
 /// <see cref="TMessageActionConferenceCall"/> See <a href="https://corefork.telegram.org/constructor/messageActionConferenceCall" /><br/>
@@ -75,6 +74,9 @@ namespace MyTelegram.Schema;
 /// <see cref="TMessageActionPollAppendAnswer"/> See <a href="" /><br/>
 /// <see cref="TMessageActionPollDeleteAnswer"/> See <a href="" /><br/>
 /// <see cref="TMessageActionManagedBotCreated"/> See <a href="" /><br/>
+/// <see cref="TMessageActionChangeCommunity"/> See <a href="" /><br/>
+/// <see cref="TMessageActionStarGiftUnique"/> See <a href="https://corefork.telegram.org/constructor/messageActionStarGiftUnique" /><br/>
+/// <see cref="TMessageActionChatJoinedViaCommunity"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TMessageActionEmpty), nameof(TMessageActionEmpty))]
 [JsonDerivedType(typeof(TMessageActionChatCreate), nameof(TMessageActionChatCreate))]
@@ -123,7 +125,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TMessageActionGiftStars), nameof(TMessageActionGiftStars))]
 [JsonDerivedType(typeof(TMessageActionPrizeStars), nameof(TMessageActionPrizeStars))]
 [JsonDerivedType(typeof(TMessageActionStarGift), nameof(TMessageActionStarGift))]
-[JsonDerivedType(typeof(TMessageActionStarGiftUnique), nameof(TMessageActionStarGiftUnique))]
 [JsonDerivedType(typeof(TMessageActionPaidMessagesRefunded), nameof(TMessageActionPaidMessagesRefunded))]
 [JsonDerivedType(typeof(TMessageActionPaidMessagesPrice), nameof(TMessageActionPaidMessagesPrice))]
 [JsonDerivedType(typeof(TMessageActionConferenceCall), nameof(TMessageActionConferenceCall))]
@@ -143,6 +144,9 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TMessageActionPollAppendAnswer), nameof(TMessageActionPollAppendAnswer))]
 [JsonDerivedType(typeof(TMessageActionPollDeleteAnswer), nameof(TMessageActionPollDeleteAnswer))]
 [JsonDerivedType(typeof(TMessageActionManagedBotCreated), nameof(TMessageActionManagedBotCreated))]
-public interface IMessageAction : IObject
+[JsonDerivedType(typeof(TMessageActionChangeCommunity), nameof(TMessageActionChangeCommunity))]
+[JsonDerivedType(typeof(TMessageActionStarGiftUnique), nameof(TMessageActionStarGiftUnique))]
+[JsonDerivedType(typeof(TMessageActionChatJoinedViaCommunity), nameof(TMessageActionChatJoinedViaCommunity))]
+public partial interface IMessageAction : IObject
 {
 }

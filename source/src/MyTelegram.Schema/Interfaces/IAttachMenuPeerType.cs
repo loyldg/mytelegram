@@ -19,6 +19,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TAttachMenuPeerTypePM), nameof(TAttachMenuPeerTypePM))]
 [JsonDerivedType(typeof(TAttachMenuPeerTypeChat), nameof(TAttachMenuPeerTypeChat))]
 [JsonDerivedType(typeof(TAttachMenuPeerTypeBroadcast), nameof(TAttachMenuPeerTypeBroadcast))]
-public interface IAttachMenuPeerType : IObject
+public partial interface IAttachMenuPeerType : IObject
 {
 }

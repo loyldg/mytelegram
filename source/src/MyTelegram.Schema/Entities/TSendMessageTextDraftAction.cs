@@ -5,10 +5,16 @@ namespace MyTelegram.Schema;
 /// <summary>
 /// <para>See <a href="https://corefork.telegram.org/constructor/sendMessageTextDraftAction" /></para>
 /// </summary>
-[TlObject(0x376d975c)]
+[TlObject(0x3630b85a)]
 public sealed partial class TSendMessageTextDraftAction : ISendMessageAction
 {
-    public uint ConstructorId => 0x376d975c;
+    public uint ConstructorId => 0x3630b85a;
+    public int Flags { get; set; }
+
+    public bool CanStop { get; set; }
+
+    public bool KeepOnStop { get; set; }
+
     /// <summary>
     ///  
     /// </summary>
@@ -20,20 +26,28 @@ public sealed partial class TSendMessageTextDraftAction : ISendMessageAction
     /// </summary>
     public MyTelegram.Schema.ITextWithEntities Text { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
+        var flags = 0;
+        if (CanStop) { flags = flags.SetBit(0); }
+        if (KeepOnStop) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
+        writer.Write(flags);
         writer.Write(RandomId);
         writer.Write(Text);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(0)) { CanStop = true; }
+        if (Flags.IsBitSet(1)) { KeepOnStop = true; }
         RandomId = buffer.ReadInt64();
         Text = buffer.Read<MyTelegram.Schema.ITextWithEntities>();
     }

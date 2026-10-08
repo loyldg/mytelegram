@@ -1,6 +1,8 @@
-﻿using MyTelegram.Schema.Serializer;
+﻿using System.Buffers.Binary;
+using MyTelegram.Schema.Serializer;
 
 namespace MyTelegram.Schema.Extensions;
+
 public static class BufferExtensions
 {
     private static readonly Int32Serializer Int32Serializer = new();
@@ -35,6 +37,28 @@ public static class BufferExtensions
     public static long ReadInt64(this ref ReadOnlyMemory<byte> buffer)
     {
         return Int64Serializer.Deserialize(ref buffer);
+    }
+
+    public static decimal ReadDecimal(
+        this ref ReadOnlyMemory<byte> buffer)
+    {
+        const int size = sizeof(int) * 4;
+
+        var span = buffer.Span;
+
+        var lo = BinaryPrimitives.ReadInt32LittleEndian(span);
+        var mid = BinaryPrimitives.ReadInt32LittleEndian(span[4..]);
+        var hi = BinaryPrimitives.ReadInt32LittleEndian(span[8..]);
+        var flags = BinaryPrimitives.ReadInt32LittleEndian(span[12..]);
+
+        buffer = buffer[size..];
+
+        return new decimal(
+            lo,
+            mid,
+            hi,
+            (flags & int.MinValue) != 0,
+            (byte)((flags >> 16) & 0x7F));
     }
 
     public static bool? ReadNullableBool(this ref ReadOnlyMemory<byte> buffer)
@@ -121,7 +145,7 @@ public static class BufferExtensions
         return BytesSerializer.DeserializeMemory(ref buffer);
     }
 
-    public static (int startIndex,int count) ReadBytesCount(this ref ReadOnlyMemory<byte> buffer)
+    public static (int startIndex, int count) ReadBytesCount(this ref ReadOnlyMemory<byte> buffer)
     {
         return BytesSerializer.ReadCount(ref buffer);
     }

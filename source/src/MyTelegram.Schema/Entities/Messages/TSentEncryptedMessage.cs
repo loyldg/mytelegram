@@ -15,13 +15,9 @@ public sealed partial class TSentEncryptedMessage : ISentEncryptedMessage
     /// </summary>
     public int Date { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Date);
     }

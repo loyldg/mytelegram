@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TBaseThemeNight : IBaseTheme
 {
     public uint ConstructorId => 0xb7b31ea8;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

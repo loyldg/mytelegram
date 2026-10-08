@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TInputReportReasonCopyright : IReportReason
 {
     public uint ConstructorId => 0x9b89f93a;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

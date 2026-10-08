@@ -8,7 +8,7 @@ public class SessionMessageEventDataSerializer(IEventDataSerializer<DataResultRe
     IEventDataSerializer<PushMessageToPeerEvent> pushMessageToPeerEventDataSerializer
 ) : IEventDataSerializer<ISessionMessage>, ITransientDependency
 {
-    public object? Deserialize(Type type, ReadOnlyMemory<byte> buffer)
+    public object Deserialize(Type type, ReadOnlyMemory<byte> buffer)
     {
         return Deserialize(buffer);
     }

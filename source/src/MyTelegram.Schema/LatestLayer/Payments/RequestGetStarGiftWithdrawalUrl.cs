@@ -31,13 +31,9 @@ public sealed partial class RequestGetStarGiftWithdrawalUrl : IRequest<MyTelegra
     /// </summary>
     public MyTelegram.Schema.IInputCheckPasswordSRP Password { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Stargift);
         writer.Write(Password);

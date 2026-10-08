@@ -19,13 +19,9 @@ public sealed partial class RequestGetPeerProfileColors : IRequest<MyTelegram.Sc
     /// </summary>
     public int Hash { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Hash);
     }

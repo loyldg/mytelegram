@@ -44,21 +44,23 @@ public sealed partial class RequestChangeAuthorizationSettings : IRequest<IBool>
     /// </summary>
     public bool? CallRequestsDisabled { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Confirmed) { Flags = Flags.SetBit(3); }
-        if (EncryptedRequestsDisabled != null) { Flags = Flags.SetBit(0); }
-        if (CallRequestsDisabled != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Confirmed) { flags = flags.SetBit(3); }
+        if (EncryptedRequestsDisabled != null) { flags = flags.SetBit(0); }
+        if (CallRequestsDisabled != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Hash);
-        if (Flags.IsBitSet(0)) { writer.Write(EncryptedRequestsDisabled.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(CallRequestsDisabled.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(EncryptedRequestsDisabled.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(CallRequestsDisabled.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

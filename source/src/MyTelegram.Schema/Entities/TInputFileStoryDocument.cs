@@ -16,13 +16,9 @@ public sealed partial class TInputFileStoryDocument : IInputFile
     /// </summary>
     public MyTelegram.Schema.IInputDocument Id { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
     }

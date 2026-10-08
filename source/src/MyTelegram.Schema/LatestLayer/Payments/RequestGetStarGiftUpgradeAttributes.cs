@@ -21,13 +21,9 @@ public sealed partial class RequestGetStarGiftUpgradeAttributes : IRequest<MyTel
     /// </summary>
     public long GiftId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(GiftId);
     }

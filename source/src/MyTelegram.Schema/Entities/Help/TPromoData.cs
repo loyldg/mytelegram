@@ -69,27 +69,29 @@ public sealed partial class TPromoData : IPromoData
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Proxy) { Flags = Flags.SetBit(0); }
-        if (Peer != null) { Flags = Flags.SetBit(3); }
-        if (PsaType != null) { Flags = Flags.SetBit(1); }
-        if (PsaMessage != null) { Flags = Flags.SetBit(2); }
-        if (CustomPendingSuggestion != null) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (Proxy) { flags = flags.SetBit(0); }
+        if (Peer != null) { flags = flags.SetBit(3); }
+        if (PsaType != null) { flags = flags.SetBit(1); }
+        if (PsaMessage != null) { flags = flags.SetBit(2); }
+        if (CustomPendingSuggestion != null) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Expires);
-        if (Flags.IsBitSet(3)) { writer.Write(Peer); }
-        if (Flags.IsBitSet(1)) { writer.Write(PsaType); }
-        if (Flags.IsBitSet(2)) { writer.Write(PsaMessage); }
+        if (flags.IsBitSet(3)) { writer.Write(Peer); }
+        if (flags.IsBitSet(1)) { writer.Write(PsaType); }
+        if (flags.IsBitSet(2)) { writer.Write(PsaMessage); }
         writer.Write(PendingSuggestions);
         writer.Write(DismissedSuggestions);
-        if (Flags.IsBitSet(4)) { writer.Write(CustomPendingSuggestion); }
+        if (flags.IsBitSet(4)) { writer.Write(CustomPendingSuggestion); }
         writer.Write(Chats);
         writer.Write(Users);
     }

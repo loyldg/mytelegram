@@ -31,13 +31,9 @@ public sealed partial class TInputWebDocument : IInputWebDocument
     /// </summary>
     public TVector<MyTelegram.Schema.IDocumentAttribute> Attributes { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Url);
         writer.Write(Size);

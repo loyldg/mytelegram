@@ -21,7 +21,8 @@ public record DataReceivedEvent(
     string ClientIp,
     long SessionId,
     long AccessHashKeyId,
-    long InvokeAfterMsgId
+    long InvokeAfterMsgId,
+    int DcId
     ) : IMayHaveMemoryOwner
 {
     public string ConnectionId { get; set; } = ConnectionId;
@@ -43,4 +44,5 @@ public record DataReceivedEvent(
     public long InvokeAfterMsgId { get; set; } = InvokeAfterMsgId;
 
     [JsonIgnore] public IMemoryOwner<byte>? MemoryOwner { get; set; }
+    public int DcId { get; set; } = DcId;
 }

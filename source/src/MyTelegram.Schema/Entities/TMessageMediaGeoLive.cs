@@ -36,21 +36,23 @@ public sealed partial class TMessageMediaGeoLive : IMessageMedia
     /// </summary>
     public int? ProximityNotificationRadius { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*Heading != 0 && */Heading.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*ProximityNotificationRadius != 0 && */ProximityNotificationRadius.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (/*Heading != 0 && */Heading.HasValue) { flags = flags.SetBit(0); }
+        if (/*ProximityNotificationRadius != 0 && */ProximityNotificationRadius.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Geo);
-        if (Flags.IsBitSet(0)) { writer.Write(Heading.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(Heading.Value); }
         writer.Write(Period);
-        if (Flags.IsBitSet(1)) { writer.Write(ProximityNotificationRadius.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(ProximityNotificationRadius.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

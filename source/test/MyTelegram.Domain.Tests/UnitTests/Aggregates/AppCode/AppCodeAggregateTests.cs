@@ -1,11 +1,9 @@
-﻿using Shouldly;
-
-namespace MyTelegram.Domain.Tests.UnitTests.Aggregates.AppCode;
+﻿namespace MyTelegram.Domain.Tests.UnitTests.Aggregates.AppCode;
 
 public class AppCodeAggregateTests : TestsFor<AppCodeAggregate>
 {
     private readonly string _inValidPhoneCodeHash = "2";
-    private readonly int _maxFailedCount = 5;
+    //private readonly int _maxFailedCount = 5;
     private readonly string _phoneNumber = "0";
     private readonly string _validPhoneCodeHash = "1";
     public AppCodeAggregateTests()

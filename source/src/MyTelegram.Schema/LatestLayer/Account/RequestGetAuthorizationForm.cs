@@ -33,13 +33,9 @@ public sealed partial class RequestGetAuthorizationForm : IRequest<MyTelegram.Sc
     /// </summary>
     public string PublicKey { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(BotId);
         writer.Write(Scope);

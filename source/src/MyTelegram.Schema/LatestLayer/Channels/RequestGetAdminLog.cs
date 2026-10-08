@@ -64,21 +64,23 @@ public sealed partial class RequestGetAdminLog : IRequest<MyTelegram.Schema.Chan
     /// </summary>
     public int Limit { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (EventsFilter != null) { Flags = Flags.SetBit(0); }
-        if (Admins?.Count > 0) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (EventsFilter != null) { flags = flags.SetBit(0); }
+        if (Admins?.Count > 0) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Channel);
         writer.Write(Q);
-        if (Flags.IsBitSet(0)) { writer.Write(EventsFilter); }
-        if (Flags.IsBitSet(1)) { writer.Write(Admins); }
+        if (flags.IsBitSet(0)) { writer.Write(EventsFilter); }
+        if (flags.IsBitSet(1)) { writer.Write(Admins); }
         writer.Write(MaxId);
         writer.Write(MinId);
         writer.Write(Limit);

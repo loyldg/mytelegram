@@ -4,7 +4,7 @@ namespace MyTelegram.Schema;
 
 
 [TlObject(0xea109b13)]
-public sealed class TDestroyAuthKeyFail : IDestroyAuthKeyRes
+public sealed partial class TDestroyAuthKeyFail : IDestroyAuthKeyRes
 {
     public uint ConstructorId => 0xea109b13;
 

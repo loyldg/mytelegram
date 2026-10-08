@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TShippingOption"/> See <a href="https://corefork.telegram.org/constructor/shippingOption" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TShippingOption), nameof(TShippingOption))]
-public interface IShippingOption : IObject
+public partial interface IShippingOption : IObject
 {
     /// <summary>
     /// Option ID

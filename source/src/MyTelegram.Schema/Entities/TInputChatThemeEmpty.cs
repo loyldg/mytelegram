@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TInputChatThemeEmpty : IInputChatTheme
 {
     public uint ConstructorId => 0x83268483;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

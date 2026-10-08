@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TInputMessagesFilterMusic : IMessagesFilter
 {
     public uint ConstructorId => 0x3751b49e;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

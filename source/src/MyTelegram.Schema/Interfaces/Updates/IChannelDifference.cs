@@ -15,7 +15,7 @@ namespace MyTelegram.Schema.Updates;
 [JsonDerivedType(typeof(TChannelDifferenceEmpty), nameof(TChannelDifferenceEmpty))]
 [JsonDerivedType(typeof(TChannelDifferenceTooLong), nameof(TChannelDifferenceTooLong))]
 [JsonDerivedType(typeof(TChannelDifference), nameof(TChannelDifference))]
-public interface IChannelDifference : IObject
+public partial interface IChannelDifference : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

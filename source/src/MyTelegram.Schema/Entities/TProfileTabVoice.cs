@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TProfileTabVoice : IProfileTab
 {
     public uint ConstructorId => 0xe477092e;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Messages;
 /// </remarks>
 [JsonDerivedType(typeof(TStickersNotModified), nameof(TStickersNotModified))]
 [JsonDerivedType(typeof(TStickers), nameof(TStickers))]
-public interface IStickers : IObject
+public partial interface IStickers : IObject
 {
 }

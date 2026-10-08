@@ -35,6 +35,12 @@ public class DefaultDataProcessor<TData>(
                     handlerHelper.TryGetHandler(req.ObjectId, out handler);
                 }
 
+                if (handler == null)
+                {
+                    logger.LogInformation("*** Unsupported request: ObjectId:{ObjectId} RequestData: {@RequestData}", obj.ObjectId, data);
+                    return;
+                }
+
                 bool needToCheckRequest = handler is IDistinctObjectHandler ||
                                           ObjectIdConsts.CommandServerHandlers.ContainsKey(req.ObjectId);
 
@@ -108,7 +114,7 @@ public class DefaultDataProcessor<TData>(
             catch (Exception ex)
             {
                 await exceptionProcessor.HandleExceptionAsync(ex, req, data,
-                    handler.GetType().Name);
+                    handler?.GetType().Name);
             }
             finally
             {
@@ -117,6 +123,12 @@ public class DefaultDataProcessor<TData>(
                     mayHaveMemoryOwner.MemoryOwner?.Dispose();
                 }
             }
+        }
+        else
+        {
+            var data = GetData(obj);
+            logger.LogInformation("*** Unsupported request: ObjectId:{ObjectId} RequestData: {@RequestData}", obj.ObjectId, data);
+            throw new NotImplementedException();
         }
     }
 
@@ -143,7 +155,8 @@ public class DefaultDataProcessor<TData>(
             obj.ClientIp,
             obj.SessionId,
             obj.AccessHashKeyId,
-            obj.InvokeAfterMsgId
+            obj.InvokeAfterMsgId,
+            obj.DcId
         );
 
         return req;

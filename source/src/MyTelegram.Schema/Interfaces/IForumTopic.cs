@@ -13,7 +13,7 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TForumTopicDeleted), nameof(TForumTopicDeleted))]
 [JsonDerivedType(typeof(TForumTopic), nameof(TForumTopic))]
-public interface IForumTopic : IObject
+public partial interface IForumTopic : IObject
 {
     /// <summary>
     /// The ID of the deleted forum topic.

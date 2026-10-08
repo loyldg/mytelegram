@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TSavedPhoneContact"/> See <a href="https://corefork.telegram.org/constructor/savedPhoneContact" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TSavedPhoneContact), nameof(TSavedPhoneContact))]
-public interface ISavedContact : IObject
+public partial interface ISavedContact : IObject
 {
     /// <summary>
     /// Phone number

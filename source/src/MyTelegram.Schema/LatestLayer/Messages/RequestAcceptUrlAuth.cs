@@ -55,27 +55,29 @@ public sealed partial class RequestAcceptUrlAuth : IRequest<MyTelegram.Schema.IU
     /// </summary>
     public string? MatchCode { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (WriteAllowed) { Flags = Flags.SetBit(0); }
-        if (SharePhoneNumber) { Flags = Flags.SetBit(3); }
-        if (Peer != null) { Flags = Flags.SetBit(1); }
-        if (/*MsgId != 0 && */MsgId.HasValue) { Flags = Flags.SetBit(1); }
-        if (/*ButtonId != 0 && */ButtonId.HasValue) { Flags = Flags.SetBit(1); }
-        if (Url != null) { Flags = Flags.SetBit(2); }
-        if (MatchCode != null) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (WriteAllowed) { flags = flags.SetBit(0); }
+        if (SharePhoneNumber) { flags = flags.SetBit(3); }
+        if (Peer != null) { flags = flags.SetBit(1); }
+        if (/*MsgId != 0 && */MsgId.HasValue) { flags = flags.SetBit(1); }
+        if (/*ButtonId != 0 && */ButtonId.HasValue) { flags = flags.SetBit(1); }
+        if (Url != null) { flags = flags.SetBit(2); }
+        if (MatchCode != null) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(1)) { writer.Write(Peer); }
-        if (Flags.IsBitSet(1)) { writer.Write(MsgId.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(ButtonId.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(Url); }
-        if (Flags.IsBitSet(4)) { writer.Write(MatchCode); }
+        writer.Write(flags);
+        if (flags.IsBitSet(1)) { writer.Write(Peer); }
+        if (flags.IsBitSet(1)) { writer.Write(MsgId.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(ButtonId.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(Url); }
+        if (flags.IsBitSet(4)) { writer.Write(MatchCode); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

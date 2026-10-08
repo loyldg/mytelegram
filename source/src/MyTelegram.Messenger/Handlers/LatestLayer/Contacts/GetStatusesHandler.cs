@@ -14,9 +14,9 @@ internal sealed class GetStatusesHandler(IUserStatusCacheAppService userStatusAp
         var statusList = new List<IContactStatus>();
         foreach (var contactReadModel in contactReadModels)
         {
-            statusList.Add(new TContactStatus { Status = userStatusAppService.GetUserStatus(contactReadModel.TargetUserId), UserId = contactReadModel.TargetUserId });
+            statusList.Add(new TContactStatus { Status = await userStatusAppService.GetUserStatusAsync(contactReadModel.TargetUserId), UserId = contactReadModel.TargetUserId });
         }
 
-        return[..statusList];
+        return [.. statusList];
     }
 }

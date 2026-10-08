@@ -13,6 +13,6 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TPageListItemText), nameof(TPageListItemText))]
 [JsonDerivedType(typeof(TPageListItemBlocks), nameof(TPageListItemBlocks))]
-public interface IPageListItem : IObject
+public partial interface IPageListItem : IObject
 {
 }

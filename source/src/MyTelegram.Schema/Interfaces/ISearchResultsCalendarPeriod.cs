@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TSearchResultsCalendarPeriod"/> See <a href="https://corefork.telegram.org/constructor/searchResultsCalendarPeriod" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TSearchResultsCalendarPeriod), nameof(TSearchResultsCalendarPeriod))]
-public interface ISearchResultsCalendarPeriod : IObject
+public partial interface ISearchResultsCalendarPeriod : IObject
 {
     /// <summary>
     /// The day this object is referring to.

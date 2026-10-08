@@ -20,7 +20,7 @@ internal sealed class ExportLoginTokenHandler(ICacheHelper<long, long> cacheHelp
             await eventBus.PublishAsync(new BindUserIdToSessionEvent(userId, input.AuthKeyId, input.PermAuthKeyId, input.AccessHashKeyId));
             var userReadModel = await userAppService.GetAsync(userId);
             var photos = await photoAppService.GetPhotosAsync(userReadModel);
-            ILayeredUser? user = userReadModel == null ? null : userConverterService.ToUser(input, userReadModel, photos);
+            ILayeredUser? user = userReadModel == null ? null : await userConverterService.ToUserAsync(input, userReadModel, photos);
             return new TLoginTokenSuccess
             {
                 Authorization = layeredService.GetConverter(input.Layer).CreateAuthorization(user)
@@ -33,6 +33,6 @@ internal sealed class ExportLoginTokenHandler(ICacheHelper<long, long> cacheHelp
         var qrCodeId = QrCodeId.Create(BitConverter.ToString(token));
         var command = new ExportLoginTokenCommand(qrCodeId, input.ToRequestInfo(), input.AuthKeyId, input.PermAuthKeyId, token, expireDate, obj.ExceptIds.ToList());
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }

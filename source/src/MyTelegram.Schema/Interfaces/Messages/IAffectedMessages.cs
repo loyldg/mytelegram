@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TAffectedMessages"/> See <a href="https://corefork.telegram.org/constructor/messages.affectedMessages" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TAffectedMessages), nameof(TAffectedMessages))]
-public interface IAffectedMessages : IObject
+public partial interface IAffectedMessages : IObject
 {
     /// <summary>
     /// <a href="https://corefork.telegram.org/api/updates">Event count after generation</a>

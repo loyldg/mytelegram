@@ -41,13 +41,9 @@ public sealed partial class TInputMediaVenue : IInputMedia
     /// </summary>
     public string VenueType { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(GeoPoint);
         writer.Write(Title);

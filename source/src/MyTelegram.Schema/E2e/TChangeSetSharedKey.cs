@@ -5,7 +5,7 @@ namespace MyTelegram.Schema.E2e;
 
 
 [TlObject(0x987A2158)]
-public sealed class TChangeSetSharedKey : IChange
+public sealed partial class TChangeSetSharedKey : IChange
 {
     public uint ConstructorId => 0x987A2158;
     public MyTelegram.Schema.E2e.ISharedKey SharedKey { get; set; }

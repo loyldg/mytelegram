@@ -10,7 +10,7 @@ public class VoteDomainEventHandler(
     )
     :
         DomainEventHandlerBase(objectMessageSender, commandBus, idGenerator, ackCacheService),
-        ISubscribeSynchronousTo<VoteSaga, VoteSagaId, VoteSagaCompletedSagaEvent>
+        ISubscribeAsynchronousTo<VoteSaga, VoteSagaId, VoteSagaCompletedSagaEvent>
 {
     public async Task HandleAsync(IDomainEvent<VoteSaga, VoteSagaId, VoteSagaCompletedSagaEvent> domainEvent,
         CancellationToken cancellationToken)
@@ -19,7 +19,7 @@ public class VoteDomainEventHandler(
             .ProcessAsync(new GetPollQuery(domainEvent.AggregateEvent.PollId), cancellationToken);
         if (pollReadModel != null)
         {
-            var selfUpdates = sendVoteConverterService.ToSelfUpdates(pollReadModel,
+            var selfUpdates = sendVoteConverterService.ToSelfUpdates(domainEvent.AggregateEvent.RequestInfo.UserId, pollReadModel,
                 domainEvent.AggregateEvent.ChosenOptions.ToList(), domainEvent.AggregateEvent.RequestInfo.Layer);
             await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo, selfUpdates)
          ;
@@ -28,7 +28,7 @@ public class VoteDomainEventHandler(
                 selfUpdates,
                 domainEvent.AggregateEvent.RequestInfo.AuthKeyId);
 
-            var updatesForMember = sendVoteConverterService.ToUpdates(pollReadModel, []);
+            var updatesForMember = sendVoteConverterService.ToUpdates(domainEvent.AggregateEvent.RequestInfo.UserId, pollReadModel, []);
             await PushMessageToPeerAsync(domainEvent.AggregateEvent.ToPeer,
                 updatesForMember,
                 excludeAuthKeyId: domainEvent.AggregateEvent.RequestInfo.AuthKeyId);

@@ -40,16 +40,18 @@ public sealed partial class RequestGetGroupCallStreamRtmpUrl : IRequest<MyTelegr
     /// </summary>
     public bool Revoke { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (LiveStory) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (LiveStory) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Revoke);
     }

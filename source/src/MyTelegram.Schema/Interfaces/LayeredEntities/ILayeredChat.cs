@@ -1,7 +1,7 @@
 ﻿// ReSharper disable All
 namespace MyTelegram.Schema;
 
-public interface ILayeredChat : IChat
+public partial interface ILayeredChat : IChat
 {
     bool Deactivated { get; set; }
     bool Creator { get; set; }

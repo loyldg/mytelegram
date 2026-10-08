@@ -19,13 +19,9 @@ public sealed partial class RequestInvalidateSignInCodes : IRequest<IBool>
     /// </summary>
     public TVector<string> Codes { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Codes);
     }

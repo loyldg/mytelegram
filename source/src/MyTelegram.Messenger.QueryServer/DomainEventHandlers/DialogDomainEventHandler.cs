@@ -7,11 +7,11 @@ public class DialogDomainEventHandler(
     IAckCacheService ackCacheService,
     IObjectMapper objectMapper)
     : DomainEventHandlerBase(objectMessageSender, commandBus, idGenerator, ackCacheService),
-        ISubscribeSynchronousTo<DialogAggregate, DialogId, ChannelHistoryClearedEvent>,
-        ISubscribeSynchronousTo<DialogAggregate, DialogId, DialogPinChangedEvent>,
-        ISubscribeSynchronousTo<DialogFilterAggregate, DialogFilterId, DialogFilterUpdatedEvent>,
-        ISubscribeSynchronousTo<DialogFilterAggregate, DialogFilterId, DialogFilterDeletedEvent>,
-        ISubscribeSynchronousTo<EditPeerFoldersSaga, EditPeerFoldersSagaId, EditPeerFoldersCompletedSagaEvent>
+        ISubscribeAsynchronousTo<DialogAggregate, DialogId, ChannelHistoryClearedEvent>,
+        ISubscribeAsynchronousTo<DialogAggregate, DialogId, DialogPinChangedEvent>,
+        ISubscribeAsynchronousTo<DialogFilterAggregate, DialogFilterId, DialogFilterUpdatedEvent>,
+        ISubscribeAsynchronousTo<DialogFilterAggregate, DialogFilterId, DialogFilterDeletedEvent>,
+        ISubscribeAsynchronousTo<EditPeerFoldersSaga, EditPeerFoldersSagaId, EditPeerFoldersCompletedSagaEvent>
 
 {
     public async Task HandleAsync(IDomainEvent<DialogAggregate, DialogId, ChannelHistoryClearedEvent> domainEvent,

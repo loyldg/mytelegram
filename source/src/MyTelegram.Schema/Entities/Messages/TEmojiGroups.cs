@@ -21,13 +21,9 @@ public sealed partial class TEmojiGroups : IEmojiGroups
     /// </summary>
     public TVector<MyTelegram.Schema.IEmojiGroup> Groups { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Hash);
         writer.Write(Groups);

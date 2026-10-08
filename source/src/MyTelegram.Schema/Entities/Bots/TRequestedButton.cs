@@ -11,13 +11,9 @@ public sealed partial class TRequestedButton : IRequestedButton
     public uint ConstructorId => 0xf13bbcd7;
     public string WebappReqId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(WebappReqId);
     }

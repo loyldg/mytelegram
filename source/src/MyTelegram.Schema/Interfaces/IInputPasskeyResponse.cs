@@ -12,7 +12,7 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TInputPasskeyResponseRegister), nameof(TInputPasskeyResponseRegister))]
 [JsonDerivedType(typeof(TInputPasskeyResponseLogin), nameof(TInputPasskeyResponseLogin))]
-public interface IInputPasskeyResponse : IObject
+public partial interface IInputPasskeyResponse : IObject
 {
     /// <summary>
     ///  

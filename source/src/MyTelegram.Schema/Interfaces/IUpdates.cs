@@ -23,6 +23,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TUpdatesCombined), nameof(TUpdatesCombined))]
 [JsonDerivedType(typeof(TUpdates), nameof(TUpdates))]
 [JsonDerivedType(typeof(TUpdateShortSentMessage), nameof(TUpdateShortSentMessage))]
-public interface IUpdates : IObject
+public partial interface IUpdates : IObject
 {
 }

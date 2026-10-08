@@ -9,7 +9,6 @@ public class SrpData(
 {
     public byte[] B { get; init; } = b;
     public byte[] Gb { get; init; } = gb;
-
     public byte[] Salt1 { get; init; } = salt1;
     public byte[] Salt2 { get; init; } = salt2;
 

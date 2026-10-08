@@ -41,23 +41,25 @@ public sealed partial class TMessageActionSuggestedPostApproval : IMessageAction
     /// </summary>
     public MyTelegram.Schema.IStarsAmount? Price { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Rejected) { Flags = Flags.SetBit(0); }
-        if (BalanceTooLow) { Flags = Flags.SetBit(1); }
-        if (RejectComment != null) { Flags = Flags.SetBit(2); }
-        if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { Flags = Flags.SetBit(3); }
-        if (Price != null) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (Rejected) { flags = flags.SetBit(0); }
+        if (BalanceTooLow) { flags = flags.SetBit(1); }
+        if (RejectComment != null) { flags = flags.SetBit(2); }
+        if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { flags = flags.SetBit(3); }
+        if (Price != null) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(2)) { writer.Write(RejectComment); }
-        if (Flags.IsBitSet(3)) { writer.Write(ScheduleDate.Value); }
-        if (Flags.IsBitSet(4)) { writer.Write(Price); }
+        writer.Write(flags);
+        if (flags.IsBitSet(2)) { writer.Write(RejectComment); }
+        if (flags.IsBitSet(3)) { writer.Write(ScheduleDate.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(Price); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

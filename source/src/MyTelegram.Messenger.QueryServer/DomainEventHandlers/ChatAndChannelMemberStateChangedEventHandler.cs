@@ -1,11 +1,11 @@
 ﻿namespace MyTelegram.Messenger.QueryServer.DomainEventHandlers;
 
 public class ChatAndChannelMemberStateChangedEventHandler(IEventBus eventBus) :
-    ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelCreatedEvent>,
-    ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberCreatedEvent>,
-    //ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent>,
-    ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberBannedRightsChangedEvent>,
-    ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberLeftEvent>
+    ISubscribeAsynchronousTo<ChannelAggregate, ChannelId, ChannelCreatedEvent>,
+    ISubscribeAsynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberCreatedEvent>,
+    //ISubscribeAsynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent>,
+    ISubscribeAsynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberBannedRightsChangedEvent>,
+    ISubscribeAsynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberLeftEvent>
 {
     public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChannelCreatedEvent> domainEvent,
         CancellationToken cancellationToken)

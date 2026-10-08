@@ -36,13 +36,9 @@ public sealed partial class RequestRequestEncryption : IRequest<MyTelegram.Schem
     /// </summary>
     public byte[] GA { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(UserId);
         writer.Write(RandomId);

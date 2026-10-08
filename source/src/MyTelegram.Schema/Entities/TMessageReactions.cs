@@ -48,23 +48,25 @@ public sealed partial class TMessageReactions : IMessageReactions
     /// </summary>
     public TVector<MyTelegram.Schema.IMessageReactor>? TopReactors { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Min) { Flags = Flags.SetBit(0); }
-        if (CanSeeList) { Flags = Flags.SetBit(2); }
-        if (ReactionsAsTags) { Flags = Flags.SetBit(3); }
-        if (RecentReactions?.Count > 0) { Flags = Flags.SetBit(1); }
-        if (TopReactors?.Count > 0) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (Min) { flags = flags.SetBit(0); }
+        if (CanSeeList) { flags = flags.SetBit(2); }
+        if (ReactionsAsTags) { flags = flags.SetBit(3); }
+        if (RecentReactions?.Count > 0) { flags = flags.SetBit(1); }
+        if (TopReactors?.Count > 0) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Results);
-        if (Flags.IsBitSet(1)) { writer.Write(RecentReactions); }
-        if (Flags.IsBitSet(4)) { writer.Write(TopReactors); }
+        if (flags.IsBitSet(1)) { writer.Write(RecentReactions); }
+        if (flags.IsBitSet(4)) { writer.Write(TopReactors); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

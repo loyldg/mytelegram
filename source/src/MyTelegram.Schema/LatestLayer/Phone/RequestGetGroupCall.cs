@@ -29,13 +29,9 @@ public sealed partial class RequestGetGroupCall : IRequest<MyTelegram.Schema.Pho
     /// </summary>
     public int Limit { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Call);
         writer.Write(Limit);

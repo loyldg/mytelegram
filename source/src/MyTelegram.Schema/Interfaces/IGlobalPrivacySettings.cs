@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TGlobalPrivacySettings"/> See <a href="https://corefork.telegram.org/constructor/globalPrivacySettings" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TGlobalPrivacySettings), nameof(TGlobalPrivacySettings))]
-public interface IGlobalPrivacySettings : IObject
+public partial interface IGlobalPrivacySettings : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

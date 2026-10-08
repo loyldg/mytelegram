@@ -36,20 +36,22 @@ public sealed partial class TWallPaperNoFile : IWallPaper
     /// </summary>
     public MyTelegram.Schema.IWallPaperSettings? Settings { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Default) { Flags = Flags.SetBit(1); }
-        if (Dark) { Flags = Flags.SetBit(4); }
-        if (Settings != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Default) { flags = flags.SetBit(1); }
+        if (Dark) { flags = flags.SetBit(4); }
+        if (Settings != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
         writer.Write(Id);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(2)) { writer.Write(Settings); }
+        writer.Write(flags);
+        if (flags.IsBitSet(2)) { writer.Write(Settings); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

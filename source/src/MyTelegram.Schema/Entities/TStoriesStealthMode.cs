@@ -25,19 +25,21 @@ public sealed partial class TStoriesStealthMode : IStoriesStealthMode
     /// </summary>
     public int? CooldownUntilDate { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*ActiveUntilDate != 0 && */ActiveUntilDate.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*CooldownUntilDate != 0 && */CooldownUntilDate.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (/*ActiveUntilDate != 0 && */ActiveUntilDate.HasValue) { flags = flags.SetBit(0); }
+        if (/*CooldownUntilDate != 0 && */CooldownUntilDate.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(ActiveUntilDate.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(CooldownUntilDate.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(ActiveUntilDate.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(CooldownUntilDate.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

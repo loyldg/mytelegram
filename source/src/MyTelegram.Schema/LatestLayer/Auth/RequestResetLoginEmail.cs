@@ -29,13 +29,9 @@ public sealed partial class RequestResetLoginEmail : IRequest<MyTelegram.Schema.
     /// </summary>
     public string PhoneCodeHash { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PhoneNumber);
         writer.Write(PhoneCodeHash);

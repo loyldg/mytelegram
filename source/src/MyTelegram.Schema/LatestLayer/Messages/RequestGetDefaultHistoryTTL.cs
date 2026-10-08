@@ -14,13 +14,9 @@ public sealed partial class RequestGetDefaultHistoryTTL : IRequest<MyTelegram.Sc
 {
     public uint ConstructorId => 0x658b7188;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

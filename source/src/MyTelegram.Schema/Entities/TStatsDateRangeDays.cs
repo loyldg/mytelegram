@@ -20,13 +20,9 @@ public sealed partial class TStatsDateRangeDays : IStatsDateRangeDays
     /// </summary>
     public int MaxDate { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(MinDate);
         writer.Write(MaxDate);

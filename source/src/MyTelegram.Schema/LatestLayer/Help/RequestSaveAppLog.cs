@@ -20,13 +20,9 @@ public sealed partial class RequestSaveAppLog : IRequest<IBool>
     /// </summary>
     public TVector<MyTelegram.Schema.IInputAppEvent> Events { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Events);
     }

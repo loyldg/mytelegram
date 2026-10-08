@@ -7,14 +7,14 @@ public class MyTelegramConsts
     public const int Layer = Layers.LayerLatest;
 
     public const string RepositoryUrl = "https://github.com/loyldg/mytelegram";
-    public const long UserIdInitId = 2000000;
-    public const long BotUserInitId = 600000000000;
-    public const long ChatIdInitId = 700000000000;
-    public const long ChannelInitId = 800000000000;
-    public const long BotFatherUserId = BotUserInitId;
-    public const int FolderInitId = 1;
+    public const long UserIdBase = 2000000;
+    public const long BotUserIdBase = 600000000000;
+    public const long ChatIdBase = 700000000000;
+    public const long ChannelIdBase = 800000000000;
+    public const long BotFatherUserId = BotUserIdBase;
+    public const int FolderIdBase = 1;
 
-    public const int PtsInitId = 1;
+    public const int PtsIdBase = 1;
 
     public const long NotificationServiceUserId = 777000;
     public const long GroupAnonymousBotUserId = 568888;

@@ -45,23 +45,25 @@ public sealed partial class TMessageActionPaymentSent : IMessageAction
     /// </summary>
     public int? SubscriptionUntilDate { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (RecurringInit) { Flags = Flags.SetBit(2); }
-        if (RecurringUsed) { Flags = Flags.SetBit(3); }
-        if (InvoiceSlug != null) { Flags = Flags.SetBit(0); }
-        if (/*SubscriptionUntilDate != 0 && */SubscriptionUntilDate.HasValue) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (RecurringInit) { flags = flags.SetBit(2); }
+        if (RecurringUsed) { flags = flags.SetBit(3); }
+        if (InvoiceSlug != null) { flags = flags.SetBit(0); }
+        if (/*SubscriptionUntilDate != 0 && */SubscriptionUntilDate.HasValue) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Currency);
         writer.Write(TotalAmount);
-        if (Flags.IsBitSet(0)) { writer.Write(InvoiceSlug); }
-        if (Flags.IsBitSet(4)) { writer.Write(SubscriptionUntilDate.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(InvoiceSlug); }
+        if (flags.IsBitSet(4)) { writer.Write(SubscriptionUntilDate.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

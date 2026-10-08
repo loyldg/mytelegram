@@ -16,13 +16,9 @@ public sealed partial class TChannelAdminLogEventActionExportedInviteDelete : IC
     /// </summary>
     public MyTelegram.Schema.IExportedChatInvite Invite { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Invite);
     }

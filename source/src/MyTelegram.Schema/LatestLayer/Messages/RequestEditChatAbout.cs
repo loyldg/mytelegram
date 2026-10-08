@@ -36,13 +36,9 @@ public sealed partial class RequestEditChatAbout : IRequest<IBool>
     /// </summary>
     public string About { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(About);

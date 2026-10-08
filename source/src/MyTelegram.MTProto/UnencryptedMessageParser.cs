@@ -17,7 +17,7 @@ public class UnencryptedMessageParser : IUnencryptedMessageParser, ITransientDep
         return new UnencryptedMessage(authKeyId,
             string.Empty,
             string.Empty,
-            0,
+            ConnectionType.UnKnown,
             0,
             messageData,
             messageDataLength,

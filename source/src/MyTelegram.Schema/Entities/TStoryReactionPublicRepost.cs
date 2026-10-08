@@ -22,13 +22,9 @@ public sealed partial class TStoryReactionPublicRepost : IStoryReaction
     /// </summary>
     public MyTelegram.Schema.IStoryItem Story { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PeerId);
         writer.Write(Story);

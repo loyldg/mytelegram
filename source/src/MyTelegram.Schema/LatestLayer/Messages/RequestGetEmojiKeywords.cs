@@ -19,13 +19,9 @@ public sealed partial class RequestGetEmojiKeywords : IRequest<MyTelegram.Schema
     /// </summary>
     public string LangCode { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(LangCode);
     }

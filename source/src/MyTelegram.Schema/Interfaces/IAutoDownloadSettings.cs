@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TAutoDownloadSettings"/> See <a href="https://corefork.telegram.org/constructor/autoDownloadSettings" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TAutoDownloadSettings), nameof(TAutoDownloadSettings))]
-public interface IAutoDownloadSettings : IObject
+public partial interface IAutoDownloadSettings : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

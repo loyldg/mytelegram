@@ -9,6 +9,7 @@ using MyTelegram.EventFlow.MongoDB.ReadStores;
 using MyTelegram.EventFlow.ReadStores;
 using MyTelegram.Messenger.Extensions;
 using MyTelegram.Messenger.QueryServer.EventHandlers;
+using MyTelegram.Messenger.QueryServer.Services;
 using MyTelegram.QueryHandlers.MongoDB;
 using MyTelegram.ReadModel.MongoDB;
 
@@ -39,6 +40,7 @@ public static class MyTelegramMessengerQueryServerExtensions
             options.AddEventUpgraders();
             options.AddMongoDbQueryHandlers();
             options.AddSubscribers(Assembly.GetEntryAssembly());
+            options.Configure(c => { c.IsAsynchronousSubscribersEnabled = true; });
 
             options.AddCommands(
                 typeof(CreateRpcResultCommand),
@@ -72,5 +74,8 @@ public static class MyTelegramMessengerQueryServerExtensions
         services.AddReadModelMongoDbContext();
         services.AddEventStoreMongoDbContext<DefaultReadModelMongoDbContext>();
         services.AddEventHandlers();
+
+        //services.AddTransient<IDataProcessor<DomainEventMessage>, DomainEventMessageDataProcessor>();
+        services.AddTransient<IDataProcessor<IDomainEvent>, DomainEventDataProcessor>();
     }
 }

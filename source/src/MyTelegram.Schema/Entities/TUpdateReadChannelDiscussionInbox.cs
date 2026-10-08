@@ -40,22 +40,24 @@ public sealed partial class TUpdateReadChannelDiscussionInbox : IUpdate
     /// </summary>
     public int? BroadcastPost { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*BroadcastId != 0 &&*/ BroadcastId.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*BroadcastPost != 0 && */BroadcastPost.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*BroadcastId != 0 &&*/ BroadcastId.HasValue) { flags = flags.SetBit(0); }
+        if (/*BroadcastPost != 0 && */BroadcastPost.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(ChannelId);
         writer.Write(TopMsgId);
         writer.Write(ReadMaxId);
-        if (Flags.IsBitSet(0)) { writer.Write(BroadcastId.Value); }
-        if (Flags.IsBitSet(0)) { writer.Write(BroadcastPost.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(BroadcastId.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(BroadcastPost.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -13,7 +13,7 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TUserEmpty), nameof(TUserEmpty))]
 [JsonDerivedType(typeof(TUser), nameof(TUser))]
-public interface IUser : IObject
+public partial interface IUser : IObject
 {
     /// <summary>
     /// User identifier or <code>0</code>

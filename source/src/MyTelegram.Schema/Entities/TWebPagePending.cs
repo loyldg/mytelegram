@@ -30,18 +30,20 @@ public sealed partial class TWebPagePending : IWebPage
     /// </summary>
     public int Date { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Url != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Url != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
-        if (Flags.IsBitSet(0)) { writer.Write(Url); }
+        if (flags.IsBitSet(0)) { writer.Write(Url); }
         writer.Write(Date);
     }
 

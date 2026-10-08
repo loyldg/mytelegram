@@ -4,7 +4,7 @@ namespace MyTelegram.Schema;
 
 
 [TlObject(0xd0e8075c)]
-public sealed class TServerDHParamsOk : IServerDHParams
+public sealed partial class TServerDHParamsOk : IServerDHParams
 {
     public uint ConstructorId => 0xd0e8075c;
     public byte[] Nonce { get; set; }

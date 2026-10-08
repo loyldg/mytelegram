@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Bots;
 /// <see cref="TPreviewInfo"/> See <a href="https://corefork.telegram.org/constructor/bots.previewInfo" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPreviewInfo), nameof(TPreviewInfo))]
-public interface IPreviewInfo : IObject
+public partial interface IPreviewInfo : IObject
 {
     /// <summary>
     /// All preview medias for the language code passed to <a href="https://corefork.telegram.org/method/bots.getPreviewInfo">bots.getPreviewInfo</a>.

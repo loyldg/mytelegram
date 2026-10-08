@@ -14,13 +14,9 @@ public sealed partial class RequestGetMyBoosts : IRequest<MyTelegram.Schema.Prem
 {
     public uint ConstructorId => 0xbe77b4a;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

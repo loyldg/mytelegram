@@ -98,24 +98,26 @@ public sealed partial class TUpdateShortChatMessage : IUpdates
     /// </summary>
     public int? TtlPeriod { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Out) { Flags = Flags.SetBit(1); }
-        if (Mentioned) { Flags = Flags.SetBit(4); }
-        if (MediaUnread) { Flags = Flags.SetBit(5); }
-        if (Silent) { Flags = Flags.SetBit(13); }
-        if (FwdFrom != null) { Flags = Flags.SetBit(2); }
-        if (/*ViaBotId != 0 &&*/ ViaBotId.HasValue) { Flags = Flags.SetBit(11); }
-        if (ReplyTo != null) { Flags = Flags.SetBit(3); }
-        if (Entities?.Count > 0) { Flags = Flags.SetBit(7); }
-        if (/*TtlPeriod != 0 && */TtlPeriod.HasValue) { Flags = Flags.SetBit(25); }
+        var flags = 0;
+        if (Out) { flags = flags.SetBit(1); }
+        if (Mentioned) { flags = flags.SetBit(4); }
+        if (MediaUnread) { flags = flags.SetBit(5); }
+        if (Silent) { flags = flags.SetBit(13); }
+        if (FwdFrom != null) { flags = flags.SetBit(2); }
+        if (/*ViaBotId != 0 &&*/ ViaBotId.HasValue) { flags = flags.SetBit(11); }
+        if (ReplyTo != null) { flags = flags.SetBit(3); }
+        if (Entities?.Count > 0) { flags = flags.SetBit(7); }
+        if (/*TtlPeriod != 0 && */TtlPeriod.HasValue) { flags = flags.SetBit(25); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(FromId);
         writer.Write(ChatId);
@@ -123,11 +125,11 @@ public sealed partial class TUpdateShortChatMessage : IUpdates
         writer.Write(Pts);
         writer.Write(PtsCount);
         writer.Write(Date);
-        if (Flags.IsBitSet(2)) { writer.Write(FwdFrom); }
-        if (Flags.IsBitSet(11)) { writer.Write(ViaBotId.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(ReplyTo); }
-        if (Flags.IsBitSet(7)) { writer.Write(Entities); }
-        if (Flags.IsBitSet(25)) { writer.Write(TtlPeriod.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(FwdFrom); }
+        if (flags.IsBitSet(11)) { writer.Write(ViaBotId.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(ReplyTo); }
+        if (flags.IsBitSet(7)) { writer.Write(Entities); }
+        if (flags.IsBitSet(25)) { writer.Write(TtlPeriod.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -25,13 +25,9 @@ public sealed partial class TFileHash : IFileHash
     /// </summary>
     public ReadOnlyMemory<byte> Hash { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Offset);
         writer.Write(Limit);

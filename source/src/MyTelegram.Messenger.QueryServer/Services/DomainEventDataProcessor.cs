@@ -21,10 +21,10 @@ public class DomainEventDataProcessor(IDispatchToEventSubscribers dispatchToEven
                 break;
         }
 
-        await cachedReadModelUpdater.UpdateAsync([domainEvent], cancellationToken);
+        await cachedReadModelUpdater.UpdateAsync([domainEvent], CancellationToken.None);
         await dispatchToEventSubscribers.DispatchToSynchronousSubscribersAsync([domainEvent],
-            cancellationToken);
-        await dispatchToEventSubscribers.DispatchToAsynchronousSubscribersAsync(domainEvent, cancellationToken);
+            CancellationToken.None);
+        await dispatchToEventSubscribers.DispatchToAsynchronousSubscribersAsync(domainEvent, CancellationToken.None);
         sw.Stop();
 
         if (sw.Elapsed.TotalMilliseconds > maxMillSeconds)

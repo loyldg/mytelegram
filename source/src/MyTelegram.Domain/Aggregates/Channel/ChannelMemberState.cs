@@ -4,11 +4,12 @@
 public class ChannelMemberState : AggregateState<ChannelMemberAggregate, ChannelMemberId, ChannelMemberState>,
     IApply<ChannelMemberCreatedEvent>,
     IApply<ChannelCreatorCreatedEvent>,
-    //IApply<ChannelMemberJoinedEvent>,
     IApply<ChannelMemberBannedRightsChangedEvent>,
     IApply<ChannelMemberLeftEvent>,
     IApply<ChannelMemberLeftEvent2>,
-    IApply<ChannelAdminEditedEvent2>
+    IApply<ChannelAdminEditedEvent2>,
+    IApply<ParticipantRankEditedEvent>,
+    IApply<ParticipantBannedToggledEvent>
 {
     public bool Banned { get; private set; }
 
@@ -23,6 +24,12 @@ public class ChannelMemberState : AggregateState<ChannelMemberAggregate, Channel
     public int Version { get; private set; }
     public string? Rank { get; private set; }
     public int UntilDate { get; private set; }
+    public void Apply(ParticipantRankEditedEvent aggregateEvent)
+    {
+        Version = aggregateEvent.Version;
+        Rank = aggregateEvent.Rank;
+    }
+
     public void Apply(ChannelCreatorCreatedEvent aggregateEvent)
     {
     }
@@ -49,10 +56,6 @@ public class ChannelMemberState : AggregateState<ChannelMemberAggregate, Channel
         //BannedRights = null;
     }
 
-    //public void Apply(ChannelMemberJoinedEvent aggregateEvent)
-    //{
-    //}
-
     public void Apply(ChannelMemberLeftEvent aggregateEvent)
     {
         Left = true;
@@ -68,6 +71,7 @@ public class ChannelMemberState : AggregateState<ChannelMemberAggregate, Channel
         IsBot = snapshot.IsBot;
         Broadcast = snapshot.Broadcast;
         UntilDate = snapshot.UntilDate;
+        Rank = snapshot.Rank;
     }
 
     public void Apply(ChannelMemberLeftEvent2 aggregateEvent)
@@ -78,5 +82,11 @@ public class ChannelMemberState : AggregateState<ChannelMemberAggregate, Channel
     public void Apply(ChannelAdminEditedEvent2 aggregateEvent)
     {
         IsAdmin = aggregateEvent.IsAdmin;
+        Rank = aggregateEvent.Rank;
+    }
+
+    public void Apply(ParticipantBannedToggledEvent aggregateEvent)
+    {
+        
     }
 }

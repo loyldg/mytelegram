@@ -9,7 +9,6 @@ namespace MyTelegram.Schema;
 /// <remarks>
 /// <para>Implementations:</para>
 /// <see cref="TMessageMediaEmpty"/> See <a href="https://corefork.telegram.org/constructor/messageMediaEmpty" /><br/>
-/// <see cref="TMessageMediaPhoto"/> See <a href="https://corefork.telegram.org/constructor/messageMediaPhoto" /><br/>
 /// <see cref="TMessageMediaGeo"/> See <a href="https://corefork.telegram.org/constructor/messageMediaGeo" /><br/>
 /// <see cref="TMessageMediaContact"/> See <a href="https://corefork.telegram.org/constructor/messageMediaContact" /><br/>
 /// <see cref="TMessageMediaUnsupported"/> See <a href="https://corefork.telegram.org/constructor/messageMediaUnsupported" /><br/>
@@ -19,7 +18,6 @@ namespace MyTelegram.Schema;
 /// <see cref="TMessageMediaGame"/> See <a href="https://corefork.telegram.org/constructor/messageMediaGame" /><br/>
 /// <see cref="TMessageMediaInvoice"/> See <a href="https://corefork.telegram.org/constructor/messageMediaInvoice" /><br/>
 /// <see cref="TMessageMediaGeoLive"/> See <a href="https://corefork.telegram.org/constructor/messageMediaGeoLive" /><br/>
-/// <see cref="TMessageMediaPoll"/> See <a href="https://corefork.telegram.org/constructor/messageMediaPoll" /><br/>
 /// <see cref="TMessageMediaDice"/> See <a href="https://corefork.telegram.org/constructor/messageMediaDice" /><br/>
 /// <see cref="TMessageMediaStory"/> See <a href="https://corefork.telegram.org/constructor/messageMediaStory" /><br/>
 /// <see cref="TMessageMediaGiveaway"/> See <a href="https://corefork.telegram.org/constructor/messageMediaGiveaway" /><br/>
@@ -27,9 +25,10 @@ namespace MyTelegram.Schema;
 /// <see cref="TMessageMediaPaidMedia"/> See <a href="https://corefork.telegram.org/constructor/messageMediaPaidMedia" /><br/>
 /// <see cref="TMessageMediaToDo"/> See <a href="https://corefork.telegram.org/constructor/messageMediaToDo" /><br/>
 /// <see cref="TMessageMediaVideoStream"/> See <a href="https://corefork.telegram.org/constructor/messageMediaVideoStream" /><br/>
+/// <see cref="TMessageMediaPhoto"/> See <a href="https://corefork.telegram.org/constructor/messageMediaPhoto" /><br/>
+/// <see cref="TMessageMediaPoll"/> See <a href="https://corefork.telegram.org/constructor/messageMediaPoll" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TMessageMediaEmpty), nameof(TMessageMediaEmpty))]
-[JsonDerivedType(typeof(TMessageMediaPhoto), nameof(TMessageMediaPhoto))]
 [JsonDerivedType(typeof(TMessageMediaGeo), nameof(TMessageMediaGeo))]
 [JsonDerivedType(typeof(TMessageMediaContact), nameof(TMessageMediaContact))]
 [JsonDerivedType(typeof(TMessageMediaUnsupported), nameof(TMessageMediaUnsupported))]
@@ -39,7 +38,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TMessageMediaGame), nameof(TMessageMediaGame))]
 [JsonDerivedType(typeof(TMessageMediaInvoice), nameof(TMessageMediaInvoice))]
 [JsonDerivedType(typeof(TMessageMediaGeoLive), nameof(TMessageMediaGeoLive))]
-[JsonDerivedType(typeof(TMessageMediaPoll), nameof(TMessageMediaPoll))]
 [JsonDerivedType(typeof(TMessageMediaDice), nameof(TMessageMediaDice))]
 [JsonDerivedType(typeof(TMessageMediaStory), nameof(TMessageMediaStory))]
 [JsonDerivedType(typeof(TMessageMediaGiveaway), nameof(TMessageMediaGiveaway))]
@@ -47,6 +45,8 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TMessageMediaPaidMedia), nameof(TMessageMediaPaidMedia))]
 [JsonDerivedType(typeof(TMessageMediaToDo), nameof(TMessageMediaToDo))]
 [JsonDerivedType(typeof(TMessageMediaVideoStream), nameof(TMessageMediaVideoStream))]
-public interface IMessageMedia : IObject
+[JsonDerivedType(typeof(TMessageMediaPhoto), nameof(TMessageMediaPhoto))]
+[JsonDerivedType(typeof(TMessageMediaPoll), nameof(TMessageMediaPoll))]
+public partial interface IMessageMedia : IObject
 {
 }

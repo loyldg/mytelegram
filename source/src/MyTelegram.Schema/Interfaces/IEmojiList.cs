@@ -13,6 +13,6 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TEmojiListNotModified), nameof(TEmojiListNotModified))]
 [JsonDerivedType(typeof(TEmojiList), nameof(TEmojiList))]
-public interface IEmojiList : IObject
+public partial interface IEmojiList : IObject
 {
 }

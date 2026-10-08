@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Messages;
 public sealed partial class TSavedReactionTagsNotModified : ISavedReactionTags
 {
     public uint ConstructorId => 0x889b59ef;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

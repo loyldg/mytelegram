@@ -31,6 +31,6 @@ namespace MyTelegram.Schema.Auth;
 [JsonDerivedType(typeof(TSentCodeTypeFirebaseSms), nameof(TSentCodeTypeFirebaseSms))]
 [JsonDerivedType(typeof(TSentCodeTypeSmsWord), nameof(TSentCodeTypeSmsWord))]
 [JsonDerivedType(typeof(TSentCodeTypeSmsPhrase), nameof(TSentCodeTypeSmsPhrase))]
-public interface ISentCodeType : IObject
+public partial interface ISentCodeType : IObject
 {
 }

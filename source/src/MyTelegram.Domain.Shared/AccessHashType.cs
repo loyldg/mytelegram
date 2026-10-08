@@ -15,4 +15,5 @@ public enum AccessHashType
     BotApp = 10,
     Game = 11,
     Call = 12,
+    AiComposeTone = 13,
 }

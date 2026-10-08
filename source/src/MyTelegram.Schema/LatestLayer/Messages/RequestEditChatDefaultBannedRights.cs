@@ -37,13 +37,9 @@ public sealed partial class RequestEditChatDefaultBannedRights : IRequest<MyTele
     /// </summary>
     public MyTelegram.Schema.IChatBannedRights BannedRights { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(BannedRights);

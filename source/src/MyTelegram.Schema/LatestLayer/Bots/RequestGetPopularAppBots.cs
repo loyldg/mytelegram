@@ -24,13 +24,9 @@ public sealed partial class RequestGetPopularAppBots : IRequest<MyTelegram.Schem
     /// </summary>
     public int Limit { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Offset);
         writer.Write(Limit);

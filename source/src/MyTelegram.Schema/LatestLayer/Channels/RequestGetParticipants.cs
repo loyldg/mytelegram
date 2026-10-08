@@ -48,13 +48,9 @@ public sealed partial class RequestGetParticipants : IRequest<MyTelegram.Schema.
     /// </summary>
     public long Hash { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Channel);
         writer.Write(Filter);

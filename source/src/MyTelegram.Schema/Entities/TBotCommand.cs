@@ -6,10 +6,14 @@ namespace MyTelegram.Schema;
 /// Describes a bot command that can be used in a chat
 /// <para>See <a href="https://corefork.telegram.org/constructor/botCommand" /></para>
 /// </summary>
-[TlObject(0xc27ac8c7)]
+[TlObject(0x9852d6d2)]
 public sealed partial class TBotCommand : IBotCommand
 {
-    public uint ConstructorId => 0xc27ac8c7;
+    public uint ConstructorId => 0x9852d6d2;
+    public int Flags { get; set; }
+
+    public bool Ephemeral { get; set; }
+
     /// <summary>
     /// <code>/command</code> name
     /// </summary>
@@ -20,20 +24,26 @@ public sealed partial class TBotCommand : IBotCommand
     /// </summary>
     public string Description { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
+        var flags = 0;
+        if (Ephemeral) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
+        writer.Write(flags);
         writer.Write(Command);
         writer.Write(Description);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(0)) { Ephemeral = true; }
         Command = buffer.ReadString();
         Description = buffer.ReadString();
     }

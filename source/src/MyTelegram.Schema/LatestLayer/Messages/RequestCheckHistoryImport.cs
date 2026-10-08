@@ -22,13 +22,9 @@ public sealed partial class RequestCheckHistoryImport : IRequest<MyTelegram.Sche
     /// </summary>
     public string ImportHead { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ImportHead);
     }

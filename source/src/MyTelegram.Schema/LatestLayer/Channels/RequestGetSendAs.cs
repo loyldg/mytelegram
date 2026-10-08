@@ -41,17 +41,19 @@ public sealed partial class RequestGetSendAs : IRequest<MyTelegram.Schema.Channe
     /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ForPaidReactions) { Flags = Flags.SetBit(0); }
-        if (ForLiveStories) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (ForPaidReactions) { flags = flags.SetBit(0); }
+        if (ForLiveStories) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
     }
 

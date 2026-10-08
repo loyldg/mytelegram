@@ -28,13 +28,9 @@ public sealed partial class TUserFull : IUserFull
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(FullUser);
         writer.Write(Chats);

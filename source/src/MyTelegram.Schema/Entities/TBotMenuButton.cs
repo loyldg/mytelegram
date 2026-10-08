@@ -20,13 +20,9 @@ public sealed partial class TBotMenuButton : IBotMenuButton
     /// </summary>
     public string Url { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Text);
         writer.Write(Url);

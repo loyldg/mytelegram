@@ -24,13 +24,9 @@ public sealed partial class RequestInvokeWithReCaptcha : IRequest<IObject>, IHas
     /// </summary>
     public IObject Query { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Token);
         writer.Write(Query);

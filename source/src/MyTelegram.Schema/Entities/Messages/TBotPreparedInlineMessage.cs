@@ -20,13 +20,9 @@ public sealed partial class TBotPreparedInlineMessage : IBotPreparedInlineMessag
     /// </summary>
     public int ExpireDate { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
         writer.Write(ExpireDate);

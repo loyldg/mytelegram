@@ -20,17 +20,19 @@ public sealed partial class TDraftMessageEmpty : IDraftMessage
     /// </summary>
     public int? Date { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*Date != 0 && */Date.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*Date != 0 && */Date.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(Date.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(Date.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

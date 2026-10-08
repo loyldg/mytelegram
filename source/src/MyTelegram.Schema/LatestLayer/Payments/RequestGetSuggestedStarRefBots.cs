@@ -48,17 +48,19 @@ public sealed partial class RequestGetSuggestedStarRefBots : IRequest<MyTelegram
     /// </summary>
     public int Limit { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (OrderByRevenue) { Flags = Flags.SetBit(0); }
-        if (OrderByDate) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (OrderByRevenue) { flags = flags.SetBit(0); }
+        if (OrderByDate) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Offset);
         writer.Write(Limit);

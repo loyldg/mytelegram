@@ -25,13 +25,9 @@ public sealed partial class TChatAdminWithInvites : IChatAdminWithInvites
     /// </summary>
     public int RevokedInvitesCount { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(AdminId);
         writer.Write(InvitesCount);

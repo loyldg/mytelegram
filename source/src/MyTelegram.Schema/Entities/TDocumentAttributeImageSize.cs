@@ -20,13 +20,9 @@ public sealed partial class TDocumentAttributeImageSize : IDocumentAttribute
     /// </summary>
     public int H { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(W);
         writer.Write(H);

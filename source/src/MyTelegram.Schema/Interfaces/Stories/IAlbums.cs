@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Stories;
 /// </remarks>
 [JsonDerivedType(typeof(TAlbumsNotModified), nameof(TAlbumsNotModified))]
 [JsonDerivedType(typeof(TAlbums), nameof(TAlbums))]
-public interface IAlbums : IObject
+public partial interface IAlbums : IObject
 {
 }

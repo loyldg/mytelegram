@@ -118,38 +118,40 @@ public sealed partial class RequestSendStory : IRequest<MyTelegram.Schema.IUpdat
     /// </summary>
     public MyTelegram.Schema.IInputDocument? Music { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Pinned) { Flags = Flags.SetBit(2); }
-        if (Noforwards) { Flags = Flags.SetBit(4); }
-        if (FwdModified) { Flags = Flags.SetBit(7); }
-        if (MediaAreas?.Count > 0) { Flags = Flags.SetBit(5); }
-        if (Caption != null) { Flags = Flags.SetBit(0); }
-        if (Entities?.Count > 0) { Flags = Flags.SetBit(1); }
-        if (/*Period != 0 && */Period.HasValue) { Flags = Flags.SetBit(3); }
-        if (FwdFromId != null) { Flags = Flags.SetBit(6); }
-        if (/*FwdFromStory != 0 && */FwdFromStory.HasValue) { Flags = Flags.SetBit(6); }
-        if (Albums?.Count > 0) { Flags = Flags.SetBit(8); }
-        if (Music != null) { Flags = Flags.SetBit(9); }
+        var flags = 0;
+        if (Pinned) { flags = flags.SetBit(2); }
+        if (Noforwards) { flags = flags.SetBit(4); }
+        if (FwdModified) { flags = flags.SetBit(7); }
+        if (MediaAreas?.Count > 0) { flags = flags.SetBit(5); }
+        if (Caption != null) { flags = flags.SetBit(0); }
+        if (Entities?.Count > 0) { flags = flags.SetBit(1); }
+        if (/*Period != 0 && */Period.HasValue) { flags = flags.SetBit(3); }
+        if (FwdFromId != null) { flags = flags.SetBit(6); }
+        if (/*FwdFromStory != 0 && */FwdFromStory.HasValue) { flags = flags.SetBit(6); }
+        if (Albums?.Count > 0) { flags = flags.SetBit(8); }
+        if (Music != null) { flags = flags.SetBit(9); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Media);
-        if (Flags.IsBitSet(5)) { writer.Write(MediaAreas); }
-        if (Flags.IsBitSet(0)) { writer.Write(Caption); }
-        if (Flags.IsBitSet(1)) { writer.Write(Entities); }
+        if (flags.IsBitSet(5)) { writer.Write(MediaAreas); }
+        if (flags.IsBitSet(0)) { writer.Write(Caption); }
+        if (flags.IsBitSet(1)) { writer.Write(Entities); }
         writer.Write(PrivacyRules);
         writer.Write(RandomId);
-        if (Flags.IsBitSet(3)) { writer.Write(Period.Value); }
-        if (Flags.IsBitSet(6)) { writer.Write(FwdFromId); }
-        if (Flags.IsBitSet(6)) { writer.Write(FwdFromStory.Value); }
-        if (Flags.IsBitSet(8)) { writer.Write(Albums); }
-        if (Flags.IsBitSet(9)) { writer.Write(Music); }
+        if (flags.IsBitSet(3)) { writer.Write(Period.Value); }
+        if (flags.IsBitSet(6)) { writer.Write(FwdFromId); }
+        if (flags.IsBitSet(6)) { writer.Write(FwdFromStory.Value); }
+        if (flags.IsBitSet(8)) { writer.Write(Albums); }
+        if (flags.IsBitSet(9)) { writer.Write(Music); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

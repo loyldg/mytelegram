@@ -13,7 +13,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetPeerSettingsHandler(IPeerSettingsAppService peerSettingsAppService, IPeerHelper peerHelper, IObjectMapper objectMapper, IQueryProcessor queryProcessor, IContactAppService contactAppService, IChannelAppService channelAppService, ILayeredService<IPeerSettingsConverter> layeredService) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetPeerSettings, MyTelegram.Schema.Messages.IPeerSettings>
+internal sealed class GetPeerSettingsHandler(IPeerSettingsAppService peerSettingsAppService, IPeerHelper peerHelper, IQueryProcessor queryProcessor, IContactAppService contactAppService, IChannelAppService channelAppService, ILayeredService<IPeerSettingsConverter> layeredService) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetPeerSettings, MyTelegram.Schema.Messages.IPeerSettings>
 {
     protected override async Task<MyTelegram.Schema.Messages.IPeerSettings> HandleCoreAsync(IRequestInput input, RequestGetPeerSettings obj)
     {

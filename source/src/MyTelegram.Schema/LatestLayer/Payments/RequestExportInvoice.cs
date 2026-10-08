@@ -31,13 +31,9 @@ public sealed partial class RequestExportInvoice : IRequest<MyTelegram.Schema.Pa
     /// </summary>
     public MyTelegram.Schema.IInputMedia InvoiceMedia { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(InvoiceMedia);
     }

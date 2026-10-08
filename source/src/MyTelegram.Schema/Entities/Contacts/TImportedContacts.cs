@@ -33,13 +33,9 @@ public sealed partial class TImportedContacts : IImportedContacts
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Imported);
         writer.Write(PopularInvites);

@@ -20,13 +20,9 @@ public sealed partial class TVideoSizeEmojiMarkup : IVideoSize
     /// </summary>
     public TVector<int> BackgroundColors { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(EmojiId);
         writer.Write(BackgroundColors);

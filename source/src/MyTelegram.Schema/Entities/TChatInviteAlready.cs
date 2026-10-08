@@ -16,13 +16,9 @@ public sealed partial class TChatInviteAlready : IChatInvite
     /// </summary>
     public MyTelegram.Schema.IChat Chat { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Chat);
     }

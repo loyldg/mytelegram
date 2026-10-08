@@ -33,13 +33,9 @@ public sealed partial class RequestGetStoriesByID : IRequest<MyTelegram.Schema.S
     /// </summary>
     public TVector<int> Id { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(Id);

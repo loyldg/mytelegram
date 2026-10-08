@@ -105,21 +105,23 @@ public sealed partial class TAuthorization : IAuthorization
     /// </summary>
     public string Region { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Current) { Flags = Flags.SetBit(0); }
-        if (OfficialApp) { Flags = Flags.SetBit(1); }
-        if (PasswordPending) { Flags = Flags.SetBit(2); }
-        if (EncryptedRequestsDisabled) { Flags = Flags.SetBit(3); }
-        if (CallRequestsDisabled) { Flags = Flags.SetBit(4); }
-        if (Unconfirmed) { Flags = Flags.SetBit(5); }
+        var flags = 0;
+        if (Current) { flags = flags.SetBit(0); }
+        if (OfficialApp) { flags = flags.SetBit(1); }
+        if (PasswordPending) { flags = flags.SetBit(2); }
+        if (EncryptedRequestsDisabled) { flags = flags.SetBit(3); }
+        if (CallRequestsDisabled) { flags = flags.SetBit(4); }
+        if (Unconfirmed) { flags = flags.SetBit(5); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Hash);
         writer.Write(DeviceModel);
         writer.Write(Platform);

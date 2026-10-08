@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Stats;
 /// <see cref="TMegagroupStats"/> See <a href="https://corefork.telegram.org/constructor/stats.megagroupStats" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TMegagroupStats), nameof(TMegagroupStats))]
-public interface IMegagroupStats : IObject
+public partial interface IMegagroupStats : IObject
 {
     /// <summary>
     /// Period in consideration

@@ -32,13 +32,9 @@ public sealed partial class RequestGetDocumentByHash : IRequest<MyTelegram.Schem
     /// </summary>
     public string MimeType { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Sha256);
         writer.Write(Size);

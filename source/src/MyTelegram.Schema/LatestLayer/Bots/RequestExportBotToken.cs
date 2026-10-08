@@ -23,13 +23,9 @@ public sealed partial class RequestExportBotToken : IRequest<MyTelegram.Schema.B
     /// </summary>
     public bool Revoke { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Bot);
         writer.Write(Revoke);

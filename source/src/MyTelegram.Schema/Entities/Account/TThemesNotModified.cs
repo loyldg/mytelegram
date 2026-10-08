@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Account;
 public sealed partial class TThemesNotModified : IThemes
 {
     public uint ConstructorId => 0xf41eb622;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

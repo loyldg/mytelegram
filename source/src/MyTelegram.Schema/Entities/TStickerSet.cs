@@ -106,36 +106,38 @@ public sealed partial class TStickerSet : IStickerSet
     /// </summary>
     public int Hash { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Archived) { Flags = Flags.SetBit(1); }
-        if (Official) { Flags = Flags.SetBit(2); }
-        if (Masks) { Flags = Flags.SetBit(3); }
-        if (Emojis) { Flags = Flags.SetBit(7); }
-        if (TextColor) { Flags = Flags.SetBit(9); }
-        if (ChannelEmojiStatus) { Flags = Flags.SetBit(10); }
-        if (Creator) { Flags = Flags.SetBit(11); }
-        if (/*InstalledDate != 0 && */InstalledDate.HasValue) { Flags = Flags.SetBit(0); }
-        if (Thumbs?.Count > 0) { Flags = Flags.SetBit(4); }
-        if (/*ThumbDcId != 0 && */ThumbDcId.HasValue) { Flags = Flags.SetBit(4); }
-        if (/*ThumbVersion != 0 && */ThumbVersion.HasValue) { Flags = Flags.SetBit(4); }
-        if (/*ThumbDocumentId != 0 &&*/ ThumbDocumentId.HasValue) { Flags = Flags.SetBit(8); }
+        var flags = 0;
+        if (Archived) { flags = flags.SetBit(1); }
+        if (Official) { flags = flags.SetBit(2); }
+        if (Masks) { flags = flags.SetBit(3); }
+        if (Emojis) { flags = flags.SetBit(7); }
+        if (TextColor) { flags = flags.SetBit(9); }
+        if (ChannelEmojiStatus) { flags = flags.SetBit(10); }
+        if (Creator) { flags = flags.SetBit(11); }
+        if (/*InstalledDate != 0 && */InstalledDate.HasValue) { flags = flags.SetBit(0); }
+        if (Thumbs?.Count > 0) { flags = flags.SetBit(4); }
+        if (/*ThumbDcId != 0 && */ThumbDcId.HasValue) { flags = flags.SetBit(4); }
+        if (/*ThumbVersion != 0 && */ThumbVersion.HasValue) { flags = flags.SetBit(4); }
+        if (/*ThumbDocumentId != 0 &&*/ ThumbDocumentId.HasValue) { flags = flags.SetBit(8); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(InstalledDate.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(InstalledDate.Value); }
         writer.Write(Id);
         writer.Write(AccessHash);
         writer.Write(Title);
         writer.Write(ShortName);
-        if (Flags.IsBitSet(4)) { writer.Write(Thumbs); }
-        if (Flags.IsBitSet(4)) { writer.Write(ThumbDcId.Value); }
-        if (Flags.IsBitSet(4)) { writer.Write(ThumbVersion.Value); }
-        if (Flags.IsBitSet(8)) { writer.Write(ThumbDocumentId.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(Thumbs); }
+        if (flags.IsBitSet(4)) { writer.Write(ThumbDcId.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(ThumbVersion.Value); }
+        if (flags.IsBitSet(8)) { writer.Write(ThumbDocumentId.Value); }
         writer.Write(Count);
         writer.Write(Hash);
     }

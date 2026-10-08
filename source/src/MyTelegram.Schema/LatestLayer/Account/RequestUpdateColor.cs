@@ -35,18 +35,20 @@ public sealed partial class RequestUpdateColor : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IPeerColor? Color { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ForProfile) { Flags = Flags.SetBit(1); }
-        if (Color != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (ForProfile) { flags = flags.SetBit(1); }
+        if (Color != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(2)) { writer.Write(Color); }
+        writer.Write(flags);
+        if (flags.IsBitSet(2)) { writer.Write(Color); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

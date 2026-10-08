@@ -57,12 +57,6 @@ public class MySagaAggregateStore(
             case UpdateMessagePinnedSagaId updateMessagePinnedSagaId:
                 domainEvents = await aggregateStore.UpdateAsync<UpdateMessagePinnedSaga, UpdateMessagePinnedSagaId>(updateMessagePinnedSagaId, sourceId, updateSaga, cancellationToken);
                 break;
-            case UpdateMessageReplySagaId updateMessageReplySagaId:
-                domainEvents = await aggregateStore.UpdateAsync<UpdateMessageReplySaga, UpdateMessageReplySagaId>(updateMessageReplySagaId, sourceId, updateSaga, cancellationToken);
-                break;
-            case UploadProfilePhotoSagaId uploadProfilePhotoSagaId:
-                domainEvents = await aggregateStore.UpdateAsync<UploadProfilePhotoSaga, UploadProfilePhotoSagaId>(uploadProfilePhotoSagaId, sourceId, updateSaga, cancellationToken);
-                break;
 
             case DeleteChannelMessagesSagaId deleteChannelMessagesSagaId:
                 domainEvents = await aggregateStore.UpdateAsync<DeleteChannelMessagesSaga, DeleteChannelMessagesSagaId>(deleteChannelMessagesSagaId, sourceId, updateSaga, cancellationToken);

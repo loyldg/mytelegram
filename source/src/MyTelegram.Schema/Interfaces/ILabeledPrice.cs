@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TLabeledPrice"/> See <a href="https://corefork.telegram.org/constructor/labeledPrice" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TLabeledPrice), nameof(TLabeledPrice))]
-public interface ILabeledPrice : IObject
+public partial interface ILabeledPrice : IObject
 {
     /// <summary>
     /// Portion label

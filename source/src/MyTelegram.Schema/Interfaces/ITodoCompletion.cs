@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TTodoCompletion"/> See <a href="https://corefork.telegram.org/constructor/todoCompletion" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TTodoCompletion), nameof(TTodoCompletion))]
-public interface ITodoCompletion : IObject
+public partial interface ITodoCompletion : IObject
 {
     /// <summary>
     /// The ID of the completed item.

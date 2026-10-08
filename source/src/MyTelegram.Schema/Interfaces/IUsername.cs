@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TUsername"/> See <a href="https://corefork.telegram.org/constructor/username" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TUsername), nameof(TUsername))]
-public interface IUsername : IObject
+public partial interface IUsername : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

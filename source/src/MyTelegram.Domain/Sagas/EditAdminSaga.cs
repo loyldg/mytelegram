@@ -121,7 +121,7 @@ public class EditAdminSagaState : AggregateState<EditAdminSaga, EditAdminSagaId,
     public bool IsNewAdmin { get; private set; }
     public long PromotedBy { get; private set; }
     public ChatAdminRights AdminRights { get; private set; } = default!;
-    public string Rank { get; private set; }
+    public string Rank { get; private set; } = null!;
     public void Apply(EditAdminStartedSagaEvent aggregateEvent)
     {
         RequestInfo = aggregateEvent.RequestInfo;

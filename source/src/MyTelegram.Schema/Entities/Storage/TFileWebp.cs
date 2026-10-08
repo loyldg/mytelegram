@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Storage;
 public sealed partial class TFileWebp : IFileType
 {
     public uint ConstructorId => 0x1081464c;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

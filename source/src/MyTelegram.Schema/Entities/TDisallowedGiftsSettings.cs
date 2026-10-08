@@ -40,20 +40,22 @@ public sealed partial class TDisallowedGiftsSettings : IDisallowedGiftsSettings
     /// </summary>
     public bool DisallowStargiftsFromChannels { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (DisallowUnlimitedStargifts) { Flags = Flags.SetBit(0); }
-        if (DisallowLimitedStargifts) { Flags = Flags.SetBit(1); }
-        if (DisallowUniqueStargifts) { Flags = Flags.SetBit(2); }
-        if (DisallowPremiumGifts) { Flags = Flags.SetBit(3); }
-        if (DisallowStargiftsFromChannels) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (DisallowUnlimitedStargifts) { flags = flags.SetBit(0); }
+        if (DisallowLimitedStargifts) { flags = flags.SetBit(1); }
+        if (DisallowUniqueStargifts) { flags = flags.SetBit(2); }
+        if (DisallowPremiumGifts) { flags = flags.SetBit(3); }
+        if (DisallowStargiftsFromChannels) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -23,13 +23,9 @@ public sealed partial class RequestGetMultiWallPapers : IRequest<TVector<MyTeleg
     /// </summary>
     public TVector<MyTelegram.Schema.IInputWallPaper> Wallpapers { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Wallpapers);
     }

@@ -23,13 +23,9 @@ public sealed partial class RequestReorderUsernames : IRequest<IBool>
     /// </summary>
     public TVector<string> Order { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Order);
     }

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TSecureCredentialsEncrypted"/> See <a href="https://corefork.telegram.org/constructor/secureCredentialsEncrypted" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TSecureCredentialsEncrypted), nameof(TSecureCredentialsEncrypted))]
-public interface ISecureCredentialsEncrypted : IObject
+public partial interface ISecureCredentialsEncrypted : IObject
 {
     /// <summary>
     /// Encrypted JSON-serialized data with unique user's payload, data hashes and secrets required for EncryptedPassportElement decryption and authentication, as described in <a href="https://corefork.telegram.org/passport#decrypting-data">decrypting data »</a>

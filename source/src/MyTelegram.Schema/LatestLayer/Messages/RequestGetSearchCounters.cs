@@ -45,20 +45,22 @@ public sealed partial class RequestGetSearchCounters : IRequest<TVector<MyTelegr
     /// </summary>
     public TVector<MyTelegram.Schema.IMessagesFilter> Filters { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (SavedPeerId != null) { Flags = Flags.SetBit(2); }
-        if (/*TopMsgId != 0 && */TopMsgId.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (SavedPeerId != null) { flags = flags.SetBit(2); }
+        if (/*TopMsgId != 0 && */TopMsgId.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
-        if (Flags.IsBitSet(2)) { writer.Write(SavedPeerId); }
-        if (Flags.IsBitSet(0)) { writer.Write(TopMsgId.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(SavedPeerId); }
+        if (flags.IsBitSet(0)) { writer.Write(TopMsgId.Value); }
         writer.Write(Filters);
     }
 

@@ -20,13 +20,9 @@ public sealed partial class TPaymentCharge : IPaymentCharge
     /// </summary>
     public string ProviderChargeId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
         writer.Write(ProviderChargeId);

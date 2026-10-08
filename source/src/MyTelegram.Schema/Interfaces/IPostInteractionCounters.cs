@@ -13,7 +13,7 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TPostInteractionCountersMessage), nameof(TPostInteractionCountersMessage))]
 [JsonDerivedType(typeof(TPostInteractionCountersStory), nameof(TPostInteractionCountersStory))]
-public interface IPostInteractionCounters : IObject
+public partial interface IPostInteractionCounters : IObject
 {
     /// <summary>
     /// Number of views

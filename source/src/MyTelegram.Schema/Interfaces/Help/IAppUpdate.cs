@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Help;
 /// </remarks>
 [JsonDerivedType(typeof(TAppUpdate), nameof(TAppUpdate))]
 [JsonDerivedType(typeof(TNoAppUpdate), nameof(TNoAppUpdate))]
-public interface IAppUpdate : IObject
+public partial interface IAppUpdate : IObject
 {
 }

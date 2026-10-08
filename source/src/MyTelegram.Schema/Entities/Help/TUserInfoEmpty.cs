@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Help;
 public sealed partial class TUserInfoEmpty : IUserInfo
 {
     public uint ConstructorId => 0xf3ae2eed;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

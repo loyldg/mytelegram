@@ -27,13 +27,9 @@ public sealed partial class TUpdateBotCommands : IUpdate
     /// </summary>
     public TVector<MyTelegram.Schema.IBotCommand> Commands { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(BotId);

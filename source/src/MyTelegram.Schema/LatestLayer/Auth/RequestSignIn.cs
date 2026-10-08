@@ -50,21 +50,23 @@ public sealed partial class RequestSignIn : IRequest<MyTelegram.Schema.Auth.IAut
     /// </summary>
     public MyTelegram.Schema.IEmailVerification? EmailVerification { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (PhoneCode != null) { Flags = Flags.SetBit(0); }
-        if (EmailVerification != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (PhoneCode != null) { flags = flags.SetBit(0); }
+        if (EmailVerification != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(PhoneNumber);
         writer.Write(PhoneCodeHash);
-        if (Flags.IsBitSet(0)) { writer.Write(PhoneCode); }
-        if (Flags.IsBitSet(1)) { writer.Write(EmailVerification); }
+        if (flags.IsBitSet(0)) { writer.Write(PhoneCode); }
+        if (flags.IsBitSet(1)) { writer.Write(EmailVerification); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

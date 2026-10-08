@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TBirthday"/> See <a href="https://corefork.telegram.org/constructor/birthday" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TBirthday), nameof(TBirthday))]
-public interface IBirthday : IObject
+public partial interface IBirthday : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TPasswordKdfAlgoUnknown : IPasswordKdfAlgo
 {
     public uint ConstructorId => 0xd45ab096;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

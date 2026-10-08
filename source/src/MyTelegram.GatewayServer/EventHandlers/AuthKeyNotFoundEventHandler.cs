@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.GatewayServer.EventHandlers;
 
-public class AuthKeyNotFoundEventHandler(IClientDataSender clientDataSender, IClientManager clientManager)
+public class AuthKeyNotFoundEventHandler(IClientDataSender clientDataSender)
     : IEventHandler<AuthKeyNotFoundEvent>, ITransientDependency
 {
     // 0x6c, 0xfe, 0xff, 0xff

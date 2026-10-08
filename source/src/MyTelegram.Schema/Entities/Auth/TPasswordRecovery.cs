@@ -15,13 +15,9 @@ public sealed partial class TPasswordRecovery : IPasswordRecovery
     /// </summary>
     public string EmailPattern { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(EmailPattern);
     }

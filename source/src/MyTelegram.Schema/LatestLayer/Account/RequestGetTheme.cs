@@ -30,13 +30,9 @@ public sealed partial class RequestGetTheme : IRequest<MyTelegram.Schema.ITheme>
     /// </summary>
     public MyTelegram.Schema.IInputTheme Theme { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Format);
         writer.Write(Theme);

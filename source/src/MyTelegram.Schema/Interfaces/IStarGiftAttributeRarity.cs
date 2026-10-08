@@ -18,6 +18,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TStarGiftAttributeRarityRare), nameof(TStarGiftAttributeRarityRare))]
 [JsonDerivedType(typeof(TStarGiftAttributeRarityEpic), nameof(TStarGiftAttributeRarityEpic))]
 [JsonDerivedType(typeof(TStarGiftAttributeRarityLegendary), nameof(TStarGiftAttributeRarityLegendary))]
-public interface IStarGiftAttributeRarity : IObject
+public partial interface IStarGiftAttributeRarity : IObject
 {
 }

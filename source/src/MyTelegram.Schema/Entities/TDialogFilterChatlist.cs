@@ -58,23 +58,25 @@ public sealed partial class TDialogFilterChatlist : IDialogFilter
     /// </summary>
     public TVector<MyTelegram.Schema.IInputPeer> IncludePeers { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (HasMyInvites) { Flags = Flags.SetBit(26); }
-        if (TitleNoanimate) { Flags = Flags.SetBit(28); }
-        if (Emoticon != null) { Flags = Flags.SetBit(25); }
-        if (/*Color != 0 && */Color.HasValue) { Flags = Flags.SetBit(27); }
+        var flags = 0;
+        if (HasMyInvites) { flags = flags.SetBit(26); }
+        if (TitleNoanimate) { flags = flags.SetBit(28); }
+        if (Emoticon != null) { flags = flags.SetBit(25); }
+        if (/*Color != 0 && */Color.HasValue) { flags = flags.SetBit(27); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(Title);
-        if (Flags.IsBitSet(25)) { writer.Write(Emoticon); }
-        if (Flags.IsBitSet(27)) { writer.Write(Color.Value); }
+        if (flags.IsBitSet(25)) { writer.Write(Emoticon); }
+        if (flags.IsBitSet(27)) { writer.Write(Color.Value); }
         writer.Write(PinnedPeers);
         writer.Write(IncludePeers);
     }

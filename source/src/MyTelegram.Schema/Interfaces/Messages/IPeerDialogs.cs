@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TPeerDialogs"/> See <a href="https://corefork.telegram.org/constructor/messages.peerDialogs" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPeerDialogs), nameof(TPeerDialogs))]
-public interface IPeerDialogs : IObject
+public partial interface IPeerDialogs : IObject
 {
     /// <summary>
     /// Dialog info

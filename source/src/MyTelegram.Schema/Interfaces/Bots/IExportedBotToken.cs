@@ -10,7 +10,7 @@ namespace MyTelegram.Schema.Bots;
 /// <see cref="TExportedBotToken"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TExportedBotToken), nameof(TExportedBotToken))]
-public interface IExportedBotToken : IObject
+public partial interface IExportedBotToken : IObject
 {
     string Token { get; set; }
 }

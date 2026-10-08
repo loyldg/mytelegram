@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TStatsPercentValue"/> See <a href="https://corefork.telegram.org/constructor/statsPercentValue" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStatsPercentValue), nameof(TStatsPercentValue))]
-public interface IStatsPercentValue : IObject
+public partial interface IStatsPercentValue : IObject
 {
     /// <summary>
     /// Partial value

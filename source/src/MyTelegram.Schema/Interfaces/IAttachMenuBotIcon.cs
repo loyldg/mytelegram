@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TAttachMenuBotIcon"/> See <a href="https://corefork.telegram.org/constructor/attachMenuBotIcon" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TAttachMenuBotIcon), nameof(TAttachMenuBotIcon))]
-public interface IAttachMenuBotIcon : IObject
+public partial interface IAttachMenuBotIcon : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

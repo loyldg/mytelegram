@@ -2,7 +2,9 @@
 
 public class PollAnswerVoterReadModel : ReadModelBase, IPollAnswerVoterReadModel,
     IAmReadModelFor<PollAggregate, PollId, VoteAnswerCreatedEvent>,
-    IAmReadModelFor<PollAggregate, PollId, VoteAnswerDeletedEvent>
+    IAmReadModelFor<PollAggregate, PollId, VoteAnswerDeletedEvent>,
+    IAmReadModelFor<PollVoterAggregate,PollVoterId, PollVoterCreatedEvent>,
+    IAmReadModelFor<PollVoterAggregate,PollVoterId, PollVoterDeletedEvent>
 {
     public virtual string Id { get; private set; } = null!;
     public string Option { get; private set; } = default!;
@@ -30,6 +32,24 @@ public class PollAnswerVoterReadModel : ReadModelBase, IPollAnswerVoterReadModel
     public Task ApplyAsync(IReadModelContext context,
         IDomainEvent<PollAggregate, PollId, VoteAnswerDeletedEvent> domainEvent,
         CancellationToken cancellationToken)
+    {
+        context.MarkForDeletion();
+
+        return Task.CompletedTask;
+    }
+
+    public Task ApplyAsync(IReadModelContext context, IDomainEvent<PollVoterAggregate, PollVoterId, PollVoterCreatedEvent> domainEvent, CancellationToken cancellationToken)
+    {
+        Id = domainEvent.AggregateIdentity.Value;
+        PollId = domainEvent.AggregateEvent.PollId;
+        Option = domainEvent.AggregateEvent.Option;
+        VoterPeerId = domainEvent.AggregateEvent.VoterPeerId;
+        Date = domainEvent.AggregateEvent.Date;
+
+        return Task.CompletedTask;
+    }
+
+    public Task ApplyAsync(IReadModelContext context, IDomainEvent<PollVoterAggregate, PollVoterId, PollVoterDeletedEvent> domainEvent, CancellationToken cancellationToken)
     {
         context.MarkForDeletion();
 

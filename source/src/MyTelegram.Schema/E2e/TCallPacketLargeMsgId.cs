@@ -5,7 +5,7 @@ namespace MyTelegram.Schema.E2e;
 
 
 [TlObject(0x1CE56C2D)]
-public sealed class TCallPacketLargeMsgId : ICallPacketLargeMsgId
+public sealed partial class TCallPacketLargeMsgId : ICallPacketLargeMsgId
 {
     public uint ConstructorId => 0x1CE56C2D;
 

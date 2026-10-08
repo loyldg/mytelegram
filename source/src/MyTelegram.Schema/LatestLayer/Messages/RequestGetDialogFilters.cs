@@ -14,13 +14,9 @@ public sealed partial class RequestGetDialogFilters : IRequest<MyTelegram.Schema
 {
     public uint ConstructorId => 0xefd48c89;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

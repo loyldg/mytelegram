@@ -3,7 +3,7 @@
 namespace MyTelegram.Schema;
 
 [TlObject(0xf5045f1f)]
-public sealed class RequestSetClientDHParams : IRequest<MyTelegram.Schema.ISetClientDHParamsAnswer>
+public sealed partial class RequestSetClientDHParams : IRequest<MyTelegram.Schema.ISetClientDHParamsAnswer>
 {
     public uint ConstructorId => 0xf5045f1f;
     public byte[] Nonce { get; set; }

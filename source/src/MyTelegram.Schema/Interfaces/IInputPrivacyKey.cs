@@ -37,6 +37,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputPrivacyKeyStarGiftsAutoSave), nameof(TInputPrivacyKeyStarGiftsAutoSave))]
 [JsonDerivedType(typeof(TInputPrivacyKeyNoPaidMessages), nameof(TInputPrivacyKeyNoPaidMessages))]
 [JsonDerivedType(typeof(TInputPrivacyKeySavedMusic), nameof(TInputPrivacyKeySavedMusic))]
-public interface IInputPrivacyKey : IObject
+public partial interface IInputPrivacyKey : IObject
 {
 }

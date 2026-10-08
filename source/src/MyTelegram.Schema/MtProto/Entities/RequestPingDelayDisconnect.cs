@@ -3,7 +3,7 @@
 namespace MyTelegram.Schema;
 
 [TlObject(0xf3427b8c)]
-public sealed class RequestPingDelayDisconnect : IRequest<MyTelegram.Schema.IPong>
+public sealed partial class RequestPingDelayDisconnect : IRequest<MyTelegram.Schema.IPong>
 {
     public uint ConstructorId => 0xf3427b8c;
     public long PingId { get; set; }

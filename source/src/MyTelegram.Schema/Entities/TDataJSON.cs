@@ -15,13 +15,9 @@ public sealed partial class TDataJSON : IDataJSON
     /// </summary>
     public string Data { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Data);
     }

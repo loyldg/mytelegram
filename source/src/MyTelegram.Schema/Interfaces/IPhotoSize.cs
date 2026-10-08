@@ -21,7 +21,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TPhotoStrippedSize), nameof(TPhotoStrippedSize))]
 [JsonDerivedType(typeof(TPhotoSizeProgressive), nameof(TPhotoSizeProgressive))]
 [JsonDerivedType(typeof(TPhotoPathSize), nameof(TPhotoPathSize))]
-public interface IPhotoSize : IObject
+public partial interface IPhotoSize : IObject
 {
     /// <summary>
     /// <a href="https://corefork.telegram.org/api/files#image-thumbnail-types">Thumbnail type »</a>

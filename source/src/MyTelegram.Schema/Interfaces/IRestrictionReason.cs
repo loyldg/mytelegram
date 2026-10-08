@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TRestrictionReason"/> See <a href="https://corefork.telegram.org/constructor/restrictionReason" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TRestrictionReason), nameof(TRestrictionReason))]
-public interface IRestrictionReason : IObject
+public partial interface IRestrictionReason : IObject
 {
     /// <summary>
     /// Platform identifier (ios, android, wp, all, etc.), can be concatenated with a dash as separator (<code>android-ios</code>, <code>ios-wp</code>, etc)

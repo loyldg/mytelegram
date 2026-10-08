@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Account;
 public sealed partial class TSavedMusicIdsNotModified : ISavedMusicIds
 {
     public uint ConstructorId => 0x4fc81d6e;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

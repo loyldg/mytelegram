@@ -35,17 +35,19 @@ public sealed partial class RequestGetPaidMessagesRevenue : IRequest<MyTelegram.
     /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ParentPeer != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (ParentPeer != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(ParentPeer); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(ParentPeer); }
         writer.Write(UserId);
     }
 

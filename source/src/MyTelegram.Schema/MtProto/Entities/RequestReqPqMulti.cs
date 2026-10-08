@@ -3,7 +3,7 @@
 namespace MyTelegram.Schema;
 
 [TlObject(0xbe7e8ef1)]
-public sealed class RequestReqPqMulti : IRequest<MyTelegram.Schema.IResPQ>
+public sealed partial class RequestReqPqMulti : IRequest<MyTelegram.Schema.IResPQ>
 {
     public uint ConstructorId => 0xbe7e8ef1;
     public byte[] Nonce { get; set; }

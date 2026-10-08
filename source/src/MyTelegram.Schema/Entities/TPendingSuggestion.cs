@@ -32,13 +32,9 @@ public sealed partial class TPendingSuggestion : IPendingSuggestion
     /// </summary>
     public string Url { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Suggestion);
         writer.Write(Title);

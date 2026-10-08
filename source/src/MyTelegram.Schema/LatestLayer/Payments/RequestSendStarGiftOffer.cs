@@ -61,22 +61,24 @@ public sealed partial class RequestSendStarGiftOffer : IRequest<MyTelegram.Schem
     /// </summary>
     public long? AllowPaidStars { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*AllowPaidStars != 0 &&*/ AllowPaidStars.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*AllowPaidStars != 0 &&*/ AllowPaidStars.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Slug);
         writer.Write(Price);
         writer.Write(Duration);
         writer.Write(RandomId);
-        if (Flags.IsBitSet(0)) { writer.Write(AllowPaidStars.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(AllowPaidStars.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

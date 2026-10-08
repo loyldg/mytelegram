@@ -21,13 +21,9 @@ public sealed partial class TStickerPack : IStickerPack
     /// </summary>
     public TVector<long> Documents { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Emoticon);
         writer.Write(Documents);

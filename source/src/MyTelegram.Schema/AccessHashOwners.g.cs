@@ -6913,39 +6913,6 @@ namespace MyTelegram.Schema.LayerN
         }
     }
 }
-namespace MyTelegram.Schema.LayerN.Entities.MessageMedia
-{
-    public partial class TMessageMediaDocumentLayer160 : IAccessHashOwner
-    {
-        public IEnumerable<IHasAccessHash> GetAccessHashes()
-        {
-            if (Document is IHasAccessHash a1)
-            {
-                yield return a1;
-            }
-
-            if (Document is IAccessHashOwner o1)
-            {
-                foreach (var a in o1.GetAccessHashes())
-                {
-                    yield return a;
-                }
-            }
-            if (AltDocument is IHasAccessHash a2)
-            {
-                yield return a2;
-            }
-
-            if (AltDocument is IAccessHashOwner o2)
-            {
-                foreach (var a in o2.GetAccessHashes())
-                {
-                    yield return a;
-                }
-            }
-        }
-    }
-}
 namespace MyTelegram.Schema.Messages
 {
     public partial class RequestEditChatPhoto : IAccessHashOwner

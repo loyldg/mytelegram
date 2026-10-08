@@ -20,13 +20,9 @@ public sealed partial class TReceivedNotifyMessage : IReceivedNotifyMessage
     /// </summary>
     public int Flags { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
         writer.Write(Flags);

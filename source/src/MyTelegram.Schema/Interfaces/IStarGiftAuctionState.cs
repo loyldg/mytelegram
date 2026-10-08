@@ -14,6 +14,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TStarGiftAuctionStateNotModified), nameof(TStarGiftAuctionStateNotModified))]
 [JsonDerivedType(typeof(TStarGiftAuctionState), nameof(TStarGiftAuctionState))]
 [JsonDerivedType(typeof(TStarGiftAuctionStateFinished), nameof(TStarGiftAuctionStateFinished))]
-public interface IStarGiftAuctionState : IObject
+public partial interface IStarGiftAuctionState : IObject
 {
 }

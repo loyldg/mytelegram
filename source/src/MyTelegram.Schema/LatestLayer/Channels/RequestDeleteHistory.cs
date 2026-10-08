@@ -42,16 +42,18 @@ public sealed partial class RequestDeleteHistory : IRequest<MyTelegram.Schema.IU
     /// </summary>
     public int MaxId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ForEveryone) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (ForEveryone) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Channel);
         writer.Write(MaxId);
     }

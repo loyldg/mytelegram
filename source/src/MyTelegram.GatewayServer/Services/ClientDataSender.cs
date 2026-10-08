@@ -68,7 +68,7 @@ public class ClientDataSender(
                 break;
 
             case ClientType.WebSocket:
-                await clientData.WebSocket!.SendAsync(encodedBytes, WebSocketMessageType.Binary, true, default);
+                await clientData.WebSocket!.SendAsync(encodedBytes, WebSocketMessageType.Binary, true, CancellationToken.None);
 
                 break;
         }

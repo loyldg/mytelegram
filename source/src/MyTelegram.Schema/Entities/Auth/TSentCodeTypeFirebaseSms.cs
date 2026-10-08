@@ -45,25 +45,27 @@ public sealed partial class TSentCodeTypeFirebaseSms : ISentCodeType
     /// </summary>
     public int Length { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Nonce != null) { Flags = Flags.SetBit(0); }
-        if (/*PlayIntegrityProjectId != 0 &&*/ PlayIntegrityProjectId.HasValue) { Flags = Flags.SetBit(2); }
-        if (PlayIntegrityNonce != null) { Flags = Flags.SetBit(2); }
-        if (Receipt != null) { Flags = Flags.SetBit(1); }
-        if (/*PushTimeout != 0 && */PushTimeout.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Nonce != null) { flags = flags.SetBit(0); }
+        if (/*PlayIntegrityProjectId != 0 &&*/ PlayIntegrityProjectId.HasValue) { flags = flags.SetBit(2); }
+        if (PlayIntegrityNonce != null) { flags = flags.SetBit(2); }
+        if (Receipt != null) { flags = flags.SetBit(1); }
+        if (/*PushTimeout != 0 && */PushTimeout.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(Nonce); }
-        if (Flags.IsBitSet(2)) { writer.Write(PlayIntegrityProjectId.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(PlayIntegrityNonce); }
-        if (Flags.IsBitSet(1)) { writer.Write(Receipt); }
-        if (Flags.IsBitSet(1)) { writer.Write(PushTimeout.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(Nonce); }
+        if (flags.IsBitSet(2)) { writer.Write(PlayIntegrityProjectId.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(PlayIntegrityNonce); }
+        if (flags.IsBitSet(1)) { writer.Write(Receipt); }
+        if (flags.IsBitSet(1)) { writer.Write(PushTimeout.Value); }
         writer.Write(Length);
     }
 

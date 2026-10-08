@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TJsonNull : IJSONValue
 {
     public uint ConstructorId => 0x3f6d7b68;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

@@ -19,13 +19,9 @@ public sealed partial class RequestGetEmojiKeywordsLanguages : IRequest<TVector<
     /// </summary>
     public TVector<string> LangCodes { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(LangCodes);
     }

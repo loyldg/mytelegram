@@ -31,16 +31,18 @@ public sealed partial class RequestResolveStarGiftOffer : IRequest<MyTelegram.Sc
     /// </summary>
     public int OfferMsgId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Decline) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Decline) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(OfferMsgId);
     }
 

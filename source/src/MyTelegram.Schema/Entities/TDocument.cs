@@ -68,25 +68,27 @@ public sealed partial class TDocument : ILayeredDocument
     /// </summary>
     public TVector<MyTelegram.Schema.IDocumentAttribute> Attributes { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Thumbs?.Count > 0) { Flags = Flags.SetBit(0); }
-        if (VideoThumbs?.Count > 0) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Thumbs?.Count > 0) { flags = flags.SetBit(0); }
+        if (VideoThumbs?.Count > 0) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(AccessHash);
         writer.Write(FileReference);
         writer.Write(Date);
         writer.Write(MimeType);
         writer.Write(Size);
-        if (Flags.IsBitSet(0)) { writer.Write(Thumbs); }
-        if (Flags.IsBitSet(1)) { writer.Write(VideoThumbs); }
+        if (flags.IsBitSet(0)) { writer.Write(Thumbs); }
+        if (flags.IsBitSet(1)) { writer.Write(VideoThumbs); }
         writer.Write(DcId);
         writer.Write(Attributes);
     }

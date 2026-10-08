@@ -50,26 +50,28 @@ public sealed partial class TLangPackStringPluralized : ILangPackString
     /// </summary>
     public string OtherValue { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ZeroValue != null) { Flags = Flags.SetBit(0); }
-        if (OneValue != null) { Flags = Flags.SetBit(1); }
-        if (TwoValue != null) { Flags = Flags.SetBit(2); }
-        if (FewValue != null) { Flags = Flags.SetBit(3); }
-        if (ManyValue != null) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (ZeroValue != null) { flags = flags.SetBit(0); }
+        if (OneValue != null) { flags = flags.SetBit(1); }
+        if (TwoValue != null) { flags = flags.SetBit(2); }
+        if (FewValue != null) { flags = flags.SetBit(3); }
+        if (ManyValue != null) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Key);
-        if (Flags.IsBitSet(0)) { writer.Write(ZeroValue); }
-        if (Flags.IsBitSet(1)) { writer.Write(OneValue); }
-        if (Flags.IsBitSet(2)) { writer.Write(TwoValue); }
-        if (Flags.IsBitSet(3)) { writer.Write(FewValue); }
-        if (Flags.IsBitSet(4)) { writer.Write(ManyValue); }
+        if (flags.IsBitSet(0)) { writer.Write(ZeroValue); }
+        if (flags.IsBitSet(1)) { writer.Write(OneValue); }
+        if (flags.IsBitSet(2)) { writer.Write(TwoValue); }
+        if (flags.IsBitSet(3)) { writer.Write(FewValue); }
+        if (flags.IsBitSet(4)) { writer.Write(ManyValue); }
         writer.Write(OtherValue);
     }
 

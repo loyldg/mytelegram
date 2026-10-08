@@ -29,6 +29,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputReportReasonFake), nameof(TInputReportReasonFake))]
 [JsonDerivedType(typeof(TInputReportReasonIllegalDrugs), nameof(TInputReportReasonIllegalDrugs))]
 [JsonDerivedType(typeof(TInputReportReasonPersonalDetails), nameof(TInputReportReasonPersonalDetails))]
-public interface IReportReason : IObject
+public partial interface IReportReason : IObject
 {
 }

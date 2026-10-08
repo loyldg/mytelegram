@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TAttachMenuPeerTypeBotPM : IAttachMenuPeerType
 {
     public uint ConstructorId => 0xc32bfa1a;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

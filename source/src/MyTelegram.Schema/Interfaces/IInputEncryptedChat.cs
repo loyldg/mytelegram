@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputEncryptedChat"/> See <a href="https://corefork.telegram.org/constructor/inputEncryptedChat" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputEncryptedChat), nameof(TInputEncryptedChat))]
-public interface IInputEncryptedChat : IObject
+public partial interface IInputEncryptedChat : IObject
 {
     /// <summary>
     /// Chat ID

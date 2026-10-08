@@ -21,13 +21,9 @@ public sealed partial class TDialogFilterSuggested : IDialogFilterSuggested
     /// </summary>
     public string Description { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Filter);
         writer.Write(Description);

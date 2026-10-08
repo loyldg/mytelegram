@@ -4,9 +4,9 @@ internal sealed class SearchConverterService(IUserConverterService userConverter
     IChatConverterService chatConverterService
     ) : ISearchConverterService, ITransientDependency
 {
-    public IFound ToFound(IRequestWithAccessHashKeyId request, SearchContactOutput output, int layer)
+    public async Task<IFound> ToFoundAsync(IRequestWithAccessHashKeyId request, SearchContactOutput output, int layer)
     {
-        var users = userConverterService.ToUserList(request,
+        var users = await userConverterService.ToUserListAsync(request,
             output.UserList,
             output.PhotoList,
             output.ContactList,

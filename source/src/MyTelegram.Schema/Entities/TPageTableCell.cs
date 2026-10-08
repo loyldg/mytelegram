@@ -56,26 +56,28 @@ public sealed partial class TPageTableCell : IPageTableCell
     /// </summary>
     public int? Rowspan { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Header) { Flags = Flags.SetBit(0); }
-        if (AlignCenter) { Flags = Flags.SetBit(3); }
-        if (AlignRight) { Flags = Flags.SetBit(4); }
-        if (ValignMiddle) { Flags = Flags.SetBit(5); }
-        if (ValignBottom) { Flags = Flags.SetBit(6); }
-        if (Text != null) { Flags = Flags.SetBit(7); }
-        if (/*Colspan != 0 && */Colspan.HasValue) { Flags = Flags.SetBit(1); }
-        if (/*Rowspan != 0 && */Rowspan.HasValue) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Header) { flags = flags.SetBit(0); }
+        if (AlignCenter) { flags = flags.SetBit(3); }
+        if (AlignRight) { flags = flags.SetBit(4); }
+        if (ValignMiddle) { flags = flags.SetBit(5); }
+        if (ValignBottom) { flags = flags.SetBit(6); }
+        if (Text != null) { flags = flags.SetBit(7); }
+        if (/*Colspan != 0 && */Colspan.HasValue) { flags = flags.SetBit(1); }
+        if (/*Rowspan != 0 && */Rowspan.HasValue) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(7)) { writer.Write(Text); }
-        if (Flags.IsBitSet(1)) { writer.Write(Colspan.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(Rowspan.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(7)) { writer.Write(Text); }
+        if (flags.IsBitSet(1)) { writer.Write(Colspan.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(Rowspan.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -26,18 +26,20 @@ public sealed partial class TMessageActionGroupCall : IMessageAction
     /// </summary>
     public int? Duration { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*Duration != 0 && */Duration.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*Duration != 0 && */Duration.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Call);
-        if (Flags.IsBitSet(0)) { writer.Write(Duration.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(Duration.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

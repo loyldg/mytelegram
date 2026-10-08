@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TStarGiftAttributeCounter"/> See <a href="https://corefork.telegram.org/constructor/starGiftAttributeCounter" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStarGiftAttributeCounter), nameof(TStarGiftAttributeCounter))]
-public interface IStarGiftAttributeCounter : IObject
+public partial interface IStarGiftAttributeCounter : IObject
 {
     /// <summary>
     /// The attribute (just the ID, without the attribute itself).

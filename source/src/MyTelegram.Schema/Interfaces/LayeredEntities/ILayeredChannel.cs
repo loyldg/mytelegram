@@ -1,7 +1,7 @@
 ﻿// ReSharper disable All
 namespace MyTelegram.Schema;
 
-public interface ILayeredChannel : IChat
+public partial interface ILayeredChannel : IChat
 {
     long? AccessHash { get; set; }
     bool Creator { get; set; }
@@ -18,4 +18,5 @@ public interface ILayeredChannel : IChat
     /// See <a href="https://corefork.telegram.org/type/EmojiStatus" />
     ///</summary>
     MyTelegram.Schema.IEmojiStatus? EmojiStatus { get; set; }
+    string? Username { get; set; }
 }

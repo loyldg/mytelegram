@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TPeerBlocked"/> See <a href="https://corefork.telegram.org/constructor/peerBlocked" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPeerBlocked), nameof(TPeerBlocked))]
-public interface IPeerBlocked : IObject
+public partial interface IPeerBlocked : IObject
 {
     /// <summary>
     /// Peer ID

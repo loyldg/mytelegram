@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TChatInviteImporter"/> See <a href="https://corefork.telegram.org/constructor/chatInviteImporter" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TChatInviteImporter), nameof(TChatInviteImporter))]
-public interface IChatInviteImporter : IObject
+public partial interface IChatInviteImporter : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

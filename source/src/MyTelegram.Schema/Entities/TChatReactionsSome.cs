@@ -16,13 +16,9 @@ public sealed partial class TChatReactionsSome : IChatReactions
     /// </summary>
     public TVector<MyTelegram.Schema.IReaction> Reactions { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Reactions);
     }

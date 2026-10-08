@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Account;
 public sealed partial class TWallPapersNotModified : IWallPapers
 {
     public uint ConstructorId => 0x1c199183;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

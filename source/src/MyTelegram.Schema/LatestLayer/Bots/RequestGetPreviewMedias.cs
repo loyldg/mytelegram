@@ -23,13 +23,9 @@ public sealed partial class RequestGetPreviewMedias : IRequest<TVector<MyTelegra
     /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Bot);
     }

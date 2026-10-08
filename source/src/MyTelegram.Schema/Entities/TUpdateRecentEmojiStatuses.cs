@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TUpdateRecentEmojiStatuses : IUpdate
 {
     public uint ConstructorId => 0x30f443db;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

@@ -8,17 +8,17 @@ public static class Extensions
 {
     public static bool IsUserPeer(this long peerId)
     {
-        return peerId is >= MyTelegramConsts.UserIdInitId and < MyTelegramConsts.ChatIdInitId;
+        return peerId is >= MyTelegramConsts.UserIdBase and < MyTelegramConsts.ChatIdBase;
     }
 
     public static bool IsChannelPeer(this long peerId)
     {
-        return peerId > MyTelegramConsts.ChannelInitId;
+        return peerId > MyTelegramConsts.ChannelIdBase;
     }
 
     public static bool IsBotPeer(this long peerId)
     {
-        return peerId is >= MyTelegramConsts.BotUserInitId and < MyTelegramConsts.ChatIdInitId;
+        return peerId is >= MyTelegramConsts.BotUserIdBase and < MyTelegramConsts.ChatIdBase;
     }
 
     public static Peer ToUserPeer(this long peerId)
@@ -29,6 +29,18 @@ public static class Extensions
     public static Peer ToChatPeer(this long peerId)
     {
         return new Peer(PeerType.Chat, peerId);
+    }
+
+    public static Peer ToPeer(this long peerId)
+    {
+        var peerType = peerId switch
+        {
+            < MyTelegramConsts.ChatIdBase => PeerType.User,
+            >= MyTelegramConsts.ChatIdBase and < MyTelegramConsts.ChannelIdBase => PeerType.Chat,
+            >= MyTelegramConsts.ChannelIdBase => PeerType.Channel
+        };
+
+        return new Peer(peerType, peerId);
     }
 
     public static Peer ToChannelPeer(this long peerId)

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Auth;
 /// <see cref="TPasswordRecovery"/> See <a href="https://corefork.telegram.org/constructor/auth.passwordRecovery" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPasswordRecovery), nameof(TPasswordRecovery))]
-public interface IPasswordRecovery : IObject
+public partial interface IPasswordRecovery : IObject
 {
     /// <summary>
     /// The email to which the recovery code was sent must match this <a href="https://corefork.telegram.org/api/pattern">pattern</a>.

@@ -20,13 +20,9 @@ public sealed partial class TUpdateChannelAvailableMessages : IUpdate
     /// </summary>
     public int AvailableMinId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ChannelId);
         writer.Write(AvailableMinId);

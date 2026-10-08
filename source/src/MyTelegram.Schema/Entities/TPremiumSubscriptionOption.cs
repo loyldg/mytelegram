@@ -55,25 +55,27 @@ public sealed partial class TPremiumSubscriptionOption : IPremiumSubscriptionOpt
     /// </summary>
     public string? StoreProduct { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Current) { Flags = Flags.SetBit(1); }
-        if (CanPurchaseUpgrade) { Flags = Flags.SetBit(2); }
-        if (Transaction != null) { Flags = Flags.SetBit(3); }
-        if (StoreProduct != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Current) { flags = flags.SetBit(1); }
+        if (CanPurchaseUpgrade) { flags = flags.SetBit(2); }
+        if (Transaction != null) { flags = flags.SetBit(3); }
+        if (StoreProduct != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(3)) { writer.Write(Transaction); }
+        writer.Write(flags);
+        if (flags.IsBitSet(3)) { writer.Write(Transaction); }
         writer.Write(Months);
         writer.Write(Currency);
         writer.Write(Amount);
         writer.Write(BotUrl);
-        if (Flags.IsBitSet(0)) { writer.Write(StoreProduct); }
+        if (flags.IsBitSet(0)) { writer.Write(StoreProduct); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

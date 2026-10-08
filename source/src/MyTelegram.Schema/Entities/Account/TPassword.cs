@@ -83,35 +83,37 @@ public sealed partial class TPassword : IPassword
     /// </summary>
     public string? LoginEmailPattern { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (HasRecovery) { Flags = Flags.SetBit(0); }
-        if (HasSecureValues) { Flags = Flags.SetBit(1); }
-        if (HasPassword) { Flags = Flags.SetBit(2); }
-        if (CurrentAlgo != null) { Flags = Flags.SetBit(2); }
-        if (SrpB != null) { Flags = Flags.SetBit(2); }
-        if (/*SrpId != 0 &&*/ SrpId.HasValue) { Flags = Flags.SetBit(2); }
-        if (Hint != null) { Flags = Flags.SetBit(3); }
-        if (EmailUnconfirmedPattern != null) { Flags = Flags.SetBit(4); }
-        if (/*PendingResetDate != 0 && */PendingResetDate.HasValue) { Flags = Flags.SetBit(5); }
-        if (LoginEmailPattern != null) { Flags = Flags.SetBit(6); }
+        var flags = 0;
+        if (HasRecovery) { flags = flags.SetBit(0); }
+        if (HasSecureValues) { flags = flags.SetBit(1); }
+        if (HasPassword) { flags = flags.SetBit(2); }
+        if (CurrentAlgo != null) { flags = flags.SetBit(2); }
+        if (SrpB != null) { flags = flags.SetBit(2); }
+        if (/*SrpId != 0 &&*/ SrpId.HasValue) { flags = flags.SetBit(2); }
+        if (Hint != null) { flags = flags.SetBit(3); }
+        if (EmailUnconfirmedPattern != null) { flags = flags.SetBit(4); }
+        if (/*PendingResetDate != 0 && */PendingResetDate.HasValue) { flags = flags.SetBit(5); }
+        if (LoginEmailPattern != null) { flags = flags.SetBit(6); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(2)) { writer.Write(CurrentAlgo); }
-        if (Flags.IsBitSet(2)) { writer.Write(SrpB); }
-        if (Flags.IsBitSet(2)) { writer.Write(SrpId.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(Hint); }
-        if (Flags.IsBitSet(4)) { writer.Write(EmailUnconfirmedPattern); }
+        writer.Write(flags);
+        if (flags.IsBitSet(2)) { writer.Write(CurrentAlgo); }
+        if (flags.IsBitSet(2)) { writer.Write(SrpB); }
+        if (flags.IsBitSet(2)) { writer.Write(SrpId.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(Hint); }
+        if (flags.IsBitSet(4)) { writer.Write(EmailUnconfirmedPattern); }
         writer.Write(NewAlgo);
         writer.Write(NewSecureAlgo);
         writer.Write(SecureRandom);
-        if (Flags.IsBitSet(5)) { writer.Write(PendingResetDate.Value); }
-        if (Flags.IsBitSet(6)) { writer.Write(LoginEmailPattern); }
+        if (flags.IsBitSet(5)) { writer.Write(PendingResetDate.Value); }
+        if (flags.IsBitSet(6)) { writer.Write(LoginEmailPattern); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

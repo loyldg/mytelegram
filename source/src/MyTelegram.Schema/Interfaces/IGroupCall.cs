@@ -13,7 +13,7 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TGroupCallDiscarded), nameof(TGroupCallDiscarded))]
 [JsonDerivedType(typeof(TGroupCall), nameof(TGroupCall))]
-public interface IGroupCall : IObject
+public partial interface IGroupCall : IObject
 {
     /// <summary>
     /// Group call ID

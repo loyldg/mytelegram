@@ -33,13 +33,9 @@ public sealed partial class RequestGetStrings : IRequest<TVector<MyTelegram.Sche
     /// </summary>
     public TVector<string> Keys { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(LangPack);
         writer.Write(LangCode);

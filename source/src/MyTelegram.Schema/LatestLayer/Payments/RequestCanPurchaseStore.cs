@@ -24,13 +24,9 @@ public sealed partial class RequestCanPurchaseStore : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IInputStorePaymentPurpose Purpose { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Purpose);
     }

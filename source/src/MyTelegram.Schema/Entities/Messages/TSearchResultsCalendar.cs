@@ -64,21 +64,23 @@ public sealed partial class TSearchResultsCalendar : ISearchResultsCalendar
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Inexact) { Flags = Flags.SetBit(0); }
-        if (/*OffsetIdOffset != 0 && */OffsetIdOffset.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Inexact) { flags = flags.SetBit(0); }
+        if (/*OffsetIdOffset != 0 && */OffsetIdOffset.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Count);
         writer.Write(MinDate);
         writer.Write(MinMsgId);
-        if (Flags.IsBitSet(1)) { writer.Write(OffsetIdOffset.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(OffsetIdOffset.Value); }
         writer.Write(Periods);
         writer.Write(Messages);
         writer.Write(Chats);

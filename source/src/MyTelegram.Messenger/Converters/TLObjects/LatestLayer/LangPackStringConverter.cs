@@ -1,7 +1,6 @@
-using IExportedChatInvite = MyTelegram.Schema.IExportedChatInvite;
-
 namespace MyTelegram.Messenger.Converters.TLObjects.LatestLayer;
-internal sealed class LangPackStringConverter(IObjectMapper objectMapper)
+
+internal sealed class LangPackStringConverter
     : ILangPackStringConverter, ITransientDependency
 {
     public int Layer => Layers.LayerLatest;

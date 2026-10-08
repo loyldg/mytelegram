@@ -46,24 +46,26 @@ public sealed partial class TMessageActionGiftPremium : IMessageAction
     /// </summary>
     public MyTelegram.Schema.ITextWithEntities? Message { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (CryptoCurrency != null) { Flags = Flags.SetBit(0); }
-        if (/*CryptoAmount != 0 &&*/ CryptoAmount.HasValue) { Flags = Flags.SetBit(0); }
-        if (Message != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (CryptoCurrency != null) { flags = flags.SetBit(0); }
+        if (/*CryptoAmount != 0 &&*/ CryptoAmount.HasValue) { flags = flags.SetBit(0); }
+        if (Message != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Currency);
         writer.Write(Amount);
         writer.Write(Days);
-        if (Flags.IsBitSet(0)) { writer.Write(CryptoCurrency); }
-        if (Flags.IsBitSet(0)) { writer.Write(CryptoAmount.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(Message); }
+        if (flags.IsBitSet(0)) { writer.Write(CryptoCurrency); }
+        if (flags.IsBitSet(0)) { writer.Write(CryptoAmount.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(Message); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

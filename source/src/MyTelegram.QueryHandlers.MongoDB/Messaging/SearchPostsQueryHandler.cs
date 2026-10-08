@@ -14,8 +14,8 @@ public class SearchPostsQueryHandler(IQueryOnlyReadModelStore<MessageReadModel> 
         }
 
         Expression<Func<MessageReadModel, bool>> predicate = p => p.PublicPosts && p.Date > query.OffsetRate && p.MessageId > query.OffsetId;
-        predicate = predicate.WhereIf(!string.IsNullOrEmpty(query.Hashtag), p => p.Hashtags.Contains(query.Hashtag!))
-            .WhereIf(!string.IsNullOrEmpty(query.Query), p => p.Message.Contains(query.Query));
+        predicate = predicate.WhereIf(!string.IsNullOrEmpty(query.Hashtag), p => p.Hashtags.Contains(query.Hashtag))
+            .WhereIf(!string.IsNullOrEmpty(query.Query), p => p.Message.Contains(query.Query!));
 
         return await store.FindAsync(predicate,
             limit: query.Limit,
@@ -25,10 +25,10 @@ public class SearchPostsQueryHandler(IQueryOnlyReadModelStore<MessageReadModel> 
     private async Task<IReadOnlyCollection<IMessageReadModel>> SearchByTokensAsync(SearchPostsQuery query, CancellationToken cancellationToken)
     {
         Expression<Func<MessageTokenReadModel, bool>> predicate = p => p.PublicPosts && p.Date > query.OffsetRate && p.MessageId > query.OffsetId;
-        predicate = predicate.WhereIf(!string.IsNullOrEmpty(query.Hashtag), p => p.Hashtags.Contains(query.Hashtag!))
+        predicate = predicate.WhereIf(!string.IsNullOrEmpty(query.Hashtag), p => p.Hashtags.Contains(query.Hashtag))
             .WhereIf(query.Tokens?.Count > 0, p => query.Tokens!.Any(x => p.Tokens.Contains(x)));
 
-        var sortOptions = new SortOptions<MessageTokenReadModel>(p => p.MessageId, SortType.Descending);
+        var sortOptions = new SortOptions<MessageTokenReadModel>(p => p.MessageId);
         var result = await messageTokenStore.FindAsync(predicate,
             p => new TempMessageToken(p.OwnerPeerId, p.MessageId),
             0,

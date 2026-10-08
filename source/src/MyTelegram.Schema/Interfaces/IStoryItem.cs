@@ -15,7 +15,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TStoryItemDeleted), nameof(TStoryItemDeleted))]
 [JsonDerivedType(typeof(TStoryItemSkipped), nameof(TStoryItemSkipped))]
 [JsonDerivedType(typeof(TStoryItem), nameof(TStoryItem))]
-public interface IStoryItem : IObject
+public partial interface IStoryItem : IObject
 {
     /// <summary>
     /// Story ID

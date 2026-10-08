@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TProfileTabGifs : IProfileTab
 {
     public uint ConstructorId => 0xa2c0f695;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

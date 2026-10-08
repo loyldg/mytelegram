@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TSearchResultPosition"/> See <a href="https://corefork.telegram.org/constructor/searchResultPosition" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TSearchResultPosition), nameof(TSearchResultPosition))]
-public interface ISearchResultsPosition : IObject
+public partial interface ISearchResultsPosition : IObject
 {
     /// <summary>
     /// Message ID

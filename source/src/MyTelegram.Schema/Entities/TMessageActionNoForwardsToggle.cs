@@ -19,13 +19,9 @@ public sealed partial class TMessageActionNoForwardsToggle : IMessageAction
     /// </summary>
     public bool NewValue { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PrevValue);
         writer.Write(NewValue);

@@ -24,13 +24,9 @@ public sealed partial class RequestReceivedQueue : IRequest<TVector<long>>
     /// </summary>
     public int MaxQts { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(MaxQts);
     }

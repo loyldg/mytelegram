@@ -38,21 +38,23 @@ public sealed partial class TStarGiftAttributeOriginalDetails : IStarGiftAttribu
     /// </summary>
     public MyTelegram.Schema.ITextWithEntities? Message { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (SenderId != null) { Flags = Flags.SetBit(0); }
-        if (Message != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (SenderId != null) { flags = flags.SetBit(0); }
+        if (Message != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(SenderId); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(SenderId); }
         writer.Write(RecipientId);
         writer.Write(Date);
-        if (Flags.IsBitSet(1)) { writer.Write(Message); }
+        if (flags.IsBitSet(1)) { writer.Write(Message); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

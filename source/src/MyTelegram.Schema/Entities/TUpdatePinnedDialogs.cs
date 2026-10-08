@@ -26,19 +26,21 @@ public sealed partial class TUpdatePinnedDialogs : IUpdate
     /// </summary>
     public TVector<MyTelegram.Schema.IDialogPeer>? Order { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*FolderId != 0 && */FolderId.HasValue) { Flags = Flags.SetBit(1); }
-        if (Order?.Count > 0) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*FolderId != 0 && */FolderId.HasValue) { flags = flags.SetBit(1); }
+        if (Order?.Count > 0) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(1)) { writer.Write(FolderId.Value); }
-        if (Flags.IsBitSet(0)) { writer.Write(Order); }
+        writer.Write(flags);
+        if (flags.IsBitSet(1)) { writer.Write(FolderId.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(Order); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

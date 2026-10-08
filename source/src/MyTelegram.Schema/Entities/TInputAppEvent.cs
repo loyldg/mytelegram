@@ -31,13 +31,9 @@ public sealed partial class TInputAppEvent : IInputAppEvent
     /// </summary>
     public MyTelegram.Schema.IJSONValue Data { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Time);
         writer.Write(Type);

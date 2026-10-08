@@ -30,13 +30,9 @@ public sealed partial class TMaskCoords : IMaskCoords
     /// </summary>
     public double Zoom { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(N);
         writer.Write(X);

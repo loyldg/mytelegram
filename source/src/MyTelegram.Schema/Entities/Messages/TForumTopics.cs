@@ -54,16 +54,18 @@ public sealed partial class TForumTopics : IForumTopics
     /// </summary>
     public int Pts { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (OrderByCreateDate) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (OrderByCreateDate) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Count);
         writer.Write(Topics);
         writer.Write(Messages);

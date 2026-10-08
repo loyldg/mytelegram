@@ -22,13 +22,9 @@ public sealed partial class TChannelAdminLogEventActionChangePhoto : IChannelAdm
     /// </summary>
     public MyTelegram.Schema.IPhoto NewPhoto { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PrevPhoto);
         writer.Write(NewPhoto);

@@ -19,6 +19,6 @@ namespace MyTelegram.Schema.Auth;
 [JsonDerivedType(typeof(TCodeTypeFlashCall), nameof(TCodeTypeFlashCall))]
 [JsonDerivedType(typeof(TCodeTypeMissedCall), nameof(TCodeTypeMissedCall))]
 [JsonDerivedType(typeof(TCodeTypeFragmentSms), nameof(TCodeTypeFragmentSms))]
-public interface ICodeType : IObject
+public partial interface ICodeType : IObject
 {
 }

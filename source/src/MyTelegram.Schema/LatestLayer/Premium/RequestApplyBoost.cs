@@ -35,17 +35,19 @@ public sealed partial class RequestApplyBoost : IRequest<MyTelegram.Schema.Premi
     /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Slots?.Count > 0) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Slots?.Count > 0) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(Slots); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(Slots); }
         writer.Write(Peer);
     }
 

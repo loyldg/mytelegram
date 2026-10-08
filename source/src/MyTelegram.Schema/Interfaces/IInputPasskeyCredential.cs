@@ -12,6 +12,6 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TInputPasskeyCredentialPublicKey), nameof(TInputPasskeyCredentialPublicKey))]
 [JsonDerivedType(typeof(TInputPasskeyCredentialFirebasePNV), nameof(TInputPasskeyCredentialFirebasePNV))]
-public interface IInputPasskeyCredential : IObject
+public partial interface IInputPasskeyCredential : IObject
 {
 }

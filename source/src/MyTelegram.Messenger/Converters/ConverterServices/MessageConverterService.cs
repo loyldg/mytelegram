@@ -9,7 +9,6 @@ public class MessageConverterService(
     ILayeredService<IMessageServiceConverter> messageServiceLayeredService,
     ILayeredService<IMessageFwdHeaderConverter> messageFwdHeaderLayeredService,
     ILayeredService<IPollConverter> pollLayeredService,
-    IDataEncryptionHelper dataEncryptionHelper,
     IDataEncryptionHelper2 dataEncryptionHelper2,
     IOptionsMonitor<MyTelegramMessengerServerOptions> options
 ) : IMessageConverterService, ITransientDependency

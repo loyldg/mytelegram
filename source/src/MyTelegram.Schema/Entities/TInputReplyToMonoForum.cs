@@ -16,13 +16,9 @@ public sealed partial class TInputReplyToMonoForum : IInputReplyTo
     /// </summary>
     public MyTelegram.Schema.IInputPeer MonoforumPeerId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(MonoforumPeerId);
     }

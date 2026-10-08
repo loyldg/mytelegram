@@ -21,7 +21,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TPhoneCallAccepted), nameof(TPhoneCallAccepted))]
 [JsonDerivedType(typeof(TPhoneCall), nameof(TPhoneCall))]
 [JsonDerivedType(typeof(TPhoneCallDiscarded), nameof(TPhoneCallDiscarded))]
-public interface IPhoneCall : IObject
+public partial interface IPhoneCall : IObject
 {
     /// <summary>
     /// Call ID

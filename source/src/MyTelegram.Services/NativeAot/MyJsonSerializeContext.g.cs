@@ -6,7 +6,7 @@ namespace MyTelegram.Services.NativeAot;
 
 #if !DEBUG
 
-// Count:70
+// Count:71
 // MyTelegram.Core
 [JsonSerializable(typeof(MyTelegram.Core.AcksDataReceivedEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.AppCodeCreatedIntegrationEvent))]
@@ -66,6 +66,7 @@ namespace MyTelegram.Services.NativeAot;
 [JsonSerializable(typeof(MyTelegram.Core.UserLoggedOutEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.UserSignInSuccessEvent))]
 [JsonSerializable(typeof(MyTelegram.Core.UserSignUpSuccessIntegrationEvent))]
+[JsonSerializable(typeof(MyTelegram.Core.UserStatusCacheItem))]
 
 // MyTelegram.Domain.Shared
 [JsonSerializable(typeof(MyTelegram.MessageReply))]

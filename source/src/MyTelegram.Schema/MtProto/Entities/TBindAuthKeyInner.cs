@@ -4,7 +4,7 @@ namespace MyTelegram.Schema;
 
 
 [TlObject(0x75a3f765)]
-public sealed class TBindAuthKeyInner : IObject
+public sealed partial class TBindAuthKeyInner : IObject
 {
     public uint ConstructorId => 0x75a3f765;
     public long Nonce { get; set; }

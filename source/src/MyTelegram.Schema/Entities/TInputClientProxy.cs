@@ -20,13 +20,9 @@ public sealed partial class TInputClientProxy : IInputClientProxy
     /// </summary>
     public int Port { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Address);
         writer.Write(Port);

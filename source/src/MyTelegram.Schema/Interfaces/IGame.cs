@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TGame"/> See <a href="https://corefork.telegram.org/constructor/game" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TGame), nameof(TGame))]
-public interface IGame : IObject
+public partial interface IGame : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

@@ -32,13 +32,9 @@ public sealed partial class RequestToggleSlowMode : IRequest<MyTelegram.Schema.I
     /// </summary>
     public int Seconds { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Channel);
         writer.Write(Seconds);

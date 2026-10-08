@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TArchivedStickers"/> See <a href="https://corefork.telegram.org/constructor/messages.archivedStickers" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TArchivedStickers), nameof(TArchivedStickers))]
-public interface IArchivedStickers : IObject
+public partial interface IArchivedStickers : IObject
 {
     /// <summary>
     /// Number of archived stickers

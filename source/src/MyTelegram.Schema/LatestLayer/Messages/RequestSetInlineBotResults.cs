@@ -105,26 +105,28 @@ public sealed partial class RequestSetInlineBotResults : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IInlineBotWebView? SwitchWebview { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Gallery) { Flags = Flags.SetBit(0); }
-        if (Private) { Flags = Flags.SetBit(1); }
-        if (NextOffset != null) { Flags = Flags.SetBit(2); }
-        if (SwitchPm != null) { Flags = Flags.SetBit(3); }
-        if (SwitchWebview != null) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (Gallery) { flags = flags.SetBit(0); }
+        if (Private) { flags = flags.SetBit(1); }
+        if (NextOffset != null) { flags = flags.SetBit(2); }
+        if (SwitchPm != null) { flags = flags.SetBit(3); }
+        if (SwitchWebview != null) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(QueryId);
         writer.Write(Results);
         writer.Write(CacheTime);
-        if (Flags.IsBitSet(2)) { writer.Write(NextOffset); }
-        if (Flags.IsBitSet(3)) { writer.Write(SwitchPm); }
-        if (Flags.IsBitSet(4)) { writer.Write(SwitchWebview); }
+        if (flags.IsBitSet(2)) { writer.Write(NextOffset); }
+        if (flags.IsBitSet(3)) { writer.Write(SwitchPm); }
+        if (flags.IsBitSet(4)) { writer.Write(SwitchWebview); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

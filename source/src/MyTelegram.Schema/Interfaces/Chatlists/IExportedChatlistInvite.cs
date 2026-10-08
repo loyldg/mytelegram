@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Chatlists;
 /// <see cref="TExportedChatlistInvite"/> See <a href="https://corefork.telegram.org/constructor/chatlists.exportedChatlistInvite" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TExportedChatlistInvite), nameof(TExportedChatlistInvite))]
-public interface IExportedChatlistInvite : IObject
+public partial interface IExportedChatlistInvite : IObject
 {
     /// <summary>
     /// Folder ID

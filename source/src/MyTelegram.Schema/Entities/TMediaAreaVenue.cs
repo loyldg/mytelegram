@@ -47,13 +47,9 @@ public sealed partial class TMediaAreaVenue : IMediaArea
     /// </summary>
     public string VenueType { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Coordinates);
         writer.Write(Geo);

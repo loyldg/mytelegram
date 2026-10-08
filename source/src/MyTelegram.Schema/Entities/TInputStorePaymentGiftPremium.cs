@@ -26,13 +26,9 @@ public sealed partial class TInputStorePaymentGiftPremium : IInputStorePaymentPu
     /// </summary>
     public long Amount { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(UserId);
         writer.Write(Currency);

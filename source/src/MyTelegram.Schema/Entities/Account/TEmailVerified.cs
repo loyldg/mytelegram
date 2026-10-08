@@ -15,13 +15,9 @@ public sealed partial class TEmailVerified : IEmailVerified
     /// </summary>
     public string Email { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Email);
     }

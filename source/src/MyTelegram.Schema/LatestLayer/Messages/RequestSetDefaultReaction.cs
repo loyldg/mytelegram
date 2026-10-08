@@ -23,13 +23,9 @@ public sealed partial class RequestSetDefaultReaction : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IReaction Reaction { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Reaction);
     }

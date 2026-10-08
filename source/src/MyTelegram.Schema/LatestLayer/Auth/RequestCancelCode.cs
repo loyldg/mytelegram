@@ -28,13 +28,9 @@ public sealed partial class RequestCancelCode : IRequest<IBool>
     /// </summary>
     public string PhoneCodeHash { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PhoneNumber);
         writer.Write(PhoneCodeHash);

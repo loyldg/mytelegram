@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TPrivacyValueDisallowContacts : IPrivacyRule
 {
     public uint ConstructorId => 0xf888fa1a;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

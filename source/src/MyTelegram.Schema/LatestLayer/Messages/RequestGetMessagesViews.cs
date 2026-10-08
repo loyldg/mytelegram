@@ -39,13 +39,9 @@ public sealed partial class RequestGetMessagesViews : IRequest<MyTelegram.Schema
     /// </summary>
     public bool Increment { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(Id);

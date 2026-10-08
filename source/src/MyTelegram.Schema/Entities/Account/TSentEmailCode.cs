@@ -20,13 +20,9 @@ public sealed partial class TSentEmailCode : ISentEmailCode
     /// </summary>
     public int Length { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(EmailPattern);
         writer.Write(Length);

@@ -4,7 +4,7 @@ namespace MyTelegram.Schema;
 
 
 [TlObject(0x5e2ad36e)]
-public sealed class TRpcAnswerUnknown : IRpcDropAnswer
+public sealed partial class TRpcAnswerUnknown : IRpcDropAnswer
 {
     public uint ConstructorId => 0x5e2ad36e;
 

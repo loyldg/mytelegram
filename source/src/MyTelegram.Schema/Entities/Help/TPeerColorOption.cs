@@ -47,25 +47,27 @@ public sealed partial class TPeerColorOption : IPeerColorOption
     /// </summary>
     public int? GroupMinLevel { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Hidden) { Flags = Flags.SetBit(0); }
-        if (Colors != null) { Flags = Flags.SetBit(1); }
-        if (DarkColors != null) { Flags = Flags.SetBit(2); }
-        if (/*ChannelMinLevel != 0 && */ChannelMinLevel.HasValue) { Flags = Flags.SetBit(3); }
-        if (/*GroupMinLevel != 0 && */GroupMinLevel.HasValue) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (Hidden) { flags = flags.SetBit(0); }
+        if (Colors != null) { flags = flags.SetBit(1); }
+        if (DarkColors != null) { flags = flags.SetBit(2); }
+        if (/*ChannelMinLevel != 0 && */ChannelMinLevel.HasValue) { flags = flags.SetBit(3); }
+        if (/*GroupMinLevel != 0 && */GroupMinLevel.HasValue) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(ColorId);
-        if (Flags.IsBitSet(1)) { writer.Write(Colors); }
-        if (Flags.IsBitSet(2)) { writer.Write(DarkColors); }
-        if (Flags.IsBitSet(3)) { writer.Write(ChannelMinLevel.Value); }
-        if (Flags.IsBitSet(4)) { writer.Write(GroupMinLevel.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(Colors); }
+        if (flags.IsBitSet(2)) { writer.Write(DarkColors); }
+        if (flags.IsBitSet(3)) { writer.Write(ChannelMinLevel.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(GroupMinLevel.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

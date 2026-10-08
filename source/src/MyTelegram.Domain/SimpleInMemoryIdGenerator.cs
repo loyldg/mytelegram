@@ -27,22 +27,28 @@ public class SimpleInMemoryIdGenerator : IIdGenerator
             return Task.FromResult(value + step);
         }
 
-        var initValue = GetInitId(idType) + step;
-        _ids.TryAdd(key, initValue);
+        var initialValue = GetInitialId(idType) + step;
+        _ids.TryAdd(key, initialValue);
 
-        return Task.FromResult(initValue);
+        return Task.FromResult(initialValue);
     }
 
-    private static long GetInitId(IdType idType)
+    public long GetInitialId(IdType idType)
     {
         return idType switch
         {
-            IdType.ChannelId => MyTelegramConsts.ChannelInitId,
-            IdType.UserId => MyTelegramConsts.UserIdInitId + 10000,// The first 10000 users is reserved for testing
-            IdType.BotUserId => MyTelegramConsts.BotUserInitId,
-            IdType.ChatId => MyTelegramConsts.ChatIdInitId,
-            IdType.Pts => MyTelegramConsts.PtsInitId,
-            _ => 0,
+            IdType.ChannelId => MyTelegramConsts.ChannelIdBase + 100_000,
+            IdType.UserId => MyTelegramConsts.UserIdBase + 100_000,
+            IdType.BotUserId => MyTelegramConsts.BotUserIdBase + 100_000,
+            IdType.ChatId => MyTelegramConsts.ChatIdBase + 100_000,
+            IdType.Pts => MyTelegramConsts.PtsIdBase,
+            IdType.FolderId => MyTelegramConsts.FolderIdBase,
+            _ => 0
         };
+    }
+
+    public long GetSequence(IdType idType, long id)
+    {
+        return id - GetInitialId(idType);
     }
 }

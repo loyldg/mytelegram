@@ -15,13 +15,9 @@ public sealed partial class TSavedMusicIds : ISavedMusicIds
     /// </summary>
     public TVector<long> Ids { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Ids);
     }

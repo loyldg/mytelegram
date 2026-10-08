@@ -20,10 +20,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TPageBlockDivider"/> See <a href="https://corefork.telegram.org/constructor/pageBlockDivider" /><br/>
 /// <see cref="TPageBlockAnchor"/> See <a href="https://corefork.telegram.org/constructor/pageBlockAnchor" /><br/>
 /// <see cref="TPageBlockList"/> See <a href="https://corefork.telegram.org/constructor/pageBlockList" /><br/>
-/// <see cref="TPageBlockBlockquote"/> See <a href="https://corefork.telegram.org/constructor/pageBlockBlockquote" /><br/>
 /// <see cref="TPageBlockPullquote"/> See <a href="https://corefork.telegram.org/constructor/pageBlockPullquote" /><br/>
-/// <see cref="TPageBlockPhoto"/> See <a href="https://corefork.telegram.org/constructor/pageBlockPhoto" /><br/>
-/// <see cref="TPageBlockVideo"/> See <a href="https://corefork.telegram.org/constructor/pageBlockVideo" /><br/>
 /// <see cref="TPageBlockCover"/> See <a href="https://corefork.telegram.org/constructor/pageBlockCover" /><br/>
 /// <see cref="TPageBlockEmbed"/> See <a href="https://corefork.telegram.org/constructor/pageBlockEmbed" /><br/>
 /// <see cref="TPageBlockEmbedPost"/> See <a href="https://corefork.telegram.org/constructor/pageBlockEmbedPost" /><br/>
@@ -32,11 +29,26 @@ namespace MyTelegram.Schema;
 /// <see cref="TPageBlockChannel"/> See <a href="https://corefork.telegram.org/constructor/pageBlockChannel" /><br/>
 /// <see cref="TPageBlockAudio"/> See <a href="https://corefork.telegram.org/constructor/pageBlockAudio" /><br/>
 /// <see cref="TPageBlockKicker"/> See <a href="https://corefork.telegram.org/constructor/pageBlockKicker" /><br/>
-/// <see cref="TPageBlockTable"/> See <a href="https://corefork.telegram.org/constructor/pageBlockTable" /><br/>
-/// <see cref="TPageBlockOrderedList"/> See <a href="https://corefork.telegram.org/constructor/pageBlockOrderedList" /><br/>
 /// <see cref="TPageBlockDetails"/> See <a href="https://corefork.telegram.org/constructor/pageBlockDetails" /><br/>
 /// <see cref="TPageBlockRelatedArticles"/> See <a href="https://corefork.telegram.org/constructor/pageBlockRelatedArticles" /><br/>
 /// <see cref="TPageBlockMap"/> See <a href="https://corefork.telegram.org/constructor/pageBlockMap" /><br/>
+/// <see cref="TPageBlockPhoto"/> See <a href="https://corefork.telegram.org/constructor/pageBlockPhoto" /><br/>
+/// <see cref="TPageBlockVideo"/> See <a href="https://corefork.telegram.org/constructor/pageBlockVideo" /><br/>
+/// <see cref="TPageBlockOrderedList"/> See <a href="https://corefork.telegram.org/constructor/pageBlockOrderedList" /><br/>
+/// <see cref="TPageBlockHeading1"/> See <a href="" /><br/>
+/// <see cref="TPageBlockHeading2"/> See <a href="" /><br/>
+/// <see cref="TPageBlockHeading3"/> See <a href="" /><br/>
+/// <see cref="TPageBlockHeading4"/> See <a href="" /><br/>
+/// <see cref="TPageBlockHeading5"/> See <a href="" /><br/>
+/// <see cref="TPageBlockHeading6"/> See <a href="" /><br/>
+/// <see cref="TPageBlockMath"/> See <a href="" /><br/>
+/// <see cref="TPageBlockThinking"/> See <a href="" /><br/>
+/// <see cref="TInputPageBlockMap"/> See <a href="" /><br/>
+/// <see cref="TPageBlockBlockquoteBlocks"/> See <a href="" /><br/>
+/// <see cref="TPageBlockBlockquote"/> See <a href="https://corefork.telegram.org/constructor/pageBlockBlockquote" /><br/>
+/// <see cref="TPageBlockTable"/> See <a href="https://corefork.telegram.org/constructor/pageBlockTable" /><br/>
+/// <see cref="TPageBlockButtonRow"/> See <a href="" /><br/>
+/// <see cref="TPageBlockDocument"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPageBlockUnsupported), nameof(TPageBlockUnsupported))]
 [JsonDerivedType(typeof(TPageBlockTitle), nameof(TPageBlockTitle))]
@@ -50,10 +62,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TPageBlockDivider), nameof(TPageBlockDivider))]
 [JsonDerivedType(typeof(TPageBlockAnchor), nameof(TPageBlockAnchor))]
 [JsonDerivedType(typeof(TPageBlockList), nameof(TPageBlockList))]
-[JsonDerivedType(typeof(TPageBlockBlockquote), nameof(TPageBlockBlockquote))]
 [JsonDerivedType(typeof(TPageBlockPullquote), nameof(TPageBlockPullquote))]
-[JsonDerivedType(typeof(TPageBlockPhoto), nameof(TPageBlockPhoto))]
-[JsonDerivedType(typeof(TPageBlockVideo), nameof(TPageBlockVideo))]
 [JsonDerivedType(typeof(TPageBlockCover), nameof(TPageBlockCover))]
 [JsonDerivedType(typeof(TPageBlockEmbed), nameof(TPageBlockEmbed))]
 [JsonDerivedType(typeof(TPageBlockEmbedPost), nameof(TPageBlockEmbedPost))]
@@ -62,11 +71,26 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TPageBlockChannel), nameof(TPageBlockChannel))]
 [JsonDerivedType(typeof(TPageBlockAudio), nameof(TPageBlockAudio))]
 [JsonDerivedType(typeof(TPageBlockKicker), nameof(TPageBlockKicker))]
-[JsonDerivedType(typeof(TPageBlockTable), nameof(TPageBlockTable))]
-[JsonDerivedType(typeof(TPageBlockOrderedList), nameof(TPageBlockOrderedList))]
 [JsonDerivedType(typeof(TPageBlockDetails), nameof(TPageBlockDetails))]
 [JsonDerivedType(typeof(TPageBlockRelatedArticles), nameof(TPageBlockRelatedArticles))]
 [JsonDerivedType(typeof(TPageBlockMap), nameof(TPageBlockMap))]
-public interface IPageBlock : IObject
+[JsonDerivedType(typeof(TPageBlockPhoto), nameof(TPageBlockPhoto))]
+[JsonDerivedType(typeof(TPageBlockVideo), nameof(TPageBlockVideo))]
+[JsonDerivedType(typeof(TPageBlockOrderedList), nameof(TPageBlockOrderedList))]
+[JsonDerivedType(typeof(TPageBlockHeading1), nameof(TPageBlockHeading1))]
+[JsonDerivedType(typeof(TPageBlockHeading2), nameof(TPageBlockHeading2))]
+[JsonDerivedType(typeof(TPageBlockHeading3), nameof(TPageBlockHeading3))]
+[JsonDerivedType(typeof(TPageBlockHeading4), nameof(TPageBlockHeading4))]
+[JsonDerivedType(typeof(TPageBlockHeading5), nameof(TPageBlockHeading5))]
+[JsonDerivedType(typeof(TPageBlockHeading6), nameof(TPageBlockHeading6))]
+[JsonDerivedType(typeof(TPageBlockMath), nameof(TPageBlockMath))]
+[JsonDerivedType(typeof(TPageBlockThinking), nameof(TPageBlockThinking))]
+[JsonDerivedType(typeof(TInputPageBlockMap), nameof(TInputPageBlockMap))]
+[JsonDerivedType(typeof(TPageBlockBlockquoteBlocks), nameof(TPageBlockBlockquoteBlocks))]
+[JsonDerivedType(typeof(TPageBlockBlockquote), nameof(TPageBlockBlockquote))]
+[JsonDerivedType(typeof(TPageBlockTable), nameof(TPageBlockTable))]
+[JsonDerivedType(typeof(TPageBlockButtonRow), nameof(TPageBlockButtonRow))]
+[JsonDerivedType(typeof(TPageBlockDocument), nameof(TPageBlockDocument))]
+public partial interface IPageBlock : IObject
 {
 }

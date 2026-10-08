@@ -13,7 +13,7 @@ namespace MyTelegram.Schema.Messages;
 /// </remarks>
 [JsonDerivedType(typeof(TChats), nameof(TChats))]
 [JsonDerivedType(typeof(TChatsSlice), nameof(TChatsSlice))]
-public interface IChats : IObject
+public partial interface IChats : IObject
 {
     /// <summary>
     /// List of chats

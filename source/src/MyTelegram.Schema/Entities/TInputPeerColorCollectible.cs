@@ -14,13 +14,9 @@ public sealed partial class TInputPeerColorCollectible : IPeerColor
     /// </summary>
     public long CollectibleId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(CollectibleId);
     }

@@ -21,13 +21,9 @@ public sealed partial class TSavedGifs : ISavedGifs
     /// </summary>
     public TVector<MyTelegram.Schema.IDocument> Gifs { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Hash);
         writer.Write(Gifs);

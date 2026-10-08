@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TSecureValue"/> See <a href="https://corefork.telegram.org/constructor/secureValue" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TSecureValue), nameof(TSecureValue))]
-public interface ISecureValue : IObject
+public partial interface ISecureValue : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

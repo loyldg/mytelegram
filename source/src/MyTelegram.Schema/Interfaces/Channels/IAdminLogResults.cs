@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Channels;
 /// <see cref="TAdminLogResults"/> See <a href="https://corefork.telegram.org/constructor/channels.adminLogResults" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TAdminLogResults), nameof(TAdminLogResults))]
-public interface IAdminLogResults : IObject
+public partial interface IAdminLogResults : IObject
 {
     /// <summary>
     /// Admin log events

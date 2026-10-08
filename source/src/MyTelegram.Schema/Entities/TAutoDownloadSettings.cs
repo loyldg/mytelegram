@@ -70,20 +70,22 @@ public sealed partial class TAutoDownloadSettings : IAutoDownloadSettings
     /// </summary>
     public int LargeQueueActiveOperationsMax { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Disabled) { Flags = Flags.SetBit(0); }
-        if (VideoPreloadLarge) { Flags = Flags.SetBit(1); }
-        if (AudioPreloadNext) { Flags = Flags.SetBit(2); }
-        if (PhonecallsLessData) { Flags = Flags.SetBit(3); }
-        if (StoriesPreload) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (Disabled) { flags = flags.SetBit(0); }
+        if (VideoPreloadLarge) { flags = flags.SetBit(1); }
+        if (AudioPreloadNext) { flags = flags.SetBit(2); }
+        if (PhonecallsLessData) { flags = flags.SetBit(3); }
+        if (StoriesPreload) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(PhotoSizeMax);
         writer.Write(VideoSizeMax);
         writer.Write(FileSizeMax);

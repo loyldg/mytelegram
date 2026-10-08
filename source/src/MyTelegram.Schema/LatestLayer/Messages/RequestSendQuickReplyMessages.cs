@@ -39,13 +39,9 @@ public sealed partial class RequestSendQuickReplyMessages : IRequest<MyTelegram.
     /// </summary>
     public TVector<long> RandomId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(ShortcutId);

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Account;
 /// <see cref="TPaidMessagesRevenue"/> See <a href="https://corefork.telegram.org/constructor/account.paidMessagesRevenue" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPaidMessagesRevenue), nameof(TPaidMessagesRevenue))]
-public interface IPaidMessagesRevenue : IObject
+public partial interface IPaidMessagesRevenue : IObject
 {
     /// <summary>
     /// Amount in <a href="https://corefork.telegram.org/api/stars">Stars</a>.

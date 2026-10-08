@@ -135,7 +135,7 @@ internal sealed class EditAdminHandler(ICommandBus commandBus, IChannelAppServic
             var isBot = peerHelper.IsBotUser(peer.PeerId);
             var shouldCreatePermanentChatInvite = chatInviteReadModel == null;
             var channelMember = await queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(inputChannel.ChannelId, peer.PeerId));
-            var command = new EditChannelAdminCommand(ChannelId.Create(inputChannel.ChannelId), input.ToRequestInfo(), input.UserId, false, peer.PeerId, isBot, channelMember != null, new ChatAdminRights(obj.AdminRights.Flags), obj.Rank, CurrentDate, shouldCreatePermanentChatInvite);
+            var command = new EditChannelAdminCommand(ChannelId.Create(inputChannel.ChannelId), input.ToRequestInfo(), input.UserId, false, peer.PeerId, isBot, channelMember != null, new ChatAdminRights(obj.AdminRights.Flags), obj.Rank ?? string.Empty, CurrentDate, shouldCreatePermanentChatInvite);
             await commandBus.PublishAsync(command);
             return null!;
         }

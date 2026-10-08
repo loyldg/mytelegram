@@ -35,13 +35,9 @@ public sealed partial class RequestAcceptEncryption : IRequest<MyTelegram.Schema
     /// </summary>
     public long KeyFingerprint { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(GB);

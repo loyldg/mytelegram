@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TMyStickers"/> See <a href="https://corefork.telegram.org/constructor/messages.myStickers" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TMyStickers), nameof(TMyStickers))]
-public interface IMyStickers : IObject
+public partial interface IMyStickers : IObject
 {
     /// <summary>
     /// Total number of owned stickersets.

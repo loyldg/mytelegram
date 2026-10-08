@@ -50,23 +50,25 @@ public sealed partial class TChannelForbidden : IChat
     /// </summary>
     public int? UntilDate { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Broadcast) { Flags = Flags.SetBit(5); }
-        if (Megagroup) { Flags = Flags.SetBit(8); }
-        if (Monoforum) { Flags = Flags.SetBit(10); }
-        if (/*UntilDate != 0 && */UntilDate.HasValue) { Flags = Flags.SetBit(16); }
+        var flags = 0;
+        if (Broadcast) { flags = flags.SetBit(5); }
+        if (Megagroup) { flags = flags.SetBit(8); }
+        if (Monoforum) { flags = flags.SetBit(10); }
+        if (/*UntilDate != 0 && */UntilDate.HasValue) { flags = flags.SetBit(16); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(AccessHash);
         writer.Write(Title);
-        if (Flags.IsBitSet(16)) { writer.Write(UntilDate.Value); }
+        if (flags.IsBitSet(16)) { writer.Write(UntilDate.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

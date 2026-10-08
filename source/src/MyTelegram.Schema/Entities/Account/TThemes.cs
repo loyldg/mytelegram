@@ -21,13 +21,9 @@ public sealed partial class TThemes : IThemes
     /// </summary>
     public TVector<MyTelegram.Schema.ITheme> Themes { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Hash);
         writer.Write(Themes);

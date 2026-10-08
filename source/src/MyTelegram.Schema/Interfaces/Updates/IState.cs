@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Updates;
 /// <see cref="TState"/> See <a href="https://corefork.telegram.org/constructor/updates.state" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TState), nameof(TState))]
-public interface IState : IObject
+public partial interface IState : IObject
 {
     /// <summary>
     /// Number of events occurred in a text box

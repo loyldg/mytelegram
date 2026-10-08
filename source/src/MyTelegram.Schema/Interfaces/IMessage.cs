@@ -9,13 +9,13 @@ namespace MyTelegram.Schema;
 /// <remarks>
 /// <para>Implementations:</para>
 /// <see cref="TMessageEmpty"/> See <a href="https://corefork.telegram.org/constructor/messageEmpty" /><br/>
-/// <see cref="TMessage"/> See <a href="https://corefork.telegram.org/constructor/message" /><br/>
 /// <see cref="TMessageService"/> See <a href="https://corefork.telegram.org/constructor/messageService" /><br/>
+/// <see cref="TMessage"/> See <a href="https://corefork.telegram.org/constructor/message" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TMessageEmpty), nameof(TMessageEmpty))]
-[JsonDerivedType(typeof(TMessage), nameof(TMessage))]
 [JsonDerivedType(typeof(TMessageService), nameof(TMessageService))]
-public interface IMessage : IObject
+[JsonDerivedType(typeof(TMessage), nameof(TMessage))]
+public partial interface IMessage : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

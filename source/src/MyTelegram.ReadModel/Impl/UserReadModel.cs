@@ -63,7 +63,6 @@ public partial class UserReadModel : ReadModelBase, IUserReadModel,
 
     public List<string>? Usernames { get; private set; }
     public int? UserNameUpdateDate { get; private set; }
-    public bool? IsDeleted { get; set; }
     public virtual bool Verified { get; private set; }
 
     //public int? Color { get; private set; }

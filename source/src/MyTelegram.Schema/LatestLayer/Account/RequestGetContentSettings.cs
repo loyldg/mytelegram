@@ -14,13 +14,9 @@ public sealed partial class RequestGetContentSettings : IRequest<MyTelegram.Sche
 {
     public uint ConstructorId => 0x8b9b4dae;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

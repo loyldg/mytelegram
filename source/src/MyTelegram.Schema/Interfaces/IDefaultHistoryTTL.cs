@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TDefaultHistoryTTL"/> See <a href="https://corefork.telegram.org/constructor/defaultHistoryTTL" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TDefaultHistoryTTL), nameof(TDefaultHistoryTTL))]
-public interface IDefaultHistoryTTL : IObject
+public partial interface IDefaultHistoryTTL : IObject
 {
     /// <summary>
     /// Time-To-Live setting applied to all new chats.

@@ -14,13 +14,9 @@ public sealed partial class RequestLogOut : IRequest<MyTelegram.Schema.Auth.ILog
 {
     public uint ConstructorId => 0x3e72ba19;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

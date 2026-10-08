@@ -25,19 +25,21 @@ public sealed partial class TPeerColor : IPeerColor
     /// </summary>
     public long? BackgroundEmojiId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*Color != 0 && */Color.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*BackgroundEmojiId != 0 &&*/ BackgroundEmojiId.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (/*Color != 0 && */Color.HasValue) { flags = flags.SetBit(0); }
+        if (/*BackgroundEmojiId != 0 &&*/ BackgroundEmojiId.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(Color.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(BackgroundEmojiId.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(Color.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(BackgroundEmojiId.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

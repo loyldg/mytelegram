@@ -20,13 +20,9 @@ public sealed partial class TInputPasskeyResponseRegister : IInputPasskeyRespons
     /// </summary>
     public ReadOnlyMemory<byte> AttestationData { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ClientData);
         writer.Write(AttestationData);

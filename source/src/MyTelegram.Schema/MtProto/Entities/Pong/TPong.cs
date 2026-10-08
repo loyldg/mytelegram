@@ -4,7 +4,7 @@ namespace MyTelegram.Schema;
 
 
 [TlObject(0x347773c5)]
-public sealed class TPong : IPong
+public sealed partial class TPong : IPong
 {
     public uint ConstructorId => 0x347773c5;
     public long MsgId { get; set; }

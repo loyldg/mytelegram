@@ -31,17 +31,19 @@ public sealed partial class TFoundStickers : IFoundStickers
     /// </summary>
     public TVector<MyTelegram.Schema.IDocument> Stickers { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*NextOffset != 0 && */NextOffset.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*NextOffset != 0 && */NextOffset.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(NextOffset.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(NextOffset.Value); }
         writer.Write(Hash);
         writer.Write(Stickers);
     }

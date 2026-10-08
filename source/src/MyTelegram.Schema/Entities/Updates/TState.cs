@@ -35,13 +35,9 @@ public sealed partial class TState : IState
     /// </summary>
     public int UnreadCount { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Pts);
         writer.Write(Qts);

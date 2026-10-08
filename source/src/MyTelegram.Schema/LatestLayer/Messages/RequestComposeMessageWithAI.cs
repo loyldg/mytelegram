@@ -8,10 +8,10 @@ namespace MyTelegram.Schema.Messages;
 /// <remarks>
 /// Access: [User ] [Bot ] [Anonymous ]
 /// </remarks>
-[TlObject(0xfd426afe)]
+[TlObject(0xdaecc589)]
 public sealed partial class RequestComposeMessageWithAI : IRequest<MyTelegram.Schema.Messages.IComposedMessageWithAI>
 {
-    public uint ConstructorId => 0xfd426afe;
+    public uint ConstructorId => 0xdaecc589;
 
     public int Flags { get; set; }
 
@@ -26,24 +26,29 @@ public sealed partial class RequestComposeMessageWithAI : IRequest<MyTelegram.Sc
 
     public string? TranslateToLang { get; set; }
 
-    public string? ChangeTone { get; set; }
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/InputAiComposeTone" />
+    /// </summary>
+    public MyTelegram.Schema.IInputAiComposeTone? Tone { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Proofread) { Flags = Flags.SetBit(0); }
-        if (Emojify) { Flags = Flags.SetBit(3); }
-        if (TranslateToLang != null) { Flags = Flags.SetBit(1); }
-        if (ChangeTone != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Proofread) { flags = flags.SetBit(0); }
+        if (Emojify) { flags = flags.SetBit(3); }
+        if (TranslateToLang != null) { flags = flags.SetBit(1); }
+        if (Tone != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Text);
-        if (Flags.IsBitSet(1)) { writer.Write(TranslateToLang); }
-        if (Flags.IsBitSet(2)) { writer.Write(ChangeTone); }
+        if (flags.IsBitSet(1)) { writer.Write(TranslateToLang); }
+        if (flags.IsBitSet(2)) { writer.Write(Tone); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -53,6 +58,6 @@ public sealed partial class RequestComposeMessageWithAI : IRequest<MyTelegram.Sc
         if (Flags.IsBitSet(3)) { Emojify = true; }
         Text = buffer.Read<MyTelegram.Schema.ITextWithEntities>();
         if (Flags.IsBitSet(1)) { TranslateToLang = buffer.ReadString(); }
-        if (Flags.IsBitSet(2)) { ChangeTone = buffer.ReadString(); }
+        if (Flags.IsBitSet(2)) { Tone = buffer.Read<MyTelegram.Schema.IInputAiComposeTone>(); }
     }
 }

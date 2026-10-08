@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Payments;
 /// <see cref="TStarGiftWithdrawalUrl"/> See <a href="https://corefork.telegram.org/constructor/payments.starGiftWithdrawalUrl" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStarGiftWithdrawalUrl), nameof(TStarGiftWithdrawalUrl))]
-public interface IStarGiftWithdrawalUrl : IObject
+public partial interface IStarGiftWithdrawalUrl : IObject
 {
     /// <summary>
     /// The URL to open.

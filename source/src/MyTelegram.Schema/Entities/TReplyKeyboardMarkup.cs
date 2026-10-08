@@ -35,6 +35,8 @@ public sealed partial class TReplyKeyboardMarkup : IReplyMarkup
     /// </summary>
     public bool Persistent { get; set; }
 
+    public bool ForceReply { get; set; }
+
     /// <summary>
     /// Button row
     /// See <a href="https://corefork.telegram.org/type/KeyboardButtonRow" />
@@ -46,22 +48,25 @@ public sealed partial class TReplyKeyboardMarkup : IReplyMarkup
     /// </summary>
     public string? Placeholder { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Resize) { Flags = Flags.SetBit(0); }
-        if (SingleUse) { Flags = Flags.SetBit(1); }
-        if (Selective) { Flags = Flags.SetBit(2); }
-        if (Persistent) { Flags = Flags.SetBit(4); }
-        if (Placeholder != null) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (Resize) { flags = flags.SetBit(0); }
+        if (SingleUse) { flags = flags.SetBit(1); }
+        if (Selective) { flags = flags.SetBit(2); }
+        if (Persistent) { flags = flags.SetBit(4); }
+        if (ForceReply) { flags = flags.SetBit(5); }
+        if (Placeholder != null) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Rows);
-        if (Flags.IsBitSet(3)) { writer.Write(Placeholder); }
+        if (flags.IsBitSet(3)) { writer.Write(Placeholder); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -71,6 +76,7 @@ public sealed partial class TReplyKeyboardMarkup : IReplyMarkup
         if (Flags.IsBitSet(1)) { SingleUse = true; }
         if (Flags.IsBitSet(2)) { Selective = true; }
         if (Flags.IsBitSet(4)) { Persistent = true; }
+        if (Flags.IsBitSet(5)) { ForceReply = true; }
         Rows = buffer.Read<TVector<MyTelegram.Schema.IKeyboardButtonRow>>();
         if (Flags.IsBitSet(3)) { Placeholder = buffer.ReadString(); }
     }

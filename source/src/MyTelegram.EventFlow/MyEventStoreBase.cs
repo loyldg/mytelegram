@@ -44,13 +44,18 @@ public class MyEventStoreBase(
             aggregateType.PrettyPrint(),
             id);
 
+        var persistence = GetEventPersistence<TAggregate>();
+        if (persistence is IInMemoryEventPersistence myInMemoryEventPersistence)
+        {
+            return myInMemoryEventPersistence.CommitEvents<TAggregate, TIdentity>(id, uncommittedDomainEvents);
+        }
+
         var batchId = Guid.NewGuid().ToString();
         var storeMetadata = new[]
         {
             new KeyValuePair<string, string>(MetadataKeys.BatchId, batchId),
             new KeyValuePair<string, string>(MetadataKeys.SourceId, sourceId.Value)
         };
-
         var serializedEvents = uncommittedDomainEvents
             .Select(e =>
             {
@@ -92,7 +97,7 @@ public class MyEventStoreBase(
             .Select(e => eventJsonSerializer.Deserialize(e))
             .ToList();
         //IAsyncEnumerable<IDomainEvent> a=new 
-        
+
         // TODO: Pass a real IAsyncEnumerable instead
         domainEvents = await eventUpgradeManager.UpgradeAsync(
             domainEvents.ToAsyncEnumerable(),
@@ -114,10 +119,65 @@ public class MyEventStoreBase(
             cancellationToken);
     }
 
-    public Task<IReadOnlyCollection<IDomainEvent<TAggregate, TIdentity>>> LoadEventsAsync<TAggregate, TIdentity>(TIdentity id, int fromSequenceNumber, int toSequenceNumber,
+    public async Task<IReadOnlyCollection<IDomainEvent<TAggregate, TIdentity>>> LoadEventsAsync<TAggregate, TIdentity>(
+        TIdentity id,
+        int fromEventSequenceNumber,
+        int toEventSequenceNumber,
         CancellationToken cancellationToken) where TAggregate : IAggregateRoot<TIdentity> where TIdentity : IIdentity
     {
-        throw new NotImplementedException();
+        if (fromEventSequenceNumber < 1) throw new ArgumentOutOfRangeException(nameof(fromEventSequenceNumber), "Event sequence numbers start at 1");
+        if (toEventSequenceNumber <= fromEventSequenceNumber) throw new ArgumentOutOfRangeException(nameof(toEventSequenceNumber), "Event sequence numbers end at start");
+
+        var persistence = GetEventPersistence<TAggregate>();
+        if (persistence is IInMemoryEventPersistence myInMemoryEventPersistence)
+        {
+            var events =
+                await myInMemoryEventPersistence.LoadEventsAsync<TAggregate, TIdentity>(
+                    id,
+                    fromEventSequenceNumber,
+                    cancellationToken);
+
+
+            if (events.Count == 0)
+                return events;
+
+
+            return await eventUpgradeManager
+                .UpgradeAsync(
+                    events.ToAsyncEnumerable(),
+                    cancellationToken)
+                .ToArrayAsync(cancellationToken);
+        }
+
+
+        var committedDomainEvents = await eventPersistence.LoadCommittedEventsAsync(
+                id,
+                fromEventSequenceNumber,
+                toEventSequenceNumber,
+                cancellationToken)
+            .ConfigureAwait(false);
+
+        return await MapToDomainEvents<TAggregate, TIdentity>(id, cancellationToken, committedDomainEvents);
+    }
+
+    private async Task<IReadOnlyCollection<IDomainEvent<TAggregate, TIdentity>>> MapToDomainEvents<TAggregate, TIdentity>(TIdentity id, CancellationToken cancellationToken,
+        IReadOnlyCollection<ICommittedDomainEvent> committedDomainEvents) where TAggregate : IAggregateRoot<TIdentity> where TIdentity : IIdentity
+    {
+        var domainEvents = (IReadOnlyCollection<IDomainEvent<TAggregate, TIdentity>>)committedDomainEvents
+            .Select(e => eventJsonSerializer.Deserialize<TAggregate, TIdentity>(id, e))
+            .ToList();
+
+        if (!domainEvents.Any())
+        {
+            return domainEvents;
+        }
+
+        // TODO: Pass a real IAsyncEnumerable instead
+        domainEvents = await eventUpgradeManager.UpgradeAsync(
+            domainEvents.ToAsyncEnumerable(),
+            cancellationToken).ToArrayAsync(cancellationToken);
+
+        return domainEvents;
     }
 
     public virtual async Task<IReadOnlyCollection<IDomainEvent<TAggregate, TIdentity>>> LoadEventsAsync<TAggregate, TIdentity>(
@@ -129,6 +189,28 @@ public class MyEventStoreBase(
     {
         if (fromEventSequenceNumber < 1) throw new ArgumentOutOfRangeException(nameof(fromEventSequenceNumber), "Event sequence numbers start at 1");
 
+        var persistence = GetEventPersistence<TAggregate>();
+        if (persistence is IInMemoryEventPersistence myInMemoryEventPersistence)
+        {
+            var events =
+                await myInMemoryEventPersistence.LoadEventsAsync<TAggregate, TIdentity>(
+                    id,
+                    fromEventSequenceNumber,
+                    cancellationToken);
+
+
+            if (events.Count == 0)
+                return events;
+
+
+            return await eventUpgradeManager
+                .UpgradeAsync(
+                    events.ToAsyncEnumerable(),
+                    cancellationToken)
+                .ToArrayAsync(cancellationToken);
+        }
+
+
         var committedDomainEvents = await GetEventPersistence<TAggregate>().LoadCommittedEventsAsync(
                 id,
                 fromEventSequenceNumber,
@@ -136,7 +218,7 @@ public class MyEventStoreBase(
             .ConfigureAwait(false);
         var domainEvents = (IReadOnlyCollection<IDomainEvent<TAggregate, TIdentity>>)committedDomainEvents
             .Select(e => eventJsonSerializer.Deserialize<TAggregate, TIdentity>(id, e))
-            .ToList();
+            .ToArray();
 
         if (domainEvents.Count == 0)
         {

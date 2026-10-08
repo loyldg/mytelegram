@@ -24,13 +24,9 @@ public sealed partial class RequestHideChatlistUpdates : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IInputChatlist Chatlist { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Chatlist);
     }

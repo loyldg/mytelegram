@@ -68,30 +68,32 @@ public sealed partial class TMessageMediaDocument : IMessageMedia
     /// </summary>
     public int? TtlSeconds { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Nopremium) { Flags = Flags.SetBit(3); }
-        if (Spoiler) { Flags = Flags.SetBit(4); }
-        if (Video) { Flags = Flags.SetBit(6); }
-        if (Round) { Flags = Flags.SetBit(7); }
-        if (Voice) { Flags = Flags.SetBit(8); }
-        if (Document != null) { Flags = Flags.SetBit(0); }
-        if (AltDocuments?.Count > 0) { Flags = Flags.SetBit(5); }
-        if (VideoCover != null) { Flags = Flags.SetBit(9); }
-        if (/*VideoTimestamp != 0 && */VideoTimestamp.HasValue) { Flags = Flags.SetBit(10); }
-        if (/*TtlSeconds != 0 && */TtlSeconds.HasValue) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Nopremium) { flags = flags.SetBit(3); }
+        if (Spoiler) { flags = flags.SetBit(4); }
+        if (Video) { flags = flags.SetBit(6); }
+        if (Round) { flags = flags.SetBit(7); }
+        if (Voice) { flags = flags.SetBit(8); }
+        if (Document != null) { flags = flags.SetBit(0); }
+        if (AltDocuments?.Count > 0) { flags = flags.SetBit(5); }
+        if (VideoCover != null) { flags = flags.SetBit(9); }
+        if (/*VideoTimestamp != 0 && */VideoTimestamp.HasValue) { flags = flags.SetBit(10); }
+        if (/*TtlSeconds != 0 && */TtlSeconds.HasValue) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(Document); }
-        if (Flags.IsBitSet(5)) { writer.Write(AltDocuments); }
-        if (Flags.IsBitSet(9)) { writer.Write(VideoCover); }
-        if (Flags.IsBitSet(10)) { writer.Write(VideoTimestamp.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(TtlSeconds.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(Document); }
+        if (flags.IsBitSet(5)) { writer.Write(AltDocuments); }
+        if (flags.IsBitSet(9)) { writer.Write(VideoCover); }
+        if (flags.IsBitSet(10)) { writer.Write(VideoTimestamp.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(TtlSeconds.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

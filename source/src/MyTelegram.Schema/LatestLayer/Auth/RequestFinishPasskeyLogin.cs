@@ -39,20 +39,22 @@ public sealed partial class RequestFinishPasskeyLogin : IRequest<MyTelegram.Sche
     /// </summary>
     public long? FromAuthKeyId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*FromDcId != 0 && */FromDcId.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*FromAuthKeyId != 0 &&*/ FromAuthKeyId.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*FromDcId != 0 && */FromDcId.HasValue) { flags = flags.SetBit(0); }
+        if (/*FromAuthKeyId != 0 &&*/ FromAuthKeyId.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Credential);
-        if (Flags.IsBitSet(0)) { writer.Write(FromDcId.Value); }
-        if (Flags.IsBitSet(0)) { writer.Write(FromAuthKeyId.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(FromDcId.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(FromAuthKeyId.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

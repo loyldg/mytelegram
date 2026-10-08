@@ -21,13 +21,9 @@ public sealed partial class TInputSavedStarGiftChat : IInputSavedStarGift
     /// </summary>
     public long SavedId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(SavedId);

@@ -35,18 +35,20 @@ public sealed partial class RequestGetSponsoredMessages : IRequest<MyTelegram.Sc
     /// </summary>
     public int? MsgId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*MsgId != 0 && */MsgId.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*MsgId != 0 && */MsgId.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
-        if (Flags.IsBitSet(0)) { writer.Write(MsgId.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(MsgId.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

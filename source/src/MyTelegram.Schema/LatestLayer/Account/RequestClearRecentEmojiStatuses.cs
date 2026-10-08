@@ -14,13 +14,9 @@ public sealed partial class RequestClearRecentEmojiStatuses : IRequest<IBool>
 {
     public uint ConstructorId => 0x18201aae;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

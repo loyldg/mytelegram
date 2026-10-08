@@ -45,21 +45,23 @@ public sealed partial class TPremiumGiftCodeOption : IPremiumGiftCodeOption
     /// </summary>
     public long Amount { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (StoreProduct != null) { Flags = Flags.SetBit(0); }
-        if (/*StoreQuantity != 0 && */StoreQuantity.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (StoreProduct != null) { flags = flags.SetBit(0); }
+        if (/*StoreQuantity != 0 && */StoreQuantity.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Users);
         writer.Write(Months);
-        if (Flags.IsBitSet(0)) { writer.Write(StoreProduct); }
-        if (Flags.IsBitSet(1)) { writer.Write(StoreQuantity.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(StoreProduct); }
+        if (flags.IsBitSet(1)) { writer.Write(StoreQuantity.Value); }
         writer.Write(Currency);
         writer.Write(Amount);
     }

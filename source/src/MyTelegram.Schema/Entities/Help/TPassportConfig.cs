@@ -21,13 +21,9 @@ public sealed partial class TPassportConfig : IPassportConfig
     /// </summary>
     public MyTelegram.Schema.IDataJSON CountriesLangs { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Hash);
         writer.Write(CountriesLangs);

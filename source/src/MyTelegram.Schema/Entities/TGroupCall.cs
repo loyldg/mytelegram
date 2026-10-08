@@ -146,49 +146,51 @@ public sealed partial class TGroupCall : IGroupCall
     /// </summary>
     public MyTelegram.Schema.IPeer? DefaultSendAs { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (JoinMuted) { Flags = Flags.SetBit(1); }
-        if (CanChangeJoinMuted) { Flags = Flags.SetBit(2); }
-        if (JoinDateAsc) { Flags = Flags.SetBit(6); }
-        if (ScheduleStartSubscribed) { Flags = Flags.SetBit(8); }
-        if (CanStartVideo) { Flags = Flags.SetBit(9); }
-        if (RecordVideoActive) { Flags = Flags.SetBit(11); }
-        if (RtmpStream) { Flags = Flags.SetBit(12); }
-        if (ListenersHidden) { Flags = Flags.SetBit(13); }
-        if (Conference) { Flags = Flags.SetBit(14); }
-        if (Creator) { Flags = Flags.SetBit(15); }
-        if (MessagesEnabled) { Flags = Flags.SetBit(17); }
-        if (CanChangeMessagesEnabled) { Flags = Flags.SetBit(18); }
-        if (Min) { Flags = Flags.SetBit(19); }
-        if (Title != null) { Flags = Flags.SetBit(3); }
-        if (/*StreamDcId != 0 && */StreamDcId.HasValue) { Flags = Flags.SetBit(4); }
-        if (/*RecordStartDate != 0 && */RecordStartDate.HasValue) { Flags = Flags.SetBit(5); }
-        if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { Flags = Flags.SetBit(7); }
-        if (/*UnmutedVideoCount != 0 && */UnmutedVideoCount.HasValue) { Flags = Flags.SetBit(10); }
-        if (InviteLink != null) { Flags = Flags.SetBit(16); }
-        if (/*SendPaidMessagesStars != 0 &&*/ SendPaidMessagesStars.HasValue) { Flags = Flags.SetBit(20); }
-        if (DefaultSendAs != null) { Flags = Flags.SetBit(21); }
+        var flags = 0;
+        if (JoinMuted) { flags = flags.SetBit(1); }
+        if (CanChangeJoinMuted) { flags = flags.SetBit(2); }
+        if (JoinDateAsc) { flags = flags.SetBit(6); }
+        if (ScheduleStartSubscribed) { flags = flags.SetBit(8); }
+        if (CanStartVideo) { flags = flags.SetBit(9); }
+        if (RecordVideoActive) { flags = flags.SetBit(11); }
+        if (RtmpStream) { flags = flags.SetBit(12); }
+        if (ListenersHidden) { flags = flags.SetBit(13); }
+        if (Conference) { flags = flags.SetBit(14); }
+        if (Creator) { flags = flags.SetBit(15); }
+        if (MessagesEnabled) { flags = flags.SetBit(17); }
+        if (CanChangeMessagesEnabled) { flags = flags.SetBit(18); }
+        if (Min) { flags = flags.SetBit(19); }
+        if (Title != null) { flags = flags.SetBit(3); }
+        if (/*StreamDcId != 0 && */StreamDcId.HasValue) { flags = flags.SetBit(4); }
+        if (/*RecordStartDate != 0 && */RecordStartDate.HasValue) { flags = flags.SetBit(5); }
+        if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { flags = flags.SetBit(7); }
+        if (/*UnmutedVideoCount != 0 && */UnmutedVideoCount.HasValue) { flags = flags.SetBit(10); }
+        if (InviteLink != null) { flags = flags.SetBit(16); }
+        if (/*SendPaidMessagesStars != 0 &&*/ SendPaidMessagesStars.HasValue) { flags = flags.SetBit(20); }
+        if (DefaultSendAs != null) { flags = flags.SetBit(21); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(AccessHash);
         writer.Write(ParticipantsCount);
-        if (Flags.IsBitSet(3)) { writer.Write(Title); }
-        if (Flags.IsBitSet(4)) { writer.Write(StreamDcId.Value); }
-        if (Flags.IsBitSet(5)) { writer.Write(RecordStartDate.Value); }
-        if (Flags.IsBitSet(7)) { writer.Write(ScheduleDate.Value); }
-        if (Flags.IsBitSet(10)) { writer.Write(UnmutedVideoCount.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(Title); }
+        if (flags.IsBitSet(4)) { writer.Write(StreamDcId.Value); }
+        if (flags.IsBitSet(5)) { writer.Write(RecordStartDate.Value); }
+        if (flags.IsBitSet(7)) { writer.Write(ScheduleDate.Value); }
+        if (flags.IsBitSet(10)) { writer.Write(UnmutedVideoCount.Value); }
         writer.Write(UnmutedVideoLimit);
         writer.Write(Version);
-        if (Flags.IsBitSet(16)) { writer.Write(InviteLink); }
-        if (Flags.IsBitSet(20)) { writer.Write(SendPaidMessagesStars.Value); }
-        if (Flags.IsBitSet(21)) { writer.Write(DefaultSendAs); }
+        if (flags.IsBitSet(16)) { writer.Write(InviteLink); }
+        if (flags.IsBitSet(20)) { writer.Write(SendPaidMessagesStars.Value); }
+        if (flags.IsBitSet(21)) { writer.Write(DefaultSendAs); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

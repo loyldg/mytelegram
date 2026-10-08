@@ -16,13 +16,9 @@ public sealed partial class TMessageActionSecureValuesSent : IMessageAction
     /// </summary>
     public TVector<MyTelegram.Schema.ISecureValueType> Types { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Types);
     }

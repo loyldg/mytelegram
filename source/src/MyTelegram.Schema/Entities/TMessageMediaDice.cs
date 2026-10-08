@@ -31,19 +31,21 @@ public sealed partial class TMessageMediaDice : IMessageMedia
     /// </summary>
     public MyTelegram.Schema.Messages.IEmojiGameOutcome? GameOutcome { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (GameOutcome != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (GameOutcome != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Value);
         writer.Write(Emoticon);
-        if (Flags.IsBitSet(0)) { writer.Write(GameOutcome); }
+        if (flags.IsBitSet(0)) { writer.Write(GameOutcome); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

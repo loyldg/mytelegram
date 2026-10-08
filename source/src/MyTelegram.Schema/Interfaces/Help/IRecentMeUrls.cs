@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Help;
 /// <see cref="TRecentMeUrls"/> See <a href="https://corefork.telegram.org/constructor/help.recentMeUrls" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TRecentMeUrls), nameof(TRecentMeUrls))]
-public interface IRecentMeUrls : IObject
+public partial interface IRecentMeUrls : IObject
 {
     /// <summary>
     /// URLs

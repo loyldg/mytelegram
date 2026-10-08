@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TMessageFwdHeader"/> See <a href="https://corefork.telegram.org/constructor/messageFwdHeader" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TMessageFwdHeader), nameof(TMessageFwdHeader))]
-public interface IMessageFwdHeader : IObject
+public partial interface IMessageFwdHeader : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

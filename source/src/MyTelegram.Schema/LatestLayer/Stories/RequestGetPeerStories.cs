@@ -26,13 +26,9 @@ public sealed partial class RequestGetPeerStories : IRequest<MyTelegram.Schema.S
     /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
     }

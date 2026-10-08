@@ -14,55 +14,62 @@ public class PtsEventHandler(
 {
     public async Task HandleEventAsync(AcksDataReceivedEvent eventData)
     {
-        var data = eventData.Data.ToTObject<TMsgsAck>();
-
-        foreach (var msgId in data.MsgIds)
+        try
         {
-            if (ackCacheService.TryGetPts(msgId, out var ackCacheItem))
+            var data = eventData.Data.ToTObject<TMsgsAck>();
+
+            foreach (var msgId in data.MsgIds)
             {
-                if (ackCacheItem.IsQts)
+                if (ackCacheService.TryGetPts(msgId, out var ackCacheItem))
                 {
-                    var command = new QtsAckedCommand(PtsId.Create(eventData.UserId, eventData.PermAuthKeyId),
-                        eventData.UserId,
-                        eventData.PermAuthKeyId,
-                        msgId,
-                        ackCacheItem.Pts,
-                        ackCacheItem.GlobalSeqNo,
-                        ackCacheItem.ToPeer,
-                        ackCacheItem.IsFromGetDifference
-                    );
-                    await commandBus.PublishAsync(command);
+                    if (ackCacheItem.IsQts)
+                    {
+                        var command = new QtsAckedCommand(PtsId.Create(eventData.UserId, eventData.PermAuthKeyId),
+                            eventData.UserId,
+                            eventData.PermAuthKeyId,
+                            msgId,
+                            ackCacheItem.Pts,
+                            ackCacheItem.GlobalSeqNo,
+                            ackCacheItem.ToPeer,
+                            ackCacheItem.IsFromGetDifference
+                        );
+                        await commandBus.PublishAsync(command, default);
+                    }
+                    else
+                    {
+                        var command = new PtsAckedCommand(PtsId.Create(eventData.UserId, eventData.PermAuthKeyId),
+                            eventData.UserId,
+                            eventData.PermAuthKeyId,
+                            msgId,
+                            ackCacheItem.Pts,
+                            ackCacheItem.GlobalSeqNo,
+                            ackCacheItem.ToPeer,
+                            ackCacheItem.IsFromGetDifference
+                        );
+                        await commandBus.PublishAsync(command, default);
+                    }
                 }
                 else
                 {
-                    var command = new PtsAckedCommand(PtsId.Create(eventData.UserId, eventData.PermAuthKeyId),
-                        eventData.UserId,
-                        eventData.PermAuthKeyId,
-                        msgId,
-                        ackCacheItem.Pts,
-                        ackCacheItem.GlobalSeqNo,
-                        ackCacheItem.ToPeer,
-                        ackCacheItem.IsFromGetDifference
-                    );
-                    await commandBus.PublishAsync(command);
+                    if (ackCacheService.TryGetRpcPtsCache(msgId, out ackCacheItem))
+                    {
+                        var command = new PtsAckedCommand(PtsId.Create(eventData.UserId, eventData.PermAuthKeyId),
+                            eventData.UserId,
+                            eventData.PermAuthKeyId,
+                            msgId,
+                            ackCacheItem.Pts,
+                            ackCacheItem.GlobalSeqNo,
+                            ackCacheItem.ToPeer,
+                            ackCacheItem.IsFromGetDifference
+                        );
+                        await commandBus.PublishAsync(command, default);
+                    }
                 }
             }
-            else
-            {
-                if (ackCacheService.TryGetRpcPtsCache(msgId, out ackCacheItem))
-                {
-                    var command = new PtsAckedCommand(PtsId.Create(eventData.UserId, eventData.PermAuthKeyId),
-                        eventData.UserId,
-                        eventData.PermAuthKeyId,
-                        msgId,
-                        ackCacheItem.Pts,
-                        ackCacheItem.GlobalSeqNo,
-                        ackCacheItem.ToPeer,
-                        ackCacheItem.IsFromGetDifference
-                    );
-                    await commandBus.PublishAsync(command);
-                }
-            }
+        }
+        finally
+        {
+            eventData.MemoryOwner?.Dispose();
         }
     }
 

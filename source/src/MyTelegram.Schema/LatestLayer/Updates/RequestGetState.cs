@@ -14,13 +14,9 @@ public sealed partial class RequestGetState : IRequest<MyTelegram.Schema.Updates
 {
     public uint ConstructorId => 0xedd4882a;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

@@ -70,7 +70,6 @@ namespace MyTelegram.Schema;
 /// <see cref="TUpdateContactsReset"/> See <a href="https://corefork.telegram.org/constructor/updateContactsReset" /><br/>
 /// <see cref="TUpdateChannelAvailableMessages"/> See <a href="https://corefork.telegram.org/constructor/updateChannelAvailableMessages" /><br/>
 /// <see cref="TUpdateDialogUnreadMark"/> See <a href="https://corefork.telegram.org/constructor/updateDialogUnreadMark" /><br/>
-/// <see cref="TUpdateMessagePoll"/> See <a href="https://corefork.telegram.org/constructor/updateMessagePoll" /><br/>
 /// <see cref="TUpdateChatDefaultBannedRights"/> See <a href="https://corefork.telegram.org/constructor/updateChatDefaultBannedRights" /><br/>
 /// <see cref="TUpdateFolderPeers"/> See <a href="https://corefork.telegram.org/constructor/updateFolderPeers" /><br/>
 /// <see cref="TUpdatePeerSettings"/> See <a href="https://corefork.telegram.org/constructor/updatePeerSettings" /><br/>
@@ -80,7 +79,6 @@ namespace MyTelegram.Schema;
 /// <see cref="TUpdateTheme"/> See <a href="https://corefork.telegram.org/constructor/updateTheme" /><br/>
 /// <see cref="TUpdateGeoLiveViewed"/> See <a href="https://corefork.telegram.org/constructor/updateGeoLiveViewed" /><br/>
 /// <see cref="TUpdateLoginToken"/> See <a href="https://corefork.telegram.org/constructor/updateLoginToken" /><br/>
-/// <see cref="TUpdateMessagePollVote"/> See <a href="https://corefork.telegram.org/constructor/updateMessagePollVote" /><br/>
 /// <see cref="TUpdateDialogFilter"/> See <a href="https://corefork.telegram.org/constructor/updateDialogFilter" /><br/>
 /// <see cref="TUpdateDialogFilterOrder"/> See <a href="https://corefork.telegram.org/constructor/updateDialogFilterOrder" /><br/>
 /// <see cref="TUpdateDialogFilters"/> See <a href="https://corefork.telegram.org/constructor/updateDialogFilters" /><br/>
@@ -102,7 +100,6 @@ namespace MyTelegram.Schema;
 /// <see cref="TUpdateGroupCallConnection"/> See <a href="https://corefork.telegram.org/constructor/updateGroupCallConnection" /><br/>
 /// <see cref="TUpdateBotCommands"/> See <a href="https://corefork.telegram.org/constructor/updateBotCommands" /><br/>
 /// <see cref="TUpdatePendingJoinRequests"/> See <a href="https://corefork.telegram.org/constructor/updatePendingJoinRequests" /><br/>
-/// <see cref="TUpdateBotChatInviteRequester"/> See <a href="https://corefork.telegram.org/constructor/updateBotChatInviteRequester" /><br/>
 /// <see cref="TUpdateMessageReactions"/> See <a href="https://corefork.telegram.org/constructor/updateMessageReactions" /><br/>
 /// <see cref="TUpdateAttachMenuBots"/> See <a href="https://corefork.telegram.org/constructor/updateAttachMenuBots" /><br/>
 /// <see cref="TUpdateWebViewResultSent"/> See <a href="https://corefork.telegram.org/constructor/updateWebViewResultSent" /><br/>
@@ -161,7 +158,21 @@ namespace MyTelegram.Schema;
 /// <see cref="TUpdateEmojiGameInfo"/> See <a href="https://corefork.telegram.org/constructor/updateEmojiGameInfo" /><br/>
 /// <see cref="TUpdateStarGiftCraftFail"/> See <a href="https://corefork.telegram.org/constructor/updateStarGiftCraftFail" /><br/>
 /// <see cref="TUpdateChatParticipantRank"/> See <a href="" /><br/>
+/// <see cref="TUpdateMessagePoll"/> See <a href="https://corefork.telegram.org/constructor/updateMessagePoll" /><br/>
+/// <see cref="TUpdateMessagePollVote"/> See <a href="https://corefork.telegram.org/constructor/updateMessagePollVote" /><br/>
 /// <see cref="TUpdateManagedBot"/> See <a href="" /><br/>
+/// <see cref="TUpdateBotGuestChatQuery"/> See <a href="" /><br/>
+/// <see cref="TUpdateAiComposeTones"/> See <a href="" /><br/>
+/// <see cref="TUpdateBotChatInviteRequester"/> See <a href="https://corefork.telegram.org/constructor/updateBotChatInviteRequester" /><br/>
+/// <see cref="TUpdateJoinChatWebViewDecision"/> See <a href="" /><br/>
+/// <see cref="TUpdateNewBotConnection"/> See <a href="" /><br/>
+/// <see cref="TUpdateWebBrowserSettings"/> See <a href="" /><br/>
+/// <see cref="TUpdateWebBrowserException"/> See <a href="" /><br/>
+/// <see cref="TUpdateNewEphemeralMessage"/> See <a href="" /><br/>
+/// <see cref="TUpdateDeleteEphemeralMessages"/> See <a href="" /><br/>
+/// <see cref="TUpdateEditEphemeralMessage"/> See <a href="" /><br/>
+/// <see cref="TUpdateBotStarsSubscription"/> See <a href="" /><br/>
+/// <see cref="TUpdateEphemeralBotCallbackQuery"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TUpdateNewMessage), nameof(TUpdateNewMessage))]
 [JsonDerivedType(typeof(TUpdateMessageID), nameof(TUpdateMessageID))]
@@ -225,7 +236,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TUpdateContactsReset), nameof(TUpdateContactsReset))]
 [JsonDerivedType(typeof(TUpdateChannelAvailableMessages), nameof(TUpdateChannelAvailableMessages))]
 [JsonDerivedType(typeof(TUpdateDialogUnreadMark), nameof(TUpdateDialogUnreadMark))]
-[JsonDerivedType(typeof(TUpdateMessagePoll), nameof(TUpdateMessagePoll))]
 [JsonDerivedType(typeof(TUpdateChatDefaultBannedRights), nameof(TUpdateChatDefaultBannedRights))]
 [JsonDerivedType(typeof(TUpdateFolderPeers), nameof(TUpdateFolderPeers))]
 [JsonDerivedType(typeof(TUpdatePeerSettings), nameof(TUpdatePeerSettings))]
@@ -235,7 +245,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TUpdateTheme), nameof(TUpdateTheme))]
 [JsonDerivedType(typeof(TUpdateGeoLiveViewed), nameof(TUpdateGeoLiveViewed))]
 [JsonDerivedType(typeof(TUpdateLoginToken), nameof(TUpdateLoginToken))]
-[JsonDerivedType(typeof(TUpdateMessagePollVote), nameof(TUpdateMessagePollVote))]
 [JsonDerivedType(typeof(TUpdateDialogFilter), nameof(TUpdateDialogFilter))]
 [JsonDerivedType(typeof(TUpdateDialogFilterOrder), nameof(TUpdateDialogFilterOrder))]
 [JsonDerivedType(typeof(TUpdateDialogFilters), nameof(TUpdateDialogFilters))]
@@ -257,7 +266,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TUpdateGroupCallConnection), nameof(TUpdateGroupCallConnection))]
 [JsonDerivedType(typeof(TUpdateBotCommands), nameof(TUpdateBotCommands))]
 [JsonDerivedType(typeof(TUpdatePendingJoinRequests), nameof(TUpdatePendingJoinRequests))]
-[JsonDerivedType(typeof(TUpdateBotChatInviteRequester), nameof(TUpdateBotChatInviteRequester))]
 [JsonDerivedType(typeof(TUpdateMessageReactions), nameof(TUpdateMessageReactions))]
 [JsonDerivedType(typeof(TUpdateAttachMenuBots), nameof(TUpdateAttachMenuBots))]
 [JsonDerivedType(typeof(TUpdateWebViewResultSent), nameof(TUpdateWebViewResultSent))]
@@ -316,7 +324,21 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TUpdateEmojiGameInfo), nameof(TUpdateEmojiGameInfo))]
 [JsonDerivedType(typeof(TUpdateStarGiftCraftFail), nameof(TUpdateStarGiftCraftFail))]
 [JsonDerivedType(typeof(TUpdateChatParticipantRank), nameof(TUpdateChatParticipantRank))]
+[JsonDerivedType(typeof(TUpdateMessagePoll), nameof(TUpdateMessagePoll))]
+[JsonDerivedType(typeof(TUpdateMessagePollVote), nameof(TUpdateMessagePollVote))]
 [JsonDerivedType(typeof(TUpdateManagedBot), nameof(TUpdateManagedBot))]
-public interface IUpdate : IObject
+[JsonDerivedType(typeof(TUpdateBotGuestChatQuery), nameof(TUpdateBotGuestChatQuery))]
+[JsonDerivedType(typeof(TUpdateAiComposeTones), nameof(TUpdateAiComposeTones))]
+[JsonDerivedType(typeof(TUpdateBotChatInviteRequester), nameof(TUpdateBotChatInviteRequester))]
+[JsonDerivedType(typeof(TUpdateJoinChatWebViewDecision), nameof(TUpdateJoinChatWebViewDecision))]
+[JsonDerivedType(typeof(TUpdateNewBotConnection), nameof(TUpdateNewBotConnection))]
+[JsonDerivedType(typeof(TUpdateWebBrowserSettings), nameof(TUpdateWebBrowserSettings))]
+[JsonDerivedType(typeof(TUpdateWebBrowserException), nameof(TUpdateWebBrowserException))]
+[JsonDerivedType(typeof(TUpdateNewEphemeralMessage), nameof(TUpdateNewEphemeralMessage))]
+[JsonDerivedType(typeof(TUpdateDeleteEphemeralMessages), nameof(TUpdateDeleteEphemeralMessages))]
+[JsonDerivedType(typeof(TUpdateEditEphemeralMessage), nameof(TUpdateEditEphemeralMessage))]
+[JsonDerivedType(typeof(TUpdateBotStarsSubscription), nameof(TUpdateBotStarsSubscription))]
+[JsonDerivedType(typeof(TUpdateEphemeralBotCallbackQuery), nameof(TUpdateEphemeralBotCallbackQuery))]
+public partial interface IUpdate : IObject
 {
 }

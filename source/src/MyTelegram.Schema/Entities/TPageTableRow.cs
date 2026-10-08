@@ -16,13 +16,9 @@ public sealed partial class TPageTableRow : IPageTableRow
     /// </summary>
     public TVector<MyTelegram.Schema.IPageTableCell> Cells { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Cells);
     }

@@ -30,19 +30,21 @@ public sealed partial class TReplyKeyboardForceReply : IReplyMarkup
     /// </summary>
     public string? Placeholder { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (SingleUse) { Flags = Flags.SetBit(1); }
-        if (Selective) { Flags = Flags.SetBit(2); }
-        if (Placeholder != null) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (SingleUse) { flags = flags.SetBit(1); }
+        if (Selective) { flags = flags.SetBit(2); }
+        if (Placeholder != null) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(3)) { writer.Write(Placeholder); }
+        writer.Write(flags);
+        if (flags.IsBitSet(3)) { writer.Write(Placeholder); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

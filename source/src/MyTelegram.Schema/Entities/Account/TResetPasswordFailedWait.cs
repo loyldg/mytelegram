@@ -15,13 +15,9 @@ public sealed partial class TResetPasswordFailedWait : IResetPasswordResult
     /// </summary>
     public int RetryDate { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(RetryDate);
     }

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TError"/> See <a href="https://corefork.telegram.org/constructor/error" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TError), nameof(TError))]
-public interface IError : IObject
+public partial interface IError : IObject
 {
     /// <summary>
     /// Error code

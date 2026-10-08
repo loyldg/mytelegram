@@ -21,13 +21,9 @@ public sealed partial class TPeerColors : IPeerColors
     /// </summary>
     public TVector<MyTelegram.Schema.Help.IPeerColorOption> Colors { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Hash);
         writer.Write(Colors);

@@ -41,13 +41,9 @@ public sealed partial class RequestUploadImportedMedia : IRequest<MyTelegram.Sch
     /// </summary>
     public MyTelegram.Schema.IInputMedia Media { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(ImportId);

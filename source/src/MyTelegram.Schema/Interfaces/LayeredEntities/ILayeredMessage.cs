@@ -2,7 +2,7 @@
 
 namespace MyTelegram.Schema;
 
-public interface ILayeredMessage : IMessage
+public partial interface ILayeredMessage : IMessage
 {
     IPeer? FromId { get; set; }
     bool Out { get; set; }
@@ -22,4 +22,5 @@ public interface ILayeredMessage : IMessage
     ///</summary>
     TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
     string Message { get; set; }
+    MyTelegram.Schema.IRichMessage? RichMessage { get; set; }
 }

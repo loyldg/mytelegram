@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TPaidReactionPrivacyDefault), nameof(TPaidReactionPrivacyDefault))]
 [JsonDerivedType(typeof(TPaidReactionPrivacyAnonymous), nameof(TPaidReactionPrivacyAnonymous))]
 [JsonDerivedType(typeof(TPaidReactionPrivacyPeer), nameof(TPaidReactionPrivacyPeer))]
-public interface IPaidReactionPrivacy : IObject
+public partial interface IPaidReactionPrivacy : IObject
 {
 }

@@ -10,9 +10,11 @@ namespace MyTelegram.Schema;
 /// <para>Implementations:</para>
 /// <see cref="TDialogPeer"/> See <a href="https://corefork.telegram.org/constructor/dialogPeer" /><br/>
 /// <see cref="TDialogPeerFolder"/> See <a href="https://corefork.telegram.org/constructor/dialogPeerFolder" /><br/>
+/// <see cref="TDialogPeerCommunity"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TDialogPeer), nameof(TDialogPeer))]
 [JsonDerivedType(typeof(TDialogPeerFolder), nameof(TDialogPeerFolder))]
-public interface IDialogPeer : IObject
+[JsonDerivedType(typeof(TDialogPeerCommunity), nameof(TDialogPeerCommunity))]
+public partial interface IDialogPeer : IObject
 {
 }

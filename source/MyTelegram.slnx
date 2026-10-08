@@ -23,6 +23,7 @@
     <Project Path="src/MyTelegram.Caching.Redis/MyTelegram.Caching.Redis.csproj" />
     <Project Path="src/MyTelegram.Core/MyTelegram.Core.csproj" />
     <Project Path="src/MyTelegram.EventBus.RabbitMQ/MyTelegram.EventBus.RabbitMQ.csproj" />
+    <Project Path="src/MyTelegram.EventBus.Redis/MyTelegram.EventBus.Redis.csproj" />
     <Project Path="src/MyTelegram.EventBus/MyTelegram.EventBus.csproj" />
     <Project Path="src/MyTelegram.EventFlow.MongoDB/MyTelegram.EventFlow.MongoDB.csproj" />
     <Project Path="src/MyTelegram.MTProto/MyTelegram.MTProto.csproj" />

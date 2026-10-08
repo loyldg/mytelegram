@@ -16,13 +16,9 @@ public sealed partial class TKeyboardButtonRow : IKeyboardButtonRow
     /// </summary>
     public TVector<MyTelegram.Schema.IKeyboardButton> Buttons { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Buttons);
     }

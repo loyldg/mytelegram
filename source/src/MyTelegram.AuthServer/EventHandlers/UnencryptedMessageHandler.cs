@@ -53,7 +53,8 @@ public class UnencryptedMessageHandler(
                     eventData.ClientIp,
                     0,
                     0,
-                    0
+                    0,
+                    eventData.DcId
                 ),
                 obj
             );

@@ -5,7 +5,7 @@ namespace MyTelegram.Schema.E2e;
 
 
 [TlObject(0x3DDB7846)]
-public sealed class TPersonalData : IPersonalData
+public sealed partial class TPersonalData : IPersonalData
 {
     public uint ConstructorId => 0x3DDB7846;
     public ReadOnlyMemory<byte> PublicKey { get; set; }

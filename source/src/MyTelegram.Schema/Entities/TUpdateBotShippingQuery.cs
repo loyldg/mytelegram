@@ -31,13 +31,9 @@ public sealed partial class TUpdateBotShippingQuery : IUpdate
     /// </summary>
     public MyTelegram.Schema.IPostAddress ShippingAddress { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(QueryId);
         writer.Write(UserId);

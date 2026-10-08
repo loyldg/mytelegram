@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Messages;
 /// </remarks>
 [JsonDerivedType(typeof(TQuickReplies), nameof(TQuickReplies))]
 [JsonDerivedType(typeof(TQuickRepliesNotModified), nameof(TQuickRepliesNotModified))]
-public interface IQuickReplies : IObject
+public partial interface IQuickReplies : IObject
 {
 }

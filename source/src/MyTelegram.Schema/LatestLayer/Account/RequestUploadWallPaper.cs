@@ -45,16 +45,18 @@ public sealed partial class RequestUploadWallPaper : IRequest<MyTelegram.Schema.
     /// </summary>
     public MyTelegram.Schema.IWallPaperSettings Settings { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ForChat) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (ForChat) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(File);
         writer.Write(MimeType);
         writer.Write(Settings);

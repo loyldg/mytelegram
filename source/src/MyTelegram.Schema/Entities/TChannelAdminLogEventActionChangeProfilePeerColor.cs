@@ -22,13 +22,9 @@ public sealed partial class TChannelAdminLogEventActionChangeProfilePeerColor : 
     /// </summary>
     public MyTelegram.Schema.IPeerColor NewValue { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PrevValue);
         writer.Write(NewValue);

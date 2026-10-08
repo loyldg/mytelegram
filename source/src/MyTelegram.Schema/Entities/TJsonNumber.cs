@@ -15,13 +15,9 @@ public sealed partial class TJsonNumber : IJSONValue
     /// </summary>
     public double Value { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Value);
     }

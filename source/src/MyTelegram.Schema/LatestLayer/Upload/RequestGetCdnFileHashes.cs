@@ -29,13 +29,9 @@ public sealed partial class RequestGetCdnFileHashes : IRequest<TVector<MyTelegra
     /// </summary>
     public long Offset { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(FileToken);
         writer.Write(Offset);

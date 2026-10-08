@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TContactStatus"/> See <a href="https://corefork.telegram.org/constructor/contactStatus" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TContactStatus), nameof(TContactStatus))]
-public interface IContactStatus : IObject
+public partial interface IContactStatus : IObject
 {
     /// <summary>
     /// User identifier

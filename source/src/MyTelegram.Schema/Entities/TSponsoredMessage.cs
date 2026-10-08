@@ -94,38 +94,40 @@ public sealed partial class TSponsoredMessage : ISponsoredMessage
     /// </summary>
     public int? MaxDisplayDuration { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Recommended) { Flags = Flags.SetBit(5); }
-        if (CanReport) { Flags = Flags.SetBit(12); }
-        if (Entities?.Count > 0) { Flags = Flags.SetBit(1); }
-        if (Photo != null) { Flags = Flags.SetBit(6); }
-        if (Media != null) { Flags = Flags.SetBit(14); }
-        if (Color != null) { Flags = Flags.SetBit(13); }
-        if (SponsorInfo != null) { Flags = Flags.SetBit(7); }
-        if (AdditionalInfo != null) { Flags = Flags.SetBit(8); }
-        if (/*MinDisplayDuration != 0 && */MinDisplayDuration.HasValue) { Flags = Flags.SetBit(15); }
-        if (/*MaxDisplayDuration != 0 && */MaxDisplayDuration.HasValue) { Flags = Flags.SetBit(15); }
+        var flags = 0;
+        if (Recommended) { flags = flags.SetBit(5); }
+        if (CanReport) { flags = flags.SetBit(12); }
+        if (Entities?.Count > 0) { flags = flags.SetBit(1); }
+        if (Photo != null) { flags = flags.SetBit(6); }
+        if (Media != null) { flags = flags.SetBit(14); }
+        if (Color != null) { flags = flags.SetBit(13); }
+        if (SponsorInfo != null) { flags = flags.SetBit(7); }
+        if (AdditionalInfo != null) { flags = flags.SetBit(8); }
+        if (/*MinDisplayDuration != 0 && */MinDisplayDuration.HasValue) { flags = flags.SetBit(15); }
+        if (/*MaxDisplayDuration != 0 && */MaxDisplayDuration.HasValue) { flags = flags.SetBit(15); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(RandomId);
         writer.Write(Url);
         writer.Write(Title);
         writer.Write(Message);
-        if (Flags.IsBitSet(1)) { writer.Write(Entities); }
-        if (Flags.IsBitSet(6)) { writer.Write(Photo); }
-        if (Flags.IsBitSet(14)) { writer.Write(Media); }
-        if (Flags.IsBitSet(13)) { writer.Write(Color); }
+        if (flags.IsBitSet(1)) { writer.Write(Entities); }
+        if (flags.IsBitSet(6)) { writer.Write(Photo); }
+        if (flags.IsBitSet(14)) { writer.Write(Media); }
+        if (flags.IsBitSet(13)) { writer.Write(Color); }
         writer.Write(ButtonText);
-        if (Flags.IsBitSet(7)) { writer.Write(SponsorInfo); }
-        if (Flags.IsBitSet(8)) { writer.Write(AdditionalInfo); }
-        if (Flags.IsBitSet(15)) { writer.Write(MinDisplayDuration.Value); }
-        if (Flags.IsBitSet(15)) { writer.Write(MaxDisplayDuration.Value); }
+        if (flags.IsBitSet(7)) { writer.Write(SponsorInfo); }
+        if (flags.IsBitSet(8)) { writer.Write(AdditionalInfo); }
+        if (flags.IsBitSet(15)) { writer.Write(MinDisplayDuration.Value); }
+        if (flags.IsBitSet(15)) { writer.Write(MaxDisplayDuration.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

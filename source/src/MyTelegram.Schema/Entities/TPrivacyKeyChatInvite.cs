@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TPrivacyKeyChatInvite : IPrivacyKey
 {
     public uint ConstructorId => 0x500e6dfa;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

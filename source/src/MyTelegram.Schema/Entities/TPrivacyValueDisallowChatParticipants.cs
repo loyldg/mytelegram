@@ -15,13 +15,9 @@ public sealed partial class TPrivacyValueDisallowChatParticipants : IPrivacyRule
     /// </summary>
     public TVector<long> Chats { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Chats);
     }

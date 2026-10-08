@@ -16,13 +16,9 @@ public sealed partial class TCheckCanSendGiftResultFail : ICheckCanSendGiftResul
     /// </summary>
     public MyTelegram.Schema.ITextWithEntities Reason { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Reason);
     }

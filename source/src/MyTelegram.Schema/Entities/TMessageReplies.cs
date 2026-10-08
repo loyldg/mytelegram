@@ -51,26 +51,28 @@ public sealed partial class TMessageReplies : IMessageReplies
     /// </summary>
     public int? ReadMaxId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Comments) { Flags = Flags.SetBit(0); }
-        if (RecentRepliers?.Count > 0) { Flags = Flags.SetBit(1); }
-        if (/*ChannelId != 0 &&*/ ChannelId.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*MaxId != 0 && */MaxId.HasValue) { Flags = Flags.SetBit(2); }
-        if (/*ReadMaxId != 0 && */ReadMaxId.HasValue) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (Comments) { flags = flags.SetBit(0); }
+        if (RecentRepliers?.Count > 0) { flags = flags.SetBit(1); }
+        if (/*ChannelId != 0 &&*/ ChannelId.HasValue) { flags = flags.SetBit(0); }
+        if (/*MaxId != 0 && */MaxId.HasValue) { flags = flags.SetBit(2); }
+        if (/*ReadMaxId != 0 && */ReadMaxId.HasValue) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Replies);
         writer.Write(RepliesPts);
-        if (Flags.IsBitSet(1)) { writer.Write(RecentRepliers); }
-        if (Flags.IsBitSet(0)) { writer.Write(ChannelId.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(MaxId.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(ReadMaxId.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(RecentRepliers); }
+        if (flags.IsBitSet(0)) { writer.Write(ChannelId.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(MaxId.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(ReadMaxId.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

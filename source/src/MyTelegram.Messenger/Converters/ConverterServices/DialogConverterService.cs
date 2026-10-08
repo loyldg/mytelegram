@@ -10,7 +10,7 @@ public class DialogConverterService(
     ILayeredService<IPeerNotifySettingsConverter> peerNotifySettingsLayeredService,
     ILayeredService<IDialogConverter> dialogLayeredService) : IDialogConverterService, ITransientDependency
 {
-    public IDialogs ToDialogs(IRequestWithAccessHashKeyId request, GetDialogOutput output, int layer = 0)
+    public async Task<IDialogs> ToDialogsAsync(IRequestWithAccessHashKeyId request, GetDialogOutput output, int layer = 0)
     {
         var dialogs = new List<IDialog>();
         var channels = output.ChannelList.ToDictionary(k => k.ChannelId);
@@ -26,7 +26,7 @@ public class DialogConverterService(
             dialogs.Add(dialog);
         }
 
-        var users = userConverterService.ToUserList(request, output.UserList, output.PhotoList, output.ContactList,
+        var users = await userConverterService.ToUserListAsync(request, output.UserList, output.PhotoList, output.ContactList,
             output.PrivacyList, layer);
         var channelList = chatConverterService.ToChannelList(request,
             output.ChannelList,
@@ -66,9 +66,9 @@ public class DialogConverterService(
         };
     }
 
-    public IPeerDialogs ToPeerDialogs(IRequestWithAccessHashKeyId request, GetDialogOutput output, int layer = 0)
+    public async Task<IPeerDialogs> ToPeerDialogsAsync(IRequestWithAccessHashKeyId request, GetDialogOutput output, int layer = 0)
     {
-        var dialogs = ToDialogs(request, output, layer);
+        var dialogs = await ToDialogsAsync(request, output, layer);
         var pts = output.PtsReadModel?.Pts ?? 0;
         if (output.CachedPts > pts)
         {

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TReactionCount"/> See <a href="https://corefork.telegram.org/constructor/reactionCount" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TReactionCount), nameof(TReactionCount))]
-public interface IReactionCount : IObject
+public partial interface IReactionCount : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

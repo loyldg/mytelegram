@@ -26,13 +26,9 @@ public sealed partial class RequestSetGlobalPrivacySettings : IRequest<MyTelegra
     /// </summary>
     public MyTelegram.Schema.IGlobalPrivacySettings Settings { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Settings);
     }

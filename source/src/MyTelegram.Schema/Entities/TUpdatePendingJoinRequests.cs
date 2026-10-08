@@ -26,13 +26,9 @@ public sealed partial class TUpdatePendingJoinRequests : IUpdate
     /// </summary>
     public TVector<long> RecentRequesters { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(RequestsPending);

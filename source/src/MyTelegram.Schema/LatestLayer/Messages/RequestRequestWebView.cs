@@ -97,32 +97,34 @@ public sealed partial class RequestRequestWebView : IRequest<MyTelegram.Schema.I
     /// </summary>
     public MyTelegram.Schema.IInputPeer? SendAs { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (FromBotMenu) { Flags = Flags.SetBit(4); }
-        if (Silent) { Flags = Flags.SetBit(5); }
-        if (Compact) { Flags = Flags.SetBit(7); }
-        if (Fullscreen) { Flags = Flags.SetBit(8); }
-        if (Url != null) { Flags = Flags.SetBit(1); }
-        if (StartParam != null) { Flags = Flags.SetBit(3); }
-        if (ThemeParams != null) { Flags = Flags.SetBit(2); }
-        if (ReplyTo != null) { Flags = Flags.SetBit(0); }
-        if (SendAs != null) { Flags = Flags.SetBit(13); }
+        var flags = 0;
+        if (FromBotMenu) { flags = flags.SetBit(4); }
+        if (Silent) { flags = flags.SetBit(5); }
+        if (Compact) { flags = flags.SetBit(7); }
+        if (Fullscreen) { flags = flags.SetBit(8); }
+        if (Url != null) { flags = flags.SetBit(1); }
+        if (StartParam != null) { flags = flags.SetBit(3); }
+        if (ThemeParams != null) { flags = flags.SetBit(2); }
+        if (ReplyTo != null) { flags = flags.SetBit(0); }
+        if (SendAs != null) { flags = flags.SetBit(13); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Bot);
-        if (Flags.IsBitSet(1)) { writer.Write(Url); }
-        if (Flags.IsBitSet(3)) { writer.Write(StartParam); }
-        if (Flags.IsBitSet(2)) { writer.Write(ThemeParams); }
+        if (flags.IsBitSet(1)) { writer.Write(Url); }
+        if (flags.IsBitSet(3)) { writer.Write(StartParam); }
+        if (flags.IsBitSet(2)) { writer.Write(ThemeParams); }
         writer.Write(Platform);
-        if (Flags.IsBitSet(0)) { writer.Write(ReplyTo); }
-        if (Flags.IsBitSet(13)) { writer.Write(SendAs); }
+        if (flags.IsBitSet(0)) { writer.Write(ReplyTo); }
+        if (flags.IsBitSet(13)) { writer.Write(SendAs); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

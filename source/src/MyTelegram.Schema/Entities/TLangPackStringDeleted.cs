@@ -15,13 +15,9 @@ public sealed partial class TLangPackStringDeleted : ILangPackString
     /// </summary>
     public string Key { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Key);
     }

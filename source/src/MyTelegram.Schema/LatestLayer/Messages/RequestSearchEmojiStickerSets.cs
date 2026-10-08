@@ -34,16 +34,18 @@ public sealed partial class RequestSearchEmojiStickerSets : IRequest<MyTelegram.
     /// </summary>
     public long Hash { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ExcludeFeatured) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (ExcludeFeatured) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Q);
         writer.Write(Hash);
     }

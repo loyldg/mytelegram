@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TNull : INull
 {
     public uint ConstructorId => 0x56730bcc;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

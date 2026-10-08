@@ -15,13 +15,9 @@ public sealed partial class TChatTheme : IChatTheme
     /// </summary>
     public string Emoticon { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Emoticon);
     }

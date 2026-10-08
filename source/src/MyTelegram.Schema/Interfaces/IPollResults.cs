@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TPollResults"/> See <a href="https://corefork.telegram.org/constructor/pollResults" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPollResults), nameof(TPollResults))]
-public interface IPollResults : IObject
+public partial interface IPollResults : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
@@ -22,8 +22,6 @@ public interface IPollResults : IObject
     /// Similar to <a href="https://corefork.telegram.org/api/min">min</a> objects, used for poll constructors that are the same for all users so they don't have the option chosen by the current user (you can use <a href="https://corefork.telegram.org/method/messages.getPollResults">messages.getPollResults</a> to get the full poll results).
     /// </summary>
     bool Min { get; set; }
-
-    bool HasUnreadVotes { get; set; }
 
     /// <summary>
     /// Poll results
@@ -52,9 +50,4 @@ public interface IPollResults : IObject
     /// See <a href="https://corefork.telegram.org/type/MessageEntity" />
     /// </summary>
     TVector<MyTelegram.Schema.IMessageEntity>? SolutionEntities { get; set; }
-
-    /// <summary>
-    /// See <a href="https://corefork.telegram.org/type/MessageMedia" />
-    /// </summary>
-    MyTelegram.Schema.IMessageMedia? SolutionMedia { get; set; }
 }

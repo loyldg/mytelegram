@@ -14,13 +14,9 @@ public sealed partial class RequestGetSupport : IRequest<MyTelegram.Schema.Help.
 {
     public uint ConstructorId => 0x9cdf08cd;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

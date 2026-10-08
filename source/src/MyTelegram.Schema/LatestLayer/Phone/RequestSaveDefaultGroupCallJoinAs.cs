@@ -30,13 +30,9 @@ public sealed partial class RequestSaveDefaultGroupCallJoinAs : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IInputPeer JoinAs { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(JoinAs);

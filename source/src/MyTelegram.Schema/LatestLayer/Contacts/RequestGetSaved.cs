@@ -14,13 +14,9 @@ public sealed partial class RequestGetSaved : IRequest<TVector<MyTelegram.Schema
 {
     public uint ConstructorId => 0x82f1e39f;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

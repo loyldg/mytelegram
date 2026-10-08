@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TBotPreparedInlineMessage"/> See <a href="https://corefork.telegram.org/constructor/messages.botPreparedInlineMessage" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TBotPreparedInlineMessage), nameof(TBotPreparedInlineMessage))]
-public interface IBotPreparedInlineMessage : IObject
+public partial interface IBotPreparedInlineMessage : IObject
 {
     /// <summary>
     /// The ID of the saved message, to be passed to the <code>id</code> field of the <a href="https://corefork.telegram.org/api/web-events#web-app-send-prepared-message">web_app_send_prepared_message event »</a>

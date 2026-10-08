@@ -33,7 +33,7 @@ public class UpdatesReadModel : IUpdatesReadModel,
         Id = domainEvent.AggregateIdentity.Value;
 
         OwnerPeerId = domainEvent.AggregateEvent.OwnerPeerId;
-        if (OwnerPeerId > MyTelegramConsts.ChannelInitId)
+        if (OwnerPeerId > MyTelegramConsts.ChannelIdBase)
         {
             ChannelId = OwnerPeerId;
         }

@@ -31,13 +31,9 @@ public sealed partial class TUpdateUserName : IUpdate
     /// </summary>
     public TVector<MyTelegram.Schema.IUsername> Usernames { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(UserId);
         writer.Write(FirstName);

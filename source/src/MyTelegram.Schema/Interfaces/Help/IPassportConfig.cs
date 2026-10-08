@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Help;
 /// </remarks>
 [JsonDerivedType(typeof(TPassportConfigNotModified), nameof(TPassportConfigNotModified))]
 [JsonDerivedType(typeof(TPassportConfig), nameof(TPassportConfig))]
-public interface IPassportConfig : IObject
+public partial interface IPassportConfig : IObject
 {
 }

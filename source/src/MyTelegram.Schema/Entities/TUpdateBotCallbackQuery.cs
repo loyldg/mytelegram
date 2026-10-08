@@ -51,24 +51,26 @@ public sealed partial class TUpdateBotCallbackQuery : IUpdate
     /// </summary>
     public string? GameShortName { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Data != null) { Flags = Flags.SetBit(0); }
-        if (GameShortName != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Data != null) { flags = flags.SetBit(0); }
+        if (GameShortName != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(QueryId);
         writer.Write(UserId);
         writer.Write(Peer);
         writer.Write(MsgId);
         writer.Write(ChatInstance);
-        if (Flags.IsBitSet(0)) { writer.Write(Data); }
-        if (Flags.IsBitSet(1)) { writer.Write(GameShortName); }
+        if (flags.IsBitSet(0)) { writer.Write(Data); }
+        if (flags.IsBitSet(1)) { writer.Write(GameShortName); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

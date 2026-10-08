@@ -50,27 +50,29 @@ public sealed partial class TPageRelatedArticle : IPageRelatedArticle
     /// </summary>
     public int? PublishedDate { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Title != null) { Flags = Flags.SetBit(0); }
-        if (Description != null) { Flags = Flags.SetBit(1); }
-        if (/*PhotoId != 0 &&*/ PhotoId.HasValue) { Flags = Flags.SetBit(2); }
-        if (Author != null) { Flags = Flags.SetBit(3); }
-        if (/*PublishedDate != 0 && */PublishedDate.HasValue) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (Title != null) { flags = flags.SetBit(0); }
+        if (Description != null) { flags = flags.SetBit(1); }
+        if (/*PhotoId != 0 &&*/ PhotoId.HasValue) { flags = flags.SetBit(2); }
+        if (Author != null) { flags = flags.SetBit(3); }
+        if (/*PublishedDate != 0 && */PublishedDate.HasValue) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Url);
         writer.Write(WebpageId);
-        if (Flags.IsBitSet(0)) { writer.Write(Title); }
-        if (Flags.IsBitSet(1)) { writer.Write(Description); }
-        if (Flags.IsBitSet(2)) { writer.Write(PhotoId.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(Author); }
-        if (Flags.IsBitSet(4)) { writer.Write(PublishedDate.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(Title); }
+        if (flags.IsBitSet(1)) { writer.Write(Description); }
+        if (flags.IsBitSet(2)) { writer.Write(PhotoId.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(Author); }
+        if (flags.IsBitSet(4)) { writer.Write(PublishedDate.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

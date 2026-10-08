@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Messages;
 /// </remarks>
 [JsonDerivedType(typeof(TSavedReactionTagsNotModified), nameof(TSavedReactionTagsNotModified))]
 [JsonDerivedType(typeof(TSavedReactionTags), nameof(TSavedReactionTags))]
-public interface ISavedReactionTags : IObject
+public partial interface ISavedReactionTags : IObject
 {
 }

@@ -28,13 +28,9 @@ public sealed partial class RequestUpdateContactNote : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.ITextWithEntities Note { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
         writer.Write(Note);

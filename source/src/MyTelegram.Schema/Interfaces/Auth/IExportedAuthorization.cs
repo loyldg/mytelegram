@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Auth;
 /// <see cref="TExportedAuthorization"/> See <a href="https://corefork.telegram.org/constructor/auth.exportedAuthorization" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TExportedAuthorization), nameof(TExportedAuthorization))]
-public interface IExportedAuthorization : IObject
+public partial interface IExportedAuthorization : IObject
 {
     /// <summary>
     /// current user identifier

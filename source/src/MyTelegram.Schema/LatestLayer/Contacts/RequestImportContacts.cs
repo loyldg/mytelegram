@@ -20,13 +20,9 @@ public sealed partial class RequestImportContacts : IRequest<MyTelegram.Schema.C
     /// </summary>
     public TVector<MyTelegram.Schema.IInputContact> Contacts { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Contacts);
     }

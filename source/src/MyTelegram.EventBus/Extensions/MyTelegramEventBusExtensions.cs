@@ -26,6 +26,7 @@ public static class MyTelegramEventBusExtensions
             o.Register<T>();
 
         });
+        //services.AddTransient<IEventBus, NullEventBus>();
 
         return services;
     }

@@ -25,7 +25,8 @@ public class DialogState : AggregateState<DialogAggregate, DialogId, DialogState
     IApply<ReadOutboxMaxIdUpdatedEvent>,
     IApply<TopMessageIdUpdatedEvent>,
     IApply<DialogUpdatedEvent>,
-    IApply<DialogFolderUpdatedEvent>
+    IApply<DialogFolderUpdatedEvent>,
+    IApply<DialogLastMessageDateUpdatedEvent>
 {
     public int ChannelHistoryMinId { get; private set; }
     public Draft? Draft { get; private set; }
@@ -200,5 +201,10 @@ public class DialogState : AggregateState<DialogAggregate, DialogId, DialogState
         Draft = snapshot.Draft;
         UnreadMentionsCount = snapshot.UnreadMentionsCount;
         FolderId = snapshot.FolderId;
+    }
+
+    public void Apply(DialogLastMessageDateUpdatedEvent aggregateEvent)
+    {
+        
     }
 }

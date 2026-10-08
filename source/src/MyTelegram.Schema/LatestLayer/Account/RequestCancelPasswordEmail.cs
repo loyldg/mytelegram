@@ -14,13 +14,9 @@ public sealed partial class RequestCancelPasswordEmail : IRequest<IBool>
 {
     public uint ConstructorId => 0xc1cbd5b6;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

@@ -18,13 +18,9 @@ public sealed partial class RequestDeletePasskey : IRequest<IBool>
     /// </summary>
     public string Id { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
     }

@@ -30,13 +30,9 @@ public sealed partial class TPhotoSizeProgressive : IPhotoSize
     /// </summary>
     public TVector<int> Sizes { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Type);
         writer.Write(W);

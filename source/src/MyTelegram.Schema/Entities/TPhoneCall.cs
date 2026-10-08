@@ -88,19 +88,21 @@ public sealed partial class TPhoneCall : IPhoneCall
     /// </summary>
     public MyTelegram.Schema.IDataJSON? CustomParameters { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (P2pAllowed) { Flags = Flags.SetBit(5); }
-        if (Video) { Flags = Flags.SetBit(6); }
-        if (ConferenceSupported) { Flags = Flags.SetBit(8); }
-        if (CustomParameters != null) { Flags = Flags.SetBit(7); }
+        var flags = 0;
+        if (P2pAllowed) { flags = flags.SetBit(5); }
+        if (Video) { flags = flags.SetBit(6); }
+        if (ConferenceSupported) { flags = flags.SetBit(8); }
+        if (CustomParameters != null) { flags = flags.SetBit(7); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(AccessHash);
         writer.Write(Date);
@@ -111,7 +113,7 @@ public sealed partial class TPhoneCall : IPhoneCall
         writer.Write(Protocol);
         writer.Write(Connections);
         writer.Write(StartDate);
-        if (Flags.IsBitSet(7)) { writer.Write(CustomParameters); }
+        if (flags.IsBitSet(7)) { writer.Write(CustomParameters); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

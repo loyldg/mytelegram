@@ -47,7 +47,7 @@ public class WebSocketMiddleware(
             }
             else
             {
-                Console.WriteLine($"Not allowed path:{context.Request.Path}");
+                logger.RequestPathNotAllowed(context.Request.Path);
             }
         }
         else

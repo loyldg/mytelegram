@@ -21,13 +21,9 @@ public sealed partial class TChannelAdminLogEventActionParticipantJoinByRequest 
     /// </summary>
     public long ApprovedBy { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Invite);
         writer.Write(ApprovedBy);

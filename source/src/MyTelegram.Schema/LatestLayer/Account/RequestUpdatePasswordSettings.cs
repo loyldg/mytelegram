@@ -37,13 +37,9 @@ public sealed partial class RequestUpdatePasswordSettings : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.Account.IPasswordInputSettings NewSettings { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Password);
         writer.Write(NewSettings);

@@ -40,19 +40,21 @@ public sealed partial class RequestSetBotPrecheckoutResults : IRequest<IBool>
     /// </summary>
     public string? Error { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Success) { Flags = Flags.SetBit(1); }
-        if (Error != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Success) { flags = flags.SetBit(1); }
+        if (Error != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(QueryId);
-        if (Flags.IsBitSet(0)) { writer.Write(Error); }
+        if (flags.IsBitSet(0)) { writer.Write(Error); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

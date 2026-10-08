@@ -17,6 +17,6 @@ namespace MyTelegram.Schema.Updates;
 [JsonDerivedType(typeof(TDifference), nameof(TDifference))]
 [JsonDerivedType(typeof(TDifferenceSlice), nameof(TDifferenceSlice))]
 [JsonDerivedType(typeof(TDifferenceTooLong), nameof(TDifferenceTooLong))]
-public interface IDifference : IObject
+public partial interface IDifference : IObject
 {
 }

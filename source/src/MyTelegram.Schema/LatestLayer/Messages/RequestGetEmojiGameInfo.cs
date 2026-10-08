@@ -13,13 +13,9 @@ public sealed partial class RequestGetEmojiGameInfo : IRequest<MyTelegram.Schema
 {
     public uint ConstructorId => 0xfb7e8ca7;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

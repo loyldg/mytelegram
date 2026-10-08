@@ -20,13 +20,9 @@ public sealed partial class TUpdatePhoneCallSignalingData : IUpdate
     /// </summary>
     public ReadOnlyMemory<byte> Data { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PhoneCallId);
         writer.Write(Data);

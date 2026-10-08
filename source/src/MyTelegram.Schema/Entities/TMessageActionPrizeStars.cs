@@ -41,16 +41,18 @@ public sealed partial class TMessageActionPrizeStars : IMessageAction
     /// </summary>
     public int GiveawayMsgId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Unclaimed) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Unclaimed) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Stars);
         writer.Write(TransactionId);
         writer.Write(BoostPeer);

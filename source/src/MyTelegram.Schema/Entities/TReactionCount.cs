@@ -31,17 +31,19 @@ public sealed partial class TReactionCount : IReactionCount
     /// </summary>
     public int Count { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*ChosenOrder != 0 && */ChosenOrder.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*ChosenOrder != 0 && */ChosenOrder.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(ChosenOrder.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(ChosenOrder.Value); }
         writer.Write(Reaction);
         writer.Write(Count);
     }

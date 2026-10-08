@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TCodeSettings"/> See <a href="https://corefork.telegram.org/constructor/codeSettings" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TCodeSettings), nameof(TCodeSettings))]
-public interface ICodeSettings : IObject
+public partial interface ICodeSettings : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

@@ -15,13 +15,9 @@ public sealed partial class TPeerColorSet : IPeerColorSet
     /// </summary>
     public TVector<int> Colors { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Colors);
     }

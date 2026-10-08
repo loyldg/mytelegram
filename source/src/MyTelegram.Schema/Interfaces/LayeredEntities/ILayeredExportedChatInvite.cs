@@ -1,7 +1,7 @@
 ﻿// ReSharper disable All
 namespace MyTelegram.Schema;
 
-public interface ILayeredExportedChatInvite : IExportedChatInvite
+public partial interface ILayeredExportedChatInvite : IExportedChatInvite
 {
     ///<summary>
     /// Chat invitation link

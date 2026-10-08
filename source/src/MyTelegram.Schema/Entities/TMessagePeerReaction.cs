@@ -47,18 +47,20 @@ public sealed partial class TMessagePeerReaction : IMessagePeerReaction
     /// </summary>
     public MyTelegram.Schema.IReaction Reaction { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Big) { Flags = Flags.SetBit(0); }
-        if (Unread) { Flags = Flags.SetBit(1); }
-        if (My) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Big) { flags = flags.SetBit(0); }
+        if (Unread) { flags = flags.SetBit(1); }
+        if (My) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(PeerId);
         writer.Write(Date);
         writer.Write(Reaction);

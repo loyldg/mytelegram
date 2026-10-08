@@ -15,13 +15,9 @@ public sealed partial class TMessageActionSuggestBirthday : IMessageAction
     /// </summary>
     public MyTelegram.Schema.IBirthday Birthday { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Birthday);
     }

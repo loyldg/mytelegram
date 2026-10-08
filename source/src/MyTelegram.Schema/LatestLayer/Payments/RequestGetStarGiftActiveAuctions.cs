@@ -18,13 +18,9 @@ public sealed partial class RequestGetStarGiftActiveAuctions : IRequest<MyTelegr
     /// </summary>
     public long Hash { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Hash);
     }

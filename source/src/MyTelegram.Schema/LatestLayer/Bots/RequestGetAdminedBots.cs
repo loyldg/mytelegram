@@ -14,13 +14,9 @@ public sealed partial class RequestGetAdminedBots : IRequest<TVector<MyTelegram.
 {
     public uint ConstructorId => 0xb0711d83;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

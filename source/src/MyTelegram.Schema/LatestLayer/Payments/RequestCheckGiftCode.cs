@@ -23,13 +23,9 @@ public sealed partial class RequestCheckGiftCode : IRequest<MyTelegram.Schema.Pa
     /// </summary>
     public string Slug { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Slug);
     }

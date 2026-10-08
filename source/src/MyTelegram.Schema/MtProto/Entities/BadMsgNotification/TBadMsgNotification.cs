@@ -4,7 +4,7 @@ namespace MyTelegram.Schema;
 
 
 [TlObject(0xa7eff811)]
-public sealed class TBadMsgNotification : IBadMsgNotification
+public sealed partial class TBadMsgNotification : IBadMsgNotification
 {
     public uint ConstructorId => 0xa7eff811;
     public long BadMsgId { get; set; }

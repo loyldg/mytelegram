@@ -5,7 +5,7 @@ using System;
 namespace MyTelegram.Schema;
 
 [TlObject(0x3072cfa1)]
-public class TGzipPacked : IRequest<IObject>
+public sealed partial class TGzipPacked : IRequest<IObject>
 {
     public uint ConstructorId => 0x3072cfa1;
     public void Serialize(IBufferWriter<byte> writer)
@@ -28,7 +28,7 @@ public class TGzipPacked : IRequest<IObject>
     }
 }
 
-public sealed class TContainerMessage : IObject
+public sealed partial class TContainerMessage : IObject
 {
     public uint ConstructorId => 0x73f1f8dc;
 
@@ -40,6 +40,10 @@ public sealed class TContainerMessage : IObject
         Body = buffer.Read<IObject>();
     }
 
+    public int GetLength()
+    {
+        return 8 + 4 + 4 + Body.GetLength();
+    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {

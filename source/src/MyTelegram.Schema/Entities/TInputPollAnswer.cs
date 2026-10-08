@@ -21,18 +21,20 @@ public sealed partial class TInputPollAnswer : IPollAnswer
     /// </summary>
     public MyTelegram.Schema.IInputMedia? Media { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Media != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Media != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Text);
-        if (Flags.IsBitSet(0)) { writer.Write(Media); }
+        if (flags.IsBitSet(0)) { writer.Write(Media); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

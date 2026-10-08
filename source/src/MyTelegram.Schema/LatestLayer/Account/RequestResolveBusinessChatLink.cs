@@ -23,13 +23,9 @@ public sealed partial class RequestResolveBusinessChatLink : IRequest<MyTelegram
     /// </summary>
     public string Slug { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Slug);
     }

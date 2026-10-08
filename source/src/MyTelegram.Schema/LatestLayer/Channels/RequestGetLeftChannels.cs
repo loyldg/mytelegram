@@ -23,13 +23,9 @@ public sealed partial class RequestGetLeftChannels : IRequest<MyTelegram.Schema.
     /// </summary>
     public int Offset { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Offset);
     }

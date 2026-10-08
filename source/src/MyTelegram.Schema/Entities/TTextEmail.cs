@@ -21,13 +21,9 @@ public sealed partial class TTextEmail : IRichText
     /// </summary>
     public string Email { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Text);
         writer.Write(Email);

@@ -26,13 +26,9 @@ public sealed partial class RequestGetChannels : IRequest<MyTelegram.Schema.Mess
     /// </summary>
     public TVector<MyTelegram.Schema.IInputChannel> Id { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
     }

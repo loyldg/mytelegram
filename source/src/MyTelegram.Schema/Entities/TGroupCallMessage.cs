@@ -46,22 +46,24 @@ public sealed partial class TGroupCallMessage : IGroupCallMessage
     /// </summary>
     public long? PaidMessageStars { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (FromAdmin) { Flags = Flags.SetBit(1); }
-        if (/*PaidMessageStars != 0 &&*/ PaidMessageStars.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (FromAdmin) { flags = flags.SetBit(1); }
+        if (/*PaidMessageStars != 0 &&*/ PaidMessageStars.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(FromId);
         writer.Write(Date);
         writer.Write(Message);
-        if (Flags.IsBitSet(0)) { writer.Write(PaidMessageStars.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(PaidMessageStars.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

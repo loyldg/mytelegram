@@ -1,11 +1,21 @@
 ﻿using System.Buffers.Binary;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
 namespace MyTelegram.Schema.Extensions;
 
 
 public static class TlObjectExtensions
 {
+    public static TRpcResult ToRpcResult(this IObject result, long reqMsgId)
+    {
+        return new TRpcResult
+        {
+            ReqMsgId = reqMsgId,
+            Result = result
+        };
+    }
+
     public static int SetBit(this int value, int bitIndex)
     {
         if (bitIndex >= 32)
@@ -167,18 +177,112 @@ public static class TlObjectExtensions
         }
     }
 
-    public static int GetLength(this IObject? obj)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    // ReSharper disable once InconsistentNaming
+    public static int GetTLLength(this string? value)
     {
-        if (obj == null)
+        if (string.IsNullOrEmpty(value))
         {
-            return 0;
+            return 1 + 3; // len=0 + padding
         }
 
-        using var writer = new ArrayPoolBufferWriter<byte>();
-        obj.Serialize(writer);
+        int byteCount = Encoding.UTF8.GetByteCount(value);
 
-        return writer.WrittenCount;
+        int header = byteCount < 254 ? 1 : 4;
+        int total = header + byteCount;
+
+        int padding = (4 - (total % 4)) & 3;
+
+        return total + padding;
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    // ReSharper disable once InconsistentNaming
+    public static int GetTLLength(this byte[]? value)
+    {
+        if (value == null)
+        {
+            return 1 + 3; // len=0 + padding
+        }
+
+        var byteCount = value.Length;
+        int header = byteCount < 254 ? 1 : 4;
+        int total = header + byteCount;
+
+        int padding = (4 - (total % 4)) & 3;
+
+        return total + padding;
+    }
+
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    // ReSharper disable once InconsistentNaming
+    public static int GetTLLength(this ReadOnlyMemory<byte>? value)
+    {
+        if (value == null)
+        {
+            return 1 + 3; // len=0 + padding
+        }
+
+        var byteCount = value.Value.Length;
+        int header = byteCount < 254 ? 1 : 4;
+        int total = header + byteCount;
+
+        int padding = (4 - (total % 4)) & 3;
+
+        return total + padding;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    // ReSharper disable once InconsistentNaming
+    public static int GetTLLength(this ReadOnlyMemory<byte> value)
+    {
+        if (value.Length == 0)
+        {
+            return 1 + 3; // len=0 + padding
+        }
+
+        var byteCount = value.Length;
+        int header = byteCount < 254 ? 1 : 4;
+        int total = header + byteCount;
+
+        int padding = (4 - (total % 4)) & 3;
+
+        return total + padding;
+    }
+
+    //public static int GetTlStringLength(this string data)
+    //{
+    //    var byteCount = Encoding.UTF8.GetByteCount(data);
+    //    var length = byteCount;
+    //    int padding;
+    //    if (byteCount < 254)
+    //    {
+    //        padding = (byteCount + 1) % 4;
+    //        length += 1;
+    //    }
+    //    else
+    //    {
+    //        padding = byteCount % 4;
+    //        length += 4;
+    //    }
+    //    length += padding;
+
+    //    return length;
+    //}
+
+    //public static int GetLength(this IObject? obj)
+    //{
+    //    if (obj == null)
+    //    {
+    //        return 0;
+    //    }
+
+    //    using var writer = new ArrayPoolBufferWriter<byte>();
+    //    obj.Serialize(writer);
+
+    //    return writer.WrittenCount;
+    //}
 
 
     [return: NotNullIfNotNull(nameof(obj))]

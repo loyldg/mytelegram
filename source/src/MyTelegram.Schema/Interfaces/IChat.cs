@@ -11,15 +11,19 @@ namespace MyTelegram.Schema;
 /// <see cref="TChatEmpty"/> See <a href="https://corefork.telegram.org/constructor/chatEmpty" /><br/>
 /// <see cref="TChat"/> See <a href="https://corefork.telegram.org/constructor/chat" /><br/>
 /// <see cref="TChatForbidden"/> See <a href="https://corefork.telegram.org/constructor/chatForbidden" /><br/>
-/// <see cref="TChannel"/> See <a href="https://corefork.telegram.org/constructor/channel" /><br/>
 /// <see cref="TChannelForbidden"/> See <a href="https://corefork.telegram.org/constructor/channelForbidden" /><br/>
+/// <see cref="TChannel"/> See <a href="https://corefork.telegram.org/constructor/channel" /><br/>
+/// <see cref="TCommunityForbidden"/> See <a href="" /><br/>
+/// <see cref="TCommunity"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TChatEmpty), nameof(TChatEmpty))]
 [JsonDerivedType(typeof(TChat), nameof(TChat))]
 [JsonDerivedType(typeof(TChatForbidden), nameof(TChatForbidden))]
-[JsonDerivedType(typeof(TChannel), nameof(TChannel))]
 [JsonDerivedType(typeof(TChannelForbidden), nameof(TChannelForbidden))]
-public interface IChat : IObject
+[JsonDerivedType(typeof(TChannel), nameof(TChannel))]
+[JsonDerivedType(typeof(TCommunityForbidden), nameof(TCommunityForbidden))]
+[JsonDerivedType(typeof(TCommunity), nameof(TCommunity))]
+public partial interface IChat : IObject
 {
     /// <summary>
     /// Group identifier

@@ -60,26 +60,28 @@ public sealed partial class TStarsStatus : IStarsStatus
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Subscriptions?.Count > 0) { Flags = Flags.SetBit(1); }
-        if (SubscriptionsNextOffset != null) { Flags = Flags.SetBit(2); }
-        if (/*SubscriptionsMissingBalance != 0 &&*/ SubscriptionsMissingBalance.HasValue) { Flags = Flags.SetBit(4); }
-        if (History?.Count > 0) { Flags = Flags.SetBit(3); }
-        if (NextOffset != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Subscriptions?.Count > 0) { flags = flags.SetBit(1); }
+        if (SubscriptionsNextOffset != null) { flags = flags.SetBit(2); }
+        if (/*SubscriptionsMissingBalance != 0 &&*/ SubscriptionsMissingBalance.HasValue) { flags = flags.SetBit(4); }
+        if (History?.Count > 0) { flags = flags.SetBit(3); }
+        if (NextOffset != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Balance);
-        if (Flags.IsBitSet(1)) { writer.Write(Subscriptions); }
-        if (Flags.IsBitSet(2)) { writer.Write(SubscriptionsNextOffset); }
-        if (Flags.IsBitSet(4)) { writer.Write(SubscriptionsMissingBalance.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(History); }
-        if (Flags.IsBitSet(0)) { writer.Write(NextOffset); }
+        if (flags.IsBitSet(1)) { writer.Write(Subscriptions); }
+        if (flags.IsBitSet(2)) { writer.Write(SubscriptionsNextOffset); }
+        if (flags.IsBitSet(4)) { writer.Write(SubscriptionsMissingBalance.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(History); }
+        if (flags.IsBitSet(0)) { writer.Write(NextOffset); }
         writer.Write(Chats);
         writer.Write(Users);
     }

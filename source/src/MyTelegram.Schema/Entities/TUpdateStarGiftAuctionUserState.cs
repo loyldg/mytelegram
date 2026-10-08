@@ -20,13 +20,9 @@ public sealed partial class TUpdateStarGiftAuctionUserState : IUpdate
     /// </summary>
     public MyTelegram.Schema.IStarGiftAuctionUserState UserState { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(GiftId);
         writer.Write(UserState);

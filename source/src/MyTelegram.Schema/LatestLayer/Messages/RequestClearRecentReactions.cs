@@ -14,13 +14,9 @@ public sealed partial class RequestClearRecentReactions : IRequest<IBool>
 {
     public uint ConstructorId => 0x9dfeefb4;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

@@ -37,20 +37,22 @@ public sealed partial class TDocumentAttributeSticker : IDocumentAttribute
     /// </summary>
     public MyTelegram.Schema.IMaskCoords? MaskCoords { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Mask) { Flags = Flags.SetBit(1); }
-        if (MaskCoords != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Mask) { flags = flags.SetBit(1); }
+        if (MaskCoords != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Alt);
         writer.Write(Stickerset);
-        if (Flags.IsBitSet(0)) { writer.Write(MaskCoords); }
+        if (flags.IsBitSet(0)) { writer.Write(MaskCoords); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

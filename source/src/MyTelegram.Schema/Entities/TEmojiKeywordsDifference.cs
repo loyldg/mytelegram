@@ -31,13 +31,9 @@ public sealed partial class TEmojiKeywordsDifference : IEmojiKeywordsDifference
     /// </summary>
     public TVector<MyTelegram.Schema.IEmojiKeyword> Keywords { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(LangCode);
         writer.Write(FromVersion);

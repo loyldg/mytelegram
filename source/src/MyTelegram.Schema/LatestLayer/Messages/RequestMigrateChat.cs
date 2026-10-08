@@ -26,13 +26,9 @@ public sealed partial class RequestMigrateChat : IRequest<MyTelegram.Schema.IUpd
     /// </summary>
     public long ChatId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ChatId);
     }

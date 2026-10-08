@@ -27,13 +27,9 @@ public sealed partial class TStarGiftActiveAuctions : IStarGiftActiveAuctions
     /// </summary>
     public TVector<MyTelegram.Schema.IChat> Chats { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Auctions);
         writer.Write(Users);

@@ -16,13 +16,9 @@ public sealed partial class TMessageActionChatEditPhoto : IMessageAction
     /// </summary>
     public MyTelegram.Schema.IPhoto Photo { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Photo);
     }

@@ -35,13 +35,9 @@ public sealed partial class RequestReportPeer : IRequest<IBool>
     /// </summary>
     public string Message { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(Reason);

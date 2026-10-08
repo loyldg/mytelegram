@@ -21,13 +21,9 @@ public sealed partial class TInputInvoiceStarGiftPrepaidUpgrade : IInputInvoice
     /// </summary>
     public string Hash { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(Hash);

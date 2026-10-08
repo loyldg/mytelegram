@@ -2,5 +2,5 @@
 
 public interface IPollResultsConverter : ILayeredConverter
 {
-    IPollResults ToPollResults(IPollReadModel pollReadModel, IList<string>? chosenOptions);
+    IPollResults ToPollResults(long userId, IPollReadModel pollReadModel, IList<string>? chosenOptions);
 }

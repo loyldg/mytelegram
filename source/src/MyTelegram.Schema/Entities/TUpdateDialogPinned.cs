@@ -31,18 +31,20 @@ public sealed partial class TUpdateDialogPinned : IUpdate
     /// </summary>
     public MyTelegram.Schema.IDialogPeer Peer { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Pinned) { Flags = Flags.SetBit(0); }
-        if (/*FolderId != 0 && */FolderId.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Pinned) { flags = flags.SetBit(0); }
+        if (/*FolderId != 0 && */FolderId.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(1)) { writer.Write(FolderId.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(1)) { writer.Write(FolderId.Value); }
         writer.Write(Peer);
     }
 

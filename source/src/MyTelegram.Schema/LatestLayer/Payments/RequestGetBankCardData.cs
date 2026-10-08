@@ -22,13 +22,9 @@ public sealed partial class RequestGetBankCardData : IRequest<MyTelegram.Schema.
     /// </summary>
     public string Number { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Number);
     }

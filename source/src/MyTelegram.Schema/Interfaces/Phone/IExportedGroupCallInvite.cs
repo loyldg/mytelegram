@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Phone;
 /// <see cref="TExportedGroupCallInvite"/> See <a href="https://corefork.telegram.org/constructor/phone.exportedGroupCallInvite" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TExportedGroupCallInvite), nameof(TExportedGroupCallInvite))]
-public interface IExportedGroupCallInvite : IObject
+public partial interface IExportedGroupCallInvite : IObject
 {
     /// <summary>
     /// Invite link

@@ -19,11 +19,11 @@ public class ReadModelWriteInterceptor : IReadModelWriteInterceptor, ITransientD
                 if (readModelContext.IsMarkedForDeletion)
                 {
                     myReadModel.IsDeleted = true;
-                    myReadModel.DeletionTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                    myReadModel.DeletedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
                 }
                 else
                 {
-                    myReadModel.LastModificationTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                    myReadModel.LastUpdatedAt= DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
                 }
             }
 
@@ -44,7 +44,7 @@ public class ReadModelWriteInterceptor : IReadModelWriteInterceptor, ITransientD
                         }
                         else
                         {
-                            myReadModel.LastModifiedBy = hasRequestInfo.RequestInfo.UserId;
+                            myReadModel.LastUpdatedBy = hasRequestInfo.RequestInfo.UserId;
                         }
                     }
                 }

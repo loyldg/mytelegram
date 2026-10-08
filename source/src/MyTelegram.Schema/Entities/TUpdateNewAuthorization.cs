@@ -40,23 +40,25 @@ public sealed partial class TUpdateNewAuthorization : IUpdate
     /// </summary>
     public string? Location { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Unconfirmed) { Flags = Flags.SetBit(0); }
-        if (/*Date != 0 && */Date.HasValue) { Flags = Flags.SetBit(0); }
-        if (Device != null) { Flags = Flags.SetBit(0); }
-        if (Location != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Unconfirmed) { flags = flags.SetBit(0); }
+        if (/*Date != 0 && */Date.HasValue) { flags = flags.SetBit(0); }
+        if (Device != null) { flags = flags.SetBit(0); }
+        if (Location != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Hash);
-        if (Flags.IsBitSet(0)) { writer.Write(Date.Value); }
-        if (Flags.IsBitSet(0)) { writer.Write(Device); }
-        if (Flags.IsBitSet(0)) { writer.Write(Location); }
+        if (flags.IsBitSet(0)) { writer.Write(Date.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(Device); }
+        if (flags.IsBitSet(0)) { writer.Write(Location); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

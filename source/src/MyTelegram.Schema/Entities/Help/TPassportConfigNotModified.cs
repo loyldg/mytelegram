@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Help;
 public sealed partial class TPassportConfigNotModified : IPassportConfig
 {
     public uint ConstructorId => 0xbfb9f457;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

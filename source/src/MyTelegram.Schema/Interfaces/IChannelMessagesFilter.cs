@@ -13,6 +13,6 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TChannelMessagesFilterEmpty), nameof(TChannelMessagesFilterEmpty))]
 [JsonDerivedType(typeof(TChannelMessagesFilter), nameof(TChannelMessagesFilter))]
-public interface IChannelMessagesFilter : IObject
+public partial interface IChannelMessagesFilter : IObject
 {
 }

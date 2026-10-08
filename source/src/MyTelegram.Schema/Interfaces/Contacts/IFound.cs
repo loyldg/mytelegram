@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Contacts;
 /// <see cref="TFound"/> See <a href="https://corefork.telegram.org/constructor/contacts.found" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TFound), nameof(TFound))]
-public interface IFound : IObject
+public partial interface IFound : IObject
 {
     /// <summary>
     /// Personalized results

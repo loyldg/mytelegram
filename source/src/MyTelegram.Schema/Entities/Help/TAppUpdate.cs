@@ -58,26 +58,28 @@ public sealed partial class TAppUpdate : IAppUpdate
     /// </summary>
     public MyTelegram.Schema.IDocument? Sticker { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (CanNotSkip) { Flags = Flags.SetBit(0); }
-        if (Document != null) { Flags = Flags.SetBit(1); }
-        if (Url != null) { Flags = Flags.SetBit(2); }
-        if (Sticker != null) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (CanNotSkip) { flags = flags.SetBit(0); }
+        if (Document != null) { flags = flags.SetBit(1); }
+        if (Url != null) { flags = flags.SetBit(2); }
+        if (Sticker != null) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(Version);
         writer.Write(Text);
         writer.Write(Entities);
-        if (Flags.IsBitSet(1)) { writer.Write(Document); }
-        if (Flags.IsBitSet(2)) { writer.Write(Url); }
-        if (Flags.IsBitSet(3)) { writer.Write(Sticker); }
+        if (flags.IsBitSet(1)) { writer.Write(Document); }
+        if (flags.IsBitSet(2)) { writer.Write(Url); }
+        if (flags.IsBitSet(3)) { writer.Write(Sticker); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -15,13 +15,9 @@ public sealed partial class TSentCodeTypeFlashCall : ISentCodeType
     /// </summary>
     public string Pattern { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Pattern);
     }

@@ -31,13 +31,9 @@ public sealed partial class RequestGetPollResults : IRequest<MyTelegram.Schema.I
 
     public long PollHash { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(MsgId);

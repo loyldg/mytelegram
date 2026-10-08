@@ -17,11 +17,11 @@ public class UserDomainEventHandler(
             commandBus,
             idGenerator,
             ackCacheService),
-        ISubscribeSynchronousTo<UserAggregate, UserId, UserCreatedEvent>,
-        ISubscribeSynchronousTo<UserAggregate, UserId, UserProfileUpdatedEvent>,
-        ISubscribeSynchronousTo<UserAggregate, UserId, UserNameUpdatedEvent>,
-        ISubscribeSynchronousTo<UserAggregate, UserId, UserProfilePhotoChangedEvent>,
-        ISubscribeSynchronousTo<UserAggregate, UserId, UserProfilePhotoUploadedEvent>
+        ISubscribeAsynchronousTo<UserAggregate, UserId, UserCreatedEvent>,
+        ISubscribeAsynchronousTo<UserAggregate, UserId, UserProfileUpdatedEvent>,
+        ISubscribeAsynchronousTo<UserAggregate, UserId, UserNameUpdatedEvent>,
+        ISubscribeAsynchronousTo<UserAggregate, UserId, UserProfilePhotoChangedEvent>,
+        ISubscribeAsynchronousTo<UserAggregate, UserId, UserProfilePhotoUploadedEvent>
 {
     public async Task HandleAsync(IDomainEvent<UserAggregate, UserId, UserCreatedEvent> domainEvent,
         CancellationToken cancellationToken)

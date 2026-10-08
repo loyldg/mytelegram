@@ -29,13 +29,9 @@ public sealed partial class RequestEditGroupCallTitle : IRequest<MyTelegram.Sche
     /// </summary>
     public string Title { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Call);
         writer.Write(Title);

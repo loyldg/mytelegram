@@ -31,22 +31,18 @@ internal sealed class UploadContactProfilePhotoHandler(ICommandBus commandBus, I
                 break;
         }
 
-        VideoSizeEmojiMarkup? videoSizeEmojiMarkup = null;
         var photoId = 0L;
         IPhoto? photo = null;
         if (file != null)
         {
-            var r = file == null ? null : await mediaHelper.SavePhotoAsync(input.ReqMsgId, input.UserId, file.GetFileId(), obj.Video != null, obj.VideoStartTs, parts, name, md5 ?? string.Empty);
-            if (r != null)
-            {
-                photoId = r.PhotoId;
-                photo = r.Photo;
-            }
+            var r = await mediaHelper.SavePhotoAsync(input.ReqMsgId, input.UserId, file.GetFileId(), obj.Video != null, obj.VideoStartTs, parts, name, md5 ?? string.Empty);
+            photoId = r.PhotoId;
+            photo = r.Photo;
         }
 
         var peer = peerHelper.GetPeer(obj.UserId);
         var command = new UpdateContactProfilePhotoCommand(ContactId.Create(input.UserId, peer.PeerId), input.ToRequestInfo(), input.UserId, peer.PeerId, photoId, obj.Suggest, obj.Suggest ? photo : null);
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }

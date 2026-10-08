@@ -14,13 +14,9 @@ public sealed partial class RequestResetNotifySettings : IRequest<IBool>
 {
     public uint ConstructorId => 0xdb7e1747;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

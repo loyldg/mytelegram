@@ -23,13 +23,9 @@ public sealed partial class RequestConfirmPasswordEmail : IRequest<IBool>
     /// </summary>
     public string Code { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Code);
     }

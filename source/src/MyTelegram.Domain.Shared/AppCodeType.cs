@@ -10,5 +10,6 @@ public enum AppCodeType
     RecoverPasswordEmailCode,
     SetupEmailCode,
     ChangeEmailCode,
-    PassportEmailCode
+    PassportEmailCode,
+    ChangePhoneNumber
 }

@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TChatInvitePublicJoinRequests : IExportedChatInvite
 {
     public uint ConstructorId => 0xed107ab7;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

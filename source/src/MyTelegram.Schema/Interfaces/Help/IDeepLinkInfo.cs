@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Help;
 /// </remarks>
 [JsonDerivedType(typeof(TDeepLinkInfoEmpty), nameof(TDeepLinkInfoEmpty))]
 [JsonDerivedType(typeof(TDeepLinkInfo), nameof(TDeepLinkInfo))]
-public interface IDeepLinkInfo : IObject
+public partial interface IDeepLinkInfo : IObject
 {
 }

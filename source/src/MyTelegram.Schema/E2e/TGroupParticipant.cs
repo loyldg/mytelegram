@@ -5,30 +5,37 @@ namespace MyTelegram.Schema.E2e;
 
 
 [TlObject(0x18F3971F)]
-public sealed class TGroupParticipant : IGroupParticipant
+public sealed partial class TGroupParticipant : IGroupParticipant
 {
     public uint ConstructorId => 0x18F3971F;
     public long UserId { get; set; }
+
+    /// <summary>
+    /// int256
+    /// </summary>
     public ReadOnlyMemory<byte> PublicKey { get; set; }
     public int Flags { get; set; }
     public bool AddUsers { get; set; }
     public bool RemoveUsers { get; set; }
     public int Version { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (AddUsers) { Flags = Flags.SetBit(0); }
-        if (RemoveUsers) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (AddUsers) { flags = flags.SetBit(0); }
+        if (RemoveUsers) { flags = flags.SetBit(1); }
+
+        return flags;
 
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
         writer.Write(UserId);
         writer.WriteRawBytes(PublicKey);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Version);
     }
 

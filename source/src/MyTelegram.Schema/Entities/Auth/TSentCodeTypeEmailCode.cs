@@ -45,23 +45,25 @@ public sealed partial class TSentCodeTypeEmailCode : ISentCodeType
     /// </summary>
     public int? ResetPendingDate { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (AppleSigninAllowed) { Flags = Flags.SetBit(0); }
-        if (GoogleSigninAllowed) { Flags = Flags.SetBit(1); }
-        if (/*ResetAvailablePeriod != 0 && */ResetAvailablePeriod.HasValue) { Flags = Flags.SetBit(3); }
-        if (/*ResetPendingDate != 0 && */ResetPendingDate.HasValue) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (AppleSigninAllowed) { flags = flags.SetBit(0); }
+        if (GoogleSigninAllowed) { flags = flags.SetBit(1); }
+        if (/*ResetAvailablePeriod != 0 && */ResetAvailablePeriod.HasValue) { flags = flags.SetBit(3); }
+        if (/*ResetPendingDate != 0 && */ResetPendingDate.HasValue) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(EmailPattern);
         writer.Write(Length);
-        if (Flags.IsBitSet(3)) { writer.Write(ResetAvailablePeriod.Value); }
-        if (Flags.IsBitSet(4)) { writer.Write(ResetPendingDate.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(ResetAvailablePeriod.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(ResetPendingDate.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

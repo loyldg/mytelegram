@@ -29,13 +29,9 @@ public sealed partial class RequestFaveSticker : IRequest<IBool>
     /// </summary>
     public bool Unfave { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
         writer.Write(Unfave);

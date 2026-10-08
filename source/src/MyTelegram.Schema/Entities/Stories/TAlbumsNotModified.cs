@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Stories;
 public sealed partial class TAlbumsNotModified : IAlbums
 {
     public uint ConstructorId => 0x564edaeb;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

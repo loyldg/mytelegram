@@ -19,7 +19,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TRecentMeUrlChat), nameof(TRecentMeUrlChat))]
 [JsonDerivedType(typeof(TRecentMeUrlChatInvite), nameof(TRecentMeUrlChatInvite))]
 [JsonDerivedType(typeof(TRecentMeUrlStickerSet), nameof(TRecentMeUrlStickerSet))]
-public interface IRecentMeUrl : IObject
+public partial interface IRecentMeUrl : IObject
 {
     /// <summary>
     /// URL

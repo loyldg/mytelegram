@@ -37,21 +37,23 @@ public sealed partial class TSentCode : ISentCode
     /// </summary>
     public int? Timeout { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (NextType != null) { Flags = Flags.SetBit(1); }
-        if (/*Timeout != 0 && */Timeout.HasValue) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (NextType != null) { flags = flags.SetBit(1); }
+        if (/*Timeout != 0 && */Timeout.HasValue) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Type);
         writer.Write(PhoneCodeHash);
-        if (Flags.IsBitSet(1)) { writer.Write(NextType); }
-        if (Flags.IsBitSet(2)) { writer.Write(Timeout.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(NextType); }
+        if (flags.IsBitSet(2)) { writer.Write(Timeout.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

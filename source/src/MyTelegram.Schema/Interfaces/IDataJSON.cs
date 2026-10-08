@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TDataJSON"/> See <a href="https://corefork.telegram.org/constructor/dataJSON" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TDataJSON), nameof(TDataJSON))]
-public interface IDataJSON : IObject
+public partial interface IDataJSON : IObject
 {
     /// <summary>
     /// JSON-encoded object

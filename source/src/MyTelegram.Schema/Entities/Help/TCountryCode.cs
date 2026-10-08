@@ -30,20 +30,22 @@ public sealed partial class TCountryCode : ICountryCode
     /// </summary>
     public TVector<string>? Patterns { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Prefixes?.Count > 0) { Flags = Flags.SetBit(0); }
-        if (Patterns?.Count > 0) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Prefixes?.Count > 0) { flags = flags.SetBit(0); }
+        if (Patterns?.Count > 0) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(CountryCode);
-        if (Flags.IsBitSet(0)) { writer.Write(Prefixes); }
-        if (Flags.IsBitSet(1)) { writer.Write(Patterns); }
+        if (flags.IsBitSet(0)) { writer.Write(Prefixes); }
+        if (flags.IsBitSet(1)) { writer.Write(Patterns); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

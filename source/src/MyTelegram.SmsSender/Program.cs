@@ -3,6 +3,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using MyTelegram.EventBus.RabbitMQ.Extensions;
+using MyTelegram.EventBus.Redis.Extensions;
 using MyTelegram.SmsSender;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
@@ -48,11 +49,13 @@ builder.ConfigureServices((context,
     services) =>
 {
     services.Configure<TwilioSmsOptions>(context.Configuration.GetRequiredSection("TwilioSms"));
-    services.Configure<EventBusRabbitMqOptions>(context.Configuration.GetRequiredSection("RabbitMQ:EventBus"));
-    services.Configure<RabbitMqOptions>(context.Configuration.GetRequiredSection("RabbitMQ:Connections:Default"));
 
     services.AddMyTelegramSmsSender();
-    services.AddMyTelegramRabbitMqEventBus();
+#if USE_REDIS_EVENTBUS
+    services.AddMyTelegramRedisEventBus(context.Configuration);
+#else
+    services.AddMyTelegramRabbitMqEventBus(context.Configuration);
+#endif
 });
 
 var app = builder.Build();

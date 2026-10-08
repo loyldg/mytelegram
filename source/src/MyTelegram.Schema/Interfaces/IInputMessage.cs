@@ -17,6 +17,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputMessageReplyTo), nameof(TInputMessageReplyTo))]
 [JsonDerivedType(typeof(TInputMessagePinned), nameof(TInputMessagePinned))]
 [JsonDerivedType(typeof(TInputMessageCallbackQuery), nameof(TInputMessageCallbackQuery))]
-public interface IInputMessage : IObject
+public partial interface IInputMessage : IObject
 {
 }

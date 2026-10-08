@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TStoryAlbum"/> See <a href="https://corefork.telegram.org/constructor/storyAlbum" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStoryAlbum), nameof(TStoryAlbum))]
-public interface IStoryAlbum : IObject
+public partial interface IStoryAlbum : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

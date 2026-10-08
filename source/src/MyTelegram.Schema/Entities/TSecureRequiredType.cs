@@ -36,18 +36,20 @@ public sealed partial class TSecureRequiredType : ISecureRequiredType
     /// </summary>
     public MyTelegram.Schema.ISecureValueType Type { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (NativeNames) { Flags = Flags.SetBit(0); }
-        if (SelfieRequired) { Flags = Flags.SetBit(1); }
-        if (TranslationRequired) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (NativeNames) { flags = flags.SetBit(0); }
+        if (SelfieRequired) { flags = flags.SetBit(1); }
+        if (TranslationRequired) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Type);
     }
 

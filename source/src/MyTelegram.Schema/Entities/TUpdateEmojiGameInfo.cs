@@ -15,13 +15,9 @@ public sealed partial class TUpdateEmojiGameInfo : IUpdate
     /// </summary>
     public MyTelegram.Schema.Messages.IEmojiGameInfo Info { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Info);
     }

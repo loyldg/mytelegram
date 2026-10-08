@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TNotifyChats : INotifyPeer
 {
     public uint ConstructorId => 0xc007cec3;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

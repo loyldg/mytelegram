@@ -23,13 +23,9 @@ public sealed partial class RequestGetWallPaper : IRequest<MyTelegram.Schema.IWa
     /// </summary>
     public MyTelegram.Schema.IInputWallPaper Wallpaper { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Wallpaper);
     }

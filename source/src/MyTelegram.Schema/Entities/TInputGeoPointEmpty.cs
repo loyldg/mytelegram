@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TInputGeoPointEmpty : IInputGeoPoint
 {
     public uint ConstructorId => 0xe4c123d6;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

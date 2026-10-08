@@ -35,13 +35,9 @@ public sealed partial class RequestTogglePreHistoryHidden : IRequest<MyTelegram.
     /// </summary>
     public bool Enabled { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Channel);
         writer.Write(Enabled);

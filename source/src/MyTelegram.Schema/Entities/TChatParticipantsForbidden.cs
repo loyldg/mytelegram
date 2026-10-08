@@ -26,18 +26,20 @@ public sealed partial class TChatParticipantsForbidden : IChatParticipants
     /// </summary>
     public MyTelegram.Schema.IChatParticipant? SelfParticipant { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (SelfParticipant != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (SelfParticipant != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(ChatId);
-        if (Flags.IsBitSet(0)) { writer.Write(SelfParticipant); }
+        if (flags.IsBitSet(0)) { writer.Write(SelfParticipant); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -30,13 +30,9 @@ public sealed partial class RequestLeaveChannel : IRequest<MyTelegram.Schema.IUp
     /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Channel);
     }

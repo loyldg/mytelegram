@@ -138,48 +138,50 @@ public sealed partial class TStoryItem : IStoryItem
     /// </summary>
     public MyTelegram.Schema.IDocument? Music { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Pinned) { Flags = Flags.SetBit(5); }
-        if (Public) { Flags = Flags.SetBit(7); }
-        if (CloseFriends) { Flags = Flags.SetBit(8); }
-        if (Min) { Flags = Flags.SetBit(9); }
-        if (Noforwards) { Flags = Flags.SetBit(10); }
-        if (Edited) { Flags = Flags.SetBit(11); }
-        if (Contacts) { Flags = Flags.SetBit(12); }
-        if (SelectedContacts) { Flags = Flags.SetBit(13); }
-        if (Out) { Flags = Flags.SetBit(16); }
-        if (FromId != null) { Flags = Flags.SetBit(18); }
-        if (FwdFrom != null) { Flags = Flags.SetBit(17); }
-        if (Caption != null) { Flags = Flags.SetBit(0); }
-        if (Entities?.Count > 0) { Flags = Flags.SetBit(1); }
-        if (MediaAreas?.Count > 0) { Flags = Flags.SetBit(14); }
-        if (Privacy?.Count > 0) { Flags = Flags.SetBit(2); }
-        if (Views != null) { Flags = Flags.SetBit(3); }
-        if (SentReaction != null) { Flags = Flags.SetBit(15); }
-        if (Albums?.Count > 0) { Flags = Flags.SetBit(19); }
-        if (Music != null) { Flags = Flags.SetBit(20); }
+        var flags = 0;
+        if (Pinned) { flags = flags.SetBit(5); }
+        if (Public) { flags = flags.SetBit(7); }
+        if (CloseFriends) { flags = flags.SetBit(8); }
+        if (Min) { flags = flags.SetBit(9); }
+        if (Noforwards) { flags = flags.SetBit(10); }
+        if (Edited) { flags = flags.SetBit(11); }
+        if (Contacts) { flags = flags.SetBit(12); }
+        if (SelectedContacts) { flags = flags.SetBit(13); }
+        if (Out) { flags = flags.SetBit(16); }
+        if (FromId != null) { flags = flags.SetBit(18); }
+        if (FwdFrom != null) { flags = flags.SetBit(17); }
+        if (Caption != null) { flags = flags.SetBit(0); }
+        if (Entities?.Count > 0) { flags = flags.SetBit(1); }
+        if (MediaAreas?.Count > 0) { flags = flags.SetBit(14); }
+        if (Privacy?.Count > 0) { flags = flags.SetBit(2); }
+        if (Views != null) { flags = flags.SetBit(3); }
+        if (SentReaction != null) { flags = flags.SetBit(15); }
+        if (Albums?.Count > 0) { flags = flags.SetBit(19); }
+        if (Music != null) { flags = flags.SetBit(20); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(Date);
-        if (Flags.IsBitSet(18)) { writer.Write(FromId); }
-        if (Flags.IsBitSet(17)) { writer.Write(FwdFrom); }
+        if (flags.IsBitSet(18)) { writer.Write(FromId); }
+        if (flags.IsBitSet(17)) { writer.Write(FwdFrom); }
         writer.Write(ExpireDate);
-        if (Flags.IsBitSet(0)) { writer.Write(Caption); }
-        if (Flags.IsBitSet(1)) { writer.Write(Entities); }
+        if (flags.IsBitSet(0)) { writer.Write(Caption); }
+        if (flags.IsBitSet(1)) { writer.Write(Entities); }
         writer.Write(Media);
-        if (Flags.IsBitSet(14)) { writer.Write(MediaAreas); }
-        if (Flags.IsBitSet(2)) { writer.Write(Privacy); }
-        if (Flags.IsBitSet(3)) { writer.Write(Views); }
-        if (Flags.IsBitSet(15)) { writer.Write(SentReaction); }
-        if (Flags.IsBitSet(19)) { writer.Write(Albums); }
-        if (Flags.IsBitSet(20)) { writer.Write(Music); }
+        if (flags.IsBitSet(14)) { writer.Write(MediaAreas); }
+        if (flags.IsBitSet(2)) { writer.Write(Privacy); }
+        if (flags.IsBitSet(3)) { writer.Write(Views); }
+        if (flags.IsBitSet(15)) { writer.Write(SentReaction); }
+        if (flags.IsBitSet(19)) { writer.Write(Albums); }
+        if (flags.IsBitSet(20)) { writer.Write(Music); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

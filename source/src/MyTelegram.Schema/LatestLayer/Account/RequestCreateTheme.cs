@@ -45,21 +45,23 @@ public sealed partial class RequestCreateTheme : IRequest<MyTelegram.Schema.IThe
     /// </summary>
     public TVector<MyTelegram.Schema.IInputThemeSettings>? Settings { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Document != null) { Flags = Flags.SetBit(2); }
-        if (Settings?.Count > 0) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (Document != null) { flags = flags.SetBit(2); }
+        if (Settings?.Count > 0) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Slug);
         writer.Write(Title);
-        if (Flags.IsBitSet(2)) { writer.Write(Document); }
-        if (Flags.IsBitSet(3)) { writer.Write(Settings); }
+        if (flags.IsBitSet(2)) { writer.Write(Document); }
+        if (flags.IsBitSet(3)) { writer.Write(Settings); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

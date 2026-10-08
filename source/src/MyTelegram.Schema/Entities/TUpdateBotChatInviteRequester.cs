@@ -6,10 +6,12 @@ namespace MyTelegram.Schema;
 /// Someone has requested to join a chat or channel (bots only, users will receive an <a href="https://corefork.telegram.org/constructor/updatePendingJoinRequests">updatePendingJoinRequests</a>, instead)
 /// <para>See <a href="https://corefork.telegram.org/constructor/updateBotChatInviteRequester" /></para>
 /// </summary>
-[TlObject(0x11dfa986)]
+[TlObject(0x7cb34d79)]
 public sealed partial class TUpdateBotChatInviteRequester : IUpdate
 {
-    public uint ConstructorId => 0x11dfa986;
+    public uint ConstructorId => 0x7cb34d79;
+    public int Flags { get; set; }
+
     /// <summary>
     /// The chat or channel in question
     /// See <a href="https://corefork.telegram.org/type/Peer" />
@@ -42,29 +44,38 @@ public sealed partial class TUpdateBotChatInviteRequester : IUpdate
     /// </summary>
     public int Qts { get; set; }
 
-    public void ComputeFlag()
+    public long? QueryId { get; set; }
+
+    public int CalculateFlags()
     {
+        var flags = 0;
+        if (/*QueryId != 0 &&*/ QueryId.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Date);
         writer.Write(UserId);
         writer.Write(About);
         writer.Write(Invite);
         writer.Write(Qts);
+        if (flags.IsBitSet(0)) { writer.Write(QueryId.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
         Peer = buffer.Read<MyTelegram.Schema.IPeer>();
         Date = buffer.ReadInt32();
         UserId = buffer.ReadInt64();
         About = buffer.ReadString();
         Invite = buffer.Read<MyTelegram.Schema.IExportedChatInvite>();
         Qts = buffer.ReadInt32();
+        if (Flags.IsBitSet(0)) { QueryId = buffer.ReadInt64(); }
     }
 }

@@ -21,13 +21,9 @@ public sealed partial class TMediaAreaStarGift : IMediaArea
     /// </summary>
     public string Slug { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Coordinates);
         writer.Write(Slug);

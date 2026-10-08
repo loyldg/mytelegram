@@ -22,13 +22,9 @@ public sealed partial class TMessageActionSecureValuesSentMe : IMessageAction
     /// </summary>
     public MyTelegram.Schema.ISecureCredentialsEncrypted Credentials { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Values);
         writer.Write(Credentials);

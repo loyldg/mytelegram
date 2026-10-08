@@ -5,33 +5,48 @@ namespace MyTelegram.Schema.E2e;
 
 
 [TlObject(0x639a3db6)]
-public sealed class TBlock : IBlock
+public sealed partial class TBlock : IBlock
 {
     public uint ConstructorId => 0x639a3db6;
+
+    /// <summary>
+    /// int512
+    /// </summary>
     public ReadOnlyMemory<byte> Signature { get; set; }
     public int Flags { get; set; }
+
+    /// <summary>
+    /// int256
+    /// </summary>
     public ReadOnlyMemory<byte> PrevBlockHash { get; set; }
     public TVector<MyTelegram.Schema.E2e.IChange> Changes { get; set; }
     public int Height { get; set; }
     public MyTelegram.Schema.E2e.IStateProof StateProof { get; set; }
+
+    /// <summary>
+    /// int256
+    /// </summary>
     public ReadOnlyMemory<byte>? SignaturePublicKey { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (SignaturePublicKey != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (SignaturePublicKey != null) { flags = flags.SetBit(0); }
+
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
         writer.WriteRawBytes(Signature);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.WriteRawBytes(PrevBlockHash);
         writer.WriteVector(Changes);
         writer.Write(Height);
         writer.Write(StateProof);
-        if (Flags.IsBitSet(0)) { writer.WriteRawBytes(SignaturePublicKey.Value); }
+        if (flags.IsBitSet(0)) { writer.WriteRawBytes(SignaturePublicKey.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

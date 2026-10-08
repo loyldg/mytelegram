@@ -15,6 +15,6 @@ namespace MyTelegram.Schema.Account;
 [JsonDerivedType(typeof(TResetPasswordFailedWait), nameof(TResetPasswordFailedWait))]
 [JsonDerivedType(typeof(TResetPasswordRequestedWait), nameof(TResetPasswordRequestedWait))]
 [JsonDerivedType(typeof(TResetPasswordOk), nameof(TResetPasswordOk))]
-public interface IResetPasswordResult : IObject
+public partial interface IResetPasswordResult : IObject
 {
 }

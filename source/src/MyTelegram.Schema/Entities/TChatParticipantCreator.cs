@@ -25,18 +25,20 @@ public sealed partial class TChatParticipantCreator : IChatParticipant
     /// </summary>
     public string? Rank { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Rank != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Rank != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(UserId);
-        if (Flags.IsBitSet(0)) { writer.Write(Rank); }
+        if (flags.IsBitSet(0)) { writer.Write(Rank); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

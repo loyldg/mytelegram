@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TAutoSaveException"/> See <a href="https://corefork.telegram.org/constructor/autoSaveException" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TAutoSaveException), nameof(TAutoSaveException))]
-public interface IAutoSaveException : IObject
+public partial interface IAutoSaveException : IObject
 {
     /// <summary>
     /// The peer

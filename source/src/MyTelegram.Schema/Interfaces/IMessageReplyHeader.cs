@@ -8,11 +8,11 @@ namespace MyTelegram.Schema;
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TMessageReplyHeader"/> See <a href="https://corefork.telegram.org/constructor/messageReplyHeader" /><br/>
 /// <see cref="TMessageReplyStoryHeader"/> See <a href="https://corefork.telegram.org/constructor/messageReplyStoryHeader" /><br/>
+/// <see cref="TMessageReplyHeader"/> See <a href="https://corefork.telegram.org/constructor/messageReplyHeader" /><br/>
 /// </remarks>
-[JsonDerivedType(typeof(TMessageReplyHeader), nameof(TMessageReplyHeader))]
 [JsonDerivedType(typeof(TMessageReplyStoryHeader), nameof(TMessageReplyStoryHeader))]
-public interface IMessageReplyHeader : IObject
+[JsonDerivedType(typeof(TMessageReplyHeader), nameof(TMessageReplyHeader))]
+public partial interface IMessageReplyHeader : IObject
 {
 }

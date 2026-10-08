@@ -33,13 +33,9 @@ public sealed partial class RequestGetCdnFile : IRequest<MyTelegram.Schema.Uploa
     /// </summary>
     public int Limit { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(FileToken);
         writer.Write(Offset);

@@ -34,17 +34,19 @@ public sealed partial class RequestClickSponsoredMessage : IRequest<IBool>
     /// </summary>
     public ReadOnlyMemory<byte> RandomId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Media) { Flags = Flags.SetBit(0); }
-        if (Fullscreen) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Media) { flags = flags.SetBit(0); }
+        if (Fullscreen) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(RandomId);
     }
 

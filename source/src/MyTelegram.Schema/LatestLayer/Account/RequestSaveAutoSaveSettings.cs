@@ -49,20 +49,22 @@ public sealed partial class RequestSaveAutoSaveSettings : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IAutoSaveSettings Settings { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Users) { Flags = Flags.SetBit(0); }
-        if (Chats) { Flags = Flags.SetBit(1); }
-        if (Broadcasts) { Flags = Flags.SetBit(2); }
-        if (Peer != null) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (Users) { flags = flags.SetBit(0); }
+        if (Chats) { flags = flags.SetBit(1); }
+        if (Broadcasts) { flags = flags.SetBit(2); }
+        if (Peer != null) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(3)) { writer.Write(Peer); }
+        writer.Write(flags);
+        if (flags.IsBitSet(3)) { writer.Write(Peer); }
         writer.Write(Settings);
     }
 

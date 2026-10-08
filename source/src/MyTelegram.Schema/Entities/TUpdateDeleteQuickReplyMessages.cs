@@ -20,13 +20,9 @@ public sealed partial class TUpdateDeleteQuickReplyMessages : IUpdate
     /// </summary>
     public TVector<int> Messages { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ShortcutId);
         writer.Write(Messages);

@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TChatReactionsNone), nameof(TChatReactionsNone))]
 [JsonDerivedType(typeof(TChatReactionsAll), nameof(TChatReactionsAll))]
 [JsonDerivedType(typeof(TChatReactionsSome), nameof(TChatReactionsSome))]
-public interface IChatReactions : IObject
+public partial interface IChatReactions : IObject
 {
 }

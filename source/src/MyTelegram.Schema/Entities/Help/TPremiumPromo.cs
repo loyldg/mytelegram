@@ -46,13 +46,9 @@ public sealed partial class TPremiumPromo : IPremiumPromo
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(StatusText);
         writer.Write(StatusEntities);

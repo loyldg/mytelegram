@@ -27,19 +27,21 @@ public sealed partial class TWebPageAttributeTheme : IWebPageAttribute
     /// </summary>
     public MyTelegram.Schema.IThemeSettings? Settings { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Documents?.Count > 0) { Flags = Flags.SetBit(0); }
-        if (Settings != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Documents?.Count > 0) { flags = flags.SetBit(0); }
+        if (Settings != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(Documents); }
-        if (Flags.IsBitSet(1)) { writer.Write(Settings); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(Documents); }
+        if (flags.IsBitSet(1)) { writer.Write(Settings); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

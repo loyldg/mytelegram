@@ -26,19 +26,21 @@ public sealed partial class TValidatedRequestedInfo : IValidatedRequestedInfo
     /// </summary>
     public TVector<MyTelegram.Schema.IShippingOption>? ShippingOptions { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Id != null) { Flags = Flags.SetBit(0); }
-        if (ShippingOptions?.Count > 0) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Id != null) { flags = flags.SetBit(0); }
+        if (ShippingOptions?.Count > 0) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(Id); }
-        if (Flags.IsBitSet(1)) { writer.Write(ShippingOptions); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(Id); }
+        if (flags.IsBitSet(1)) { writer.Write(ShippingOptions); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

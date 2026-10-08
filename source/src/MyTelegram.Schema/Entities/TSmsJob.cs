@@ -25,13 +25,9 @@ public sealed partial class TSmsJob : ISmsJob
     /// </summary>
     public string Text { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(JobId);
         writer.Write(PhoneNumber);

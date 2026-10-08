@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Poll
 /// <para>See <a href="https://corefork.telegram.org/constructor/poll" /></para>
 /// </summary>
-[TlObject(0xb8425be9)]
+[TlObject(0x966e2dbf)]
 public sealed partial class TPoll : IPoll
 {
-    public uint ConstructorId => 0xb8425be9;
+    public uint ConstructorId => 0x966e2dbf;
     /// <summary>
     /// ID of the poll
     /// </summary>
@@ -50,6 +50,8 @@ public sealed partial class TPoll : IPoll
 
     public bool Creator { get; set; }
 
+    public bool SubscribersOnly { get; set; }
+
     /// <summary>
     /// The question of the poll (only <a href="https://corefork.telegram.org/api/premium">Premium</a> users can use <a href="https://corefork.telegram.org/api/custom-emoji">custom emoji entities</a> here).
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
@@ -72,33 +74,40 @@ public sealed partial class TPoll : IPoll
     /// </summary>
     public int? CloseDate { get; set; }
 
+    public TVector<string>? CountriesIso2 { get; set; }
+
     public long Hash { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Closed) { Flags = Flags.SetBit(0); }
-        if (PublicVoters) { Flags = Flags.SetBit(1); }
-        if (MultipleChoice) { Flags = Flags.SetBit(2); }
-        if (Quiz) { Flags = Flags.SetBit(3); }
-        if (OpenAnswers) { Flags = Flags.SetBit(6); }
-        if (RevotingDisabled) { Flags = Flags.SetBit(7); }
-        if (ShuffleAnswers) { Flags = Flags.SetBit(8); }
-        if (HideResultsUntilClose) { Flags = Flags.SetBit(9); }
-        if (Creator) { Flags = Flags.SetBit(10); }
-        if (/*ClosePeriod != 0 && */ClosePeriod.HasValue) { Flags = Flags.SetBit(4); }
-        if (/*CloseDate != 0 && */CloseDate.HasValue) { Flags = Flags.SetBit(5); }
+        var flags = 0;
+        if (Closed) { flags = flags.SetBit(0); }
+        if (PublicVoters) { flags = flags.SetBit(1); }
+        if (MultipleChoice) { flags = flags.SetBit(2); }
+        if (Quiz) { flags = flags.SetBit(3); }
+        if (OpenAnswers) { flags = flags.SetBit(6); }
+        if (RevotingDisabled) { flags = flags.SetBit(7); }
+        if (ShuffleAnswers) { flags = flags.SetBit(8); }
+        if (HideResultsUntilClose) { flags = flags.SetBit(9); }
+        if (Creator) { flags = flags.SetBit(10); }
+        if (SubscribersOnly) { flags = flags.SetBit(11); }
+        if (/*ClosePeriod != 0 && */ClosePeriod.HasValue) { flags = flags.SetBit(4); }
+        if (/*CloseDate != 0 && */CloseDate.HasValue) { flags = flags.SetBit(5); }
+        if (CountriesIso2?.Count > 0) { flags = flags.SetBit(12); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
         writer.Write(Id);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Question);
         writer.Write(Answers);
-        if (Flags.IsBitSet(4)) { writer.Write(ClosePeriod.Value); }
-        if (Flags.IsBitSet(5)) { writer.Write(CloseDate.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(ClosePeriod.Value); }
+        if (flags.IsBitSet(5)) { writer.Write(CloseDate.Value); }
+        if (flags.IsBitSet(12)) { writer.Write(CountriesIso2); }
         writer.Write(Hash);
     }
 
@@ -115,10 +124,12 @@ public sealed partial class TPoll : IPoll
         if (Flags.IsBitSet(8)) { ShuffleAnswers = true; }
         if (Flags.IsBitSet(9)) { HideResultsUntilClose = true; }
         if (Flags.IsBitSet(10)) { Creator = true; }
+        if (Flags.IsBitSet(11)) { SubscribersOnly = true; }
         Question = buffer.Read<MyTelegram.Schema.ITextWithEntities>();
         Answers = buffer.Read<TVector<MyTelegram.Schema.IPollAnswer>>();
         if (Flags.IsBitSet(4)) { ClosePeriod = buffer.ReadInt32(); }
         if (Flags.IsBitSet(5)) { CloseDate = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(12)) { CountriesIso2 = buffer.Read<TVector<string>>(); }
         Hash = buffer.ReadInt64();
     }
 }

@@ -24,13 +24,9 @@ public sealed partial class RequestGetGroupCallJoinAs : IRequest<MyTelegram.Sche
     /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
     }

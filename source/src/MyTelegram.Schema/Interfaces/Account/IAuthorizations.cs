@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Account;
 /// <see cref="TAuthorizations"/> See <a href="https://corefork.telegram.org/constructor/account.authorizations" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TAuthorizations), nameof(TAuthorizations))]
-public interface IAuthorizations : IObject
+public partial interface IAuthorizations : IObject
 {
     /// <summary>
     /// Time-to-live of session

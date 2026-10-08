@@ -14,13 +14,9 @@ public sealed partial class RequestGetChatsToSend : IRequest<MyTelegram.Schema.M
 {
     public uint ConstructorId => 0xa56a8b60;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

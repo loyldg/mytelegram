@@ -243,46 +243,48 @@ public sealed partial class RequestSendMedia : IRequest<MyTelegram.Schema.IUpdat
     /// </summary>
     public MyTelegram.Schema.ISuggestedPost? SuggestedPost { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Silent) { Flags = Flags.SetBit(5); }
-        if (Background) { Flags = Flags.SetBit(6); }
-        if (ClearDraft) { Flags = Flags.SetBit(7); }
-        if (Noforwards) { Flags = Flags.SetBit(14); }
-        if (UpdateStickersetsOrder) { Flags = Flags.SetBit(15); }
-        if (InvertMedia) { Flags = Flags.SetBit(16); }
-        if (AllowPaidFloodskip) { Flags = Flags.SetBit(19); }
-        if (ReplyTo != null) { Flags = Flags.SetBit(0); }
-        if (ReplyMarkup != null) { Flags = Flags.SetBit(2); }
-        if (Entities?.Count > 0) { Flags = Flags.SetBit(3); }
-        if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { Flags = Flags.SetBit(10); }
-        if (/*ScheduleRepeatPeriod != 0 && */ScheduleRepeatPeriod.HasValue) { Flags = Flags.SetBit(24); }
-        if (SendAs != null) { Flags = Flags.SetBit(13); }
-        if (QuickReplyShortcut != null) { Flags = Flags.SetBit(17); }
-        if (/*Effect != 0 &&*/ Effect.HasValue) { Flags = Flags.SetBit(18); }
-        if (/*AllowPaidStars != 0 &&*/ AllowPaidStars.HasValue) { Flags = Flags.SetBit(21); }
-        if (SuggestedPost != null) { Flags = Flags.SetBit(22); }
+        var flags = 0;
+        if (Silent) { flags = flags.SetBit(5); }
+        if (Background) { flags = flags.SetBit(6); }
+        if (ClearDraft) { flags = flags.SetBit(7); }
+        if (Noforwards) { flags = flags.SetBit(14); }
+        if (UpdateStickersetsOrder) { flags = flags.SetBit(15); }
+        if (InvertMedia) { flags = flags.SetBit(16); }
+        if (AllowPaidFloodskip) { flags = flags.SetBit(19); }
+        if (ReplyTo != null) { flags = flags.SetBit(0); }
+        if (ReplyMarkup != null) { flags = flags.SetBit(2); }
+        if (Entities?.Count > 0) { flags = flags.SetBit(3); }
+        if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { flags = flags.SetBit(10); }
+        if (/*ScheduleRepeatPeriod != 0 && */ScheduleRepeatPeriod.HasValue) { flags = flags.SetBit(24); }
+        if (SendAs != null) { flags = flags.SetBit(13); }
+        if (QuickReplyShortcut != null) { flags = flags.SetBit(17); }
+        if (/*Effect != 0 &&*/ Effect.HasValue) { flags = flags.SetBit(18); }
+        if (/*AllowPaidStars != 0 &&*/ AllowPaidStars.HasValue) { flags = flags.SetBit(21); }
+        if (SuggestedPost != null) { flags = flags.SetBit(22); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
-        if (Flags.IsBitSet(0)) { writer.Write(ReplyTo); }
+        if (flags.IsBitSet(0)) { writer.Write(ReplyTo); }
         writer.Write(Media);
         writer.Write(Message);
         writer.Write(RandomId);
-        if (Flags.IsBitSet(2)) { writer.Write(ReplyMarkup); }
-        if (Flags.IsBitSet(3)) { writer.Write(Entities); }
-        if (Flags.IsBitSet(10)) { writer.Write(ScheduleDate.Value); }
-        if (Flags.IsBitSet(24)) { writer.Write(ScheduleRepeatPeriod.Value); }
-        if (Flags.IsBitSet(13)) { writer.Write(SendAs); }
-        if (Flags.IsBitSet(17)) { writer.Write(QuickReplyShortcut); }
-        if (Flags.IsBitSet(18)) { writer.Write(Effect.Value); }
-        if (Flags.IsBitSet(21)) { writer.Write(AllowPaidStars.Value); }
-        if (Flags.IsBitSet(22)) { writer.Write(SuggestedPost); }
+        if (flags.IsBitSet(2)) { writer.Write(ReplyMarkup); }
+        if (flags.IsBitSet(3)) { writer.Write(Entities); }
+        if (flags.IsBitSet(10)) { writer.Write(ScheduleDate.Value); }
+        if (flags.IsBitSet(24)) { writer.Write(ScheduleRepeatPeriod.Value); }
+        if (flags.IsBitSet(13)) { writer.Write(SendAs); }
+        if (flags.IsBitSet(17)) { writer.Write(QuickReplyShortcut); }
+        if (flags.IsBitSet(18)) { writer.Write(Effect.Value); }
+        if (flags.IsBitSet(21)) { writer.Write(AllowPaidStars.Value); }
+        if (flags.IsBitSet(22)) { writer.Write(SuggestedPost); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

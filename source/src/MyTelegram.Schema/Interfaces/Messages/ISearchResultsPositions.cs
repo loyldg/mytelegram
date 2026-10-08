@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TSearchResultsPositions"/> See <a href="https://corefork.telegram.org/constructor/messages.searchResultsPositions" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TSearchResultsPositions), nameof(TSearchResultsPositions))]
-public interface ISearchResultsPositions : IObject
+public partial interface ISearchResultsPositions : IObject
 {
     /// <summary>
     /// Total number of found messages

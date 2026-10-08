@@ -5,7 +5,7 @@ namespace MyTelegram.Schema.E2e;
 
 
 [TlObject(0x2CF17146)]
-public sealed class TChangeSetGroupState : IChange
+public sealed partial class TChangeSetGroupState : IChange
 {
     public uint ConstructorId => 0x2CF17146;
     public MyTelegram.Schema.E2e.IGroupState GroupState { get; set; }

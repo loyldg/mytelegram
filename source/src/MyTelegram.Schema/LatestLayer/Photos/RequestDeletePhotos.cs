@@ -20,13 +20,9 @@ public sealed partial class RequestDeletePhotos : IRequest<TVector<long>>
     /// </summary>
     public TVector<MyTelegram.Schema.IInputPhoto> Id { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
     }

@@ -34,13 +34,9 @@ public sealed partial class RequestDeletePreviewMedia : IRequest<IBool>
     /// </summary>
     public TVector<MyTelegram.Schema.IInputMedia> Media { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Bot);
         writer.Write(LangCode);

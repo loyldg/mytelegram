@@ -56,29 +56,31 @@ public sealed partial class TInputPeerNotifySettings : IInputPeerNotifySettings
     /// </summary>
     public MyTelegram.Schema.INotificationSound? StoriesSound { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ShowPreviews != null) { Flags = Flags.SetBit(0); }
-        if (Silent != null) { Flags = Flags.SetBit(1); }
-        if (/*MuteUntil != 0 && */MuteUntil.HasValue) { Flags = Flags.SetBit(2); }
-        if (Sound != null) { Flags = Flags.SetBit(3); }
-        if (StoriesMuted != null) { Flags = Flags.SetBit(6); }
-        if (StoriesHideSender != null) { Flags = Flags.SetBit(7); }
-        if (StoriesSound != null) { Flags = Flags.SetBit(8); }
+        var flags = 0;
+        if (ShowPreviews != null) { flags = flags.SetBit(0); }
+        if (Silent != null) { flags = flags.SetBit(1); }
+        if (/*MuteUntil != 0 && */MuteUntil.HasValue) { flags = flags.SetBit(2); }
+        if (Sound != null) { flags = flags.SetBit(3); }
+        if (StoriesMuted != null) { flags = flags.SetBit(6); }
+        if (StoriesHideSender != null) { flags = flags.SetBit(7); }
+        if (StoriesSound != null) { flags = flags.SetBit(8); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(ShowPreviews.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(Silent.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(MuteUntil.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(Sound); }
-        if (Flags.IsBitSet(6)) { writer.Write(StoriesMuted.Value); }
-        if (Flags.IsBitSet(7)) { writer.Write(StoriesHideSender.Value); }
-        if (Flags.IsBitSet(8)) { writer.Write(StoriesSound); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(ShowPreviews.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(Silent.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(MuteUntil.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(Sound); }
+        if (flags.IsBitSet(6)) { writer.Write(StoriesMuted.Value); }
+        if (flags.IsBitSet(7)) { writer.Write(StoriesHideSender.Value); }
+        if (flags.IsBitSet(8)) { writer.Write(StoriesSound); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

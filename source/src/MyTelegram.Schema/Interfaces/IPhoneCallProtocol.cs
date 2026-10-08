@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TPhoneCallProtocol"/> See <a href="https://corefork.telegram.org/constructor/phoneCallProtocol" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPhoneCallProtocol), nameof(TPhoneCallProtocol))]
-public interface IPhoneCallProtocol : IObject
+public partial interface IPhoneCallProtocol : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

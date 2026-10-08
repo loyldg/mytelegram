@@ -85,36 +85,38 @@ public sealed partial class TUniqueStarGiftValueInfo : IUniqueStarGiftValueInfo
     /// </summary>
     public string? FragmentListedUrl { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (LastSaleOnFragment) { Flags = Flags.SetBit(1); }
-        if (ValueIsAverage) { Flags = Flags.SetBit(6); }
-        if (/*LastSaleDate != 0 && */LastSaleDate.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*LastSalePrice != 0 &&*/ LastSalePrice.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*FloorPrice != 0 &&*/ FloorPrice.HasValue) { Flags = Flags.SetBit(2); }
-        if (/*AveragePrice != 0 &&*/ AveragePrice.HasValue) { Flags = Flags.SetBit(3); }
-        if (/*ListedCount != 0 && */ListedCount.HasValue) { Flags = Flags.SetBit(4); }
-        if (/*FragmentListedCount != 0 && */FragmentListedCount.HasValue) { Flags = Flags.SetBit(5); }
-        if (FragmentListedUrl != null) { Flags = Flags.SetBit(5); }
+        var flags = 0;
+        if (LastSaleOnFragment) { flags = flags.SetBit(1); }
+        if (ValueIsAverage) { flags = flags.SetBit(6); }
+        if (/*LastSaleDate != 0 && */LastSaleDate.HasValue) { flags = flags.SetBit(0); }
+        if (/*LastSalePrice != 0 &&*/ LastSalePrice.HasValue) { flags = flags.SetBit(0); }
+        if (/*FloorPrice != 0 &&*/ FloorPrice.HasValue) { flags = flags.SetBit(2); }
+        if (/*AveragePrice != 0 &&*/ AveragePrice.HasValue) { flags = flags.SetBit(3); }
+        if (/*ListedCount != 0 && */ListedCount.HasValue) { flags = flags.SetBit(4); }
+        if (/*FragmentListedCount != 0 && */FragmentListedCount.HasValue) { flags = flags.SetBit(5); }
+        if (FragmentListedUrl != null) { flags = flags.SetBit(5); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Currency);
         writer.Write(Value);
         writer.Write(InitialSaleDate);
         writer.Write(InitialSaleStars);
         writer.Write(InitialSalePrice);
-        if (Flags.IsBitSet(0)) { writer.Write(LastSaleDate.Value); }
-        if (Flags.IsBitSet(0)) { writer.Write(LastSalePrice.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(FloorPrice.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(AveragePrice.Value); }
-        if (Flags.IsBitSet(4)) { writer.Write(ListedCount.Value); }
-        if (Flags.IsBitSet(5)) { writer.Write(FragmentListedCount.Value); }
-        if (Flags.IsBitSet(5)) { writer.Write(FragmentListedUrl); }
+        if (flags.IsBitSet(0)) { writer.Write(LastSaleDate.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(LastSalePrice.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(FloorPrice.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(AveragePrice.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(ListedCount.Value); }
+        if (flags.IsBitSet(5)) { writer.Write(FragmentListedCount.Value); }
+        if (flags.IsBitSet(5)) { writer.Write(FragmentListedUrl); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

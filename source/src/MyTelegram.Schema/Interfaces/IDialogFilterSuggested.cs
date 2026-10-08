@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TDialogFilterSuggested"/> See <a href="https://corefork.telegram.org/constructor/dialogFilterSuggested" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TDialogFilterSuggested), nameof(TDialogFilterSuggested))]
-public interface IDialogFilterSuggested : IObject
+public partial interface IDialogFilterSuggested : IObject
 {
     /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders">Folder info</a>

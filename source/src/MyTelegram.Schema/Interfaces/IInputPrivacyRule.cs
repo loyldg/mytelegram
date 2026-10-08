@@ -33,6 +33,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputPrivacyValueAllowPremium), nameof(TInputPrivacyValueAllowPremium))]
 [JsonDerivedType(typeof(TInputPrivacyValueAllowBots), nameof(TInputPrivacyValueAllowBots))]
 [JsonDerivedType(typeof(TInputPrivacyValueDisallowBots), nameof(TInputPrivacyValueDisallowBots))]
-public interface IInputPrivacyRule : IObject
+public partial interface IInputPrivacyRule : IObject
 {
 }

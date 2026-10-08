@@ -15,13 +15,9 @@ public sealed partial class TMessageActionWebViewDataSent : IMessageAction
     /// </summary>
     public string Text { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Text);
     }

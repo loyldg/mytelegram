@@ -30,13 +30,9 @@ public sealed partial class RequestGetInlineGameHighScores : IRequest<MyTelegram
     /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
         writer.Write(UserId);

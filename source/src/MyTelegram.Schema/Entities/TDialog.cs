@@ -95,22 +95,24 @@ public sealed partial class TDialog : ILayeredDialog
     /// </summary>
     public int? TtlPeriod { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Pinned) { Flags = Flags.SetBit(2); }
-        if (UnreadMark) { Flags = Flags.SetBit(3); }
-        if (ViewForumAsMessages) { Flags = Flags.SetBit(6); }
-        if (/*Pts != 0 && */Pts.HasValue) { Flags = Flags.SetBit(0); }
-        if (Draft != null) { Flags = Flags.SetBit(1); }
-        if (/*FolderId != 0 && */FolderId.HasValue) { Flags = Flags.SetBit(4); }
-        if (/*TtlPeriod != 0 && */TtlPeriod.HasValue) { Flags = Flags.SetBit(5); }
+        var flags = 0;
+        if (Pinned) { flags = flags.SetBit(2); }
+        if (UnreadMark) { flags = flags.SetBit(3); }
+        if (ViewForumAsMessages) { flags = flags.SetBit(6); }
+        if (/*Pts != 0 && */Pts.HasValue) { flags = flags.SetBit(0); }
+        if (Draft != null) { flags = flags.SetBit(1); }
+        if (/*FolderId != 0 && */FolderId.HasValue) { flags = flags.SetBit(4); }
+        if (/*TtlPeriod != 0 && */TtlPeriod.HasValue) { flags = flags.SetBit(5); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(TopMessage);
         writer.Write(ReadInboxMaxId);
@@ -120,10 +122,10 @@ public sealed partial class TDialog : ILayeredDialog
         writer.Write(UnreadReactionsCount);
         writer.Write(UnreadPollVotesCount);
         writer.Write(NotifySettings);
-        if (Flags.IsBitSet(0)) { writer.Write(Pts.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(Draft); }
-        if (Flags.IsBitSet(4)) { writer.Write(FolderId.Value); }
-        if (Flags.IsBitSet(5)) { writer.Write(TtlPeriod.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(Pts.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(Draft); }
+        if (flags.IsBitSet(4)) { writer.Write(FolderId.Value); }
+        if (flags.IsBitSet(5)) { writer.Write(TtlPeriod.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

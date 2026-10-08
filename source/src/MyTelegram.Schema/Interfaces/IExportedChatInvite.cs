@@ -13,6 +13,6 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TChatInviteExported), nameof(TChatInviteExported))]
 [JsonDerivedType(typeof(TChatInvitePublicJoinRequests), nameof(TChatInvitePublicJoinRequests))]
-public interface IExportedChatInvite : IObject
+public partial interface IExportedChatInvite : IObject
 {
 }

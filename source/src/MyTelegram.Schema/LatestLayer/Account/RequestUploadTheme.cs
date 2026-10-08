@@ -45,18 +45,20 @@ public sealed partial class RequestUploadTheme : IRequest<MyTelegram.Schema.IDoc
     /// </summary>
     public string MimeType { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Thumb != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Thumb != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(File);
-        if (Flags.IsBitSet(0)) { writer.Write(Thumb); }
+        if (flags.IsBitSet(0)) { writer.Write(Thumb); }
         writer.Write(FileName);
         writer.Write(MimeType);
     }

@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Help;
 /// </remarks>
 [JsonDerivedType(typeof(TTimezonesListNotModified), nameof(TTimezonesListNotModified))]
 [JsonDerivedType(typeof(TTimezonesList), nameof(TTimezonesList))]
-public interface ITimezonesList : IObject
+public partial interface ITimezonesList : IObject
 {
 }

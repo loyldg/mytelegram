@@ -36,20 +36,22 @@ public sealed partial class TFactCheck : IFactCheck
     /// </summary>
     public long Hash { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (NeedCheck) { Flags = Flags.SetBit(0); }
-        if (Country != null) { Flags = Flags.SetBit(1); }
-        if (Text != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (NeedCheck) { flags = flags.SetBit(0); }
+        if (Country != null) { flags = flags.SetBit(1); }
+        if (Text != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(1)) { writer.Write(Country); }
-        if (Flags.IsBitSet(1)) { writer.Write(Text); }
+        writer.Write(flags);
+        if (flags.IsBitSet(1)) { writer.Write(Country); }
+        if (flags.IsBitSet(1)) { writer.Write(Text); }
         writer.Write(Hash);
     }
 

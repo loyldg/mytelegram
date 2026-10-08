@@ -38,13 +38,9 @@ public sealed partial class RequestGetSavedMusic : IRequest<MyTelegram.Schema.Us
     /// </summary>
     public long Hash { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
         writer.Write(Offset);

@@ -15,13 +15,9 @@ public sealed partial class TInputCollectibleUsername : IInputCollectible
     /// </summary>
     public string Username { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Username);
     }

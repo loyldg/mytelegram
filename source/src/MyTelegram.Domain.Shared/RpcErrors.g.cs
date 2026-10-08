@@ -130,6 +130,42 @@ public class RpcErrors
        public static readonly RpcError AdminsTooMuch = new(ErrorCode, "ADMINS_TOO_MUCH");
  
        /// <summary>
+       /// No AI task was specified. The caller must provide at least one of: proofread, translate (with a target language), tone, or emojify.
+       /// <code>
+       /// messages.composeMessageWithAI
+       /// </code>
+       /// </summary>
+       public static readonly RpcError AiComposeTaskMissing = new(ErrorCode, "AI_COMPOSE_TASK_MISSING");
+ 
+       /// <summary>
+       /// You've reached the daily limit of AI text transformations, upgrade to [Telegram Premium](https://core.telegram.org/api/premium) to get **50x** times more AI text transformations per day!
+       /// <code>
+       /// messages.composeMessageWithAI
+       /// </code>
+       /// </summary>
+       public static readonly RpcError AicomposeFloodPremium = new(ErrorCode, "AICOMPOSE_FLOOD_PREMIUM");
+ 
+       /// <summary>
+       /// The specified tone is invalid.
+       /// <code>
+       /// aicompose.deleteTone
+       /// aicompose.getTone
+       /// aicompose.getToneExample
+       /// aicompose.saveTone
+       /// aicompose.updateTone
+       /// </code>
+       /// </summary>
+       public static readonly RpcError AicomposeToneInvalid = new(ErrorCode, "AICOMPOSE_TONE_INVALID");
+ 
+       /// <summary>
+       /// The specified tone title is invalid.
+       /// <code>
+       /// aicompose.createTone
+       /// </code>
+       /// </summary>
+       public static readonly RpcError AicomposeToneTitleInvalid = new(ErrorCode, "AICOMPOSE_TONE_TITLE_INVALID");
+ 
+       /// <summary>
        /// You have uploaded too many profile photos, delete some before retrying.
        /// <code>
        /// photos.updateProfilePhoto
@@ -144,6 +180,7 @@ public class RpcErrors
        /// auth.exportLoginToken
        /// auth.importBotAuthorization
        /// auth.importWebTokenAuthorization
+       /// auth.initPasskeyLogin
        /// auth.sendCode
        /// </code>
        /// </summary>
@@ -270,6 +307,14 @@ public class RpcErrors
        public static readonly RpcError BannedRightsInvalid = new(ErrorCode, "BANNED_RIGHTS_INVALID");
  
        /// <summary>
+       /// The target user already has a birthday set.
+       /// <code>
+       /// users.suggestBirthday
+       /// </code>
+       /// </summary>
+       public static readonly RpcError BirthdayAlready = new(ErrorCode, "BIRTHDAY_ALREADY");
+ 
+       /// <summary>
        /// An invalid age was specified, must be between 0 and 150 years.
        /// <code>
        /// account.updateBirthday
@@ -380,6 +425,14 @@ public class RpcErrors
        public static readonly RpcError BotCommandInvalid = new(ErrorCode, "BOT_COMMAND_INVALID");
  
        /// <summary>
+       /// The current user already owns the maximum allowed number of owned bots, as specified by [`bots_create_limit_default` ](https://core.telegram.org/api/config#bots-create-limit-default) and [`bots_create_limit_premium` ](https://core.telegram.org/api/config#bots-create-limit-premium); if the current user doesn't have Telegram Premium, upgrading to Premium will allow them to create more bots.
+       /// <code>
+       /// bots.createBot
+       /// </code>
+       /// </summary>
+       public static readonly RpcError BotCreateLimitExceeded = new(ErrorCode, "BOT_CREATE_LIMIT_EXCEEDED");
+ 
+       /// <summary>
        /// Bot domain invalid.
        /// <code>
        /// messages.editMessage
@@ -415,6 +468,15 @@ public class RpcErrors
        public static readonly RpcError BotGroupsBlocked = new(ErrorCode, "BOT_GROUPS_BLOCKED");
  
        /// <summary>
+       /// The specified bot ID is invalid.
+       /// <code>
+       /// account.confirmBotConnection
+       /// bots.getRequestedWebViewButton
+       /// </code>
+       /// </summary>
+       public static readonly RpcError BotIdInvalid = new(ErrorCode, "BOT_ID_INVALID");
+ 
+       /// <summary>
        /// This bot can't be used in inline mode.
        /// <code>
        /// messages.getInlineBotResults
@@ -432,7 +494,10 @@ public class RpcErrors
        /// bots.canSendMessage
        /// bots.checkDownloadFileParams
        /// bots.deletePreviewMedia
+       /// bots.editAccessSettings
        /// bots.editPreviewMedia
+       /// bots.exportBotToken
+       /// bots.getAccessSettings
        /// bots.getBotInfo
        /// bots.getBotRecommendations
        /// bots.getPreviewInfo
@@ -588,6 +653,7 @@ public class RpcErrors
        /// account.changePhone
        /// account.checkUsername
        /// account.clearRecentEmojiStatuses
+       /// account.confirmBotConnection
        /// account.confirmPasswordEmail
        /// account.confirmPhone
        /// account.createBusinessChatLink
@@ -595,7 +661,9 @@ public class RpcErrors
        /// account.declinePasswordReset
        /// account.deleteAutoSaveExceptions
        /// account.deleteBusinessChatLink
+       /// account.deletePasskey
        /// account.deleteSecureValue
+       /// account.deleteWebBrowserSettingsExceptions
        /// account.disablePeerConnectedBot
        /// account.editBusinessChatLink
        /// account.finishTakeoutSession
@@ -623,6 +691,7 @@ public class RpcErrors
        /// account.getNotifyExceptions
        /// account.getNotifySettings
        /// account.getPaidMessagesRevenue
+       /// account.getPasskeys
        /// account.getPassword
        /// account.getPasswordSettings
        /// account.getPrivacy
@@ -638,11 +707,14 @@ public class RpcErrors
        /// account.getWallPaper
        /// account.getWallPapers
        /// account.getWebAuthorizations
+       /// account.getWebBrowserSettings
+       /// account.initPasskeyRegistration
        /// account.initTakeoutSession
        /// account.installTheme
        /// account.installWallPaper
        /// account.invalidateSignInCodes
        /// account.registerDevice
+       /// account.registerPasskey
        /// account.reorderUsernames
        /// account.reportPeer
        /// account.reportProfilePhoto
@@ -675,6 +747,7 @@ public class RpcErrors
        /// account.toggleNoPaidMessagesException
        /// account.toggleSponsoredMessages
        /// account.toggleUsername
+       /// account.toggleWebBrowserSettingsException
        /// account.unregisterDevice
        /// account.updateBirthday
        /// account.updateBusinessAwayMessage
@@ -692,22 +765,33 @@ public class RpcErrors
        /// account.updateProfile
        /// account.updateStatus
        /// account.updateTheme
+       /// account.updateWebBrowserSettings
        /// account.uploadRingtone
        /// account.uploadTheme
        /// account.uploadWallPaper
        /// account.verifyEmail
        /// account.verifyPhone
+       /// aicompose.createTone
+       /// aicompose.deleteTone
+       /// aicompose.getTone
+       /// aicompose.getToneExample
+       /// aicompose.getTones
+       /// aicompose.saveTone
+       /// aicompose.updateTone
        /// auth.acceptLoginToken
        /// auth.bindTempAuthKey
        /// auth.cancelCode
+       /// auth.checkPaidAuth
        /// auth.checkPassword
        /// auth.checkRecoveryPassword
        /// auth.exportAuthorization
        /// auth.exportLoginToken
+       /// auth.finishPasskeyLogin
        /// auth.importAuthorization
        /// auth.importBotAuthorization
        /// auth.importLoginToken
        /// auth.importWebTokenAuthorization
+       /// auth.initPasskeyLogin
        /// auth.recoverPassword
        /// auth.reportMissingCode
        /// auth.requestFirebaseSms
@@ -722,8 +806,13 @@ public class RpcErrors
        /// bots.answerWebhookJSONQuery
        /// bots.canSendMessage
        /// bots.checkDownloadFileParams
+       /// bots.checkUsername
+       /// bots.createBot
        /// bots.deletePreviewMedia
+       /// bots.editAccessSettings
        /// bots.editPreviewMedia
+       /// bots.exportBotToken
+       /// bots.getAccessSettings
        /// bots.getAdminedBots
        /// bots.getBotCommands
        /// bots.getBotInfo
@@ -732,9 +821,11 @@ public class RpcErrors
        /// bots.getPopularAppBots
        /// bots.getPreviewInfo
        /// bots.getPreviewMedias
+       /// bots.getRequestedWebViewButton
        /// bots.invokeWebViewCustomMethod
        /// bots.reorderPreviewMedias
        /// bots.reorderUsernames
+       /// bots.requestWebViewButton
        /// bots.resetBotCommands
        /// bots.sendCustomRequest
        /// bots.setBotBroadcastDefaultAdminRights
@@ -743,6 +834,7 @@ public class RpcErrors
        /// bots.setBotInfo
        /// bots.setBotMenuButton
        /// bots.setCustomVerification
+       /// bots.setJoinChatResults
        /// bots.toggleUserEmojiStatusPermission
        /// bots.toggleUsername
        /// bots.updateStarRefProgram
@@ -773,6 +865,7 @@ public class RpcErrors
        /// channels.getForumTopics
        /// channels.getForumTopicsByID
        /// channels.getFullChannel
+       /// channels.getFutureCreatorAfterLeave
        /// channels.getGroupsForDiscussion
        /// channels.getInactiveChannels
        /// channels.getLeftChannels
@@ -851,6 +944,7 @@ public class RpcErrors
        /// contacts.setBlocked
        /// contacts.toggleTopPeers
        /// contacts.unblock
+       /// contacts.updateContactNote
        /// folders.editPeerFolders
        /// fragment.getCollectibleInfo
        /// help.acceptTermsOfService
@@ -886,36 +980,48 @@ public class RpcErrors
        /// messages.acceptEncryption
        /// messages.acceptUrlAuth
        /// messages.addChatUser
+       /// messages.addPollAnswer
        /// messages.appendTodoList
        /// messages.checkChatInvite
        /// messages.checkHistoryImport
        /// messages.checkHistoryImportPeer
        /// messages.checkQuickReplyShortcut
+       /// messages.checkUrlAuthMatchCode
        /// messages.clearAllDrafts
        /// messages.clearRecentReactions
        /// messages.clearRecentStickers
        /// messages.clickSponsoredMessage
+       /// messages.composeMessageWithAI
        /// messages.createChat
+       /// messages.createForumTopic
+       /// messages.declineUrlAuth
        /// messages.deleteChat
        /// messages.deleteChatUser
        /// messages.deleteExportedChatInvite
        /// messages.deleteFactCheck
        /// messages.deleteHistory
        /// messages.deleteMessages
+       /// messages.deleteParticipantReaction
+       /// messages.deleteParticipantReactions
        /// messages.deletePhoneCallHistory
+       /// messages.deletePollAnswer
        /// messages.deleteQuickReplyMessages
        /// messages.deleteQuickReplyShortcut
        /// messages.deleteRevokedExportedChatInvites
        /// messages.deleteSavedHistory
        /// messages.deleteScheduledMessages
+       /// messages.deleteTopicHistory
        /// messages.discardEncryption
        /// messages.editChatAbout
        /// messages.editChatAdmin
+       /// messages.editChatCreator
        /// messages.editChatDefaultBannedRights
+       /// messages.editChatParticipantRank
        /// messages.editChatPhoto
        /// messages.editChatTitle
        /// messages.editExportedChatInvite
        /// messages.editFactCheck
+       /// messages.editForumTopic
        /// messages.editInlineBotMessage
        /// messages.editMessage
        /// messages.editQuickReplyShortcut
@@ -945,6 +1051,7 @@ public class RpcErrors
        /// messages.getDialogUnreadMarks
        /// messages.getDiscussionMessage
        /// messages.getDocumentByHash
+       /// messages.getEmojiGameInfo
        /// messages.getEmojiGroups
        /// messages.getEmojiKeywords
        /// messages.getEmojiKeywordsDifference
@@ -961,7 +1068,10 @@ public class RpcErrors
        /// messages.getFavedStickers
        /// messages.getFeaturedEmojiStickers
        /// messages.getFeaturedStickers
+       /// messages.getForumTopics
+       /// messages.getForumTopicsByID
        /// messages.getFullChat
+       /// messages.getFutureChatCreatorAfterLeave
        /// messages.getGameHighScores
        /// messages.getHistory
        /// messages.getInlineBotResults
@@ -980,6 +1090,7 @@ public class RpcErrors
        /// messages.getPaidReactionPrivacy
        /// messages.getPeerDialogs
        /// messages.getPeerSettings
+       /// messages.getPersonalChannelHistory
        /// messages.getPinnedDialogs
        /// messages.getPinnedSavedDialogs
        /// messages.getPollResults
@@ -991,6 +1102,7 @@ public class RpcErrors
        /// messages.getRecentReactions
        /// messages.getRecentStickers
        /// messages.getReplies
+       /// messages.getRichMessage
        /// messages.getSavedDialogs
        /// messages.getSavedDialogsByID
        /// messages.getSavedGifs
@@ -1008,6 +1120,7 @@ public class RpcErrors
        /// messages.getSuggestedDialogFilters
        /// messages.getTopReactions
        /// messages.getUnreadMentions
+       /// messages.getUnreadPollVotes
        /// messages.getUnreadReactions
        /// messages.getWebPage
        /// messages.getWebPagePreview
@@ -1027,18 +1140,22 @@ public class RpcErrors
        /// messages.readHistory
        /// messages.readMentions
        /// messages.readMessageContents
+       /// messages.readPollVotes
        /// messages.readReactions
        /// messages.readSavedHistory
        /// messages.receivedMessages
        /// messages.receivedQueue
        /// messages.reorderPinnedDialogs
+       /// messages.reorderPinnedForumTopics
        /// messages.reorderPinnedSavedDialogs
        /// messages.reorderQuickReplies
        /// messages.reorderStickerSets
        /// messages.report
        /// messages.reportEncryptedSpam
        /// messages.reportMessagesDelivery
+       /// messages.reportMusicListen
        /// messages.reportReaction
+       /// messages.reportReadMetrics
        /// messages.reportSpam
        /// messages.reportSponsoredMessage
        /// messages.requestAppWebView
@@ -1076,6 +1193,7 @@ public class RpcErrors
        /// messages.sendWebViewData
        /// messages.sendWebViewResultMessage
        /// messages.setBotCallbackAnswer
+       /// messages.setBotGuestChatResult
        /// messages.setBotPrecheckoutResults
        /// messages.setBotShippingResults
        /// messages.setChatAvailableReactions
@@ -1091,6 +1209,7 @@ public class RpcErrors
        /// messages.setTyping
        /// messages.startBot
        /// messages.startHistoryImport
+       /// messages.summarizeText
        /// messages.toggleBotInAttachMenu
        /// messages.toggleDialogFilterTags
        /// messages.toggleDialogPin
@@ -1107,6 +1226,7 @@ public class RpcErrors
        /// messages.unpinAllMessages
        /// messages.updateDialogFilter
        /// messages.updateDialogFiltersOrder
+       /// messages.updatePinnedForumTopic
        /// messages.updatePinnedMessage
        /// messages.updateSavedReactionTag
        /// messages.uploadEncryptedFile
@@ -1124,6 +1244,7 @@ public class RpcErrors
        /// payments.clearSavedInfo
        /// payments.connectStarRefBot
        /// payments.convertStarGift
+       /// payments.craftStarGift
        /// payments.createStarGiftCollection
        /// payments.deleteStarGiftCollection
        /// payments.editConnectedStarRefBot
@@ -1132,6 +1253,7 @@ public class RpcErrors
        /// payments.getBankCardData
        /// payments.getConnectedStarRefBot
        /// payments.getConnectedStarRefBots
+       /// payments.getCraftStarGifts
        /// payments.getGiveawayInfo
        /// payments.getPaymentForm
        /// payments.getPaymentReceipt
@@ -1140,8 +1262,12 @@ public class RpcErrors
        /// payments.getSavedInfo
        /// payments.getSavedStarGift
        /// payments.getSavedStarGifts
+       /// payments.getStarGiftActiveAuctions
+       /// payments.getStarGiftAuctionAcquiredGifts
+       /// payments.getStarGiftAuctionState
        /// payments.getStarGiftCollections
        /// payments.getStarGifts
+       /// payments.getStarGiftUpgradeAttributes
        /// payments.getStarGiftUpgradePreview
        /// payments.getStarGiftWithdrawalUrl
        /// payments.getStarsGiftOptions
@@ -1162,6 +1288,7 @@ public class RpcErrors
        /// payments.reorderStarGiftCollections
        /// payments.saveStarGift
        /// payments.sendPaymentForm
+       /// payments.sendStarGiftOffer
        /// payments.sendStarsForm
        /// payments.toggleChatStarGiftNotifications
        /// payments.toggleStarGiftsPinnedToTop
@@ -1177,6 +1304,8 @@ public class RpcErrors
        /// phone.createGroupCall
        /// phone.declineConferenceCallInvite
        /// phone.deleteConferenceCallParticipants
+       /// phone.deleteGroupCallMessages
+       /// phone.deleteGroupCallParticipantMessages
        /// phone.discardCall
        /// phone.discardGroupCall
        /// phone.editGroupCallParticipant
@@ -1186,6 +1315,7 @@ public class RpcErrors
        /// phone.getGroupCall
        /// phone.getGroupCallChainBlocks
        /// phone.getGroupCallJoinAs
+       /// phone.getGroupCallStars
        /// phone.getGroupCallStreamChannels
        /// phone.getGroupCallStreamRtmpUrl
        /// phone.getGroupParticipants
@@ -1200,7 +1330,10 @@ public class RpcErrors
        /// phone.saveCallDebug
        /// phone.saveCallLog
        /// phone.saveDefaultGroupCallJoinAs
+       /// phone.saveDefaultSendAs
        /// phone.sendConferenceCallBroadcast
+       /// phone.sendGroupCallEncryptedMessage
+       /// phone.sendGroupCallMessage
        /// phone.sendSignalingData
        /// phone.setCallRating
        /// phone.startScheduledGroupCall
@@ -1226,6 +1359,7 @@ public class RpcErrors
        /// stats.getMegagroupStats
        /// stats.getMessagePublicForwards
        /// stats.getMessageStats
+       /// stats.getPollStats
        /// stats.getStoryPublicForwards
        /// stats.getStoryStats
        /// stats.loadAsyncGraph
@@ -1267,6 +1401,7 @@ public class RpcErrors
        /// stories.searchPosts
        /// stories.sendReaction
        /// stories.sendStory
+       /// stories.startLive
        /// stories.toggleAllStoriesHidden
        /// stories.togglePeerStoriesHidden
        /// stories.togglePinned
@@ -1289,6 +1424,7 @@ public class RpcErrors
        /// users.getSavedMusicByID
        /// users.getUsers
        /// users.setSecureValueErrors
+       /// users.suggestBirthday
        /// </code>
        /// </summary>
        public static readonly RpcError BusinessConnectionNotAllowed = new(ErrorCode, "BUSINESS_CONNECTION_NOT_ALLOWED");
@@ -1309,6 +1445,7 @@ public class RpcErrors
        /// <summary>
        /// You cannot send a message to a user through a [business connection](https://core.telegram.org/api/business#connected-bots) if the user hasn't recently contacted us.
        /// <code>
+       /// messages.sendMedia
        /// messages.sendMessage
        /// messages.setTyping
        /// </code>
@@ -1372,6 +1509,7 @@ public class RpcErrors
        /// <summary>
        /// The specified button is invalid.
        /// <code>
+       /// bots.requestWebViewButton
        /// bots.setBotMenuButton
        /// </code>
        /// </summary>
@@ -1427,6 +1565,7 @@ public class RpcErrors
        /// <summary>
        /// The privacy setting of the user specified in a [inputKeyboardButtonUserProfile](https://core.telegram.org/constructor/inputKeyboardButtonUserProfile) button do not allow creating such a button.
        /// <code>
+       /// messages.editMessage
        /// messages.sendMedia
        /// messages.sendMessage
        /// </code>
@@ -1451,6 +1590,14 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError CallAlreadyDeclined = new(ErrorCode, "CALL_ALREADY_DECLINED");
+ 
+       /// <summary>
+       /// The specified call is not active.
+       /// <code>
+       /// phone.sendSignalingData
+       /// </code>
+       /// </summary>
+       public static readonly RpcError CallNotActive = new(ErrorCode, "CALL_NOT_ACTIVE");
  
        /// <summary>
        /// The call failed because the user is already making another call.
@@ -1513,6 +1660,9 @@ public class RpcErrors
        /// channels.editForumTopic
        /// channels.getForumTopics
        /// channels.getForumTopicsByID
+       /// channels.updatePinnedForumTopic
+       /// messages.createForumTopic
+       /// messages.getForumTopics
        /// </code>
        /// </summary>
        public static readonly RpcError ChannelForumMissing = new(ErrorCode, "CHANNEL_FORUM_MISSING");
@@ -1521,6 +1671,7 @@ public class RpcErrors
        /// The specified supergroup ID is invalid.
        /// <code>
        /// channels.convertToGigagroup
+       /// messages.getFutureChatCreatorAfterLeave
        /// </code>
        /// </summary>
        public static readonly RpcError ChannelIdInvalid = new(ErrorCode, "CHANNEL_ID_INVALID");
@@ -1544,6 +1695,7 @@ public class RpcErrors
        /// channels.editAbout
        /// channels.editAdmin
        /// channels.editBanned
+       /// channels.editCreator
        /// channels.editForumTopic
        /// channels.editLocation
        /// channels.editPhoto
@@ -1556,6 +1708,7 @@ public class RpcErrors
        /// channels.getForumTopics
        /// channels.getForumTopicsByID
        /// channels.getFullChannel
+       /// channels.getFutureCreatorAfterLeave
        /// channels.getMessageAuthor
        /// channels.getMessages
        /// channels.getParticipant
@@ -1600,8 +1753,12 @@ public class RpcErrors
        /// chatlists.editExportedInvite
        /// chatlists.exportChatlistInvite
        /// folders.editPeerFolders
+       /// messages.createForumTopic
+       /// messages.deleteScheduledMessages
+       /// messages.deleteTopicHistory
        /// messages.editChatAbout
        /// messages.editChatDefaultBannedRights
+       /// messages.editForumTopic
        /// messages.editMessage
        /// messages.exportChatInvite
        /// messages.forwardMessages
@@ -1610,18 +1767,23 @@ public class RpcErrors
        /// messages.getDiscussionMessage
        /// messages.getExportedChatInvite
        /// messages.getExportedChatInvites
+       /// messages.getForumTopics
+       /// messages.getForumTopicsByID
        /// messages.getHistory
        /// messages.getInlineBotResults
+       /// messages.getMessageReactionsList
        /// messages.getMessagesReactions
        /// messages.getMessagesViews
        /// messages.getPeerDialogs
        /// messages.getPeerSettings
        /// messages.getReplies
+       /// messages.getScheduledMessages
        /// messages.getSponsoredMessages
        /// messages.getUnreadMentions
        /// messages.hideAllChatJoinRequests
        /// messages.importChatInvite
        /// messages.readMentions
+       /// messages.reorderPinnedForumTopics
        /// messages.report
        /// messages.saveDefaultSendAs
        /// messages.search
@@ -1633,7 +1795,9 @@ public class RpcErrors
        /// messages.sendReaction
        /// messages.sendVote
        /// messages.setTyping
+       /// messages.updatePinnedForumTopic
        /// messages.uploadMedia
+       /// payments.getStarsRevenueStats
        /// phone.getGroupCallJoinAs
        /// premium.getBoostsStatus
        /// stats.getBroadcastRevenueStats
@@ -1642,6 +1806,7 @@ public class RpcErrors
        /// stats.getMegagroupStats
        /// stats.getMessagePublicForwards
        /// stats.getMessageStats
+       /// stats.getStoryStats
        /// stories.canSendStory
        /// stories.deleteStories
        /// stories.getBoostersList
@@ -1672,6 +1837,9 @@ public class RpcErrors
        /// messages.exportChatInvite
        /// messages.getPeerSettings
        /// messages.sendMessage
+       /// messages.setTyping
+       /// stories.startLive
+       /// users.getUsers
        /// </code>
        /// </summary>
        public static readonly RpcError ChannelMonoforumUnsupported = new(ErrorCode, "CHANNEL_MONOFORUM_UNSUPPORTED");
@@ -1728,6 +1896,7 @@ public class RpcErrors
        /// folders.editPeerFolders
        /// messages.deleteHistory
        /// messages.editChatAbout
+       /// messages.editChatCreator
        /// messages.editChatDefaultBannedRights
        /// messages.editExportedChatInvite
        /// messages.editMessage
@@ -1735,6 +1904,7 @@ public class RpcErrors
        /// messages.forwardMessages
        /// messages.getBotCallbackAnswer
        /// messages.getChatInviteImporters
+       /// messages.getCommonChats
        /// messages.getDiscussionMessage
        /// messages.getExportedChatInvite
        /// messages.getExportedChatInvites
@@ -1760,13 +1930,16 @@ public class RpcErrors
        /// messages.sendMedia
        /// messages.sendMessage
        /// messages.sendMultiMedia
+       /// messages.sendPaidReaction
        /// messages.sendReaction
        /// messages.sendVote
        /// messages.setTyping
        /// messages.toggleDialogPin
        /// messages.updatePinnedMessage
        /// messages.uploadMedia
+       /// payments.getStarsRevenueStats
        /// phone.createGroupCall
+       /// photos.getUserPhotos
        /// premium.getBoostsStatus
        /// stats.getBroadcastStats
        /// stories.getPeerStories
@@ -1813,6 +1986,7 @@ public class RpcErrors
        /// channels.editCreator
        /// channels.getAdminedPublicChannels
        /// channels.updateUsername
+       /// messages.editChatCreator
        /// </code>
        /// </summary>
        public static readonly RpcError ChannelsAdminPublicTooMuch = new(ErrorCode, "CHANNELS_ADMIN_PUBLIC_TOO_MUCH");
@@ -1880,6 +2054,7 @@ public class RpcErrors
        /// channels.convertToGigagroup
        /// channels.deleteChannel
        /// channels.deleteHistory
+       /// channels.deleteMessages
        /// channels.deleteParticipantHistory
        /// channels.deleteUserHistory
        /// channels.editAbout
@@ -1896,6 +2071,7 @@ public class RpcErrors
        /// channels.inviteToChannel
        /// channels.reportSpam
        /// channels.setDiscussionGroup
+       /// channels.toggleForum
        /// channels.toggleInvites
        /// channels.toggleJoinRequest
        /// channels.toggleJoinToSend
@@ -1914,6 +2090,7 @@ public class RpcErrors
        /// messages.deleteExportedChatInvite
        /// messages.deleteHistory
        /// messages.editChatAbout
+       /// messages.editChatCreator
        /// messages.editChatDefaultBannedRights
        /// messages.editChatTitle
        /// messages.editExportedChatInvite
@@ -1925,6 +2102,7 @@ public class RpcErrors
        /// messages.getExportedChatInvite
        /// messages.getExportedChatInvites
        /// messages.getMessageEditData
+       /// messages.getSavedHistory
        /// messages.getScheduledHistory
        /// messages.getScheduledMessages
        /// messages.hideAllChatJoinRequests
@@ -1932,14 +2110,17 @@ public class RpcErrors
        /// messages.initHistoryImport
        /// messages.migrateChat
        /// messages.readSavedHistory
+       /// messages.saveDraft
        /// messages.search
        /// messages.sendInlineBotResult
        /// messages.sendMedia
        /// messages.sendMessage
        /// messages.sendMultiMedia
        /// messages.setChatAvailableReactions
+       /// messages.setHistoryTTL
        /// messages.setTyping
        /// messages.startBot
+       /// messages.startHistoryImport
        /// messages.toggleNoForwards
        /// messages.unpinAllMessages
        /// messages.updatePinnedMessage
@@ -1948,6 +2129,7 @@ public class RpcErrors
        /// payments.getStarsTransactions
        /// phone.createGroupCall
        /// phone.getGroupCallStreamRtmpUrl
+       /// phone.joinGroupCall
        /// premium.getBoostsList
        /// stats.getBroadcastRevenueStats
        /// stats.getBroadcastStats
@@ -1958,6 +2140,7 @@ public class RpcErrors
        /// stories.getBoostersList
        /// stories.getStoriesArchive
        /// stories.sendStory
+       /// stories.startLive
        /// </code>
        /// </summary>
        public static readonly RpcError ChatAdminRequired = new(ErrorCode, "CHAT_ADMIN_REQUIRED");
@@ -1996,6 +2179,7 @@ public class RpcErrors
        /// channels.checkUsername
        /// channels.getSendAs
        /// channels.setStickers
+       /// channels.toggleForum
        /// channels.toggleJoinRequest
        /// channels.toggleJoinToSend
        /// channels.toggleParticipantsHidden
@@ -2046,6 +2230,7 @@ public class RpcErrors
        /// <summary>
        /// Invalid chat.
        /// <code>
+       /// channels.editPhoto
        /// channels.editTitle
        /// channels.inviteToChannel
        /// channels.joinChannel
@@ -2081,6 +2266,7 @@ public class RpcErrors
        /// channels.inviteToChannel
        /// messages.addChatUser
        /// messages.createChat
+       /// messages.editChatCreator
        /// </code>
        /// </summary>
        public static readonly RpcError ChatMemberAddFailed = new(ErrorCode, "CHAT_MEMBER_ADD_FAILED");
@@ -2187,6 +2373,14 @@ public class RpcErrors
        public static readonly RpcError ChatTooBig = new(ErrorCode, "CHAT_TOO_BIG");
  
        /// <summary>
+       /// You can't write in this chat.
+       /// <code>
+       /// messages.sendReaction
+       /// </code>
+       /// </summary>
+       public static readonly RpcError ChatWriteForbidden = new(ErrorCode, "CHAT_WRITE_FORBIDDEN");
+ 
+       /// <summary>
        /// The specified slug is empty.
        /// <code>
        /// account.deleteBusinessChatLink
@@ -2251,6 +2445,7 @@ public class RpcErrors
        /// Code invalid.
        /// <code>
        /// account.confirmPasswordEmail
+       /// account.verifyEmail
        /// </code>
        /// </summary>
        public static readonly RpcError CodeInvalid = new(ErrorCode, "CODE_INVALID");
@@ -2271,6 +2466,14 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError CollectibleNotFound = new(ErrorCode, "COLLECTIBLE_NOT_FOUND");
+ 
+       /// <summary>
+       /// The specified collection ID is invalid.
+       /// <code>
+       /// payments.getSavedStarGifts
+       /// </code>
+       /// </summary>
+       public static readonly RpcError CollectionIdInvalid = new(ErrorCode, "COLLECTION_ID_INVALID");
  
        /// <summary>
        /// The specified color palette ID was invalid.
@@ -2311,6 +2514,7 @@ public class RpcErrors
        /// contacts.resolveUsername
        /// help.getConfig
        /// initConnection
+       /// invokeWithLayer
        /// </code>
        /// </summary>
        public static readonly RpcError ConnectionLayerInvalid = new(ErrorCode, "CONNECTION_LAYER_INVALID");
@@ -2331,6 +2535,7 @@ public class RpcErrors
        /// contacts.block
        /// contacts.deleteContact
        /// contacts.unblock
+       /// contacts.updateContactNote
        /// </code>
        /// </summary>
        public static readonly RpcError ContactIdInvalid = new(ErrorCode, "CONTACT_ID_INVALID");
@@ -2338,6 +2543,7 @@ public class RpcErrors
        /// <summary>
        /// The specified user is not a contact.
        /// <code>
+       /// contacts.updateContactNote
        /// photos.uploadContactProfilePhoto
        /// </code>
        /// </summary>
@@ -2366,6 +2572,15 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError CreateCallFailed = new(ErrorCode, "CREATE_CALL_FAILED");
+ 
+       /// <summary>
+       /// The specified credential is invalid.
+       /// <code>
+       /// account.registerPasskey
+       /// auth.finishPasskeyLogin
+       /// </code>
+       /// </summary>
+       public static readonly RpcError CredentialInvalid = new(ErrorCode, "CREDENTIAL_INVALID");
  
        /// <summary>
        /// The total amount of all prices is invalid.
@@ -2422,6 +2637,7 @@ public class RpcErrors
        /// <code>
        /// messages.sendEncrypted
        /// messages.sendEncryptedFile
+       /// messages.sendEncryptedService
        /// </code>
        /// </summary>
        public static readonly RpcError DataTooLong = new(ErrorCode, "DATA_TOO_LONG");
@@ -2453,9 +2669,11 @@ public class RpcErrors
        /// <summary>
        /// The specified document is invalid.
        /// <code>
+       /// account.createBusinessChatLink
        /// account.saveMusic
        /// account.updateColor
        /// account.updateEmojiStatus
+       /// channels.createForumTopic
        /// channels.editForumTopic
        /// messages.editMessage
        /// messages.sendMedia
@@ -2467,6 +2685,15 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError DocumentInvalid = new(ErrorCode, "DOCUMENT_INVALID");
+ 
+       /// <summary>
+       /// Message [effects](https://core.telegram.org/api/effects) can only be used in private 1-on-1 chats, but the caller tried to send a message with an effect to a group or channel.
+       /// <code>
+       /// messages.sendMedia
+       /// messages.sendMessage
+       /// </code>
+       /// </summary>
+       public static readonly RpcError EffectChatInvalid = new(ErrorCode, "EFFECT_CHAT_INVALID");
  
        /// <summary>
        /// The specified effect ID is invalid.
@@ -2486,6 +2713,15 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError EmailHashExpired = new(ErrorCode, "EMAIL_HASH_EXPIRED");
+ 
+       /// <summary>
+       /// Attempting to send a code to the recovery email, but no email is configured.
+       /// <code>
+       /// auth.resendCode
+       /// auth.resetLoginEmail
+       /// </code>
+       /// </summary>
+       public static readonly RpcError EmailInstallMissing = new(ErrorCode, "EMAIL_INSTALL_MISSING");
  
        /// <summary>
        /// The specified email is invalid.
@@ -2659,6 +2895,30 @@ public class RpcErrors
        public static readonly RpcError EntityBoundsInvalid = new(ErrorCode, "ENTITY_BOUNDS_INVALID");
  
        /// <summary>
+       /// One of the passed messageEntityFormattedDate objects has an invalid format (i.e. an invalid combination of the format flags).
+       /// <code>
+       /// messages.sendMessage
+       /// </code>
+       /// </summary>
+       public static readonly RpcError EntityDateFormatInvalid = new(ErrorCode, "ENTITY_DATE_FORMAT_INVALID");
+ 
+       /// <summary>
+       /// One of the passed messageEntityFormattedDate objects has an invalid date: the allowed value ranges from `0` to the current date plus 1098 days (`time()+1098*86400`).
+       /// <code>
+       /// messages.sendMessage
+       /// </code>
+       /// </summary>
+       public static readonly RpcError EntityDateInvalid = new(ErrorCode, "ENTITY_DATE_INVALID");
+ 
+       /// <summary>
+       /// The maximum text span that can be covered by a date entity is 31 UTF-16 code units if any of the date formatting flags is set, or 127 UTF-16 code units without.  .
+       /// <code>
+       /// messages.sendMessage
+       /// </code>
+       /// </summary>
+       public static readonly RpcError EntityDateTooLong = new(ErrorCode, "ENTITY_DATE_TOO_LONG");
+ 
+       /// <summary>
        /// You mentioned an invalid user.
        /// <code>
        /// messages.sendMessage
@@ -2707,12 +2967,28 @@ public class RpcErrors
        public static readonly RpcError ExtendedMediaAmountInvalid = new(ErrorCode, "EXTENDED_MEDIA_AMOUNT_INVALID");
  
        /// <summary>
+       /// The specified extended media is empty.
+       /// <code>
+       /// messages.sendMedia
+       /// </code>
+       /// </summary>
+       public static readonly RpcError ExtendedMediaEmpty = new(ErrorCode, "EXTENDED_MEDIA_EMPTY");
+ 
+       /// <summary>
        /// The specified paid media is invalid.
        /// <code>
        /// messages.sendMedia
        /// </code>
        /// </summary>
        public static readonly RpcError ExtendedMediaInvalid = new(ErrorCode, "EXTENDED_MEDIA_INVALID");
+ 
+       /// <summary>
+       /// Paid media is not allowed for the target peer.
+       /// <code>
+       /// messages.sendMedia
+       /// </code>
+       /// </summary>
+       public static readonly RpcError ExtendedMediaPeerInvalid = new(ErrorCode, "EXTENDED_MEDIA_PEER_INVALID");
  
        /// <summary>
        /// External URL invalid.
@@ -2818,6 +3094,14 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError FilePartsInvalid = new(ErrorCode, "FILE_PARTS_INVALID");
+ 
+       /// <summary>
+       /// The file reference of the media file at offset <c>{0}</c> in the multi_media array is invalid.
+       /// <code>
+       /// messages.sendMultiMedia
+       /// </code>
+       /// </summary>
+       public static readonly RpcError FileReferenceXEmpty = new(ErrorCode, "FILE_REFERENCE_{0}_EMPTY");
  
        /// <summary>
        /// The file reference of the media file at index <c>{0}</c> in the passed media array expired, it [must be refreshed as specified in the documentation](https://core.telegram.org/api/file-references). .
@@ -3107,6 +3391,7 @@ public class RpcErrors
        /// <summary>
        /// The specified amount of stars is invalid.
        /// <code>
+       /// payments.getPaymentForm
        /// payments.sendStarsForm
        /// </code>
        /// </summary>
@@ -3147,7 +3432,7 @@ public class RpcErrors
        public static readonly RpcError GroupcallAlreadyDiscarded = new(ErrorCode, "GROUPCALL_ALREADY_DISCARDED");
  
        /// <summary>
-       /// The group call has already ended.
+       /// The specified group call cannot be used in this context.
        /// <code>
        /// phone.editGroupCallParticipant
        /// </code>
@@ -3159,12 +3444,15 @@ public class RpcErrors
        /// <code>
        /// phone.checkGroupCall
        /// phone.deleteConferenceCallParticipants
+       /// phone.deleteGroupCallMessages
+       /// phone.deleteGroupCallParticipantMessages
        /// phone.discardGroupCall
        /// phone.editGroupCallParticipant
        /// phone.editGroupCallTitle
        /// phone.exportGroupCallInvite
        /// phone.getGroupCall
        /// phone.getGroupCallChainBlocks
+       /// phone.getGroupCallStars
        /// phone.getGroupCallStreamChannels
        /// phone.getGroupParticipants
        /// phone.inviteConferenceCallParticipant
@@ -3173,7 +3461,10 @@ public class RpcErrors
        /// phone.joinGroupCallPresentation
        /// phone.leaveGroupCall
        /// phone.leaveGroupCallPresentation
+       /// phone.saveDefaultSendAs
        /// phone.sendConferenceCallBroadcast
+       /// phone.sendGroupCallEncryptedMessage
+       /// phone.sendGroupCallMessage
        /// phone.startScheduledGroupCall
        /// phone.toggleGroupCallRecord
        /// phone.toggleGroupCallSettings
@@ -3187,6 +3478,7 @@ public class RpcErrors
        /// <code>
        /// phone.checkGroupCall
        /// phone.getGroupCallStreamChannels
+       /// phone.sendGroupCallMessage
        /// </code>
        /// </summary>
        public static readonly RpcError GroupcallJoinMissing = new(ErrorCode, "GROUPCALL_JOIN_MISSING");
@@ -3376,6 +3668,22 @@ public class RpcErrors
        public static readonly RpcError InputPurposeInvalid = new(ErrorCode, "INPUT_PURPOSE_INVALID");
  
        /// <summary>
+       /// The specified offer amount in stars is invalid, see [here ](https://core.telegram.org/api/gifts#collectible-gift-purchase-offers) for the allowed range.
+       /// <code>
+       /// payments.sendStarGiftOffer
+       /// </code>
+       /// </summary>
+       public static readonly RpcError InputStarsAmountInvalid = new(ErrorCode, "INPUT_STARS_AMOUNT_INVALID");
+ 
+       /// <summary>
+       ///  The specified offer amount in nanotons is invalid, see [here ](https://core.telegram.org/api/gifts#collectible-gift-purchase-offers) for the allowed range.
+       /// <code>
+       /// payments.sendStarGiftOffer
+       /// </code>
+       /// </summary>
+       public static readonly RpcError InputStarsNanosInvalid = new(ErrorCode, "INPUT_STARS_NANOS_INVALID");
+ 
+       /// <summary>
        /// The specified text is empty.
        /// <code>
        /// messages.translateText
@@ -3386,6 +3694,7 @@ public class RpcErrors
        /// <summary>
        /// The specified text is too long.
        /// <code>
+       /// messages.summarizeText
        /// messages.translateText
        /// </code>
        /// </summary>
@@ -3396,13 +3705,16 @@ public class RpcErrors
        /// <code>
        /// channels.editAdmin
        /// channels.editBanned
+       /// channels.editCreator
        /// channels.inviteToChannel
        /// channels.reportSpam
        /// contacts.block
        /// messages.addChatUser
        /// messages.createChat
        /// messages.deleteChatUser
+       /// messages.editChatCreator
        /// messages.editMessage
+       /// messages.exportChatInvite
        /// messages.forwardMessages
        /// messages.getInlineBotResults
        /// messages.hideChatJoinRequest
@@ -3529,6 +3841,7 @@ public class RpcErrors
        /// <code>
        /// payments.getPaymentForm
        /// payments.sendPaymentForm
+       /// payments.sendStarGiftOffer
        /// </code>
        /// </summary>
        public static readonly RpcError InvoiceInvalid = new(ErrorCode, "INVOICE_INVALID");
@@ -3608,6 +3921,14 @@ public class RpcErrors
        public static readonly RpcError LimitInvalid = new(ErrorCode, "LIMIT_INVALID");
  
        /// <summary>
+       /// The specified reactions_limit value is invalid.
+       /// <code>
+       /// messages.setChatAvailableReactions
+       /// </code>
+       /// </summary>
+       public static readonly RpcError LimitPerPostInvalid = new(ErrorCode, "LIMIT_PER_POST_INVALID");
+ 
+       /// <summary>
        /// Discussion link not modified.
        /// <code>
        /// channels.setDiscussionGroup
@@ -3626,6 +3947,22 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError LocationInvalid = new(ErrorCode, "LOCATION_INVALID");
+ 
+       /// <summary>
+       /// The specified manager bot is invalid.
+       /// <code>
+       /// bots.createBot
+       /// </code>
+       /// </summary>
+       public static readonly RpcError ManagerInvalid = new(ErrorCode, "MANAGER_INVALID");
+ 
+       /// <summary>
+       /// The specified manager bot does not have the [user](https://core.telegram.org/constructor/user).`bot_can_manage_bots` flag set.
+       /// <code>
+       /// bots.createBot
+       /// </code>
+       /// </summary>
+       public static readonly RpcError ManagerPermissionMissing = new(ErrorCode, "MANAGER_PERMISSION_MISSING");
  
        /// <summary>
        /// The specified maximum date is invalid.
@@ -3676,6 +4013,8 @@ public class RpcErrors
        /// messages.editMessage
        /// messages.sendMedia
        /// messages.sendMultiMedia
+       /// messages.setInlineBotResults
+       /// stories.sendStory
        /// </code>
        /// </summary>
        public static readonly RpcError MediaCaptionTooLong = new(ErrorCode, "MEDIA_CAPTION_TOO_LONG");
@@ -3697,6 +4036,8 @@ public class RpcErrors
        /// <summary>
        /// The specified media file is invalid.
        /// <code>
+       /// messages.forwardMessages
+       /// messages.sendMedia
        /// stories.sendStory
        /// </code>
        /// </summary>
@@ -3808,6 +4149,7 @@ public class RpcErrors
        /// The provided message is empty.
        /// <code>
        /// auth.sendInvites
+       /// messages.composeMessageWithAI
        /// messages.editMessage
        /// messages.getWebPagePreview
        /// messages.sendMedia
@@ -3832,9 +4174,12 @@ public class RpcErrors
        /// messages.getGameHighScores
        /// messages.getInlineGameHighScores
        /// messages.getMessageEditData
+       /// messages.getMessages
        /// messages.getMessagesReadParticipants
        /// messages.getOutboxReadDate
        /// messages.getPollResults
+       /// messages.getRichMessage
+       /// messages.getSponsoredMessages
        /// messages.sendBotRequestedPeer
        /// messages.sendPaidReaction
        /// messages.sendReaction
@@ -3847,6 +4192,7 @@ public class RpcErrors
        /// payments.getGiveawayInfo
        /// payments.getPaymentForm
        /// payments.getPaymentReceipt
+       /// payments.resolveStarGiftOffer
        /// payments.saveStarGift
        /// payments.sendPaymentForm
        /// payments.transferStarGift
@@ -3895,13 +4241,24 @@ public class RpcErrors
        public static readonly RpcError MessagePollClosed = new(ErrorCode, "MESSAGE_POLL_CLOSED");
  
        /// <summary>
+       /// A non-empty list of IDs must be passed to `id`.
+       /// <code>
+       /// messages.report
+       /// </code>
+       /// </summary>
+       public static readonly RpcError MessageRequired = new(ErrorCode, "MESSAGE_REQUIRED");
+ 
+       /// <summary>
        /// The provided message is too long.
        /// <code>
        /// messages.editMessage
+       /// messages.sendMedia
        /// messages.sendMessage
        /// messages.setBotCallbackAnswer
        /// messages.setInlineBotResults
+       /// messages.setTyping
        /// messages.updateDialogFilter
+       /// payments.getPaymentForm
        /// </code>
        /// </summary>
        public static readonly RpcError MessageTooLong = new(ErrorCode, "MESSAGE_TOO_LONG");
@@ -3977,17 +4334,21 @@ public class RpcErrors
        /// messages.editMessage
        /// messages.exportChatInvite
        /// messages.forwardMessages
+       /// messages.getBotCallbackAnswer
        /// messages.getCommonChats
        /// messages.getDiscussionMessage
        /// messages.getHistory
        /// messages.getInlineBotResults
        /// messages.getMessageReactionsList
        /// messages.getMessageReadParticipants
+       /// messages.getMessages
+       /// messages.getMessagesReactions
        /// messages.getMessagesViews
        /// messages.getPeerDialogs
        /// messages.getPeerSettings
        /// messages.getPollVotes
        /// messages.getReplies
+       /// messages.getSponsoredMessages
        /// messages.getUnreadMentions
        /// messages.hideChatJoinRequest
        /// messages.importChatInvite
@@ -4008,12 +4369,16 @@ public class RpcErrors
        /// messages.sendVote
        /// messages.setTyping
        /// messages.startBot
+       /// messages.summarizeText
        /// messages.transcribeAudio
        /// messages.translateText
        /// messages.updateDialogFilter
        /// messages.uploadMedia
+       /// payments.getPaymentForm
+       /// payments.getSavedStarGifts
        /// photos.getUserPhotos
        /// stories.getPeerStories
+       /// stories.getStoriesByID
        /// updates.getChannelDifference
        /// updates.getDifference
        /// upload.getFile
@@ -4041,6 +4406,14 @@ public class RpcErrors
        public static readonly RpcError MsgVoiceMissing = new(ErrorCode, "MSG_VOICE_MISSING");
  
        /// <summary>
+       /// The specified voice message is too long to be transcribed.
+       /// <code>
+       /// messages.transcribeAudio
+       /// </code>
+       /// </summary>
+       public static readonly RpcError MsgVoiceTooLong = new(ErrorCode, "MSG_VOICE_TOO_LONG");
+ 
+       /// <summary>
        /// A waiting call returned an error.
        /// <code>
        /// messages.readEncryptedHistory
@@ -4059,6 +4432,22 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError MultiMediaTooLong = new(ErrorCode, "MULTI_MEDIA_TOO_LONG");
+ 
+       /// <summary>
+       /// The specified bot name is invalid.
+       /// <code>
+       /// bots.createBot
+       /// </code>
+       /// </summary>
+       public static readonly RpcError NameInvalid = new(ErrorCode, "NAME_INVALID");
+ 
+       /// <summary>
+       /// The caller didn't specify a valid action (either save or suggest) for the contact profile photo upload.
+       /// <code>
+       /// photos.uploadContactProfilePhoto
+       /// </code>
+       /// </summary>
+       public static readonly RpcError NeedActionMissing = new(ErrorCode, "NEED_ACTION_MISSING");
  
        /// <summary>
        /// The new salt is invalid.
@@ -4138,6 +4527,7 @@ public class RpcErrors
        /// <summary>
        /// The provided offset peer is invalid.
        /// <code>
+       /// channels.searchPosts
        /// messages.getDialogs
        /// </code>
        /// </summary>
@@ -4205,6 +4595,7 @@ public class RpcErrors
        /// <code>
        /// account.getPaidMessagesRevenue
        /// account.toggleNoPaidMessagesException
+       /// messages.getSavedHistory
        /// messages.readSavedHistory
        /// </code>
        /// </summary>
@@ -4248,6 +4639,15 @@ public class RpcErrors
        public static readonly RpcError ParticipantsTooFew = new(ErrorCode, "PARTICIPANTS_TOO_FEW");
  
        /// <summary>
+       /// Third-party clients currently don't support passkeys even when changing the origin.
+       /// <code>
+       /// account.registerPasskey
+       /// auth.finishPasskeyLogin
+       /// </code>
+       /// </summary>
+       public static readonly RpcError PasskeyOriginMismatch = new(ErrorCode, "PASSKEY_ORIGIN_MISMATCH");
+ 
+       /// <summary>
        /// The provided password is empty.
        /// <code>
        /// account.resetPassword
@@ -4259,12 +4659,14 @@ public class RpcErrors
        /// <summary>
        /// The provided password hash is invalid.
        /// <code>
+       /// account.checkPassword
        /// account.deleteAccount
        /// account.getPasswordSettings
        /// account.getTmpPassword
        /// account.updatePasswordSettings
        /// auth.checkPassword
        /// channels.editCreator
+       /// messages.editChatCreator
        /// payments.getStarGiftWithdrawalUrl
        /// payments.getStarsRevenueWithdrawalUrl
        /// stats.getBroadcastRevenueWithdrawalUrl
@@ -4276,6 +4678,7 @@ public class RpcErrors
        /// You must [enable 2FA](https://core.telegram.org/api/srp) before executing this operation.
        /// <code>
        /// channels.editCreator
+       /// messages.editChatCreator
        /// messages.getBotCallbackAnswer
        /// payments.getStarsRevenueWithdrawalUrl
        /// stats.getBroadcastRevenueWithdrawalUrl
@@ -4311,6 +4714,7 @@ public class RpcErrors
        /// The password was modified less than 24 hours ago, try again in <c>{0}</c> seconds.
        /// <code>
        /// channels.editCreator
+       /// messages.editChatCreator
        /// payments.getStarGiftWithdrawalUrl
        /// payments.getStarsRevenueWithdrawalUrl
        /// stats.getBroadcastRevenueWithdrawalUrl
@@ -4367,25 +4771,32 @@ public class RpcErrors
        /// channels.checkUsername
        /// channels.editAdmin
        /// channels.editBanned
+       /// channels.editPhoto
        /// channels.getSendAs
        /// channels.joinChannel
        /// contacts.block
        /// contacts.resetTopPeerRating
        /// contacts.unblock
        /// messages.addChatUser
+       /// messages.addPollAnswer
        /// messages.appendTodoList
        /// messages.checkHistoryImportPeer
+       /// messages.createForumTopic
        /// messages.deleteChat
        /// messages.deleteChatUser
        /// messages.deleteExportedChatInvite
        /// messages.deleteFactCheck
        /// messages.deleteHistory
+       /// messages.deleteParticipantReaction
+       /// messages.deleteParticipantReactions
+       /// messages.deletePollAnswer
        /// messages.deleteRevokedExportedChatInvites
        /// messages.deleteSavedHistory
        /// messages.deleteScheduledMessages
        /// messages.editChatAbout
        /// messages.editChatAdmin
        /// messages.editChatDefaultBannedRights
+       /// messages.editChatParticipantRank
        /// messages.editChatPhoto
        /// messages.editChatTitle
        /// messages.editExportedChatInvite
@@ -4423,6 +4834,7 @@ public class RpcErrors
        /// messages.getSearchResultsPositions
        /// messages.getStatsURL
        /// messages.getUnreadMentions
+       /// messages.getUnreadPollVotes
        /// messages.getUnreadReactions
        /// messages.hideAllChatJoinRequests
        /// messages.hideChatJoinRequest
@@ -4435,6 +4847,7 @@ public class RpcErrors
        /// messages.readDiscussion
        /// messages.readHistory
        /// messages.readMentions
+       /// messages.readPollVotes
        /// messages.readReactions
        /// messages.reorderPinnedDialogs
        /// messages.report
@@ -4463,6 +4876,8 @@ public class RpcErrors
        /// messages.setHistoryTTL
        /// messages.setTyping
        /// messages.startBot
+       /// messages.startHistoryImport
+       /// messages.summarizeText
        /// messages.toggleDialogPin
        /// messages.toggleNoForwards
        /// messages.togglePaidReactionPrivacy
@@ -4494,6 +4909,7 @@ public class RpcErrors
        /// payments.launchPrepaidGiveaway
        /// payments.reorderStarGiftCollections
        /// payments.sendPaymentForm
+       /// payments.sendStarGiftOffer
        /// payments.sendStarsForm
        /// payments.toggleChatStarGiftNotifications
        /// payments.toggleStarGiftsPinnedToTop
@@ -4512,6 +4928,7 @@ public class RpcErrors
        /// stats.getBroadcastRevenueTransactions
        /// stats.getMessagePublicForwards
        /// stats.getMessageStats
+       /// stats.getPollStats
        /// stats.getStoryPublicForwards
        /// stats.getStoryStats
        /// stickers.createStickerSet
@@ -4540,6 +4957,7 @@ public class RpcErrors
        /// stories.report
        /// stories.sendReaction
        /// stories.sendStory
+       /// stories.startLive
        /// stories.togglePeerStoriesHidden
        /// stories.togglePinned
        /// stories.togglePinnedToTop
@@ -4600,6 +5018,7 @@ public class RpcErrors
        /// <code>
        /// account.changePhone
        /// account.confirmPhone
+       /// account.sendVerifyEmailCode
        /// account.verifyPhone
        /// auth.requestFirebaseSms
        /// auth.resendCode
@@ -4613,6 +5032,7 @@ public class RpcErrors
        /// The phone code you provided has expired.
        /// <code>
        /// account.changePhone
+       /// account.verifyEmail
        /// account.verifyPhone
        /// auth.cancelCode
        /// auth.resendCode
@@ -4633,6 +5053,7 @@ public class RpcErrors
        /// <summary>
        /// The provided phone code is invalid.
        /// <code>
+       /// account.changePhone
        /// auth.signIn
        /// auth.signUp
        /// </code>
@@ -4692,6 +5113,7 @@ public class RpcErrors
        /// account.verifyEmail
        /// account.verifyPhone
        /// auth.cancelCode
+       /// auth.checkPaidAuth
        /// auth.checkPhone
        /// auth.reportMissingCode
        /// auth.requestFirebaseSms
@@ -4770,6 +5192,7 @@ public class RpcErrors
        /// <code>
        /// channels.editPhoto
        /// messages.editChatPhoto
+       /// messages.editMessage
        /// messages.sendMedia
        /// messages.uploadMedia
        /// photos.updateProfilePhoto
@@ -4812,6 +5235,7 @@ public class RpcErrors
        /// messages.editMessage
        /// messages.sendMedia
        /// messages.uploadMedia
+       /// stories.sendStory
        /// </code>
        /// </summary>
        public static readonly RpcError PhotoInvalidDimensions = new(ErrorCode, "PHOTO_INVALID_DIMENSIONS");
@@ -4860,6 +5284,14 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError PinnedTooMuch = new(ErrorCode, "PINNED_TOO_MUCH");
+ 
+       /// <summary>
+       /// The specified topic is already pinned.
+       /// <code>
+       /// channels.updatePinnedForumTopic
+       /// </code>
+       /// </summary>
+       public static readonly RpcError PinnedTopicNotModified = new(ErrorCode, "PINNED_TOPIC_NOT_MODIFIED");
  
        /// <summary>
        /// One of the poll answers is not acceptable.
@@ -4916,6 +5348,14 @@ public class RpcErrors
        public static readonly RpcError PremiumAccountRequired = new(ErrorCode, "PREMIUM_ACCOUNT_REQUIRED");
  
        /// <summary>
+       /// The specified InputStorePaymentPurpose is invalid.
+       /// <code>
+       /// payments.getPaymentForm
+       /// </code>
+       /// </summary>
+       public static readonly RpcError PremiumPurposeInvalid = new(ErrorCode, "PREMIUM_PURPOSE_INVALID");
+ 
+       /// <summary>
        /// The pricing for the [subscription](https://core.telegram.org/api/subscriptions) is invalid, the maximum price is specified in the [`stars_subscription_amount_max` config key ](https://core.telegram.org/api/config#stars-subscription-amount-max).
        /// <code>
        /// messages.exportChatInvite
@@ -4947,6 +5387,22 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError PrivacyValueInvalid = new(ErrorCode, "PRIVACY_VALUE_INVALID");
+ 
+       /// <summary>
+       /// `channel` only accepts a channel, but a supergroup was passed.
+       /// <code>
+       /// account.updatePersonalChannel
+       /// </code>
+       /// </summary>
+       public static readonly RpcError PublicBroadcastExpected = new(ErrorCode, "PUBLIC_BROADCAST_EXPECTED");
+ 
+       /// <summary>
+       /// The specified e2e public key is invalid.
+       /// <code>
+       /// phone.joinGroupCall
+       /// </code>
+       /// </summary>
+       public static readonly RpcError PublicKeyInvalid = new(ErrorCode, "PUBLIC_KEY_INVALID");
  
        /// <summary>
        /// A public key is required.
@@ -5073,8 +5529,17 @@ public class RpcErrors
        public static readonly RpcError RaiseHandForbidden = new(ErrorCode, "RAISE_HAND_FORBIDDEN");
  
        /// <summary>
+       /// You provided a random ID that was already used.
+       /// <code>
+       /// messages.requestEncryption
+       /// </code>
+       /// </summary>
+       public static readonly RpcError RandomIdDuplicate = new(ErrorCode, "RANDOM_ID_DUPLICATE");
+ 
+       /// <summary>
        /// Random ID empty.
        /// <code>
+       /// messages.sendMessage
        /// messages.sendMultiMedia
        /// messages.sendPaidReaction
        /// </code>
@@ -5130,6 +5595,7 @@ public class RpcErrors
        /// messages.setDefaultReaction
        /// messages.updateSavedReactionTag
        /// stories.sendReaction
+       /// stories.sendStory
        /// </code>
        /// </summary>
        public static readonly RpcError ReactionInvalid = new(ErrorCode, "REACTION_INVALID");
@@ -5230,6 +5696,7 @@ public class RpcErrors
        /// The specified inputReplyToMonoForum.monoforum_peer_id is invalid.
        /// <code>
        /// messages.forwardMessages
+       /// messages.sendMedia
        /// messages.sendMessage
        /// </code>
        /// </summary>
@@ -5244,12 +5711,36 @@ public class RpcErrors
        public static readonly RpcError ReplyToUserInvalid = new(ErrorCode, "REPLY_TO_USER_INVALID");
  
        /// <summary>
+       /// The request specified in request_msg_id has already expired.
+       /// <code>
+       /// messages.toggleNoForwards
+       /// </code>
+       /// </summary>
+       public static readonly RpcError RequestMsgExpired = new(ErrorCode, "REQUEST_MSG_EXPIRED");
+ 
+       /// <summary>
        /// The master DC did not accept the `request_token` from the CDN DC. Continue downloading the file from the master DC using upload.getFile.
        /// <code>
        /// upload.reuploadCdnFile
        /// </code>
        /// </summary>
        public static readonly RpcError RequestTokenInvalid = new(ErrorCode, "REQUEST_TOKEN_INVALID");
+ 
+       /// <summary>
+       /// The offered price is too low.
+       /// <code>
+       /// payments.sendStarGiftOffer
+       /// </code>
+       /// </summary>
+       public static readonly RpcError ResellStarsTooFew = new(ErrorCode, "RESELL_STARS_TOO_FEW");
+ 
+       /// <summary>
+       /// The offered price is too high.
+       /// <code>
+       /// payments.sendStarGiftOffer
+       /// </code>
+       /// </summary>
+       public static readonly RpcError ResellStarsTooMuch = new(ErrorCode, "RESELL_STARS_TOO_MUCH");
  
        /// <summary>
        /// No password reset is in progress.
@@ -5347,6 +5838,7 @@ public class RpcErrors
        /// The passed inputSavedStarGiftChat.saved_id is empty.
        /// <code>
        /// payments.convertStarGift
+       /// payments.craftStarGift
        /// payments.getSavedStarGift
        /// payments.saveStarGift
        /// payments.transferStarGift
@@ -5502,6 +5994,7 @@ public class RpcErrors
        /// This session was created less than 24 hours ago, try again in <c>{0}</c> seconds.
        /// <code>
        /// channels.editCreator
+       /// messages.editChatCreator
        /// payments.getStarGiftWithdrawalUrl
        /// payments.getStarsRevenueWithdrawalUrl
        /// stats.getBroadcastRevenueWithdrawalUrl
@@ -5607,6 +6100,7 @@ public class RpcErrors
        /// account.updatePasswordSettings
        /// auth.checkPassword
        /// channels.editCreator
+       /// messages.editChatCreator
        /// </code>
        /// </summary>
        public static readonly RpcError SrpIdInvalid = new(ErrorCode, "SRP_ID_INVALID");
@@ -5648,15 +6142,35 @@ public class RpcErrors
        public static readonly RpcError StargiftAlreadyUpgraded = new(ErrorCode, "STARGIFT_ALREADY_UPGRADED");
  
        /// <summary>
+       /// One of the specified star gift attributes is invalid.
+       /// <code>
+       /// payments.getResaleStarGifts
+       /// </code>
+       /// </summary>
+       public static readonly RpcError StargiftAttributeInvalid = new(ErrorCode, "STARGIFT_ATTRIBUTE_INVALID");
+ 
+       /// <summary>
        /// The passed gift is invalid.
        /// <code>
        /// payments.checkCanSendGift
+       /// payments.getCraftStarGifts
        /// payments.getPaymentForm
        /// payments.getResaleStarGifts
+       /// payments.getStarGiftAuctionAcquiredGifts
+       /// payments.getStarGiftAuctionState
+       /// payments.getStarGiftUpgradeAttributes
        /// payments.getStarGiftUpgradePreview
        /// </code>
        /// </summary>
        public static readonly RpcError StargiftInvalid = new(ErrorCode, "STARGIFT_INVALID");
+ 
+       /// <summary>
+       /// The specified inputInvoiceStarGift.message is invalid.
+       /// <code>
+       /// payments.getPaymentForm
+       /// </code>
+       /// </summary>
+       public static readonly RpcError StargiftMessageInvalid = new(ErrorCode, "STARGIFT_MESSAGE_INVALID");
  
        /// <summary>
        /// The specified gift was not found.
@@ -5670,9 +6184,52 @@ public class RpcErrors
        public static readonly RpcError StargiftNotFound = new(ErrorCode, "STARGIFT_NOT_FOUND");
  
        /// <summary>
+       /// You're not the owner of the gift you trying to transfer.
+       /// <code>
+       /// payments.getPaymentForm
+       /// payments.transferStarGift
+       /// </code>
+       /// </summary>
+       public static readonly RpcError StargiftNotOwner = new(ErrorCode, "STARGIFT_NOT_OWNER");
+ 
+       /// <summary>
+       /// You can't transfer a non-collectible gift.
+       /// <code>
+       /// payments.getPaymentForm
+       /// payments.transferStarGift
+       /// </code>
+       /// </summary>
+       public static readonly RpcError StargiftNotUnique = new(ErrorCode, "STARGIFT_NOT_UNIQUE");
+ 
+       /// <summary>
+       /// The specified star gift object is invalid.
+       /// <code>
+       /// payments.saveStarGift
+       /// </code>
+       /// </summary>
+       public static readonly RpcError StargiftObjectInvalid = new(ErrorCode, "STARGIFT_OBJECT_INVALID");
+ 
+       /// <summary>
+       /// The specified offer amount is invalid.
+       /// <code>
+       /// payments.sendStarGiftOffer
+       /// </code>
+       /// </summary>
+       public static readonly RpcError StargiftOfferInvalid = new(ErrorCode, "STARGIFT_OFFER_INVALID");
+ 
+       /// <summary>
+       /// You can't send a purchase offer for this gift.
+       /// <code>
+       /// payments.sendStarGiftOffer
+       /// </code>
+       /// </summary>
+       public static readonly RpcError StargiftOfferNotAllowed = new(ErrorCode, "STARGIFT_OFFER_NOT_ALLOWED");
+ 
+       /// <summary>
        /// You cannot transfer or sell a gift owned by another user.
        /// <code>
        /// payments.getPaymentForm
+       /// payments.getSavedStarGift
        /// payments.saveStarGift
        /// payments.sendStarsForm
        /// payments.transferStarGift
@@ -5699,12 +6256,21 @@ public class RpcErrors
        public static readonly RpcError StargiftResellCurrencyNotAllowed = new(ErrorCode, "STARGIFT_RESELL_CURRENCY_NOT_ALLOWED");
  
        /// <summary>
+       /// You will be able to resell this gift in <c>{0}</c> seconds.
+       /// <code>
+       /// payments.getPaymentForm
+       /// </code>
+       /// </summary>
+       public static readonly RpcError StargiftResellTooEarlyX = new(ErrorCode, "STARGIFT_RESELL_TOO_EARLY_{0}");
+ 
+       /// <summary>
        /// The specified gift slug is invalid.
        /// <code>
        /// payments.getPaymentForm
        /// payments.getSavedStarGift
        /// payments.getUniqueStarGift
        /// payments.getUniqueStarGiftValueInfo
+       /// payments.sendStarGiftOffer
        /// payments.sendStarsForm
        /// </code>
        /// </summary>
@@ -5714,6 +6280,7 @@ public class RpcErrors
        /// You cannot transfer this gift yet, wait <c>{0}</c> seconds.
        /// <code>
        /// payments.getPaymentForm
+       /// payments.transferStarGift
        /// </code>
        /// </summary>
        public static readonly RpcError StargiftTransferTooEarlyX = new(ErrorCode, "STARGIFT_TRANSFER_TOO_EARLY_{0}");
@@ -5722,6 +6289,7 @@ public class RpcErrors
        /// A received gift can only be upgraded to a collectible gift if the [messageActionStarGift](https://core.telegram.org/constructor/messageActionStarGift)/[savedStarGift](https://core.telegram.org/constructor/savedStarGift).`can_upgrade` flag is set.
        /// <code>
        /// payments.getPaymentForm
+       /// payments.getStarGiftUpgradePreview
        /// payments.upgradeStarGift
        /// </code>
        /// </summary>
@@ -6016,6 +6584,7 @@ public class RpcErrors
        /// stats.getStoryStats
        /// stories.getStoriesByID
        /// stories.readStories
+       /// stories.sendReaction
        /// </code>
        /// </summary>
        public static readonly RpcError StoriesNeverCreated = new(ErrorCode, "STORIES_NEVER_CREATED");
@@ -6054,6 +6623,14 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError StoryIdInvalid = new(ErrorCode, "STORY_ID_INVALID");
+ 
+       /// <summary>
+       /// This peer already has an active live story, and its ID is equal to <c>{0}</c>.
+       /// <code>
+       /// stories.startLive
+       /// </code>
+       /// </summary>
+       public static readonly RpcError StoryLiveAlreadyX = new(ErrorCode, "STORY_LIVE_ALREADY_{0}");
  
        /// <summary>
        /// The new story information you passed is equal to the previous story information, thus it wasn't modified.
@@ -6198,6 +6775,14 @@ public class RpcErrors
        public static readonly RpcError TermsUrlInvalid = new(ErrorCode, "TERMS_URL_INVALID");
  
        /// <summary>
+       /// sendMessageTextDraftAction can only be used in private 1-on-1 chats.
+       /// <code>
+       /// messages.setTyping
+       /// </code>
+       /// </summary>
+       public static readonly RpcError TextdraftPeerInvalid = new(ErrorCode, "TEXTDRAFT_PEER_INVALID");
+ 
+       /// <summary>
        /// Invalid theme file provided.
        /// <code>
        /// account.uploadTheme
@@ -6326,6 +6911,14 @@ public class RpcErrors
        public static readonly RpcError TodoItemsEmpty = new(ErrorCode, "TODO_ITEMS_EMPTY");
  
        /// <summary>
+       /// You specified too many todo list items.
+       /// <code>
+       /// messages.sendMedia
+       /// </code>
+       /// </summary>
+       public static readonly RpcError TodoItemsTooMuch = new(ErrorCode, "TODO_ITEMS_TOO_MUCH");
+ 
+       /// <summary>
        /// No todo items were specified, so no changes were made to the todo list.
        /// <code>
        /// messages.appendTodoList
@@ -6362,6 +6955,7 @@ public class RpcErrors
        /// The `close` flag cannot be provided together with any of the other flags.
        /// <code>
        /// channels.editForumTopic
+       /// messages.editForumTopic
        /// </code>
        /// </summary>
        public static readonly RpcError TopicCloseSeparately = new(ErrorCode, "TOPIC_CLOSE_SEPARATELY");
@@ -6413,6 +7007,7 @@ public class RpcErrors
        /// The updated topic info is equal to the current topic info, nothing was changed.
        /// <code>
        /// channels.editForumTopic
+       /// messages.editForumTopic
        /// </code>
        /// </summary>
        public static readonly RpcError TopicNotModified = new(ErrorCode, "TOPIC_NOT_MODIFIED");
@@ -6429,6 +7024,7 @@ public class RpcErrors
        /// You specified no topic IDs.
        /// <code>
        /// channels.getForumTopicsByID
+       /// messages.getForumTopicsByID
        /// </code>
        /// </summary>
        public static readonly RpcError TopicsEmpty = new(ErrorCode, "TOPICS_EMPTY");
@@ -6511,9 +7107,21 @@ public class RpcErrors
        public static readonly RpcError UntilDateInvalid = new(ErrorCode, "UNTIL_DATE_INVALID");
  
        /// <summary>
+       /// The specified OAuth request has expired.
+       /// <code>
+       /// messages.requestUrlAuth
+       /// </code>
+       /// </summary>
+       public static readonly RpcError UrlExpired = new(ErrorCode, "URL_EXPIRED");
+ 
+       /// <summary>
        /// Invalid URL provided.
        /// <code>
+       /// account.toggleWebBrowserSettingsException
+       /// messages.checkUrlAuthMatchCode
+       /// messages.declineUrlAuth
        /// messages.requestSimpleWebView
+       /// messages.requestUrlAuth
        /// messages.requestWebView
        /// messages.setBotCallbackAnswer
        /// messages.setInlineBotResults
@@ -6563,6 +7171,7 @@ public class RpcErrors
        /// channels.getChannels
        /// channels.getMessages
        /// channels.inviteToChannel
+       /// channels.joinChannel
        /// channels.leaveChannel
        /// messages.editMessage
        /// messages.forwardMessages
@@ -6610,21 +7219,28 @@ public class RpcErrors
        /// This method can only be called by a bot.
        /// <code>
        /// bots.answerWebhookJSONQuery
+       /// bots.editAccessSettings
+       /// bots.exportBotToken
+       /// bots.getAccessSettings
        /// bots.getBotCommands
        /// bots.getBotMenuButton
+       /// bots.requestWebViewButton
        /// bots.resetBotCommands
        /// bots.sendCustomRequest
        /// bots.setBotBroadcastDefaultAdminRights
        /// bots.setBotCommands
        /// bots.setBotGroupDefaultAdminRights
        /// bots.setBotMenuButton
+       /// bots.setJoinChatResults
        /// bots.updateUserEmojiStatus
        /// help.setBotUpdatesStatus
        /// messages.getGameHighScores
        /// messages.getInlineGameHighScores
+       /// messages.getPersonalChannelHistory
        /// messages.savePreparedInlineMessage
        /// messages.sendWebViewResultMessage
        /// messages.setBotCallbackAnswer
+       /// messages.setBotGuestChatResult
        /// messages.setBotPrecheckoutResults
        /// messages.setBotShippingResults
        /// messages.setGameScore
@@ -6636,6 +7252,16 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError UserBotRequired = new(ErrorCode, "USER_BOT_REQUIRED");
+ 
+       /// <summary>
+       /// Bot-to-bot messaging is disabled because one of the two bots hasn't enabled the Bot to Bot setting in @BotFather.
+       /// <code>
+       /// messages.forwardMessages
+       /// messages.sendMedia
+       /// messages.sendMessage
+       /// </code>
+       /// </summary>
+       public static readonly RpcError UserBotToBotDisabled = new(ErrorCode, "USER_BOT_TO_BOT_DISABLED");
  
        /// <summary>
        /// One of the users you tried to add is already in too many channels/supergroups.
@@ -6674,6 +7300,7 @@ public class RpcErrors
        /// account.getPaidMessagesRevenue
        /// account.toggleNoPaidMessagesException
        /// auth.importAuthorization
+       /// bots.requestWebViewButton
        /// bots.setBotCommands
        /// bots.updateUserEmojiStatus
        /// channels.deleteUserHistory
@@ -6687,6 +7314,7 @@ public class RpcErrors
        /// messages.deleteChatUser
        /// messages.editChatAdmin
        /// messages.getCommonChats
+       /// messages.getPersonalChannelHistory
        /// messages.hideChatJoinRequest
        /// messages.reportReaction
        /// messages.requestEncryption
@@ -6700,6 +7328,7 @@ public class RpcErrors
        /// payments.refundStarsCharge
        /// payments.saveStarGift
        /// payments.sendStarsForm
+       /// phone.editGroupCallParticipant
        /// phone.requestCall
        /// photos.getUserPhotos
        /// photos.uploadContactProfilePhoto
@@ -6710,6 +7339,7 @@ public class RpcErrors
        /// users.getSavedMusic
        /// users.getSavedMusicByID
        /// users.setSecureValueErrors
+       /// users.suggestBirthday
        /// </code>
        /// </summary>
        public static readonly RpcError UserIdInvalid = new(ErrorCode, "USER_ID_INVALID");
@@ -6732,6 +7362,7 @@ public class RpcErrors
        /// messages.sendEncryptedService
        /// messages.sendMedia
        /// messages.sendMessage
+       /// messages.sendMultiMedia
        /// messages.setTyping
        /// phone.requestCall
        /// </code>
@@ -6752,6 +7383,7 @@ public class RpcErrors
        /// <summary>
        /// This user was kicked from this supergroup/channel.
        /// <code>
+       /// channels.editAdmin
        /// channels.inviteToChannel
        /// </code>
        /// </summary>
@@ -6761,9 +7393,12 @@ public class RpcErrors
        /// The provided user is not a mutual contact.
        /// <code>
        /// channels.editAdmin
+       /// channels.editCreator
        /// channels.inviteToChannel
        /// messages.addChatUser
        /// messages.checkHistoryImportPeer
+       /// messages.editChatCreator
+       /// messages.initHistoryImport
        /// </code>
        /// </summary>
        public static readonly RpcError UserNotMutualContact = new(ErrorCode, "USER_NOT_MUTUAL_CONTACT");
@@ -6802,6 +7437,8 @@ public class RpcErrors
        /// account.checkUsername
        /// account.toggleUsername
        /// account.updateUsername
+       /// bots.checkUsername
+       /// bots.createBot
        /// channels.checkUsername
        /// channels.toggleUsername
        /// channels.updateUsername
@@ -6839,6 +7476,8 @@ public class RpcErrors
        /// <code>
        /// account.checkUsername
        /// account.updateUsername
+       /// bots.checkUsername
+       /// bots.createBot
        /// channels.checkUsername
        /// channels.updateUsername
        /// users.getFullUser
@@ -6856,6 +7495,15 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError UsernamePurchaseAvailable = new(ErrorCode, "USERNAME_PURCHASE_AVAILABLE");
+ 
+       /// <summary>
+       /// The required `bot` suffix is missing from the passed username.
+       /// <code>
+       /// bots.checkUsername
+       /// bots.createBot
+       /// </code>
+       /// </summary>
+       public static readonly RpcError UsernameSuffixMissing = new(ErrorCode, "USERNAME_SUFFIX_MISSING");
  
        /// <summary>
        /// The maximum number of active usernames was reached.
@@ -6886,9 +7534,11 @@ public class RpcErrors
        /// The maximum number of users has been exceeded (to create a chat, for example).
        /// <code>
        /// channels.editAdmin
+       /// channels.editCreator
        /// channels.inviteToChannel
        /// channels.joinChannel
        /// messages.addChatUser
+       /// messages.editChatCreator
        /// messages.importChatInvite
        /// </code>
        /// </summary>
@@ -6910,6 +7560,14 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError VideoContentTypeInvalid = new(ErrorCode, "VIDEO_CONTENT_TYPE_INVALID");
+ 
+       /// <summary>
+       /// The duration of the specified video is invalid.
+       /// <code>
+       /// stories.sendStory
+       /// </code>
+       /// </summary>
+       public static readonly RpcError VideoDurationInvalid = new(ErrorCode, "VIDEO_DURATION_INVALID");
  
        /// <summary>
        /// The specified video file is invalid.
@@ -6997,6 +7655,22 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError WcConvertUrlInvalid = new(ErrorCode, "WC_CONVERT_URL_INVALID");
+ 
+       /// <summary>
+       /// The specified webapp_req_id is invalid.
+       /// <code>
+       /// bots.getRequestedWebViewButton
+       /// </code>
+       /// </summary>
+       public static readonly RpcError WebappReqIdInvalid = new(ErrorCode, "WEBAPP_REQ_ID_INVALID");
+ 
+       /// <summary>
+       /// The specified auth token has expired.
+       /// <code>
+       /// auth.importWebTokenAuthorization
+       /// </code>
+       /// </summary>
+       public static readonly RpcError WebauthTokenExpired = new(ErrorCode, "WEBAUTH_TOKEN_EXPIRED");
  
        /// <summary>
        /// Invalid webdocument URL provided.
@@ -7307,6 +7981,14 @@ public class RpcErrors
     {
        public const int ErrorCode = 403;
        /// <summary>
+       /// The account was deactivated, or is a bot/service account.
+       /// <code>
+       /// account.initPasskeyRegistration
+       /// </code>
+       /// </summary>
+       public static readonly RpcError AccessDenied = new(ErrorCode, "ACCESS_DENIED");
+ 
+       /// <summary>
        /// This peer charges <c>{0}</c> [Telegram Stars](https://core.telegram.org/api/stars) per message, but the `allow_paid_stars` was not set or its value is smaller than <c>{0}</c>.
        /// <code>
        /// messages.forwardMessages
@@ -7317,14 +7999,6 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError AllowPaymentRequiredX = new(ErrorCode, "ALLOW_PAYMENT_REQUIRED_{0}");
- 
-       /// <summary>
-       /// Sorry, anonymous administrators cannot leave reactions or participate in polls.
-       /// <code>
-       /// messages.sendReaction
-       /// </code>
-       /// </summary>
-       public static readonly RpcError AnonymousReactionsDisabled = new(ErrorCode, "ANONYMOUS_REACTIONS_DISABLED");
  
        /// <summary>
        /// The specified method *can* be used over a [business connection](https://core.telegram.org/api/bots/connected-business-bots) for some operations, but the specified query attempted an operation that is not allowed over a business connection.
@@ -7339,6 +8013,22 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError BotAccessForbidden = new(ErrorCode, "BOT_ACCESS_FORBIDDEN");
+ 
+       /// <summary>
+       /// Since the bot's user.bot_forum_can_manage_topics flag is **not** set, the user cannot create or modify bot forum topics.
+       /// <code>
+       /// messages.createForumTopic
+       /// </code>
+       /// </summary>
+       public static readonly RpcError BotForumCreateForbidden = new(ErrorCode, "BOT_FORUM_CREATE_FORBIDDEN");
+ 
+       /// <summary>
+       /// This bot is not designated as a "join guard" bot. This method is only available to bots that mediate user joins to chats. .
+       /// <code>
+       /// bots.setJoinChatResults
+       /// </code>
+       /// </summary>
+       public static readonly RpcError BotGuardNotSupported = new(ErrorCode, "BOT_GUARD_NOT_SUPPORTED");
  
        /// <summary>
        /// This bot cannot assign [verification icons](https://core.telegram.org/api/bots/verification).
@@ -7583,6 +8273,7 @@ public class RpcErrors
        /// channels.getAdminLog
        /// channels.inviteToChannel
        /// channels.setDiscussionGroup
+       /// channels.updatePinnedForumTopic
        /// channels.updateUsername
        /// invokeWithLayer
        /// messages.addChatUser
@@ -7601,6 +8292,7 @@ public class RpcErrors
        /// messages.hideAllChatJoinRequests
        /// messages.hideChatJoinRequest
        /// messages.requestWebView
+       /// messages.saveDraft
        /// messages.sendInlineBotResult
        /// messages.sendMedia
        /// messages.sendMessage
@@ -7612,6 +8304,7 @@ public class RpcErrors
        /// messages.updatePinnedMessage
        /// messages.uploadMedia
        /// payments.getStarsRevenueAdsAccountUrl
+       /// phone.joinGroupCall
        /// updates.getChannelDifference
        /// updates.getDifference
        /// </code>
@@ -7636,7 +8329,15 @@ public class RpcErrors
        public static readonly RpcError GroupcallAlreadyStarted = new(ErrorCode, "GROUPCALL_ALREADY_STARTED");
  
        /// <summary>
-       /// The group call has already ended.
+       /// You cannot change this group call setting.
+       /// <code>
+       /// phone.toggleGroupCallSettings
+       /// </code>
+       /// </summary>
+       public static readonly RpcError GroupcallChangeForbidden = new(ErrorCode, "GROUPCALL_CHANGE_FORBIDDEN");
+ 
+       /// <summary>
+       /// The specified group call cannot be used in this context.
        /// <code>
        /// messages.setTyping
        /// phone.discardGroupCall
@@ -7646,6 +8347,8 @@ public class RpcErrors
        /// phone.inviteToGroupCall
        /// phone.joinGroupCall
        /// phone.toggleGroupCallRecord
+       /// phone.toggleGroupCallSettings
+       /// phone.toggleGroupCallStartSubscription
        /// </code>
        /// </summary>
        public static readonly RpcError GroupcallForbidden = new(ErrorCode, "GROUPCALL_FORBIDDEN");
@@ -7716,9 +8419,11 @@ public class RpcErrors
        /// account.editBusinessChatLink
        /// account.setGlobalPrivacySettings
        /// account.updateColor
-       /// account.updateConnectedBot
+       /// account.updateEmojiStatus
        /// channels.createForumTopic
+       /// channels.searchPosts
        /// messages.checkQuickReplyShortcut
+       /// messages.createForumTopic
        /// messages.editQuickReplyShortcut
        /// messages.forwardMessages
        /// messages.reorderQuickReplies
@@ -7741,6 +8446,7 @@ public class RpcErrors
        /// messages.sendInlineBotResult
        /// messages.sendMedia
        /// messages.sendMessage
+       /// messages.sendMultiMedia
        /// </code>
        /// </summary>
        public static readonly RpcError PrivacyPremiumRequired = new(ErrorCode, "PRIVACY_PREMIUM_REQUIRED");
@@ -7780,10 +8486,29 @@ public class RpcErrors
        public static readonly RpcError TakeoutRequired = new(ErrorCode, "TAKEOUT_REQUIRED");
  
        /// <summary>
+       /// You're banned from sending messages in supergroups/channels.
+       /// <code>
+       /// messages.sendReaction
+       /// </code>
+       /// </summary>
+       public static readonly RpcError UserBannedInChannel = new(ErrorCode, "USER_BANNED_IN_CHANNEL");
+ 
+       /// <summary>
+       /// User accounts must provide the `bot` method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts.
+       /// <code>
+       /// messages.setBotGuestChatResult
+       /// messages.setInlineBotResults
+       /// </code>
+       /// </summary>
+       public static readonly RpcError UserBotInvalid = new(ErrorCode, "USER_BOT_INVALID");
+ 
+       /// <summary>
        /// One of the users you tried to add is already in too many channels/supergroups.
        /// <code>
        /// channels.editAdmin
+       /// channels.editCreator
        /// channels.inviteToChannel
+       /// messages.editChatCreator
        /// messages.hideChatJoinRequest
        /// </code>
        /// </summary>
@@ -7796,6 +8521,14 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError UserDeleted = new(ErrorCode, "USER_DELETED");
+ 
+       /// <summary>
+       /// The recipient user has configured restrictions on which categories of star gifts they're willing to accept (unique, limited, or unlimited): the sender attempted to get a payment form for a gift that falls into a category the recipient has blocked.
+       /// <code>
+       /// payments.getPaymentForm
+       /// </code>
+       /// </summary>
+       public static readonly RpcError UserDisallowedStargifts = new(ErrorCode, "USER_DISALLOWED_STARGIFTS");
  
        /// <summary>
        /// Invalid user provided.
@@ -7856,6 +8589,7 @@ public class RpcErrors
        /// channels.inviteToChannel
        /// help.getConfig
        /// messages.addChatUser
+       /// messages.editChatCreator
        /// messages.getOutboxReadDate
        /// phone.requestCall
        /// </code>
@@ -8018,6 +8752,14 @@ public class RpcErrors
        public static readonly RpcError ChatForwardsRestricted = new(ErrorCode, "CHAT_FORWARDS_RESTRICTED");
  
        /// <summary>
+       /// Message editing is temporarily forbidden for this user due to regulatory restrictions.
+       /// <code>
+       /// messages.editMessage
+       /// </code>
+       /// </summary>
+       public static readonly RpcError EditMessageTempRestricted = new(ErrorCode, "EDIT_MESSAGE_TEMP_RESTRICTED");
+ 
+       /// <summary>
        /// The client has to be updated in order to support [file references](https://core.telegram.org/api/file-references).
        /// <code>
        /// upload.getFile
@@ -8044,6 +8786,7 @@ public class RpcErrors
        /// <summary>
        /// You can't logout other sessions if less than 24 hours have passed since you logged on the current session.
        /// <code>
+       /// account.initPasskeyRegistration
        /// account.resetAuthorization
        /// account.setAuthorizationTTL
        /// auth.resetAuthorizations
@@ -8077,6 +8820,7 @@ public class RpcErrors
        /// messages.forwardMessages
        /// messages.sendMedia
        /// messages.sendMessage
+       /// messages.sendMultiMedia
        /// messages.setTyping
        /// </code>
        /// </summary>
@@ -8104,6 +8848,22 @@ public class RpcErrors
        /// </code>
        /// </summary>
        public static readonly RpcError PhonePasswordFlood = new(ErrorCode, "PHONE_PASSWORD_FLOOD");
+ 
+       /// <summary>
+       /// Users from the current user's country cannot vote in this [country-restricted poll ](https://core.telegram.org/api/poll#country-restricted-polls).
+       /// <code>
+       /// messages.sendVote
+       /// </code>
+       /// </summary>
+       public static readonly RpcError PollCountryRestricted = new(ErrorCode, "POLL_COUNTRY_RESTRICTED");
+ 
+       /// <summary>
+       /// Only channel subscribers can vote in this poll.
+       /// <code>
+       /// messages.sendVote
+       /// </code>
+       /// </summary>
+       public static readonly RpcError PollMemberRestricted = new(ErrorCode, "POLL_MEMBER_RESTRICTED");
  
        /// <summary>
        /// Precheckout failed, a detailed and localized description for the error will be emitted via an [updateServiceNotification as specified here ](https://core.telegram.org/api/errors#406-not-acceptable).
@@ -8338,6 +9098,14 @@ public class RpcErrors
     {
        public const int ErrorCode = 500;
        /// <summary>
+       /// A timeout occurred while composing the message.
+       /// <code>
+       /// messages.composeMessageWithAI
+       /// </code>
+       /// </summary>
+       public static readonly RpcError AicomposeTimeout = new(ErrorCode, "AICOMPOSE_TIMEOUT");
+ 
+       /// <summary>
        /// Internal error, please repeat the method call.
        /// <code>
        /// auth.checkPassword
@@ -8348,6 +9116,9 @@ public class RpcErrors
        /// <summary>
        /// Restart the authorization process.
        /// <code>
+       /// auth.exportLoginToken
+       /// auth.finishPasskeyLogin
+       /// auth.initPasskeyLogin
        /// auth.sendCode
        /// auth.signIn
        /// </code>
@@ -8409,6 +9180,14 @@ public class RpcErrors
        public static readonly RpcError MsgWaitFailed = new(ErrorCode, "MSG_WAIT_FAILED");
  
        /// <summary>
+       /// The specified OAuth request is invalid.
+       /// <code>
+       /// messages.requestUrlAuth
+       /// </code>
+       /// </summary>
+       public static readonly RpcError OauthRequestInvalid = new(ErrorCode, "OAUTH_REQUEST_INVALID");
+ 
+       /// <summary>
        /// Channel internal replication issues, try again later (treat this like an RPC_CALL_FAIL).
        /// <code>
        /// updates.getChannelDifference
@@ -8426,6 +9205,7 @@ public class RpcErrors
        /// messages.sendMultiMedia
        /// messages.sendScheduledMessages
        /// messages.startBot
+       /// phone.requestCall
        /// updates.getDifference
        /// </code>
        /// </summary>
@@ -8488,7 +9268,7 @@ public class RpcErrors
        public static readonly RpcError MsgWaitTimeout = new(ErrorCode, "MSG_WAIT_TIMEOUT");
      }
 
-    // Count: 607
+    // Count: 656
     public static readonly FrozenDictionary<uint, string> UserOnlyHandlers = new Dictionary<uint, string> 
     {
        { 0xf3ed4c73, "Acceptauthorizationhandler" }, // account.acceptauthorizationhandler
@@ -8497,10 +9277,11 @@ public class RpcErrors
        { 0x3dbc0415, "Acceptencryptionhandler" }, // messages.acceptencryptionhandler
        { 0xe894ad4d, "Acceptlogintokenhandler" }, // auth.acceptlogintokenhandler
        { 0xee72f79a, "Accepttermsofservicehandler" }, // help.accepttermsofservicehandler
-       { 0xb12c7125, "Accepturlauthhandler" }, // messages.accepturlauthhandler
+       { 0x67a3f0de, "Accepturlauthhandler" }, // messages.accepturlauthhandler
        { 0x57bbd166, "Activatestealthmodehandler" }, // stories.activatestealthmodehandler
        { 0xcbc6d107, "Addchatuserhandler" }, // messages.addchatuserhandler
        { 0xd9ba2e54, "Addcontacthandler" }, // contacts.addcontacthandler
+       { 0x19bc4b6d, "Addpollanswerhandler" }, // messages.addpollanswerhandler
        { 0x17aeb75a, "Addpreviewmediahandler" }, // bots.addpreviewmediahandler
        { 0xf132e3ef, "Allowsendmessagehandler" }, // bots.allowsendmessagehandler
        { 0x21a61057, "Appendtodolisthandler" }, // messages.appendtodolisthandler
@@ -8527,12 +9308,15 @@ public class RpcErrors
        { 0xb59cf977, "Checkgroupcallhandler" }, // phone.checkgroupcallhandler
        { 0x43fe19f3, "Checkhistoryimporthandler" }, // messages.checkhistoryimporthandler
        { 0x5dc60f03, "Checkhistoryimportpeerhandler" }, // messages.checkhistoryimportpeerhandler
+       { 0x56e59f9c, "Checkpaidauthhandler" }, // auth.checkpaidauthhandler
        { 0xd18b4d16, "Checkpasswordhandler" }, // auth.checkpasswordhandler
        { 0xf1d0fbd3, "Checkquickreplyshortcuthandler" }, // messages.checkquickreplyshortcuthandler
        { 0xd36bf79, "Checkrecoverypasswordhandler" }, // auth.checkrecoverypasswordhandler
        { 0x22567115, "Checksearchpostsfloodhandler" }, // channels.checksearchpostsfloodhandler
        { 0x284b3639, "Checkshortnamehandler" }, // stickers.checkshortnamehandler
+       { 0xc9a47b0b, "Checkurlauthmatchcodehandler" }, // messages.checkurlauthmatchcodehandler
        { 0x2714d86c, "Checkusernamehandler" }, // account.checkusernamehandler
+       { 0x87f2219b, "Checkusernamehandler" }, // bots.checkusernamehandler
        { 0x10e6bd2c, "Checkusernamehandler" }, // channels.checkusernamehandler
        { 0x7e58ee9c, "Clearalldraftshandler" }, // messages.clearalldraftshandler
        { 0x18201aae, "Clearrecentemojistatuseshandler" }, // account.clearrecentemojistatuseshandler
@@ -8540,23 +9324,29 @@ public class RpcErrors
        { 0x8999602d, "Clearrecentstickershandler" }, // messages.clearrecentstickershandler
        { 0xd83d70c1, "Clearsavedinfohandler" }, // payments.clearsavedinfohandler
        { 0x8235057e, "Clicksponsoredmessagehandler" }, // messages.clicksponsoredmessagehandler
+       { 0xdaecc589, "Composemessagewithaihandler" }, // messages.composemessagewithaihandler
+       { 0x67ed1f68, "Confirmbotconnectionhandler" }, // account.confirmbotconnectionhandler
        { 0x2efe1722, "Confirmcallhandler" }, // phone.confirmcallhandler
        { 0x8fdf1920, "Confirmpasswordemailhandler" }, // account.confirmpasswordemailhandler
        { 0x5f2178c3, "Confirmphonehandler" }, // account.confirmphonehandler
        { 0x7ed5348a, "Connectstarrefbothandler" }, // payments.connectstarrefbothandler
        { 0x74bf076b, "Convertstargifthandler" }, // payments.convertstargifthandler
        { 0xb290c69, "Converttogigagrouphandler" }, // channels.converttogigagrouphandler
+       { 0xb0f9684f, "Craftstargifthandler" }, // payments.craftstargifthandler
        { 0xa36396e5, "Createalbumhandler" }, // stories.createalbumhandler
+       { 0xe5b17f2b, "Createbothandler" }, // bots.createbothandler
        { 0x8851e68e, "Createbusinesschatlinkhandler" }, // account.createbusinesschatlinkhandler
        { 0x91006707, "Createchannelhandler" }, // channels.createchannelhandler
        { 0x92ceddd4, "Createchathandler" }, // messages.createchathandler
        { 0x7d0444bb, "Createconferencecallhandler" }, // phone.createconferencecallhandler
        { 0x48cdc6d8, "Creategroupcallhandler" }, // phone.creategroupcallhandler
        { 0x1f4a0e87, "Createstargiftcollectionhandler" }, // payments.createstargiftcollectionhandler
-       { 0x8432c21f, "Createthemehandler" }, // account.createthemehandler
+       { 0x652e4400, "Createthemehandler" }, // account.createthemehandler
+       { 0x4aa83913, "Createtonehandler" }, // aicompose.createtonehandler
        { 0xa245dd3, "Deactivateallusernameshandler" }, // channels.deactivateallusernameshandler
        { 0x3c479971, "Declineconferencecallinvitehandler" }, // phone.declineconferencecallinvitehandler
        { 0x4c9409f6, "Declinepasswordresethandler" }, // account.declinepasswordresethandler
+       { 0x35436bbc, "Declineurlauthhandler" }, // messages.declineurlauthhandler
        { 0xa2c0cf74, "Deleteaccounthandler" }, // account.deleteaccounthandler
        { 0x8d3456d0, "Deletealbumhandler" }, // stories.deletealbumhandler
        { 0x53bc0020, "Deleteautosaveexceptionshandler" }, // account.deleteautosaveexceptionshandler
@@ -8569,11 +9359,15 @@ public class RpcErrors
        { 0xd464a42b, "Deleteexportedchatinvitehandler" }, // messages.deleteexportedchatinvitehandler
        { 0x719c5c5e, "Deleteexportedinvitehandler" }, // chatlists.deleteexportedinvitehandler
        { 0xd1da940c, "Deletefactcheckhandler" }, // messages.deletefactcheckhandler
+       { 0xf64f54f7, "Deletegroupcallmessageshandler" }, // phone.deletegroupcallmessageshandler
+       { 0x1dbfeca0, "Deletegroupcallparticipantmessageshandler" }, // phone.deletegroupcallparticipantmessageshandler
        { 0x9baa9647, "Deletehistoryhandler" }, // channels.deletehistoryhandler
        { 0xb08f922a, "Deletehistoryhandler" }, // messages.deletehistoryhandler
        { 0x367544db, "Deleteparticipanthistoryhandler" }, // channels.deleteparticipanthistoryhandler
+       { 0xf5b5563f, "Deletepasskeyhandler" }, // account.deletepasskeyhandler
        { 0xf9cbe409, "Deletephonecallhistoryhandler" }, // messages.deletephonecallhistoryhandler
        { 0x87cf7f2f, "Deletephotoshandler" }, // photos.deletephotoshandler
+       { 0xac8505a5, "Deletepollanswerhandler" }, // messages.deletepollanswerhandler
        { 0x2d0135b3, "Deletepreviewmediahandler" }, // bots.deletepreviewmediahandler
        { 0xe105e910, "Deletequickreplymessageshandler" }, // messages.deletequickreplymessageshandler
        { 0x3cc04740, "Deletequickreplyshortcuthandler" }, // messages.deletequickreplyshortcuthandler
@@ -8583,6 +9377,8 @@ public class RpcErrors
        { 0xb880bc4b, "Deletesecurevaluehandler" }, // account.deletesecurevaluehandler
        { 0xad5648e8, "Deletestargiftcollectionhandler" }, // payments.deletestargiftcollectionhandler
        { 0xae59db5f, "Deletestorieshandler" }, // stories.deletestorieshandler
+       { 0xdd39316a, "Deletetonehandler" }, // aicompose.deletetonehandler
+       { 0x86a0765d, "Deletewebbrowsersettingsexceptionshandler" }, // account.deletewebbrowsersettingsexceptionshandler
        { 0x5e437ed9, "Disablepeerconnectedbothandler" }, // account.disablepeerconnectedbothandler
        { 0xb2cbc1c0, "Discardcallhandler" }, // phone.discardcallhandler
        { 0xf393aea0, "Discardencryptionhandler" }, // messages.discardencryptionhandler
@@ -8590,9 +9386,9 @@ public class RpcErrors
        { 0xf50dbaa1, "Dismisssuggestionhandler" }, // help.dismisssuggestionhandler
        { 0x8c3410af, "Editbusinesschatlinkhandler" }, // account.editbusinesschatlinkhandler
        { 0xa85bd1c2, "Editchatadminhandler" }, // messages.editchatadminhandler
+       { 0xf743b857, "Editchatcreatorhandler" }, // messages.editchatcreatorhandler
        { 0xba6705f0, "Editclosefriendshandler" }, // contacts.editclosefriendshandler
        { 0xe4fca4a3, "Editconnectedstarrefbothandler" }, // payments.editconnectedstarrefbothandler
-       { 0x8f38cd1f, "Editcreatorhandler" }, // channels.editcreatorhandler
        { 0x653db63d, "Editexportedinvitehandler" }, // chatlists.editexportedinvitehandler
        { 0x589ee75, "Editfactcheckhandler" }, // messages.editfactcheckhandler
        { 0xa5273abf, "Editgroupcallparticipanthandler" }, // phone.editgroupcallparticipanthandler
@@ -8606,10 +9402,11 @@ public class RpcErrors
        { 0xf8654027, "Exportcontacttokenhandler" }, // contacts.exportcontacttokenhandler
        { 0xe6aa647f, "Exportgroupcallinvitehandler" }, // phone.exportgroupcallinvitehandler
        { 0xb7e085fe, "Exportlogintokenhandler" }, // auth.exportlogintokenhandler
-       { 0xc846d22d, "Exportmessagelinkhandler" }, // channels.exportmessagelinkhandler
+       { 0xe63fadeb, "Exportmessagelinkhandler" }, // channels.exportmessagelinkhandler
        { 0x7b8def20, "Exportstorylinkhandler" }, // stories.exportstorylinkhandler
        { 0xb9ffc55b, "Favestickerhandler" }, // messages.favestickerhandler
        { 0x4f1ebf24, "Finishjobhandler" }, // smsjobs.finishjobhandler
+       { 0x9857ad07, "Finishpasskeyloginhandler" }, // auth.finishpasskeyloginhandler
        { 0x1d2652ee, "Finishtakeoutsessionhandler" }, // account.finishtakeoutsessionhandler
        { 0xcc5bebb3, "Fulfillstarssubscriptionhandler" }, // payments.fulfillstarssubscriptionhandler
        { 0x8fc711d, "Getaccountttlhandler" }, // account.getaccountttlhandler
@@ -8648,7 +9445,7 @@ public class RpcErrors
        { 0x6f70dde1, "Getbusinesschatlinkshandler" }, // account.getbusinesschatlinkshandler
        { 0x55451fa9, "Getcallconfighandler" }, // phone.getcallconfighandler
        { 0x7727a7d5, "Getchanneldefaultemojistatuseshandler" }, // account.getchanneldefaultemojistatuseshandler
-       { 0x83b70d97, "Getchannelrecommendationshandler" }, // channels.getchannelrecommendationshandler
+       { 0x25a71742, "Getchannelrecommendationshandler" }, // channels.getchannelrecommendationshandler
        { 0x35a9e0d5, "Getchannelrestrictedstatusemojishandler" }, // account.getchannelrestrictedstatusemojishandler
        { 0xdf04dd4e, "Getchatinviteimportershandler" }, // messages.getchatinviteimportershandler
        { 0x89419521, "Getchatlistupdateshandler" }, // chatlists.getchatlistupdateshandler
@@ -8665,6 +9462,7 @@ public class RpcErrors
        { 0x9f07c728, "Getcontactsignupnotificationhandler" }, // account.getcontactsignupnotificationhandler
        { 0x8b9b4dae, "Getcontentsettingshandler" }, // account.getcontentsettingshandler
        { 0x735787a8, "Getcountrieslisthandler" }, // help.getcountrieslisthandler
+       { 0xfd05dd00, "Getcraftstargiftshandler" }, // payments.getcraftstargiftshandler
        { 0x3fedc75f, "Getdeeplinkinfohandler" }, // help.getdeeplinkinfohandler
        { 0xa60ab9ce, "Getdefaultbackgroundemojishandler" }, // account.getdefaultbackgroundemojishandler
        { 0xd6753386, "Getdefaultemojistatuseshandler" }, // account.getdefaultemojistatuseshandler
@@ -8678,6 +9476,7 @@ public class RpcErrors
        { 0x21202222, "Getdialogunreadmarkshandler" }, // messages.getdialogunreadmarkshandler
        { 0xcd984aa5, "Getdifferencehandler" }, // langpack.getdifferencehandler
        { 0x446972fd, "Getdiscussionmessagehandler" }, // messages.getdiscussionmessagehandler
+       { 0xfb7e8ca7, "Getemojigameinfohandler" }, // messages.getemojigameinfohandler
        { 0x7488ce5b, "Getemojigroupshandler" }, // messages.getemojigroupshandler
        { 0x35a0e062, "Getemojikeywordshandler" }, // messages.getemojikeywordshandler
        { 0x1508b6af, "Getemojikeywordsdifferencehandler" }, // messages.getemojikeywordsdifferencehandler
@@ -8695,22 +9494,25 @@ public class RpcErrors
        { 0x4f1aaa9, "Getfavedstickershandler" }, // messages.getfavedstickershandler
        { 0xecf6736, "Getfeaturedemojistickershandler" }, // messages.getfeaturedemojistickershandler
        { 0x64780b14, "Getfeaturedstickershandler" }, // messages.getfeaturedstickershandler
+       { 0x3ba47bff, "Getforumtopicshandler" }, // messages.getforumtopicshandler
+       { 0x3b7d0ea6, "Getfuturechatcreatorafterleavehandler" }, // messages.getfuturechatcreatorafterleavehandler
        { 0xf4239425, "Getgiveawayinfohandler" }, // payments.getgiveawayinfohandler
        { 0xeb2b4cf6, "Getglobalprivacysettingshandler" }, // account.getglobalprivacysettingshandler
        { 0x41845db, "Getgroupcallhandler" }, // phone.getgroupcallhandler
        { 0xee9f88a6, "Getgroupcallchainblockshandler" }, // phone.getgroupcallchainblockshandler
        { 0xef7c213a, "Getgroupcalljoinashandler" }, // phone.getgroupcalljoinashandler
+       { 0x6f636302, "Getgroupcallstarshandler" }, // phone.getgroupcallstarshandler
        { 0x1ab21940, "Getgroupcallstreamchannelshandler" }, // phone.getgroupcallstreamchannelshandler
        { 0x5af4c73a, "Getgroupcallstreamrtmpurlhandler" }, // phone.getgroupcallstreamrtmpurlhandler
        { 0xc558d8ab, "Getgroupparticipantshandler" }, // phone.getgroupparticipantshandler
        { 0xf5dad378, "Getgroupsfordiscussionhandler" }, // channels.getgroupsfordiscussionhandler
-       { 0xafa92846, "Gethistoryhandler" }, // messages.gethistoryhandler
+       { 0x4423e6c5, "Gethistoryhandler" }, // messages.gethistoryhandler
        { 0x11e831ee, "Getinactivechannelshandler" }, // channels.getinactivechannelshandler
        { 0x514e999d, "Getinlinebotresultshandler" }, // messages.getinlinebotresultshandler
        { 0x4d392343, "Getinvitetexthandler" }, // help.getinvitetexthandler
-       { 0x9ab5c58e, "Getlangpackhandler" }, // langpack.getlangpackhandler
+       { 0xf2f2330a, "Getlangpackhandler" }, // langpack.getlangpackhandler
        { 0x6a596502, "Getlanguagehandler" }, // langpack.getlanguagehandler
-       { 0x800fd57d, "Getlanguageshandler" }, // langpack.getlanguageshandler
+       { 0x42c6978f, "Getlanguageshandler" }, // langpack.getlanguageshandler
        { 0xfdbcd714, "Getleavechatlistsuggestionshandler" }, // chatlists.getleavechatlistsuggestionshandler
        { 0x8341ecc0, "Getleftchannelshandler" }, // channels.getleftchannelshandler
        { 0xd348bc44, "Getlocatedhandler" }, // contacts.getlocatedhandler
@@ -8735,6 +9537,7 @@ public class RpcErrors
        { 0x8c4bfe5d, "Getoutboxreaddatehandler" }, // messages.getoutboxreaddatehandler
        { 0x19ba4a67, "Getpaidmessagesrevenuehandler" }, // account.getpaidmessagesrevenuehandler
        { 0x472455aa, "Getpaidreactionprivacyhandler" }, // messages.getpaidreactionprivacyhandler
+       { 0xea1f0c52, "Getpasskeyshandler" }, // account.getpasskeyshandler
        { 0xc661ad08, "Getpassportconfighandler" }, // help.getpassportconfighandler
        { 0x548a30f5, "Getpasswordhandler" }, // account.getpasswordhandler
        { 0x9cd4eaf9, "Getpasswordsettingshandler" }, // account.getpasswordsettingshandler
@@ -8748,7 +9551,8 @@ public class RpcErrors
        { 0xd6b94df2, "Getpinneddialogshandler" }, // messages.getpinneddialogshandler
        { 0xd63d94e0, "Getpinnedsaveddialogshandler" }, // messages.getpinnedsaveddialogshandler
        { 0x5821a5dc, "Getpinnedstorieshandler" }, // stories.getpinnedstorieshandler
-       { 0x73bb643b, "Getpollresultshandler" }, // messages.getpollresultshandler
+       { 0xeda3e33b, "Getpollresultshandler" }, // messages.getpollresultshandler
+       { 0xc27dfa68, "Getpollstatshandler" }, // stats.getpollstatshandler
        { 0xb86e380e, "Getpollvoteshandler" }, // messages.getpollvoteshandler
        { 0xc2510192, "Getpopularappbotshandler" }, // bots.getpopularappbotshandler
        { 0x2757ba54, "Getpremiumgiftcodeoptionshandler" }, // payments.getpremiumgiftcodeoptionshandler
@@ -8767,33 +9571,37 @@ public class RpcErrors
        { 0x39461db2, "Getrecentreactionshandler" }, // messages.getrecentreactionshandler
        { 0x9da9403b, "Getrecentstickershandler" }, // messages.getrecentstickershandler
        { 0x22ddd30c, "Getreplieshandler" }, // messages.getreplieshandler
+       { 0xbf25b7f3, "Getrequestedwebviewbuttonhandler" }, // bots.getrequestedwebviewbuttonhandler
        { 0xd89a83a3, "Getrequirementstocontacthandler" }, // users.getrequirementstocontacthandler
        { 0x7a5fa236, "Getresalestargiftshandler" }, // payments.getresalestargiftshandler
+       { 0x501569cf, "Getrichmessagehandler" }, // messages.getrichmessagehandler
        { 0x82f1e39f, "Getsavedhandler" }, // contacts.getsavedhandler
        { 0x1e91fc99, "Getsaveddialogshandler" }, // messages.getsaveddialogshandler
        { 0x6f6f9c96, "Getsaveddialogsbyidhandler" }, // messages.getsaveddialogsbyidhandler
        { 0x5cf09635, "Getsavedgifshandler" }, // messages.getsavedgifshandler
        { 0x998ab009, "Getsavedhistoryhandler" }, // messages.getsavedhistoryhandler
        { 0x227d824b, "Getsavedinfohandler" }, // payments.getsavedinfohandler
-       { 0x788d7fe3, "Getsavedmusichandler" }, // users.getsavedmusichandler
        { 0x7573a4e9, "Getsavedmusicbyidhandler" }, // users.getsavedmusicbyidhandler
        { 0xe09d5faf, "Getsavedmusicidshandler" }, // account.getsavedmusicidshandler
        { 0x3637e05b, "Getsavedreactiontagshandler" }, // messages.getsavedreactiontagshandler
        { 0xe1902288, "Getsavedringtoneshandler" }, // account.getsavedringtoneshandler
        { 0xb455a106, "Getsavedstargifthandler" }, // payments.getsavedstargifthandler
-       { 0xa319e569, "Getsavedstargiftshandler" }, // payments.getsavedstargiftshandler
        { 0xf516760b, "Getscheduledhistoryhandler" }, // messages.getscheduledhistoryhandler
        { 0xbdbb0464, "Getscheduledmessageshandler" }, // messages.getscheduledmessageshandler
        { 0x1bbcf300, "Getsearchcountershandler" }, // messages.getsearchcountershandler
        { 0x6aa3f6bd, "Getsearchresultscalendarhandler" }, // messages.getsearchresultscalendarhandler
        { 0x9c7f2f10, "Getsearchresultspositionshandler" }, // messages.getsearchresultspositionshandler
        { 0x73665bc2, "Getsecurevaluehandler" }, // account.getsecurevaluehandler
-       { 0xdc770ee, "Getsendashandler" }, // channels.getsendashandler
+       { 0xe785a43f, "Getsendashandler" }, // channels.getsendashandler
        { 0x778d902f, "Getsmsjobhandler" }, // smsjobs.getsmsjobhandler
        { 0x1cff7e08, "Getsplitrangeshandler" }, // messages.getsplitrangeshandler
        { 0x3d6ce850, "Getsponsoredmessageshandler" }, // messages.getsponsoredmessageshandler
        { 0xb6c8c393, "Getsponsoredpeershandler" }, // contacts.getsponsoredpeershandler
+       { 0xa5d0514d, "Getstargiftactiveauctionshandler" }, // payments.getstargiftactiveauctionshandler
+       { 0x6ba2cbec, "Getstargiftauctionacquiredgiftshandler" }, // payments.getstargiftauctionacquiredgiftshandler
+       { 0x5c9ff4d6, "Getstargiftauctionstatehandler" }, // payments.getstargiftauctionstatehandler
        { 0x981b91dd, "Getstargiftcollectionshandler" }, // payments.getstargiftcollectionshandler
+       { 0x6d038b58, "Getstargiftupgradeattributeshandler" }, // payments.getstargiftupgradeattributeshandler
        { 0x9c9abcb1, "Getstargiftupgradepreviewhandler" }, // payments.getstargiftupgradepreviewhandler
        { 0xd06e93a8, "Getstargiftwithdrawalurlhandler" }, // payments.getstargiftwithdrawalurlhandler
        { 0xd3c96bc8, "Getstarsgiftoptionshandler" }, // payments.getstarsgiftoptionshandler
@@ -8815,43 +9623,50 @@ public class RpcErrors
        { 0xb9b2881f, "Getstoryreactionslisthandler" }, // stories.getstoryreactionslisthandler
        { 0x374fef40, "Getstorystatshandler" }, // stats.getstorystatshandler
        { 0x7ed23c57, "Getstoryviewslisthandler" }, // stories.getstoryviewslisthandler
-       { 0x2e1ee318, "Getstringshandler" }, // langpack.getstringshandler
+       { 0xefea3803, "Getstringshandler" }, // langpack.getstringshandler
        { 0xa29cd42c, "Getsuggesteddialogfiltershandler" }, // messages.getsuggesteddialogfiltershandler
        { 0xd6b48f7, "Getsuggestedstarrefbotshandler" }, // payments.getsuggestedstarrefbotshandler
        { 0x9cdf08cd, "Getsupporthandler" }, // help.getsupporthandler
        { 0xd360e72c, "Getsupportnamehandler" }, // help.getsupportnamehandler
        { 0x2ca51fd1, "Gettermsofserviceupdatehandler" }, // help.gettermsofserviceupdatehandler
-       { 0x8d9d742b, "Getthemehandler" }, // account.getthemehandler
+       { 0x3a5869ec, "Getthemehandler" }, // account.getthemehandler
        { 0x7206e458, "Getthemeshandler" }, // account.getthemeshandler
        { 0x49b30240, "Gettimezoneslisthandler" }, // help.gettimezoneslisthandler
        { 0x449e0b51, "Gettmppasswordhandler" }, // account.gettmppasswordhandler
+       { 0xb2e8ba03, "Gettonehandler" }, // aicompose.gettonehandler
+       { 0xd1b4ab14, "Gettoneexamplehandler" }, // aicompose.gettoneexamplehandler
+       { 0xabd59201, "Gettoneshandler" }, // aicompose.gettoneshandler
        { 0x973478b6, "Gettoppeershandler" }, // contacts.gettoppeershandler
        { 0xbb8125ba, "Gettopreactionshandler" }, // messages.gettopreactionshandler
        { 0xe42ce9c9, "Getuniquegiftchatthemeshandler" }, // account.getuniquegiftchatthemeshandler
        { 0xa1974d72, "Getuniquestargifthandler" }, // payments.getuniquestargifthandler
        { 0x4365af6b, "Getuniquestargiftvalueinfohandler" }, // payments.getuniquestargiftvalueinfohandler
        { 0xf107e790, "Getunreadmentionshandler" }, // messages.getunreadmentionshandler
+       { 0x43286cf2, "Getunreadpollvoteshandler" }, // messages.getunreadpollvoteshandler
        { 0xbd7f90ac, "Getunreadreactionshandler" }, // messages.getunreadreactionshandler
        { 0x38a08d3, "Getuserinfohandler" }, // help.getuserinfohandler
        { 0xfc8ddbea, "Getwallpaperhandler" }, // account.getwallpaperhandler
        { 0x7967d36, "Getwallpapershandler" }, // account.getwallpapershandler
        { 0x182e6d6f, "Getwebauthorizationshandler" }, // account.getwebauthorizationshandler
+       { 0x56655768, "Getwebbrowsersettingshandler" }, // account.getwebbrowsersettingshandler
        { 0x8d9692a3, "Getwebpagehandler" }, // messages.getwebpagehandler
        { 0x570d6f6f, "Getwebpagepreviewhandler" }, // messages.getwebpagepreviewhandler
        { 0xe085f4ea, "Hideallchatjoinrequestshandler" }, // messages.hideallchatjoinrequestshandler
        { 0x66e486fb, "Hidechatlistupdateshandler" }, // chatlists.hidechatlistupdateshandler
        { 0x4facb138, "Hidepeersettingsbarhandler" }, // messages.hidepeersettingsbarhandler
        { 0x1e251c95, "Hidepromodatahandler" }, // help.hidepromodatahandler
-       { 0x6c50051c, "Importchatinvitehandler" }, // messages.importchatinvitehandler
+       { 0xde91436e, "Importchatinvitehandler" }, // messages.importchatinvitehandler
        { 0x2c800be5, "Importcontactshandler" }, // contacts.importcontactshandler
        { 0x13005788, "Importcontacttokenhandler" }, // contacts.importcontacttokenhandler
        { 0x95ac5ce4, "Importlogintokenhandler" }, // auth.importlogintokenhandler
        { 0x2db873a9, "Importwebtokenauthorizationhandler" }, // auth.importwebtokenauthorizationhandler
        { 0xb2028afb, "Incrementstoryviewshandler" }, // stories.incrementstoryviewshandler
        { 0x34090c3b, "Inithistoryimporthandler" }, // messages.inithistoryimporthandler
+       { 0x518ad0b7, "Initpasskeyloginhandler" }, // auth.initpasskeyloginhandler
+       { 0x429547e8, "Initpasskeyregistrationhandler" }, // account.initpasskeyregistrationhandler
        { 0x8ef3eab0, "Inittakeoutsessionhandler" }, // account.inittakeoutsessionhandler
        { 0xc78fe460, "Installstickersethandler" }, // messages.installstickersethandler
-       { 0x7ae43737, "Installthemehandler" }, // account.installthemehandler
+       { 0xc727bb3b, "Installthemehandler" }, // account.installthemehandler
        { 0xfeed5769, "Installwallpaperhandler" }, // account.installwallpaperhandler
        { 0xca8ae8ba, "Invalidatesignincodeshandler" }, // account.invalidatesignincodeshandler
        { 0xbcf22685, "Inviteconferencecallparticipanthandler" }, // phone.inviteconferencecallparticipanthandler
@@ -8860,7 +9675,7 @@ public class RpcErrors
        { 0x87fc5e7, "Invokewebviewcustommethodhandler" }, // bots.invokewebviewcustommethodhandler
        { 0xedc39d0, "Iseligibletojoinhandler" }, // smsjobs.iseligibletojoinhandler
        { 0xa74ece2d, "Joinhandler" }, // smsjobs.joinhandler
-       { 0x24b524c5, "Joinchannelhandler" }, // channels.joinchannelhandler
+       { 0x7f6a1e22, "Joinchannelhandler" }, // channels.joinchannelhandler
        { 0xa6b1e39a, "Joinchatlistinvitehandler" }, // chatlists.joinchatlistinvitehandler
        { 0xe089f8f5, "Joinchatlistupdateshandler" }, // chatlists.joinchatlistupdateshandler
        { 0x8fb53057, "Joingroupcallhandler" }, // phone.joingroupcallhandler
@@ -8883,6 +9698,7 @@ public class RpcErrors
        { 0x36e5bf4d, "Readmentionshandler" }, // messages.readmentionshandler
        { 0xeab5dc38, "Readmessagecontentshandler" }, // channels.readmessagecontentshandler
        { 0x36a73f77, "Readmessagecontentshandler" }, // messages.readmessagecontentshandler
+       { 0x1720b4d8, "Readpollvoteshandler" }, // messages.readpollvoteshandler
        { 0x9ec44f93, "Readreactionshandler" }, // messages.readreactionshandler
        { 0xba4a3b5b, "Readsavedhistoryhandler" }, // messages.readsavedhistoryhandler
        { 0xa556dac8, "Readstorieshandler" }, // stories.readstorieshandler
@@ -8890,10 +9706,11 @@ public class RpcErrors
        { 0x5a954c0, "Receivedmessageshandler" }, // messages.receivedmessageshandler
        { 0x55a5bb66, "Receivedqueuehandler" }, // messages.receivedqueuehandler
        { 0x37096c70, "Recoverpasswordhandler" }, // auth.recoverpasswordhandler
-       { 0x637ea878, "Registerdevicehandler" }, // account.registerdevicehandler
+       { 0xec86017a, "Registerdevicehandler" }, // account.registerdevicehandler
+       { 0x55b41fd6, "Registerpasskeyhandler" }, // account.registerpasskeyhandler
        { 0x8535fbd9, "Reorderalbumshandler" }, // stories.reorderalbumshandler
        { 0x3b1adf37, "Reorderpinneddialogshandler" }, // messages.reorderpinneddialogshandler
-       { 0x2950a18f, "Reorderpinnedforumtopicshandler" }, // channels.reorderpinnedforumtopicshandler
+       { 0xe7841f0, "Reorderpinnedforumtopicshandler" }, // messages.reorderpinnedforumtopicshandler
        { 0x8b716587, "Reorderpinnedsaveddialogshandler" }, // messages.reorderpinnedsaveddialogshandler
        { 0xb627f3aa, "Reorderpreviewmediashandler" }, // bots.reorderpreviewmediashandler
        { 0x60331907, "Reorderquickreplieshandler" }, // messages.reorderquickreplieshandler
@@ -8908,9 +9725,11 @@ public class RpcErrors
        { 0x4b0c8c0f, "Reportencryptedspamhandler" }, // messages.reportencryptedspamhandler
        { 0x5a6d7395, "Reportmessagesdeliveryhandler" }, // messages.reportmessagesdeliveryhandler
        { 0xcb9deff6, "Reportmissingcodehandler" }, // auth.reportmissingcodehandler
+       { 0xddbcd819, "Reportmusiclistenhandler" }, // messages.reportmusiclistenhandler
        { 0xc5ba3d86, "Reportpeerhandler" }, // account.reportpeerhandler
        { 0xfa8cc6f5, "Reportprofilephotohandler" }, // account.reportprofilephotohandler
        { 0x3f64c076, "Reportreactionhandler" }, // messages.reportreactionhandler
+       { 0x4067c5e6, "Reportreadmetricshandler" }, // messages.reportreadmetricshandler
        { 0xf44a8315, "Reportspamhandler" }, // channels.reportspamhandler
        { 0xcf1592db, "Reportspamhandler" }, // messages.reportspamhandler
        { 0x12cbf0c4, "Reportsponsoredmessagehandler" }, // messages.reportsponsoredmessagehandler
@@ -8921,7 +9740,7 @@ public class RpcErrors
        { 0xc9e01e7b, "Requestmainwebviewhandler" }, // messages.requestmainwebviewhandler
        { 0xd897bc66, "Requestpasswordrecoveryhandler" }, // auth.requestpasswordrecoveryhandler
        { 0x413a3e73, "Requestsimplewebviewhandler" }, // messages.requestsimplewebviewhandler
-       { 0x198fb446, "Requesturlauthhandler" }, // messages.requesturlauthhandler
+       { 0x894cc99c, "Requesturlauthhandler" }, // messages.requesturlauthhandler
        { 0x269dc2c1, "Requestwebviewhandler" }, // messages.requestwebviewhandler
        { 0xcae47523, "Resendcodehandler" }, // auth.resendcodehandler
        { 0x7a7f2a15, "Resendpasswordemailhandler" }, // account.resendpasswordemailhandler
@@ -8945,7 +9764,8 @@ public class RpcErrors
        { 0x41248786, "Savecallloghandler" }, // phone.savecallloghandler
        { 0x575e1f8c, "Savedefaultgroupcalljoinashandler" }, // phone.savedefaultgroupcalljoinashandler
        { 0xccfddf96, "Savedefaultsendashandler" }, // messages.savedefaultsendashandler
-       { 0x54ae308e, "Savedrafthandler" }, // messages.savedrafthandler
+       { 0x4167add1, "Savedefaultsendashandler" }, // phone.savedefaultsendashandler
+       { 0xad0fa15c, "Savedrafthandler" }, // messages.savedrafthandler
        { 0x327a30cb, "Savegifhandler" }, // messages.savegifhandler
        { 0xb26732a9, "Savemusichandler" }, // account.savemusichandler
        { 0x392718f8, "Saverecentstickerhandler" }, // messages.saverecentstickerhandler
@@ -8953,25 +9773,28 @@ public class RpcErrors
        { 0x899fe31d, "Savesecurevaluehandler" }, // account.savesecurevaluehandler
        { 0x2a2a697c, "Savestargifthandler" }, // payments.savestargifthandler
        { 0xf257106c, "Savethemehandler" }, // account.savethemehandler
+       { 0x1782cbb1, "Savetonehandler" }, // aicompose.savetonehandler
        { 0x6c5a5b37, "Savewallpaperhandler" }, // account.savewallpaperhandler
-       { 0x11f812d8, "Searchhandler" }, // contacts.searchhandler
+       { 0x5f58d0f, "Searchhandler" }, // contacts.searchhandler
        { 0x29ee847a, "Searchhandler" }, // messages.searchhandler
        { 0x2c11c0d7, "Searchcustomemojihandler" }, // messages.searchcustomemojihandler
        { 0x92b4494c, "Searchemojistickersetshandler" }, // messages.searchemojistickersetshandler
-       { 0x4bc6589a, "Searchglobalhandler" }, // messages.searchglobalhandler
+       { 0x6126a43c, "Searchglobalhandler" }, // messages.searchglobalhandler
        { 0xf2c4f24d, "Searchpostshandler" }, // channels.searchpostshandler
        { 0xd1810907, "Searchpostshandler" }, // stories.searchpostshandler
        { 0x107e31a0, "Searchsentmediahandler" }, // messages.searchsentmediahandler
        { 0x29b1c66a, "Searchstickershandler" }, // messages.searchstickershandler
        { 0x35705b8a, "Searchstickersetshandler" }, // messages.searchstickersetshandler
-       { 0x91b2d060, "Sendbotrequestedpeerhandler" }, // messages.sendbotrequestedpeerhandler
+       { 0x6c5cf2a7, "Sendbotrequestedpeerhandler" }, // messages.sendbotrequestedpeerhandler
        { 0x82574ae5, "Sendchangephonecodehandler" }, // account.sendchangephonecodehandler
-       { 0x86aef0ec, "Sendcodehandler" }, // auth.sendcodehandler
+       { 0xa677244f, "Sendcodehandler" }, // auth.sendcodehandler
        { 0xc6701900, "Sendconferencecallbroadcasthandler" }, // phone.sendconferencecallbroadcasthandler
        { 0x1b3faa88, "Sendconfirmphonecodehandler" }, // account.sendconfirmphonecodehandler
        { 0x44fa7a15, "Sendencryptedhandler" }, // messages.sendencryptedhandler
        { 0x5559481d, "Sendencryptedfilehandler" }, // messages.sendencryptedfilehandler
        { 0x32d439a4, "Sendencryptedservicehandler" }, // messages.sendencryptedservicehandler
+       { 0xe5afa56d, "Sendgroupcallencryptedmessagehandler" }, // phone.sendgroupcallencryptedmessagehandler
+       { 0xb1d11410, "Sendgroupcallmessagehandler" }, // phone.sendgroupcallmessagehandler
        { 0xc0cf7646, "Sendinlinebotresulthandler" }, // messages.sendinlinebotresulthandler
        { 0x58bbcb50, "Sendpaidreactionhandler" }, // messages.sendpaidreactionhandler
        { 0x2d03522f, "Sendpaymentformhandler" }, // payments.sendpaymentformhandler
@@ -8980,6 +9803,7 @@ public class RpcErrors
        { 0xbd38850a, "Sendscheduledmessageshandler" }, // messages.sendscheduledmessageshandler
        { 0xa1405817, "Sendscreenshotnotificationhandler" }, // messages.sendscreenshotnotificationhandler
        { 0xff7a9383, "Sendsignalingdatahandler" }, // phone.sendsignalingdatahandler
+       { 0x8fb86b41, "Sendstargiftofferhandler" }, // payments.sendstargiftofferhandler
        { 0x98e037bb, "Sendverifyemailcodehandler" }, // account.sendverifyemailcodehandler
        { 0xa5a356f9, "Sendverifyphonecodehandler" }, // account.sendverifyphonecodehandler
        { 0x10ea6184, "Sendvotehandler" }, // messages.sendvotehandler
@@ -9006,11 +9830,14 @@ public class RpcErrors
        { 0xc9f81ce8, "Setprivacyhandler" }, // account.setprivacyhandler
        { 0x316ce548, "Setreactionsnotifysettingshandler" }, // account.setreactionsnotifysettingshandler
        { 0x8d52a951, "Signinhandler" }, // auth.signinhandler
-       { 0x80eee427, "Signuphandler" }, // auth.signuphandler
+       { 0xaac7b717, "Signuphandler" }, // auth.signuphandler
        { 0xe6df7378, "Startbothandler" }, // messages.startbothandler
        { 0xb43df344, "Starthistoryimporthandler" }, // messages.starthistoryimporthandler
+       { 0xd069ccde, "Startlivehandler" }, // stories.startlivehandler
        { 0x5680e342, "Startscheduledgroupcallhandler" }, // phone.startscheduledgroupcallhandler
+       { 0xfc533372, "Suggestbirthdayhandler" }, // users.suggestbirthdayhandler
        { 0x4dafc503, "Suggestshortnamehandler" }, // stickers.suggestshortnamehandler
+       { 0xabbbd346, "Summarizetexthandler" }, // messages.summarizetexthandler
        { 0x7c2557c4, "Toggleallstorieshiddenhandler" }, // stories.toggleallstorieshiddenhandler
        { 0x68f3e4eb, "Toggleantispamhandler" }, // channels.toggleantispamhandler
        { 0x167fc0a1, "Toggleautotranslationhandler" }, // channels.toggleautotranslationhandler
@@ -9023,9 +9850,9 @@ public class RpcErrors
        { 0xf128c708, "Togglegroupcallrecordhandler" }, // phone.togglegroupcallrecordhandler
        { 0x974392f2, "Togglegroupcallsettingshandler" }, // phone.togglegroupcallsettingshandler
        { 0x219c34e6, "Togglegroupcallstartsubscriptionhandler" }, // phone.togglegroupcallstartsubscriptionhandler
-       { 0x4c2985b6, "Togglejoinrequesthandler" }, // channels.togglejoinrequesthandler
+       { 0xecc2618, "Togglejoinrequesthandler" }, // channels.togglejoinrequesthandler
        { 0xe4cb9580, "Togglejointosendhandler" }, // channels.togglejointosendhandler
-       { 0xb11eafa2, "Togglenoforwardshandler" }, // messages.togglenoforwardshandler
+       { 0xb2081a35, "Togglenoforwardshandler" }, // messages.togglenoforwardshandler
        { 0xfe2eda76, "Togglenopaidmessagesexceptionhandler" }, // account.togglenopaidmessagesexceptionhandler
        { 0x435885b5, "Togglepaidreactionprivacyhandler" }, // messages.togglepaidreactionprivacyhandler
        { 0x6a6e7854, "Toggleparticipantshiddenhandler" }, // channels.toggleparticipantshiddenhandler
@@ -9047,9 +9874,10 @@ public class RpcErrors
        { 0x53ca973, "Toggleusernamehandler" }, // bots.toggleusernamehandler
        { 0x50f24105, "Toggleusernamehandler" }, // channels.toggleusernamehandler
        { 0x9738bb15, "Toggleviewforumasmessageshandler" }, // channels.toggleviewforumasmessageshandler
+       { 0x60ed4229, "Togglewebbrowsersettingsexceptionhandler" }, // account.togglewebbrowsersettingsexceptionhandler
        { 0x269e9a49, "Transcribeaudiohandler" }, // messages.transcribeaudiohandler
        { 0x7f18176a, "Transferstargifthandler" }, // payments.transferstargifthandler
-       { 0x63183030, "Translatetexthandler" }, // messages.translatetexthandler
+       { 0xa5eec345, "Translatetexthandler" }, // messages.translatetexthandler
        { 0xb550d328, "Unblockhandler" }, // contacts.unblockhandler
        { 0xf96e55de, "Uninstallstickersethandler" }, // messages.uninstallstickersethandler
        { 0x6a0d3206, "Unregisterdevicehandler" }, // account.unregisterdevicehandler
@@ -9063,6 +9891,7 @@ public class RpcErrors
        { 0x684d214e, "Updatecolorhandler" }, // account.updatecolorhandler
        { 0xd8aa3671, "Updatecolorhandler" }, // channels.updatecolorhandler
        { 0x66a08c7e, "Updateconnectedbothandler" }, // account.updateconnectedbothandler
+       { 0x139f63fb, "Updatecontactnotehandler" }, // contacts.updatecontactnotehandler
        { 0x38df3532, "Updatedevicelockedhandler" }, // account.updatedevicelockedhandler
        { 0x1ad4a04a, "Updatedialogfilterhandler" }, // messages.updatedialogfilterhandler
        { 0xc563c1e4, "Updatedialogfiltersorderhandler" }, // messages.updatedialogfiltersorderhandler
@@ -9072,6 +9901,7 @@ public class RpcErrors
        { 0x4b12327b, "Updatepaidmessagespricehandler" }, // channels.updatepaidmessagespricehandler
        { 0xa59b102f, "Updatepasswordsettingshandler" }, // account.updatepasswordsettingshandler
        { 0xd94305e0, "Updatepersonalchannelhandler" }, // account.updatepersonalchannelhandler
+       { 0x175df251, "Updatepinnedforumtopichandler" }, // messages.updatepinnedforumtopichandler
        { 0x78515775, "Updateprofilehandler" }, // account.updateprofilehandler
        { 0x60297dec, "Updatesavedreactiontaghandler" }, // messages.updatesavedreactiontaghandler
        { 0x93fa0bf, "Updatesettingshandler" }, // smsjobs.updatesettingshandler
@@ -9080,8 +9910,10 @@ public class RpcErrors
        { 0x778b5ab3, "Updatestarrefprogramhandler" }, // bots.updatestarrefprogramhandler
        { 0x6628562c, "Updatestatushandler" }, // account.updatestatushandler
        { 0x2bf40ccc, "Updatethemehandler" }, // account.updatethemehandler
+       { 0x903bcf59, "Updatetonehandler" }, // aicompose.updatetonehandler
        { 0x3e0bdd7c, "Updateusernamehandler" }, // account.updateusernamehandler
        { 0x3514b3de, "Updateusernamehandler" }, // channels.updateusernamehandler
+       { 0x9adf82fe, "Updatewebbrowsersettingshandler" }, // account.updatewebbrowsersettingshandler
        { 0xaed6e4f5, "Upgradestargifthandler" }, // payments.upgradestargifthandler
        { 0xe14c4a71, "Uploadcontactprofilephotohandler" }, // photos.uploadcontactprofilephotohandler
        { 0x5057c497, "Uploadencryptedfilehandler" }, // messages.uploadencryptedfilehandler
@@ -9095,16 +9927,21 @@ public class RpcErrors
        { 0x269e3643, "Viewsponsoredmessagehandler" }, // messages.viewsponsoredmessagehandler
     }.ToFrozenDictionary();
 
-    // Count: 24
+    // Count: 31
     public static readonly FrozenDictionary<uint, string> BotOnlyHandlers = new Dictionary<uint, string> 
     {
        { 0xe6213f4d, "Answerwebhookjsonqueryhandler" }, // bots.answerwebhookjsonqueryhandler
+       { 0x31813cd8, "Editaccesssettingshandler" }, // bots.editaccesssettingshandler
+       { 0xbd0d99eb, "Exportbottokenhandler" }, // bots.exportbottokenhandler
        { 0xf91b065, "Exportinvoicehandler" }, // payments.exportinvoicehandler
+       { 0x213853a3, "Getaccesssettingshandler" }, // bots.getaccesssettingshandler
        { 0xe34c0dd6, "Getbotcommandshandler" }, // bots.getbotcommandshandler
        { 0x9c60eb28, "Getbotmenubuttonhandler" }, // bots.getbotmenubuttonhandler
        { 0xe822649d, "Getgamehighscoreshandler" }, // messages.getgamehighscoreshandler
        { 0xf635e1b, "Getinlinegamehighscoreshandler" }, // messages.getinlinegamehighscoreshandler
+       { 0x55fb0996, "Getpersonalchannelhistoryhandler" }, // messages.getpersonalchannelhistoryhandler
        { 0x25ae8f4a, "Refundstarschargehandler" }, // payments.refundstarschargehandler
+       { 0x31a2a35e, "Requestwebviewbuttonhandler" }, // bots.requestwebviewbuttonhandler
        { 0x3d8de0f9, "Resetbotcommandshandler" }, // bots.resetbotcommandshandler
        { 0xf21f7f2f, "Savepreparedinlinemessagehandler" }, // messages.savepreparedinlinemessagehandler
        { 0xaa2769ed, "Sendcustomrequesthandler" }, // bots.sendcustomrequesthandler
@@ -9113,6 +9950,7 @@ public class RpcErrors
        { 0xd58f130a, "Setbotcallbackanswerhandler" }, // messages.setbotcallbackanswerhandler
        { 0x517165a, "Setbotcommandshandler" }, // bots.setbotcommandshandler
        { 0x925ec9ea, "Setbotgroupdefaultadminrightshandler" }, // bots.setbotgroupdefaultadminrightshandler
+       { 0xb8f106e3, "Setbotguestchatresulthandler" }, // messages.setbotguestchatresulthandler
        { 0x4504d54f, "Setbotmenubuttonhandler" }, // bots.setbotmenubuttonhandler
        { 0x9c2dd95, "Setbotprecheckoutresultshandler" }, // messages.setbotprecheckoutresultshandler
        { 0xe5f672fa, "Setbotshippingresultshandler" }, // messages.setbotshippingresultshandler
@@ -9120,6 +9958,7 @@ public class RpcErrors
        { 0x8ef8ecc0, "Setgamescorehandler" }, // messages.setgamescorehandler
        { 0xbb12a419, "Setinlinebotresultshandler" }, // messages.setinlinebotresultshandler
        { 0x15ad9f64, "Setinlinegamescorehandler" }, // messages.setinlinegamescorehandler
+       { 0xe71a4810, "Setjoinchatresultshandler" }, // bots.setjoinchatresultshandler
        { 0x90c894b5, "Setsecurevalueerrorshandler" }, // users.setsecurevalueerrorshandler
        { 0xed9f30c5, "Updateuseremojistatushandler" }, // bots.updateuseremojistatushandler
     }.ToFrozenDictionary();
@@ -9130,14 +9969,14 @@ public class RpcErrors
        { 0x74bf076b, "Convertstargifthandler" }, // payments.convertstargifthandler
        { 0xe58e95d2, "Deletemessageshandler" }, // messages.deletemessageshandler
        { 0xae59db5f, "Deletestorieshandler" }, // stories.deletestorieshandler
-       { 0x51e842e1, "Editmessagehandler" }, // messages.editmessagehandler
+       { 0xb106e66c, "Editmessagehandler" }, // messages.editmessagehandler
        { 0xf91b065, "Exportinvoicehandler" }, // payments.exportinvoicehandler
        { 0x37148dbb, "Getpaymentformhandler" }, // payments.getpaymentformhandler
        { 0xa319e569, "Getsavedstargiftshandler" }, // payments.getsavedstargiftshandler
        { 0x4ea9b3bf, "Getstarsstatushandler" }, // payments.getstarsstatushandler
        { 0xe306d3a, "Readhistoryhandler" }, // messages.readhistoryhandler
        { 0x330e77f, "Sendmediahandler" }, // messages.sendmediahandler
-       { 0x545cd15a, "Sendmessagehandler" }, // messages.sendmessagehandler
+       { 0xfef48f62, "Sendmessagehandler" }, // messages.sendmessagehandler
        { 0x1bf89d74, "Sendmultimediahandler" }, // messages.sendmultimediahandler
        { 0x7998c914, "Sendstarsformhandler" }, // payments.sendstarsformhandler
        { 0x1edaaac2, "Setglobalprivacysettingshandler" }, // account.setglobalprivacysettingshandler
@@ -9148,7 +9987,7 @@ public class RpcErrors
        { 0xaed6e4f5, "Upgradestargifthandler" }, // payments.upgradestargifthandler
     }.ToFrozenDictionary();
 
-    // Count: 37
+    // Count: 40
     public static readonly FrozenDictionary<uint, string> UnauthedAllowedHandlers = new Dictionary<uint, string> 
     {
        { 0x80ed747d, "Assignappstoretransactionhandler" }, // payments.assignappstoretransactionhandler
@@ -9156,36 +9995,39 @@ public class RpcErrors
        { 0xcdd42a05, "Bindtempauthkeyhandler" }, // auth.bindtempauthkeyhandler
        { 0x1f040578, "Cancelcodehandler" }, // auth.cancelcodehandler
        { 0x4fdc5ea7, "Canpurchasestorehandler" }, // payments.canpurchasestorehandler
+       { 0x56e59f9c, "Checkpaidauthhandler" }, // auth.checkpaidauthhandler
        { 0xd18b4d16, "Checkpasswordhandler" }, // auth.checkpasswordhandler
        { 0xa2c0cf74, "Deleteaccounthandler" }, // account.deleteaccounthandler
        { 0xb7e085fe, "Exportlogintokenhandler" }, // auth.exportlogintokenhandler
+       { 0x9857ad07, "Finishpasskeyloginhandler" }, // auth.finishpasskeyloginhandler
        { 0x61e3f854, "Getappconfighandler" }, // help.getappconfighandler
        { 0xc4f9186b, "Getconfighandler" }, // help.getconfighandler
        { 0x735787a8, "Getcountrieslisthandler" }, // help.getcountrieslisthandler
        { 0x3fedc75f, "Getdeeplinkinfohandler" }, // help.getdeeplinkinfohandler
        { 0xcd984aa5, "Getdifferencehandler" }, // langpack.getdifferencehandler
-       { 0x9ab5c58e, "Getlangpackhandler" }, // langpack.getlangpackhandler
+       { 0xf2f2330a, "Getlangpackhandler" }, // langpack.getlangpackhandler
        { 0x6a596502, "Getlanguagehandler" }, // langpack.getlanguagehandler
-       { 0x800fd57d, "Getlanguageshandler" }, // langpack.getlanguageshandler
+       { 0x42c6978f, "Getlanguageshandler" }, // langpack.getlanguageshandler
        { 0x1fb33026, "Getnearestdchandler" }, // help.getnearestdchandler
        { 0x548a30f5, "Getpasswordhandler" }, // account.getpasswordhandler
        { 0x37148dbb, "Getpaymentformhandler" }, // payments.getpaymentformhandler
-       { 0x2e1ee318, "Getstringshandler" }, // langpack.getstringshandler
+       { 0xefea3803, "Getstringshandler" }, // langpack.getstringshandler
        { 0xa57a7dad, "Importauthorizationhandler" }, // auth.importauthorizationhandler
        { 0x67a3ff2c, "Importbotauthorizationhandler" }, // auth.importbotauthorizationhandler
        { 0x95ac5ce4, "Importlogintokenhandler" }, // auth.importlogintokenhandler
        { 0x2db873a9, "Importwebtokenauthorizationhandler" }, // auth.importwebtokenauthorizationhandler
        { 0xc1cd5ea9, "Initconnectionhandler" }, // initconnectionhandler
+       { 0x518ad0b7, "Initpasskeyloginhandler" }, // auth.initpasskeyloginhandler
        { 0xcb9deff6, "Reportmissingcodehandler" }, // auth.reportmissingcodehandler
        { 0x8e39261e, "Requestfirebasesmshandler" }, // auth.requestfirebasesmshandler
        { 0xcae47523, "Resendcodehandler" }, // auth.resendcodehandler
        { 0x7e960193, "Resetloginemailhandler" }, // auth.resetloginemailhandler
        { 0x6f02f748, "Saveapploghandler" }, // help.saveapploghandler
-       { 0x86aef0ec, "Sendcodehandler" }, // auth.sendcodehandler
+       { 0xa677244f, "Sendcodehandler" }, // auth.sendcodehandler
        { 0x2d03522f, "Sendpaymentformhandler" }, // payments.sendpaymentformhandler
        { 0x98e037bb, "Sendverifyemailcodehandler" }, // account.sendverifyemailcodehandler
        { 0x8d52a951, "Signinhandler" }, // auth.signinhandler
-       { 0x80eee427, "Signuphandler" }, // auth.signuphandler
+       { 0xaac7b717, "Signuphandler" }, // auth.signuphandler
        { 0x32da4cf, "Verifyemailhandler" }, // account.verifyemailhandler
     }.ToFrozenDictionary();
 }

@@ -1,6 +1,6 @@
 ﻿namespace MyTelegram.Messenger.Services.Impl;
 
-public class ChannelAdminRightsChecker(IQueryProcessor queryProcessor, IChannelAppService channelAppService) : IChannelAdminRightsChecker, ITransientDependency
+public class ChannelAdminRightsChecker(IChannelAppService channelAppService) : IChannelAdminRightsChecker, ITransientDependency
 {
     public async Task<bool> HasChatAdminRightAsync(long channelId, long userId, Func<ChatAdminRights, bool> checkAdminRightsFunc)
     {

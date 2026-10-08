@@ -16,13 +16,9 @@ public sealed partial class TWebPageAttributeStarGiftCollection : IWebPageAttrib
     /// </summary>
     public TVector<MyTelegram.Schema.IDocument> Icons { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Icons);
     }

@@ -22,13 +22,9 @@ public sealed partial class RequestGetSponsoredPeers : IRequest<MyTelegram.Schem
     /// </summary>
     public string Q { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Q);
     }

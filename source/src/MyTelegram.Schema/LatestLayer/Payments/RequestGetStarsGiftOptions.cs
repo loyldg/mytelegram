@@ -30,17 +30,19 @@ public sealed partial class RequestGetStarsGiftOptions : IRequest<TVector<MyTele
     /// </summary>
     public MyTelegram.Schema.IInputUser? UserId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (UserId != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (UserId != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(UserId); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(UserId); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

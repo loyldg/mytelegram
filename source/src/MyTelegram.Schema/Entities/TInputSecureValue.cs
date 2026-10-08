@@ -63,30 +63,32 @@ public sealed partial class TInputSecureValue : IInputSecureValue
     /// </summary>
     public MyTelegram.Schema.ISecurePlainData? PlainData { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Data != null) { Flags = Flags.SetBit(0); }
-        if (FrontSide != null) { Flags = Flags.SetBit(1); }
-        if (ReverseSide != null) { Flags = Flags.SetBit(2); }
-        if (Selfie != null) { Flags = Flags.SetBit(3); }
-        if (Translation?.Count > 0) { Flags = Flags.SetBit(6); }
-        if (Files?.Count > 0) { Flags = Flags.SetBit(4); }
-        if (PlainData != null) { Flags = Flags.SetBit(5); }
+        var flags = 0;
+        if (Data != null) { flags = flags.SetBit(0); }
+        if (FrontSide != null) { flags = flags.SetBit(1); }
+        if (ReverseSide != null) { flags = flags.SetBit(2); }
+        if (Selfie != null) { flags = flags.SetBit(3); }
+        if (Translation?.Count > 0) { flags = flags.SetBit(6); }
+        if (Files?.Count > 0) { flags = flags.SetBit(4); }
+        if (PlainData != null) { flags = flags.SetBit(5); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Type);
-        if (Flags.IsBitSet(0)) { writer.Write(Data); }
-        if (Flags.IsBitSet(1)) { writer.Write(FrontSide); }
-        if (Flags.IsBitSet(2)) { writer.Write(ReverseSide); }
-        if (Flags.IsBitSet(3)) { writer.Write(Selfie); }
-        if (Flags.IsBitSet(6)) { writer.Write(Translation); }
-        if (Flags.IsBitSet(4)) { writer.Write(Files); }
-        if (Flags.IsBitSet(5)) { writer.Write(PlainData); }
+        if (flags.IsBitSet(0)) { writer.Write(Data); }
+        if (flags.IsBitSet(1)) { writer.Write(FrontSide); }
+        if (flags.IsBitSet(2)) { writer.Write(ReverseSide); }
+        if (flags.IsBitSet(3)) { writer.Write(Selfie); }
+        if (flags.IsBitSet(6)) { writer.Write(Translation); }
+        if (flags.IsBitSet(4)) { writer.Write(Files); }
+        if (flags.IsBitSet(5)) { writer.Write(PlainData); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

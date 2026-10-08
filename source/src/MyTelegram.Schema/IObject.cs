@@ -6,4 +6,6 @@ public interface IObject
 
     void Serialize(IBufferWriter<byte> writer);
     void Deserialize(ref ReadOnlyMemory<byte> buffer);
+
+    int GetLength();
 }

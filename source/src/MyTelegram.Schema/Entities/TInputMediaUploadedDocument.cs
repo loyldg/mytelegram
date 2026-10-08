@@ -75,31 +75,33 @@ public sealed partial class TInputMediaUploadedDocument : IInputMedia
     /// </summary>
     public int? TtlSeconds { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (NosoundVideo) { Flags = Flags.SetBit(3); }
-        if (ForceFile) { Flags = Flags.SetBit(4); }
-        if (Spoiler) { Flags = Flags.SetBit(5); }
-        if (Thumb != null) { Flags = Flags.SetBit(2); }
-        if (Stickers?.Count > 0) { Flags = Flags.SetBit(0); }
-        if (VideoCover != null) { Flags = Flags.SetBit(6); }
-        if (/*VideoTimestamp != 0 && */VideoTimestamp.HasValue) { Flags = Flags.SetBit(7); }
-        if (/*TtlSeconds != 0 && */TtlSeconds.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (NosoundVideo) { flags = flags.SetBit(3); }
+        if (ForceFile) { flags = flags.SetBit(4); }
+        if (Spoiler) { flags = flags.SetBit(5); }
+        if (Thumb != null) { flags = flags.SetBit(2); }
+        if (Stickers?.Count > 0) { flags = flags.SetBit(0); }
+        if (VideoCover != null) { flags = flags.SetBit(6); }
+        if (/*VideoTimestamp != 0 && */VideoTimestamp.HasValue) { flags = flags.SetBit(7); }
+        if (/*TtlSeconds != 0 && */TtlSeconds.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(File);
-        if (Flags.IsBitSet(2)) { writer.Write(Thumb); }
+        if (flags.IsBitSet(2)) { writer.Write(Thumb); }
         writer.Write(MimeType);
         writer.Write(Attributes);
-        if (Flags.IsBitSet(0)) { writer.Write(Stickers); }
-        if (Flags.IsBitSet(6)) { writer.Write(VideoCover); }
-        if (Flags.IsBitSet(7)) { writer.Write(VideoTimestamp.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(TtlSeconds.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(Stickers); }
+        if (flags.IsBitSet(6)) { writer.Write(VideoCover); }
+        if (flags.IsBitSet(7)) { writer.Write(VideoTimestamp.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(TtlSeconds.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

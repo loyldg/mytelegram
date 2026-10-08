@@ -62,7 +62,7 @@ internal sealed class GetChannelDifferenceHandler(IMessageAppService messageAppS
             }
 
             var allUpdateList = updatesReadModels.Where(p => p.UpdatesType == UpdatesType.Updates).SelectMany(p => p.Updates ?? []).ToList();
-            var r = differenceConverterService.ToChannelDifference(input, dto, isChannelMember, allUpdateList, maxPts, layer: input.Layer);
+            var r = await differenceConverterService.ToChannelDifferenceAsync(input, dto, isChannelMember, allUpdateList, maxPts, layer: input.Layer);
             return r;
         }
 

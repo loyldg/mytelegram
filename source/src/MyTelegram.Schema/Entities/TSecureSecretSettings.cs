@@ -26,13 +26,9 @@ public sealed partial class TSecureSecretSettings : ISecureSecretSettings
     /// </summary>
     public long SecureSecretId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(SecureAlgo);
         writer.Write(SecureSecret);

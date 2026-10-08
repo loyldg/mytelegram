@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TTranslateResult"/> See <a href="https://corefork.telegram.org/constructor/messages.translateResult" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TTranslateResult), nameof(TTranslateResult))]
-public interface ITranslatedText : IObject
+public partial interface ITranslatedText : IObject
 {
     /// <summary>
     /// Text+<a href="https://corefork.telegram.org/api/entities">entities</a>, for each input message.

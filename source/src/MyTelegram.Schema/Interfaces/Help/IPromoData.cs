@@ -13,7 +13,7 @@ namespace MyTelegram.Schema.Help;
 /// </remarks>
 [JsonDerivedType(typeof(TPromoDataEmpty), nameof(TPromoDataEmpty))]
 [JsonDerivedType(typeof(TPromoData), nameof(TPromoData))]
-public interface IPromoData : IObject
+public partial interface IPromoData : IObject
 {
     /// <summary>
     /// Re-fetch PSA/MTProxy info after the specified number of seconds

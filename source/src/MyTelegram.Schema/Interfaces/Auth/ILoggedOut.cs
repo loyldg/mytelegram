@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Auth;
 /// <see cref="TLoggedOut"/> See <a href="https://corefork.telegram.org/constructor/auth.loggedOut" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TLoggedOut), nameof(TLoggedOut))]
-public interface ILoggedOut : IObject
+public partial interface ILoggedOut : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

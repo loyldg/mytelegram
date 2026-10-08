@@ -14,6 +14,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TWebPageAttributeUniqueStarGift"/> See <a href="https://corefork.telegram.org/constructor/webPageAttributeUniqueStarGift" /><br/>
 /// <see cref="TWebPageAttributeStarGiftCollection"/> See <a href="https://corefork.telegram.org/constructor/webPageAttributeStarGiftCollection" /><br/>
 /// <see cref="TWebPageAttributeStarGiftAuction"/> See <a href="https://corefork.telegram.org/constructor/webPageAttributeStarGiftAuction" /><br/>
+/// <see cref="TWebPageAttributeAiComposeTone"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TWebPageAttributeTheme), nameof(TWebPageAttributeTheme))]
 [JsonDerivedType(typeof(TWebPageAttributeStory), nameof(TWebPageAttributeStory))]
@@ -21,6 +22,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TWebPageAttributeUniqueStarGift), nameof(TWebPageAttributeUniqueStarGift))]
 [JsonDerivedType(typeof(TWebPageAttributeStarGiftCollection), nameof(TWebPageAttributeStarGiftCollection))]
 [JsonDerivedType(typeof(TWebPageAttributeStarGiftAuction), nameof(TWebPageAttributeStarGiftAuction))]
-public interface IWebPageAttribute : IObject
+[JsonDerivedType(typeof(TWebPageAttributeAiComposeTone), nameof(TWebPageAttributeAiComposeTone))]
+public partial interface IWebPageAttribute : IObject
 {
 }

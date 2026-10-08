@@ -41,24 +41,26 @@ public sealed partial class TRequestedPeerUser : IRequestedPeer
     /// </summary>
     public MyTelegram.Schema.IPhoto? Photo { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (FirstName != null) { Flags = Flags.SetBit(0); }
-        if (LastName != null) { Flags = Flags.SetBit(0); }
-        if (Username != null) { Flags = Flags.SetBit(1); }
-        if (Photo != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (FirstName != null) { flags = flags.SetBit(0); }
+        if (LastName != null) { flags = flags.SetBit(0); }
+        if (Username != null) { flags = flags.SetBit(1); }
+        if (Photo != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(UserId);
-        if (Flags.IsBitSet(0)) { writer.Write(FirstName); }
-        if (Flags.IsBitSet(0)) { writer.Write(LastName); }
-        if (Flags.IsBitSet(1)) { writer.Write(Username); }
-        if (Flags.IsBitSet(2)) { writer.Write(Photo); }
+        if (flags.IsBitSet(0)) { writer.Write(FirstName); }
+        if (flags.IsBitSet(0)) { writer.Write(LastName); }
+        if (flags.IsBitSet(1)) { writer.Write(Username); }
+        if (flags.IsBitSet(2)) { writer.Write(Photo); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

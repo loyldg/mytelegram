@@ -29,13 +29,9 @@ public sealed partial class RequestLeaveChatlist : IRequest<MyTelegram.Schema.IU
     /// </summary>
     public TVector<MyTelegram.Schema.IInputPeer> Peers { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Chatlist);
         writer.Write(Peers);

@@ -6,29 +6,49 @@ namespace MyTelegram.Schema;
 /// Ordered list of IV blocks
 /// <para>See <a href="https://corefork.telegram.org/constructor/pageBlockOrderedList" /></para>
 /// </summary>
-[TlObject(0x9a8ae1e1)]
+[TlObject(0x1fd6f6c1)]
 public sealed partial class TPageBlockOrderedList : IPageBlock
 {
-    public uint ConstructorId => 0x9a8ae1e1;
+    public uint ConstructorId => 0x1fd6f6c1;
+    public int Flags { get; set; }
+
+    public bool Reversed { get; set; }
+
     /// <summary>
     /// List items
     /// See <a href="https://corefork.telegram.org/type/PageListOrderedItem" />
     /// </summary>
     public TVector<MyTelegram.Schema.IPageListOrderedItem> Items { get; set; }
 
-    public void ComputeFlag()
+    public int? Start { get; set; }
+
+    public string? Type { get; set; }
+
+    public int CalculateFlags()
     {
+        var flags = 0;
+        if (Reversed) { flags = flags.SetBit(2); }
+        if (/*Start != 0 && */Start.HasValue) { flags = flags.SetBit(0); }
+        if (Type != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
+        writer.Write(flags);
         writer.Write(Items);
+        if (flags.IsBitSet(0)) { writer.Write(Start.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(Type); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(2)) { Reversed = true; }
         Items = buffer.Read<TVector<MyTelegram.Schema.IPageListOrderedItem>>();
+        if (Flags.IsBitSet(0)) { Start = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(1)) { Type = buffer.ReadString(); }
     }
 }

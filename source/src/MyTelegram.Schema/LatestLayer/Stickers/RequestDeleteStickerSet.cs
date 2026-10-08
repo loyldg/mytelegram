@@ -23,13 +23,9 @@ public sealed partial class RequestDeleteStickerSet : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IInputStickerSet Stickerset { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Stickerset);
     }

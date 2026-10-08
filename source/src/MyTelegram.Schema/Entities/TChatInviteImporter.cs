@@ -45,23 +45,25 @@ public sealed partial class TChatInviteImporter : IChatInviteImporter
     /// </summary>
     public long? ApprovedBy { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Requested) { Flags = Flags.SetBit(0); }
-        if (ViaChatlist) { Flags = Flags.SetBit(3); }
-        if (About != null) { Flags = Flags.SetBit(2); }
-        if (/*ApprovedBy != 0 &&*/ ApprovedBy.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Requested) { flags = flags.SetBit(0); }
+        if (ViaChatlist) { flags = flags.SetBit(3); }
+        if (About != null) { flags = flags.SetBit(2); }
+        if (/*ApprovedBy != 0 &&*/ ApprovedBy.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(UserId);
         writer.Write(Date);
-        if (Flags.IsBitSet(2)) { writer.Write(About); }
-        if (Flags.IsBitSet(1)) { writer.Write(ApprovedBy.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(About); }
+        if (flags.IsBitSet(1)) { writer.Write(ApprovedBy.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

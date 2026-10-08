@@ -36,20 +36,22 @@ public sealed partial class TInputStorePaymentStarsTopup : IInputStorePaymentPur
     /// </summary>
     public MyTelegram.Schema.IInputPeer? SpendPurposePeer { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (SpendPurposePeer != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (SpendPurposePeer != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Stars);
         writer.Write(Currency);
         writer.Write(Amount);
-        if (Flags.IsBitSet(0)) { writer.Write(SpendPurposePeer); }
+        if (flags.IsBitSet(0)) { writer.Write(SpendPurposePeer); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -27,13 +27,9 @@ public sealed partial class RequestGetWebPage : IRequest<MyTelegram.Schema.Messa
     /// </summary>
     public int Hash { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Url);
         writer.Write(Hash);

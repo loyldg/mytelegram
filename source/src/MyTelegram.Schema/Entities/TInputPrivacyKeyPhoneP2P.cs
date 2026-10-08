@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TInputPrivacyKeyPhoneP2P : IInputPrivacyKey
 {
     public uint ConstructorId => 0xdb9e70d2;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

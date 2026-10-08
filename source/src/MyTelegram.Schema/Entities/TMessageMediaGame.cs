@@ -16,13 +16,9 @@ public sealed partial class TMessageMediaGame : IMessageMedia
     /// </summary>
     public MyTelegram.Schema.IGame Game { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Game);
     }

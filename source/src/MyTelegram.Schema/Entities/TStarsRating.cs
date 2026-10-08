@@ -35,20 +35,22 @@ public sealed partial class TStarsRating : IStarsRating
     /// </summary>
     public long? NextLevelStars { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*NextLevelStars != 0 &&*/ NextLevelStars.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*NextLevelStars != 0 &&*/ NextLevelStars.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Level);
         writer.Write(CurrentLevelStars);
         writer.Write(Stars);
-        if (Flags.IsBitSet(0)) { writer.Write(NextLevelStars.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(NextLevelStars.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

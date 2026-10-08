@@ -59,24 +59,26 @@ public sealed partial class RequestSendPaymentForm : IRequest<MyTelegram.Schema.
     /// </summary>
     public long? TipAmount { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (RequestedInfoId != null) { Flags = Flags.SetBit(0); }
-        if (ShippingOptionId != null) { Flags = Flags.SetBit(1); }
-        if (/*TipAmount != 0 &&*/ TipAmount.HasValue) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (RequestedInfoId != null) { flags = flags.SetBit(0); }
+        if (ShippingOptionId != null) { flags = flags.SetBit(1); }
+        if (/*TipAmount != 0 &&*/ TipAmount.HasValue) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(FormId);
         writer.Write(Invoice);
-        if (Flags.IsBitSet(0)) { writer.Write(RequestedInfoId); }
-        if (Flags.IsBitSet(1)) { writer.Write(ShippingOptionId); }
+        if (flags.IsBitSet(0)) { writer.Write(RequestedInfoId); }
+        if (flags.IsBitSet(1)) { writer.Write(ShippingOptionId); }
         writer.Write(Credentials);
-        if (Flags.IsBitSet(2)) { writer.Write(TipAmount.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(TipAmount.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

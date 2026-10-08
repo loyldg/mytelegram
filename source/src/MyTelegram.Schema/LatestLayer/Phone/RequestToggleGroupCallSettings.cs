@@ -51,23 +51,25 @@ public sealed partial class RequestToggleGroupCallSettings : IRequest<MyTelegram
     /// </summary>
     public long? SendPaidMessagesStars { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ResetInviteHash) { Flags = Flags.SetBit(1); }
-        if (JoinMuted != null) { Flags = Flags.SetBit(0); }
-        if (MessagesEnabled != null) { Flags = Flags.SetBit(2); }
-        if (/*SendPaidMessagesStars != 0 &&*/ SendPaidMessagesStars.HasValue) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (ResetInviteHash) { flags = flags.SetBit(1); }
+        if (JoinMuted != null) { flags = flags.SetBit(0); }
+        if (MessagesEnabled != null) { flags = flags.SetBit(2); }
+        if (/*SendPaidMessagesStars != 0 &&*/ SendPaidMessagesStars.HasValue) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Call);
-        if (Flags.IsBitSet(0)) { writer.Write(JoinMuted.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(MessagesEnabled.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(SendPaidMessagesStars.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(JoinMuted.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(MessagesEnabled.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(SendPaidMessagesStars.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

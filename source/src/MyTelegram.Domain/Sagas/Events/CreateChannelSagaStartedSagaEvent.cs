@@ -11,7 +11,8 @@ public class CreateChannelSagaStartedSagaEvent(
     int? ttlPeriod,
     bool isTtlFromDefaultSetting,
     List<long> memberUserIds,
-    List<long> botUserIds)
+    List<long> botUserIds
+    )
     : AggregateEvent<CreateChannelSaga, CreateChannelSagaId>
 {
     public RequestInfo RequestInfo { get; } = requestInfo;

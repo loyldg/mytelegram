@@ -4,7 +4,7 @@ namespace MyTelegram.Schema;
 
 
 [TlObject(0x2144ca19)]
-public sealed class TRpcError : IObject
+public sealed partial class TRpcError : IObject
 {
     public uint ConstructorId => 0x2144ca19;
     public int ErrorCode { get; set; }

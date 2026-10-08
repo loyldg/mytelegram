@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TTodoItem"/> See <a href="https://corefork.telegram.org/constructor/todoItem" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TTodoItem), nameof(TTodoItem))]
-public interface ITodoItem : IObject
+public partial interface ITodoItem : IObject
 {
     /// <summary>
     /// ID of the item, a positive (non-zero) integer unique within the current list.

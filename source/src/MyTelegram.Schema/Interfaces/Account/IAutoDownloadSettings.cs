@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Account;
 /// <see cref="TAutoDownloadSettings"/> See <a href="https://corefork.telegram.org/constructor/account.autoDownloadSettings" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TAutoDownloadSettings), nameof(TAutoDownloadSettings))]
-public interface IAutoDownloadSettings : IObject
+public partial interface IAutoDownloadSettings : IObject
 {
     /// <summary>
     /// Low data usage preset

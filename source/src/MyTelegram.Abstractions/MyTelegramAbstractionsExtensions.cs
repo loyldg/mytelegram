@@ -1,43 +1,58 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
+﻿using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MyTelegram.Abstractions;
+
 public static class MyTelegramAbstractionsExtensions
 {
     public static void RegisterServices(this IServiceCollection services, Assembly? assembly = null)
     {
         assembly ??= Assembly.GetCallingAssembly();
 
-        var singletonBaseInterface = typeof(ISingletonDependency);
-        var transientBaseInterface = typeof(ITransientDependency);
+        var singletonMarker = typeof(ISingletonDependency);
+        var transientMarker = typeof(ITransientDependency);
 
-        var types = assembly.GetTypes()
-                .Where(p => p != singletonBaseInterface && p != transientBaseInterface && !p.IsAbstract)
-                .ToList()
-            ;
-        var singletonTypes = types.Where(singletonBaseInterface.IsAssignableFrom);
-        var transientTypes = types.Where(transientBaseInterface.IsAssignableFrom);
-
-        foreach (var type in singletonTypes)
+        foreach (var type in assembly.GetTypes())
         {
-            var baseInterfaces = type.GetInterfaces();
-            foreach (var baseInterface in baseInterfaces)
+            if (!type.IsClass || type.IsAbstract)
             {
-                services.AddSingleton(baseInterface, type);
+                continue;
             }
 
-            services.AddSingleton(type);
-        }
-
-        foreach (var type in transientTypes)
-        {
-            var baseInterfaces = type.GetInterfaces();
-            foreach (var baseInterface in baseInterfaces)
+            var lifetime = type.GetInterfaces() switch
             {
-                services.AddTransient(baseInterface, type);
+                var interfaces when interfaces.Contains(singletonMarker)
+                    => ServiceLifetime.Singleton,
+
+                var interfaces when interfaces.Contains(transientMarker)
+                    => ServiceLifetime.Transient,
+
+                _ => (ServiceLifetime?)null
+            };
+
+            if (lifetime is null)
+            {
+                continue;
             }
 
-            services.AddTransient(type);
+            foreach (var serviceType in type.GetInterfaces())
+            {
+                if (serviceType == singletonMarker ||
+                    serviceType == transientMarker)
+                {
+                    continue;
+                }
+
+                services.Add(new ServiceDescriptor(
+                    serviceType,
+                    type,
+                    lifetime.Value));
+            }
+
+            services.Add(new ServiceDescriptor(
+                type,
+                type,
+                lifetime.Value));
         }
     }
 }

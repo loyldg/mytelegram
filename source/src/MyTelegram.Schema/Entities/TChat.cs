@@ -94,33 +94,35 @@ public sealed partial class TChat : IChat//, ILayeredChat
     /// </summary>
     public MyTelegram.Schema.IChatBannedRights? DefaultBannedRights { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Creator) { Flags = Flags.SetBit(0); }
-        if (Left) { Flags = Flags.SetBit(2); }
-        if (Deactivated) { Flags = Flags.SetBit(5); }
-        if (CallActive) { Flags = Flags.SetBit(23); }
-        if (CallNotEmpty) { Flags = Flags.SetBit(24); }
-        if (Noforwards) { Flags = Flags.SetBit(25); }
-        if (MigratedTo != null) { Flags = Flags.SetBit(6); }
-        if (AdminRights != null) { Flags = Flags.SetBit(14); }
-        if (DefaultBannedRights != null) { Flags = Flags.SetBit(18); }
+        var flags = 0;
+        if (Creator) { flags = flags.SetBit(0); }
+        if (Left) { flags = flags.SetBit(2); }
+        if (Deactivated) { flags = flags.SetBit(5); }
+        if (CallActive) { flags = flags.SetBit(23); }
+        if (CallNotEmpty) { flags = flags.SetBit(24); }
+        if (Noforwards) { flags = flags.SetBit(25); }
+        if (MigratedTo != null) { flags = flags.SetBit(6); }
+        if (AdminRights != null) { flags = flags.SetBit(14); }
+        if (DefaultBannedRights != null) { flags = flags.SetBit(18); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(Title);
         writer.Write(Photo);
         writer.Write(ParticipantsCount);
         writer.Write(Date);
         writer.Write(Version);
-        if (Flags.IsBitSet(6)) { writer.Write(MigratedTo); }
-        if (Flags.IsBitSet(14)) { writer.Write(AdminRights); }
-        if (Flags.IsBitSet(18)) { writer.Write(DefaultBannedRights); }
+        if (flags.IsBitSet(6)) { writer.Write(MigratedTo); }
+        if (flags.IsBitSet(14)) { writer.Write(AdminRights); }
+        if (flags.IsBitSet(18)) { writer.Write(DefaultBannedRights); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

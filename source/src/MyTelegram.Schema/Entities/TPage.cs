@@ -58,24 +58,26 @@ public sealed partial class TPage : IPage
     /// </summary>
     public int? Views { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Part) { Flags = Flags.SetBit(0); }
-        if (Rtl) { Flags = Flags.SetBit(1); }
-        if (V2) { Flags = Flags.SetBit(2); }
-        if (/*Views != 0 && */Views.HasValue) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (Part) { flags = flags.SetBit(0); }
+        if (Rtl) { flags = flags.SetBit(1); }
+        if (V2) { flags = flags.SetBit(2); }
+        if (/*Views != 0 && */Views.HasValue) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Url);
         writer.Write(Blocks);
         writer.Write(Photos);
         writer.Write(Documents);
-        if (Flags.IsBitSet(3)) { writer.Write(Views.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(Views.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -41,23 +41,25 @@ public sealed partial class TInputMediaGeoLive : IInputMedia
     /// </summary>
     public int? ProximityNotificationRadius { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Stopped) { Flags = Flags.SetBit(0); }
-        if (/*Heading != 0 && */Heading.HasValue) { Flags = Flags.SetBit(2); }
-        if (/*Period != 0 && */Period.HasValue) { Flags = Flags.SetBit(1); }
-        if (/*ProximityNotificationRadius != 0 && */ProximityNotificationRadius.HasValue) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (Stopped) { flags = flags.SetBit(0); }
+        if (/*Heading != 0 && */Heading.HasValue) { flags = flags.SetBit(2); }
+        if (/*Period != 0 && */Period.HasValue) { flags = flags.SetBit(1); }
+        if (/*ProximityNotificationRadius != 0 && */ProximityNotificationRadius.HasValue) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(GeoPoint);
-        if (Flags.IsBitSet(2)) { writer.Write(Heading.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(Period.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(ProximityNotificationRadius.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(Heading.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(Period.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(ProximityNotificationRadius.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

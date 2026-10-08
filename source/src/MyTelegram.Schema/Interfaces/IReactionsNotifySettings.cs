@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TReactionsNotifySettings"/> See <a href="https://corefork.telegram.org/constructor/reactionsNotifySettings" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TReactionsNotifySettings), nameof(TReactionsNotifySettings))]
-public interface IReactionsNotifySettings : IObject
+public partial interface IReactionsNotifySettings : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
@@ -29,11 +29,6 @@ public interface IReactionsNotifySettings : IObject
     /// See <a href="https://corefork.telegram.org/type/ReactionNotificationsFrom" />
     /// </summary>
     MyTelegram.Schema.IReactionNotificationsFrom? StoriesNotifyFrom { get; set; }
-
-    /// <summary>
-    /// See <a href="https://corefork.telegram.org/type/ReactionNotificationsFrom" />
-    /// </summary>
-    MyTelegram.Schema.IReactionNotificationsFrom? PollVotesNotifyFrom { get; set; }
 
     /// <summary>
     /// <a href="https://corefork.telegram.org/api/ringtones">Notification sound for reactions »</a>

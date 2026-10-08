@@ -15,13 +15,9 @@ public sealed partial class TSentCodeTypeApp : ISentCodeType
     /// </summary>
     public int Length { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Length);
     }

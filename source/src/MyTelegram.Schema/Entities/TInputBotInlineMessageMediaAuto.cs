@@ -37,21 +37,23 @@ public sealed partial class TInputBotInlineMessageMediaAuto : IInputBotInlineMes
     /// </summary>
     public MyTelegram.Schema.IReplyMarkup? ReplyMarkup { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (InvertMedia) { Flags = Flags.SetBit(3); }
-        if (Entities?.Count > 0) { Flags = Flags.SetBit(1); }
-        if (ReplyMarkup != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (InvertMedia) { flags = flags.SetBit(3); }
+        if (Entities?.Count > 0) { flags = flags.SetBit(1); }
+        if (ReplyMarkup != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Message);
-        if (Flags.IsBitSet(1)) { writer.Write(Entities); }
-        if (Flags.IsBitSet(2)) { writer.Write(ReplyMarkup); }
+        if (flags.IsBitSet(1)) { writer.Write(Entities); }
+        if (flags.IsBitSet(2)) { writer.Write(ReplyMarkup); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

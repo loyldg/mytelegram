@@ -21,13 +21,9 @@ public sealed partial class TPageBlockPreformatted : IPageBlock
     /// </summary>
     public string Language { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Text);
         writer.Write(Language);

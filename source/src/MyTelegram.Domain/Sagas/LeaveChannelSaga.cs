@@ -19,7 +19,7 @@ public class LeaveChannelSaga(LeaveChannelSagaId id, IEventStore eventStore) : M
         var updateParticipantCountCommand = new UpdateParticipantCountCommand(ChannelId.Create(domainEvent.AggregateEvent.ChannelId), -1);
         Publish(updateParticipantCountCommand);
 
-        if (!domainEvent.AggregateEvent.Broadcast)
+        if (domainEvent.AggregateEvent.NotifyOtherParticipants)
         {
             var ownerPeerId = domainEvent.AggregateEvent.ChannelId;
             var outMessageId = 0;
@@ -53,7 +53,6 @@ public class LeaveChannelSaga(LeaveChannelSagaId id, IEventStore eventStore) : M
             Publish(command);
         }
 
-        CompleteAsync();
-        return Task.CompletedTask;
+        return CompleteAsync();
     }
 }

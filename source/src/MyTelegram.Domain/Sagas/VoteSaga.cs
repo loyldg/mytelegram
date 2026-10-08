@@ -18,21 +18,22 @@ public class VoteSaga : MyInMemoryAggregateSaga<VoteSaga, VoteSagaId, VoteSagaLo
         foreach (var option in domainEvent.AggregateEvent.Options)
         {
             var correct = domainEvent.AggregateEvent.CorrectAnswers?.Contains(option);
-            var command = new CreateVoteAnswerCommand(domainEvent.AggregateIdentity,
+            var command = new CreatePollVoterCommand(PollVoterId.Create(domainEvent.AggregateEvent.PollId, option, domainEvent.AggregateEvent.VoteUserPeerId),
                 domainEvent.AggregateEvent.PollId,
-                domainEvent.AggregateEvent.VoteUserPeerId,
                 option,
+                domainEvent.AggregateEvent.VoteUserPeerId,
                 correct ?? false);
             Publish(command);
         }
 
-        foreach (var _ in domainEvent.AggregateEvent.RetractVoteOptions ?? [])
+        if (domainEvent.AggregateEvent.RetractVoteOptions?.Count > 0)
         {
-            var command = new DeleteVoteAnswerCommand(
-                domainEvent.AggregateIdentity,
-                domainEvent.AggregateEvent.PollId,
-                domainEvent.AggregateEvent.VoteUserPeerId);
-            Publish(command);
+            foreach (var option in domainEvent.AggregateEvent.RetractVoteOptions)
+            {
+                var command = new DeletePollVoterCommand(PollVoterId.Create(domainEvent.AggregateEvent.PollId, option,
+                    domainEvent.AggregateEvent.VoteUserPeerId));
+                Publish(command);
+            }
         }
 
         Emit(new VoteSagaCompletedSagaEvent(domainEvent.AggregateEvent.RequestInfo,
@@ -40,6 +41,7 @@ public class VoteSaga : MyInMemoryAggregateSaga<VoteSaga, VoteSagaId, VoteSagaLo
             domainEvent.AggregateEvent.VoteUserPeerId,
             domainEvent.AggregateEvent.Options,
             domainEvent.AggregateEvent.ToPeer));
-        return Task.CompletedTask;
+
+        return CompleteAsync(cancellationToken);
     }
 }

@@ -32,13 +32,9 @@ public sealed partial class RequestReuploadCdnFile : IRequest<TVector<MyTelegram
     /// </summary>
     public ReadOnlyMemory<byte> RequestToken { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(FileToken);
         writer.Write(RequestToken);

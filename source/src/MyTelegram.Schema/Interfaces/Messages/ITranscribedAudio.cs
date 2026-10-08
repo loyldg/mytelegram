@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TTranscribedAudio"/> See <a href="https://corefork.telegram.org/constructor/messages.transcribedAudio" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TTranscribedAudio), nameof(TTranscribedAudio))]
-public interface ITranscribedAudio : IObject
+public partial interface ITranscribedAudio : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

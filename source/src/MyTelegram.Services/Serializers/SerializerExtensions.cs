@@ -151,7 +151,7 @@ public static class SerializerExtensions
         }
     }
 
-    public static string ReadString2(this ref ReadOnlyMemory<byte> buffer)
+    public static string? ReadString2(this ref ReadOnlyMemory<byte> buffer)
     {
         var isNull = buffer.ReadByte() == 0;
         if (isNull)

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TAttachMenuBotsBot"/> See <a href="https://corefork.telegram.org/constructor/attachMenuBotsBot" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TAttachMenuBotsBot), nameof(TAttachMenuBotsBot))]
-public interface IAttachMenuBotsBot : IObject
+public partial interface IAttachMenuBotsBot : IObject
 {
     /// <summary>
     /// Represents a <a href="https://corefork.telegram.org/api/bots/attach">bot mini app that can be launched from the attachment menu »</a><br/>

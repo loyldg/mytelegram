@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TStatsDateRangeDays"/> See <a href="https://corefork.telegram.org/constructor/statsDateRangeDays" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStatsDateRangeDays), nameof(TStatsDateRangeDays))]
-public interface IStatsDateRangeDays : IObject
+public partial interface IStatsDateRangeDays : IObject
 {
     /// <summary>
     /// Initial date

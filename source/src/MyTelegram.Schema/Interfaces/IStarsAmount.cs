@@ -13,7 +13,7 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TStarsAmount), nameof(TStarsAmount))]
 [JsonDerivedType(typeof(TStarsTonAmount), nameof(TStarsTonAmount))]
-public interface IStarsAmount : IObject
+public partial interface IStarsAmount : IObject
 {
     /// <summary>
     /// The amount in nanotons.

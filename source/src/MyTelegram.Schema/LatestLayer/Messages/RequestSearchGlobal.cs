@@ -14,10 +14,10 @@ namespace MyTelegram.Schema.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-[TlObject(0x4bc6589a)]
+[TlObject(0x6126a43c)]
 public sealed partial class RequestSearchGlobal : IRequest<MyTelegram.Schema.Messages.IMessages>
 {
-    public uint ConstructorId => 0x4bc6589a;
+    public uint ConstructorId => 0x6126a43c;
 
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
@@ -43,6 +43,11 @@ public sealed partial class RequestSearchGlobal : IRequest<MyTelegram.Schema.Mes
     /// <a href="https://corefork.telegram.org/api/folders#peer-folders">Peer folder ID, for more info click here</a>
     /// </summary>
     public int? FolderId { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/InputChannel" />
+    /// </summary>
+    public MyTelegram.Schema.IInputChannel? Community { get; set; }
 
     /// <summary>
     /// Query
@@ -86,20 +91,24 @@ public sealed partial class RequestSearchGlobal : IRequest<MyTelegram.Schema.Mes
     /// </summary>
     public int Limit { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (BroadcastsOnly) { Flags = Flags.SetBit(1); }
-        if (GroupsOnly) { Flags = Flags.SetBit(2); }
-        if (UsersOnly) { Flags = Flags.SetBit(3); }
-        if (/*FolderId != 0 && */FolderId.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (BroadcastsOnly) { flags = flags.SetBit(1); }
+        if (GroupsOnly) { flags = flags.SetBit(2); }
+        if (UsersOnly) { flags = flags.SetBit(3); }
+        if (/*FolderId != 0 && */FolderId.HasValue) { flags = flags.SetBit(0); }
+        if (Community != null) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(FolderId.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(FolderId.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(Community); }
         writer.Write(Q);
         writer.Write(Filter);
         writer.Write(MinDate);
@@ -117,6 +126,7 @@ public sealed partial class RequestSearchGlobal : IRequest<MyTelegram.Schema.Mes
         if (Flags.IsBitSet(2)) { GroupsOnly = true; }
         if (Flags.IsBitSet(3)) { UsersOnly = true; }
         if (Flags.IsBitSet(0)) { FolderId = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(4)) { Community = buffer.Read<MyTelegram.Schema.IInputChannel>(); }
         Q = buffer.ReadString();
         Filter = buffer.Read<MyTelegram.Schema.IMessagesFilter>();
         MinDate = buffer.ReadInt32();

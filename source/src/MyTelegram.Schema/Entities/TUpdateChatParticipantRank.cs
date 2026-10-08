@@ -17,13 +17,9 @@ public sealed partial class TUpdateChatParticipantRank : IUpdate
 
     public int Version { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ChatId);
         writer.Write(UserId);

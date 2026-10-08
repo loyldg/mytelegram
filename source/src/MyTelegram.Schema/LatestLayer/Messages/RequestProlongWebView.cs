@@ -56,23 +56,25 @@ public sealed partial class RequestProlongWebView : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IInputPeer? SendAs { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Silent) { Flags = Flags.SetBit(5); }
-        if (ReplyTo != null) { Flags = Flags.SetBit(0); }
-        if (SendAs != null) { Flags = Flags.SetBit(13); }
+        var flags = 0;
+        if (Silent) { flags = flags.SetBit(5); }
+        if (ReplyTo != null) { flags = flags.SetBit(0); }
+        if (SendAs != null) { flags = flags.SetBit(13); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Bot);
         writer.Write(QueryId);
-        if (Flags.IsBitSet(0)) { writer.Write(ReplyTo); }
-        if (Flags.IsBitSet(13)) { writer.Write(SendAs); }
+        if (flags.IsBitSet(0)) { writer.Write(ReplyTo); }
+        if (flags.IsBitSet(13)) { writer.Write(SendAs); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

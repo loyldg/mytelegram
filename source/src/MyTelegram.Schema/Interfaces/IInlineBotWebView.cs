@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TInlineBotWebView"/> See <a href="https://corefork.telegram.org/constructor/inlineBotWebView" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInlineBotWebView), nameof(TInlineBotWebView))]
-public interface IInlineBotWebView : IObject
+public partial interface IInlineBotWebView : IObject
 {
     /// <summary>
     /// Text of the button

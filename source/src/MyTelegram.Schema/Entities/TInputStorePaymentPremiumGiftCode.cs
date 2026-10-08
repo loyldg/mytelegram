@@ -43,22 +43,24 @@ public sealed partial class TInputStorePaymentPremiumGiftCode : IInputStorePayme
     /// </summary>
     public MyTelegram.Schema.ITextWithEntities? Message { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (BoostPeer != null) { Flags = Flags.SetBit(0); }
-        if (Message != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (BoostPeer != null) { flags = flags.SetBit(0); }
+        if (Message != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Users);
-        if (Flags.IsBitSet(0)) { writer.Write(BoostPeer); }
+        if (flags.IsBitSet(0)) { writer.Write(BoostPeer); }
         writer.Write(Currency);
         writer.Write(Amount);
-        if (Flags.IsBitSet(1)) { writer.Write(Message); }
+        if (flags.IsBitSet(1)) { writer.Write(Message); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

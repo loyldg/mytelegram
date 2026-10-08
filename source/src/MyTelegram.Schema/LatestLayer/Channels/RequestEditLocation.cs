@@ -38,13 +38,9 @@ public sealed partial class RequestEditLocation : IRequest<IBool>
     /// </summary>
     public string Address { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Channel);
         writer.Write(GeoPoint);

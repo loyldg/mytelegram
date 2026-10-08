@@ -30,13 +30,9 @@ public sealed partial class TInputMediaContact : IInputMedia
     /// </summary>
     public string Vcard { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PhoneNumber);
         writer.Write(FirstName);

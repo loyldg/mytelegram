@@ -36,13 +36,9 @@ public sealed partial class TWebFile : IWebFile
     /// </summary>
     public ReadOnlyMemory<byte> Bytes { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Size);
         writer.Write(MimeType);

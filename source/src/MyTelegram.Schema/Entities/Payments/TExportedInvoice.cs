@@ -15,13 +15,9 @@ public sealed partial class TExportedInvoice : IExportedInvoice
     /// </summary>
     public string Url { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Url);
     }

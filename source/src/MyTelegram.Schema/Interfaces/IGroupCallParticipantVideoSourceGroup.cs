@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TGroupCallParticipantVideoSourceGroup"/> See <a href="https://corefork.telegram.org/constructor/groupCallParticipantVideoSourceGroup" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TGroupCallParticipantVideoSourceGroup), nameof(TGroupCallParticipantVideoSourceGroup))]
-public interface IGroupCallParticipantVideoSourceGroup : IObject
+public partial interface IGroupCallParticipantVideoSourceGroup : IObject
 {
     /// <summary>
     /// SDP semantics

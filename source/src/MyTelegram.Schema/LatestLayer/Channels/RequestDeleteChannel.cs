@@ -28,13 +28,9 @@ public sealed partial class RequestDeleteChannel : IRequest<MyTelegram.Schema.IU
     /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Channel);
     }

@@ -46,19 +46,21 @@ public sealed partial class RequestToggleNoPaidMessagesException : IRequest<IBoo
     /// </summary>
     public MyTelegram.Schema.IInputUser UserId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (RefundCharged) { Flags = Flags.SetBit(0); }
-        if (RequirePayment) { Flags = Flags.SetBit(2); }
-        if (ParentPeer != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (RefundCharged) { flags = flags.SetBit(0); }
+        if (RequirePayment) { flags = flags.SetBit(2); }
+        if (ParentPeer != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(1)) { writer.Write(ParentPeer); }
+        writer.Write(flags);
+        if (flags.IsBitSet(1)) { writer.Write(ParentPeer); }
         writer.Write(UserId);
     }
 

@@ -28,13 +28,9 @@ public sealed partial class RequestDeleteStarGiftCollection : IRequest<IBool>
     /// </summary>
     public int CollectionId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(CollectionId);

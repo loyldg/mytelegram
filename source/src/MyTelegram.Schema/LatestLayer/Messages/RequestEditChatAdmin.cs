@@ -37,13 +37,9 @@ public sealed partial class RequestEditChatAdmin : IRequest<IBool>
     /// </summary>
     public bool IsAdmin { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ChatId);
         writer.Write(UserId);

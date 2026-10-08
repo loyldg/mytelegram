@@ -22,13 +22,9 @@ public sealed partial class RequestExportAuthorization : IRequest<MyTelegram.Sch
     /// </summary>
     public int DcId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(DcId);
     }

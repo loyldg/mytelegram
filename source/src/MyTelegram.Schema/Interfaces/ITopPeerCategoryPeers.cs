@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TTopPeerCategoryPeers"/> See <a href="https://corefork.telegram.org/constructor/topPeerCategoryPeers" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TTopPeerCategoryPeers), nameof(TTopPeerCategoryPeers))]
-public interface ITopPeerCategoryPeers : IObject
+public partial interface ITopPeerCategoryPeers : IObject
 {
     /// <summary>
     /// Top peer category of peers

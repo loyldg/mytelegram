@@ -36,21 +36,23 @@ public sealed partial class TSuggestedPost : ISuggestedPost
     /// </summary>
     public int? ScheduleDate { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Accepted) { Flags = Flags.SetBit(1); }
-        if (Rejected) { Flags = Flags.SetBit(2); }
-        if (Price != null) { Flags = Flags.SetBit(3); }
-        if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Accepted) { flags = flags.SetBit(1); }
+        if (Rejected) { flags = flags.SetBit(2); }
+        if (Price != null) { flags = flags.SetBit(3); }
+        if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(3)) { writer.Write(Price); }
-        if (Flags.IsBitSet(0)) { writer.Write(ScheduleDate.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(3)) { writer.Write(Price); }
+        if (flags.IsBitSet(0)) { writer.Write(ScheduleDate.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

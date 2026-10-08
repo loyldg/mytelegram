@@ -12,14 +12,12 @@ public static partial class LoggerExtensions
     public static partial void CachedClientInfoNotFound(this ILogger logger, string connectionId);
 
     [LoggerMessage(
-        2002,
         LogLevel.Warning,
         "Cannot find cached client information; skipping message sending. ConnectionId: {ConnectionId}, AuthKeyId: {AuthKeyId}",
         EventName = "CachedClientInfoNotFound2")]
     public static partial void CachedClientInfoNotFound2(this ILogger logger, string connectionId, long authKeyId);
 
     [LoggerMessage(
-        2003,
         LogLevel.Information,
         "[ConnectionId: {ConnectionId}] New client connected. DCId: {DcId}, LocalPort: {LocalPort} ({ConnectionType}), RemoteEndpoint: {RemoteEndPoint}, connection count: {ConnectionCount}.",
         EventName = "NewClientConnected")]
@@ -33,7 +31,6 @@ public static partial class LoggerExtensions
         int connectionCount);
 
     [LoggerMessage(
-        2004,
         LogLevel.Information,
         "[ConnectionId: {ConnectionId}] New client connected using proxy protocol v2. DCId: {DcId}, LocalPort: {LocalPort} ({ConnectionType}), RemoteEndpoint: {RemoteEndPoint}(Proxy: {ProxyEndPoint}), connection count: {ConnectionCount}.",
         EventName = "NewClientConnectedWithProxyProtocol")]
@@ -48,7 +45,6 @@ public static partial class LoggerExtensions
         int connectionCount);
 
     [LoggerMessage(
-        2005,
         LogLevel.Information,
         "[ConnectionId: {ConnectionId}] Client disconnected, DcId: {DcId}, RemoteEndPoint: {RemoteEndPoint}, AuthKeyId: {AuthKeyId}",
         EventName = "ClientDisconnected")]
@@ -60,7 +56,6 @@ public static partial class LoggerExtensions
         long authKeyId);
 
     [LoggerMessage(
-        2006,
         LogLevel.Warning,
         "Parse proxy protocol failed, LocalEndPoint: {@LocalAddress}:{Port}, RemoteEndPoint: {@RemoteAddress}:{RemotePort}",
         EventName = "ParseProxyProtocolFailed")]
@@ -71,5 +66,6 @@ public static partial class LoggerExtensions
         IPAddress? remoteAddress,
         int? remotePort);
 
+    [LoggerMessage(LogLevel.Information, "Request path is not allowed: {Path}", EventName = "RequestPathNotAllowed")] public static partial void RequestPathNotAllowed(this ILogger logger, string path);
 
 }

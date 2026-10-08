@@ -14,13 +14,9 @@ public sealed partial class RequestGetAllReadPeerStories : IRequest<MyTelegram.S
 {
     public uint ConstructorId => 0x9b5ae7f9;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

@@ -21,13 +21,9 @@ public sealed partial class TSavedRingtones : ISavedRingtones
     /// </summary>
     public TVector<MyTelegram.Schema.IDocument> Ringtones { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Hash);
         writer.Write(Ringtones);

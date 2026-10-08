@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Account;
 /// <see cref="TAuthorizationForm"/> See <a href="https://corefork.telegram.org/constructor/account.authorizationForm" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TAuthorizationForm), nameof(TAuthorizationForm))]
-public interface IAuthorizationForm : IObject
+public partial interface IAuthorizationForm : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

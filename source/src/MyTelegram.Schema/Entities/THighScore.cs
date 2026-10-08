@@ -25,13 +25,9 @@ public sealed partial class THighScore : IHighScore
     /// </summary>
     public int Score { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Pos);
         writer.Write(UserId);

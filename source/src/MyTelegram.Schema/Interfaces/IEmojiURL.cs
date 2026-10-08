@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TEmojiURL"/> See <a href="https://corefork.telegram.org/constructor/emojiURL" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TEmojiURL), nameof(TEmojiURL))]
-public interface IEmojiURL : IObject
+public partial interface IEmojiURL : IObject
 {
     /// <summary>
     /// An HTTP URL which can be used to automatically log in into translation platform and suggest new emoji replacements. The URL will be valid for 30 seconds after generation

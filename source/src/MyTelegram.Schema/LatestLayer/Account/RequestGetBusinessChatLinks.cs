@@ -14,13 +14,9 @@ public sealed partial class RequestGetBusinessChatLinks : IRequest<MyTelegram.Sc
 {
     public uint ConstructorId => 0x6f70dde1;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

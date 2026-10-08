@@ -55,17 +55,19 @@ public sealed partial class TPhoneConnectionWebrtc : IPhoneConnection
     /// </summary>
     public string Password { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Turn) { Flags = Flags.SetBit(0); }
-        if (Stun) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Turn) { flags = flags.SetBit(0); }
+        if (Stun) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(Ip);
         writer.Write(Ipv6);

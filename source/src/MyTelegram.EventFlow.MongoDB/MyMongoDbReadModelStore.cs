@@ -14,7 +14,7 @@ using MyTelegram.EventFlow.ReadStores;
 namespace MyTelegram.EventFlow.MongoDB;
 
 public class MyMongoDbReadModelStore<TReadModel>(
-    ILogger<MyTelegram.EventFlow.MongoDB.ReadStores.MongoDbReadModelStore<TReadModel>> logger,
+    ILogger<ReadStores.MongoDbReadModelStore<TReadModel>> logger,
     IReadModelDescriptionProvider readModelDescriptionProvider,
     IEnumerable<IReadModelWriteInterceptor> readModelWriteInterceptors,
     ITransientFaultHandler<IOptimisticConcurrencyRetryStrategy> transientFaultHandler,
@@ -26,17 +26,17 @@ public class MyMongoDbReadModelStore<TReadModel>(
     where TReadModel : class, IMongoDbReadModel;
 
 public class MyMongoDbReadModelStore<TReadModel, TDbContext>(
-    ILogger<MyTelegram.EventFlow.MongoDB.ReadStores.MongoDbReadModelStore<TReadModel>> logger,
+    ILogger<ReadStores.MongoDbReadModelStore<TReadModel>> logger,
     IReadModelDescriptionProvider readModelDescriptionProvider,
     IEnumerable<IReadModelWriteInterceptor> readModelWriteInterceptors,
     ITransientFaultHandler<IOptimisticConcurrencyRetryStrategy> transientFaultHandler,
     TDbContext dbContext)
-    : MyTelegram.EventFlow.MongoDB.ReadStores.MongoDbReadModelStore<TReadModel>(logger, dbContext.GetDatabase(),
+    : ReadStores.MongoDbReadModelStore<TReadModel>(logger, dbContext.GetDatabase(),
         readModelDescriptionProvider, transientFaultHandler), IMyMongoDbReadModelStore<TReadModel>
     where TReadModel : class, IMongoDbReadModel
     where TDbContext : IMongoDbContext
 {
-    private readonly ILogger<MyTelegram.EventFlow.MongoDB.ReadStores.MongoDbReadModelStore<TReadModel>> _logger = logger;
+    private readonly ILogger<ReadStores.MongoDbReadModelStore<TReadModel>> _logger = logger;
     private readonly IReadModelDescriptionProvider _readModelDescriptionProvider = readModelDescriptionProvider;
 
     private IMongoDatabase GetDatabase() => dbContext.GetDatabase();
@@ -67,7 +67,7 @@ public class MyMongoDbReadModelStore<TReadModel, TDbContext>(
         var isNew = result == null;
 
         var readModelEnvelope = !isNew
-            ? ReadModelEnvelope<TReadModel>.With(readModelUpdate.ReadModelId, result)
+            ? ReadModelEnvelope<TReadModel>.With(readModelUpdate.ReadModelId, result!)
             : ReadModelEnvelope<TReadModel>.Empty(readModelUpdate.ReadModelId);
 
         var readModelContext = readModelContextFactory.Create(readModelUpdate.ReadModelId, isNew);

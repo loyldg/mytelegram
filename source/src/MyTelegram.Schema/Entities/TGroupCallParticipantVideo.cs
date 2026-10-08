@@ -36,20 +36,22 @@ public sealed partial class TGroupCallParticipantVideo : IGroupCallParticipantVi
     /// </summary>
     public int? AudioSource { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Paused) { Flags = Flags.SetBit(0); }
-        if (/*AudioSource != 0 && */AudioSource.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Paused) { flags = flags.SetBit(0); }
+        if (/*AudioSource != 0 && */AudioSource.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Endpoint);
         writer.Write(SourceGroups);
-        if (Flags.IsBitSet(1)) { writer.Write(AudioSource.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(AudioSource.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

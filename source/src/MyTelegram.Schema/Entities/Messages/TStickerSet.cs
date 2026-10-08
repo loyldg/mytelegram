@@ -34,13 +34,9 @@ public sealed partial class TStickerSet : IStickerSet
     /// </summary>
     public TVector<MyTelegram.Schema.IDocument> Documents { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Set);
         writer.Write(Packs);

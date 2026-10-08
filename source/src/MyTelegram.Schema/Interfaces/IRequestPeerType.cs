@@ -17,7 +17,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TRequestPeerTypeChat), nameof(TRequestPeerTypeChat))]
 [JsonDerivedType(typeof(TRequestPeerTypeBroadcast), nameof(TRequestPeerTypeBroadcast))]
 [JsonDerivedType(typeof(TRequestPeerTypeCreateBot), nameof(TRequestPeerTypeCreateBot))]
-public interface IRequestPeerType : IObject
+public partial interface IRequestPeerType : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

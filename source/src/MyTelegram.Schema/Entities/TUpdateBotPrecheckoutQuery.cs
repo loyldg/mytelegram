@@ -51,22 +51,24 @@ public sealed partial class TUpdateBotPrecheckoutQuery : IUpdate
     /// </summary>
     public long TotalAmount { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Info != null) { Flags = Flags.SetBit(0); }
-        if (ShippingOptionId != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Info != null) { flags = flags.SetBit(0); }
+        if (ShippingOptionId != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(QueryId);
         writer.Write(UserId);
         writer.Write(Payload);
-        if (Flags.IsBitSet(0)) { writer.Write(Info); }
-        if (Flags.IsBitSet(1)) { writer.Write(ShippingOptionId); }
+        if (flags.IsBitSet(0)) { writer.Write(Info); }
+        if (flags.IsBitSet(1)) { writer.Write(ShippingOptionId); }
         writer.Write(Currency);
         writer.Write(TotalAmount);
     }

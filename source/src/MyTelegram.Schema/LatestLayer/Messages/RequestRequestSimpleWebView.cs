@@ -70,26 +70,28 @@ public sealed partial class RequestRequestSimpleWebView : IRequest<MyTelegram.Sc
     /// </summary>
     public string Platform { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (FromSwitchWebview) { Flags = Flags.SetBit(1); }
-        if (FromSideMenu) { Flags = Flags.SetBit(2); }
-        if (Compact) { Flags = Flags.SetBit(7); }
-        if (Fullscreen) { Flags = Flags.SetBit(8); }
-        if (Url != null) { Flags = Flags.SetBit(3); }
-        if (StartParam != null) { Flags = Flags.SetBit(4); }
-        if (ThemeParams != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (FromSwitchWebview) { flags = flags.SetBit(1); }
+        if (FromSideMenu) { flags = flags.SetBit(2); }
+        if (Compact) { flags = flags.SetBit(7); }
+        if (Fullscreen) { flags = flags.SetBit(8); }
+        if (Url != null) { flags = flags.SetBit(3); }
+        if (StartParam != null) { flags = flags.SetBit(4); }
+        if (ThemeParams != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Bot);
-        if (Flags.IsBitSet(3)) { writer.Write(Url); }
-        if (Flags.IsBitSet(4)) { writer.Write(StartParam); }
-        if (Flags.IsBitSet(0)) { writer.Write(ThemeParams); }
+        if (flags.IsBitSet(3)) { writer.Write(Url); }
+        if (flags.IsBitSet(4)) { writer.Write(StartParam); }
+        if (flags.IsBitSet(0)) { writer.Write(ThemeParams); }
         writer.Write(Platform);
     }
 

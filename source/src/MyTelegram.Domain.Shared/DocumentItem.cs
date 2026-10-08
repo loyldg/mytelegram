@@ -7,7 +7,7 @@ public record DocumentItem(
     int Date,
     string MimeType,
     long Size,
-    byte[] FileReference,
+    ReadOnlyMemory<byte> FileReference,
     string? Name = null,
     long? CreatorId = null,
     long? ThumbId = null,

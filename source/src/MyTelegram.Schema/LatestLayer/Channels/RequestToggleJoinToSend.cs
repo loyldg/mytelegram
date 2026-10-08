@@ -32,13 +32,9 @@ public sealed partial class RequestToggleJoinToSend : IRequest<MyTelegram.Schema
     /// </summary>
     public bool Enabled { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Channel);
         writer.Write(Enabled);

@@ -45,25 +45,27 @@ public sealed partial class RequestRequestUrlAuth : IRequest<MyTelegram.Schema.I
     /// </summary>
     public string? InAppOrigin { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Peer != null) { Flags = Flags.SetBit(1); }
-        if (/*MsgId != 0 && */MsgId.HasValue) { Flags = Flags.SetBit(1); }
-        if (/*ButtonId != 0 && */ButtonId.HasValue) { Flags = Flags.SetBit(1); }
-        if (Url != null) { Flags = Flags.SetBit(2); }
-        if (InAppOrigin != null) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (Peer != null) { flags = flags.SetBit(1); }
+        if (/*MsgId != 0 && */MsgId.HasValue) { flags = flags.SetBit(1); }
+        if (/*ButtonId != 0 && */ButtonId.HasValue) { flags = flags.SetBit(1); }
+        if (Url != null) { flags = flags.SetBit(2); }
+        if (InAppOrigin != null) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(1)) { writer.Write(Peer); }
-        if (Flags.IsBitSet(1)) { writer.Write(MsgId.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(ButtonId.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(Url); }
-        if (Flags.IsBitSet(3)) { writer.Write(InAppOrigin); }
+        writer.Write(flags);
+        if (flags.IsBitSet(1)) { writer.Write(Peer); }
+        if (flags.IsBitSet(1)) { writer.Write(MsgId.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(ButtonId.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(Url); }
+        if (flags.IsBitSet(3)) { writer.Write(InAppOrigin); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

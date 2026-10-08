@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TMessageActionEmpty : IMessageAction
 {
     public uint ConstructorId => 0xb6aef7b0;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

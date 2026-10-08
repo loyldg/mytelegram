@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TEmailVerifyPurposeLoginSetup), nameof(TEmailVerifyPurposeLoginSetup))]
 [JsonDerivedType(typeof(TEmailVerifyPurposeLoginChange), nameof(TEmailVerifyPurposeLoginChange))]
 [JsonDerivedType(typeof(TEmailVerifyPurposePassport), nameof(TEmailVerifyPurposePassport))]
-public interface IEmailVerifyPurpose : IObject
+public partial interface IEmailVerifyPurpose : IObject
 {
 }

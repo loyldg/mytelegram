@@ -1,11 +1,9 @@
-﻿using IAuthorization = MyTelegram.Schema.Auth.IAuthorization;
-
-namespace MyTelegram.Converters.TLObjects.Interfaces;
+﻿namespace MyTelegram.Converters.TLObjects.Interfaces;
 
 public interface IAuthorizationConverter : ILayeredConverter
 {
-    IAuthorization CreateAuthorization(IUser? user, bool setupPasswordRequired = false);
-    IAuthorization CreateSignUpAuthorization();
+    MyTelegram.Schema.Auth.IAuthorization CreateAuthorization(IUser? user, bool setupPasswordRequired = false);
+    MyTelegram.Schema.Auth.IAuthorization CreateSignUpAuthorization();
     Schema.IAuthorization ToAuthorization(IDeviceReadModel deviceReadModel, long selfPermAuthKeyId = -1);
     IWebAuthorization ToWebAuthorization(IDeviceReadModel deviceReadModel, long selfPermAuthKeyId = -1);
 

@@ -12,7 +12,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class UpdateUsernameHandler(ICommandBus commandBus, IQueryProcessor queryProcessor, IUserAppService userAppService, IUsernameHelper usernameHelper) : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestUpdateUsername, MyTelegram.Schema.IUser>
+internal sealed class UpdateUsernameHandler(ICommandBus commandBus, IUserAppService userAppService, IUsernameHelper usernameHelper) : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestUpdateUsername, MyTelegram.Schema.IUser>
 {
     protected override async Task<IUser> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Account.RequestUpdateUsername obj)
     {
@@ -33,6 +33,6 @@ internal sealed class UpdateUsernameHandler(ICommandBus commandBus, IQueryProces
 
         var command = new UpdateUserNameCommand(UserNameId.Create(obj.Username.ToLower()), input.ToRequestInfo(), input.UserId.ToUserPeer(), obj.Username, oldUserName);
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }

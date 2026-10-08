@@ -67,28 +67,30 @@ public sealed partial class TMessageMediaInvoice : IMessageMedia
     /// </summary>
     public MyTelegram.Schema.IMessageExtendedMedia? ExtendedMedia { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ShippingAddressRequested) { Flags = Flags.SetBit(1); }
-        if (Test) { Flags = Flags.SetBit(3); }
-        if (Photo != null) { Flags = Flags.SetBit(0); }
-        if (/*ReceiptMsgId != 0 && */ReceiptMsgId.HasValue) { Flags = Flags.SetBit(2); }
-        if (ExtendedMedia != null) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (ShippingAddressRequested) { flags = flags.SetBit(1); }
+        if (Test) { flags = flags.SetBit(3); }
+        if (Photo != null) { flags = flags.SetBit(0); }
+        if (/*ReceiptMsgId != 0 && */ReceiptMsgId.HasValue) { flags = flags.SetBit(2); }
+        if (ExtendedMedia != null) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Title);
         writer.Write(Description);
-        if (Flags.IsBitSet(0)) { writer.Write(Photo); }
-        if (Flags.IsBitSet(2)) { writer.Write(ReceiptMsgId.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(Photo); }
+        if (flags.IsBitSet(2)) { writer.Write(ReceiptMsgId.Value); }
         writer.Write(Currency);
         writer.Write(TotalAmount);
         writer.Write(StartParam);
-        if (Flags.IsBitSet(4)) { writer.Write(ExtendedMedia); }
+        if (flags.IsBitSet(4)) { writer.Write(ExtendedMedia); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

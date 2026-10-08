@@ -32,7 +32,7 @@ internal sealed class ResolvePhoneHandler(IQueryProcessor queryProcessor, IPriva
         var privacyList = await privacyAppService.GetPrivacyListAsync(userReadModel.UserId);
         var contactReadModel = await queryProcessor.ProcessAsync(new GetContactQuery(input.UserId, userReadModel.UserId));
         var photos = await photoAppService.GetPhotosAsync(userReadModel, contactReadModel);
-        var user = userConverterService.ToUser(input, userReadModel, photos, contactReadModel, null, privacyList, input.Layer);
+        var user = await userConverterService.ToUserAsync(input, userReadModel, photos, contactReadModel, null, privacyList, input.Layer);
         var r = new TResolvedPeer
         {
             Chats = [],

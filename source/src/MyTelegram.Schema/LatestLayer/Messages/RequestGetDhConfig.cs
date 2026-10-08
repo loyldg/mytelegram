@@ -27,13 +27,9 @@ public sealed partial class RequestGetDhConfig : IRequest<MyTelegram.Schema.Mess
     /// </summary>
     public int RandomLength { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Version);
         writer.Write(RandomLength);

@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TProfileTabGifts : IProfileTab
 {
     public uint ConstructorId => 0x4d4bd46a;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

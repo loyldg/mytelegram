@@ -16,13 +16,9 @@ public sealed partial class TSentCodeSuccess : ISentCode
     /// </summary>
     public MyTelegram.Schema.Auth.IAuthorization Authorization { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Authorization);
     }

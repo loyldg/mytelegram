@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Account;
 /// <see cref="TConnectedBots"/> See <a href="https://corefork.telegram.org/constructor/account.connectedBots" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TConnectedBots), nameof(TConnectedBots))]
-public interface IConnectedBots : IObject
+public partial interface IConnectedBots : IObject
 {
     /// <summary>
     /// Info about the connected bots

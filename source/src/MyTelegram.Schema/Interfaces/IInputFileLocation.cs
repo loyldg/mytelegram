@@ -29,6 +29,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputPeerPhotoFileLocation), nameof(TInputPeerPhotoFileLocation))]
 [JsonDerivedType(typeof(TInputStickerSetThumb), nameof(TInputStickerSetThumb))]
 [JsonDerivedType(typeof(TInputGroupCallStream), nameof(TInputGroupCallStream))]
-public interface IInputFileLocation : IObject
+public partial interface IInputFileLocation : IObject
 {
 }

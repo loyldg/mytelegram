@@ -17,6 +17,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TStarGiftAttributePattern), nameof(TStarGiftAttributePattern))]
 [JsonDerivedType(typeof(TStarGiftAttributeBackdrop), nameof(TStarGiftAttributeBackdrop))]
 [JsonDerivedType(typeof(TStarGiftAttributeOriginalDetails), nameof(TStarGiftAttributeOriginalDetails))]
-public interface IStarGiftAttribute : IObject
+public partial interface IStarGiftAttribute : IObject
 {
 }

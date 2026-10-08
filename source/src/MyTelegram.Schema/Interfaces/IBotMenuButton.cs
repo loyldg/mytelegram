@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TBotMenuButtonDefault), nameof(TBotMenuButtonDefault))]
 [JsonDerivedType(typeof(TBotMenuButtonCommands), nameof(TBotMenuButtonCommands))]
 [JsonDerivedType(typeof(TBotMenuButton), nameof(TBotMenuButton))]
-public interface IBotMenuButton : IObject
+public partial interface IBotMenuButton : IObject
 {
 }

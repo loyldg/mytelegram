@@ -56,25 +56,27 @@ public sealed partial class TStarGiftAuctionAcquiredGift : IStarGiftAuctionAcqui
     /// </summary>
     public int? GiftNum { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (NameHidden) { Flags = Flags.SetBit(0); }
-        if (Message != null) { Flags = Flags.SetBit(1); }
-        if (/*GiftNum != 0 && */GiftNum.HasValue) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (NameHidden) { flags = flags.SetBit(0); }
+        if (Message != null) { flags = flags.SetBit(1); }
+        if (/*GiftNum != 0 && */GiftNum.HasValue) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Date);
         writer.Write(BidAmount);
         writer.Write(Round);
         writer.Write(Pos);
-        if (Flags.IsBitSet(1)) { writer.Write(Message); }
-        if (Flags.IsBitSet(2)) { writer.Write(GiftNum.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(Message); }
+        if (flags.IsBitSet(2)) { writer.Write(GiftNum.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -26,10 +26,10 @@ namespace MyTelegram.Schema.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-[TlObject(0x24b524c5)]
-public sealed partial class RequestJoinChannel : IRequest<MyTelegram.Schema.IUpdates>
+[TlObject(0x7f6a1e22)]
+public sealed partial class RequestJoinChannel : IRequest<MyTelegram.Schema.Messages.IChatInviteJoinResult>
 {
-    public uint ConstructorId => 0x24b524c5;
+    public uint ConstructorId => 0x7f6a1e22;
 
     /// <summary>
     /// Channel/supergroup to join
@@ -37,13 +37,9 @@ public sealed partial class RequestJoinChannel : IRequest<MyTelegram.Schema.IUpd
     /// </summary>
     public MyTelegram.Schema.IInputChannel Channel { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Channel);
     }

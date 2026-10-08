@@ -71,34 +71,36 @@ public sealed partial class TBotInfo : IBotInfo
     /// </summary>
     public MyTelegram.Schema.IBotVerifierSettings? VerifierSettings { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (HasPreviewMedias) { Flags = Flags.SetBit(6); }
-        if (/*UserId != 0 &&*/ UserId.HasValue) { Flags = Flags.SetBit(0); }
-        if (Description != null) { Flags = Flags.SetBit(1); }
-        if (DescriptionPhoto != null) { Flags = Flags.SetBit(4); }
-        if (DescriptionDocument != null) { Flags = Flags.SetBit(5); }
-        if (Commands?.Count > 0) { Flags = Flags.SetBit(2); }
-        if (MenuButton != null) { Flags = Flags.SetBit(3); }
-        if (PrivacyPolicyUrl != null) { Flags = Flags.SetBit(7); }
-        if (AppSettings != null) { Flags = Flags.SetBit(8); }
-        if (VerifierSettings != null) { Flags = Flags.SetBit(9); }
+        var flags = 0;
+        if (HasPreviewMedias) { flags = flags.SetBit(6); }
+        if (/*UserId != 0 &&*/ UserId.HasValue) { flags = flags.SetBit(0); }
+        if (Description != null) { flags = flags.SetBit(1); }
+        if (DescriptionPhoto != null) { flags = flags.SetBit(4); }
+        if (DescriptionDocument != null) { flags = flags.SetBit(5); }
+        if (Commands?.Count > 0) { flags = flags.SetBit(2); }
+        if (MenuButton != null) { flags = flags.SetBit(3); }
+        if (PrivacyPolicyUrl != null) { flags = flags.SetBit(7); }
+        if (AppSettings != null) { flags = flags.SetBit(8); }
+        if (VerifierSettings != null) { flags = flags.SetBit(9); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(UserId.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(Description); }
-        if (Flags.IsBitSet(4)) { writer.Write(DescriptionPhoto); }
-        if (Flags.IsBitSet(5)) { writer.Write(DescriptionDocument); }
-        if (Flags.IsBitSet(2)) { writer.Write(Commands); }
-        if (Flags.IsBitSet(3)) { writer.Write(MenuButton); }
-        if (Flags.IsBitSet(7)) { writer.Write(PrivacyPolicyUrl); }
-        if (Flags.IsBitSet(8)) { writer.Write(AppSettings); }
-        if (Flags.IsBitSet(9)) { writer.Write(VerifierSettings); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(UserId.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(Description); }
+        if (flags.IsBitSet(4)) { writer.Write(DescriptionPhoto); }
+        if (flags.IsBitSet(5)) { writer.Write(DescriptionDocument); }
+        if (flags.IsBitSet(2)) { writer.Write(Commands); }
+        if (flags.IsBitSet(3)) { writer.Write(MenuButton); }
+        if (flags.IsBitSet(7)) { writer.Write(PrivacyPolicyUrl); }
+        if (flags.IsBitSet(8)) { writer.Write(AppSettings); }
+        if (flags.IsBitSet(9)) { writer.Write(VerifierSettings); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

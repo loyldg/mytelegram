@@ -13,7 +13,7 @@ namespace MyTelegram.Schema.Messages;
 /// </remarks>
 [JsonDerivedType(typeof(TFeaturedStickersNotModified), nameof(TFeaturedStickersNotModified))]
 [JsonDerivedType(typeof(TFeaturedStickers), nameof(TFeaturedStickers))]
-public interface IFeaturedStickers : IObject
+public partial interface IFeaturedStickers : IObject
 {
     /// <summary>
     /// Total number of featured stickers

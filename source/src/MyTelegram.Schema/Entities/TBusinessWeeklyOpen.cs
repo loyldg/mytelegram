@@ -20,13 +20,9 @@ public sealed partial class TBusinessWeeklyOpen : IBusinessWeeklyOpen
     /// </summary>
     public int EndMinute { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(StartMinute);
         writer.Write(EndMinute);

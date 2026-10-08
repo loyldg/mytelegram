@@ -24,13 +24,9 @@ public sealed partial class RequestReportSponsoredMessage : IRequest<MyTelegram.
     /// </summary>
     public ReadOnlyMemory<byte> Option { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(RandomId);
         writer.Write(Option);

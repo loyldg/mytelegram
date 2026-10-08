@@ -8,11 +8,11 @@ public class UpdateMessagePinDomainEventHandler(
     IIdGenerator idGenerator,
     IAckCacheService ackCacheService) : DomainEventHandlerBase(objectMessageSender, commandBus,
         idGenerator, ackCacheService),
-    ISubscribeSynchronousTo<UpdateMessagePinnedSaga, UpdateMessagePinnedSagaId, UpdateMessagePinnedCompletedSagaEvent>,
-    ISubscribeSynchronousTo<UpdateMessagePinnedSaga, UpdateMessagePinnedSagaId,
+    ISubscribeAsynchronousTo<UpdateMessagePinnedSaga, UpdateMessagePinnedSagaId, UpdateMessagePinnedCompletedSagaEvent>,
+    ISubscribeAsynchronousTo<UpdateMessagePinnedSaga, UpdateMessagePinnedSagaId,
         UpdateParticipantMessagePinnedCompletedSagaEvent>,
-    ISubscribeSynchronousTo<UnpinAllMessagesSaga, UnpinAllMessagesSagaId, UnpinAllMessagesCompletedSagaEvent>,
-    ISubscribeSynchronousTo<UnpinAllMessagesSaga, UnpinAllMessagesSagaId, UnpinAllParticipantMessagesCompletedSagaEvent>
+    ISubscribeAsynchronousTo<UnpinAllMessagesSaga, UnpinAllMessagesSagaId, UnpinAllMessagesCompletedSagaEvent>,
+    ISubscribeAsynchronousTo<UnpinAllMessagesSaga, UnpinAllMessagesSagaId, UnpinAllParticipantMessagesCompletedSagaEvent>
 {
     public async Task HandleAsync(
         IDomainEvent<UnpinAllMessagesSaga, UnpinAllMessagesSagaId, UnpinAllMessagesCompletedSagaEvent> domainEvent,

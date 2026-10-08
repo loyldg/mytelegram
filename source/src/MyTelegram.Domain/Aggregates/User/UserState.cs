@@ -42,7 +42,7 @@ public class UserState : AggregateState<UserAggregate, UserId, UserState>,
 
     public PeerColor? Color { get; private set; }
     public PeerColor? ProfileColor { get; private set; }
-    public GlobalPrivacySettings GlobalPrivacySettings { get; private set; }
+    public GlobalPrivacySettings? GlobalPrivacySettings { get; private set; }
     public bool Premium { get; private set; }
     public long? PersonalChannelId { get; private set; }
     public Birthday? Birthday { get; private set; }

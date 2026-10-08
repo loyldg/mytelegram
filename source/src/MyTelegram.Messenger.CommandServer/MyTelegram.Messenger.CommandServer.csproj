@@ -51,7 +51,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!--<PackageReference Include="BloomFilter.NetCore" Version="1.1.1" />-->
     <PackageReference Include="SharpZipLib" />
     <PackageReference Include="Standart.Hash.xxHash" />
   </ItemGroup>

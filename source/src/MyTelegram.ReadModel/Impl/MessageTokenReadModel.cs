@@ -16,7 +16,7 @@ public class MessageTokenReadModel : ReadModelBase, IMessageTokenReadModel,
     public bool Pinned { get; private set; }
     public bool Post { get; private set; }
     public int Date { get; private set; }
-    public List<long> Tokens { get; private set; }
+    public List<long> Tokens { get; private set; } = [];
     public bool PublicPosts { get; private set; }
     public List<string> Hashtags { get; private set; } = [];
     public virtual string Id { get; private set; } = null!;
@@ -38,7 +38,7 @@ public class MessageTokenReadModel : ReadModelBase, IMessageTokenReadModel,
         Pinned = domainEvent.AggregateEvent.Pinned;
         Post = domainEvent.AggregateEvent.Post;
         Date = domainEvent.AggregateEvent.Date;
-        Hashtags = domainEvent.AggregateEvent.Hashtags;
+        Hashtags = domainEvent.AggregateEvent.Hashtags ?? [];
         PublicPosts = domainEvent.AggregateEvent.PublicPosts;
 
         Tokens = domainEvent.AggregateEvent.Tokens;

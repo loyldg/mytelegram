@@ -13,7 +13,7 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TChatParticipantsForbidden), nameof(TChatParticipantsForbidden))]
 [JsonDerivedType(typeof(TChatParticipants), nameof(TChatParticipants))]
-public interface IChatParticipants : IObject
+public partial interface IChatParticipants : IObject
 {
     /// <summary>
     /// Group ID

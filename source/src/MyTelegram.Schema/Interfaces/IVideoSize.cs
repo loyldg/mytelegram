@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TVideoSize), nameof(TVideoSize))]
 [JsonDerivedType(typeof(TVideoSizeEmojiMarkup), nameof(TVideoSizeEmojiMarkup))]
 [JsonDerivedType(typeof(TVideoSizeStickerMarkup), nameof(TVideoSizeStickerMarkup))]
-public interface IVideoSize : IObject
+public partial interface IVideoSize : IObject
 {
 }

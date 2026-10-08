@@ -2,6 +2,6 @@
 
 public interface IDialogConverterService
 {
-    IDialogs ToDialogs(IRequestWithAccessHashKeyId request, GetDialogOutput output, int layer = 0);
-    IPeerDialogs ToPeerDialogs(IRequestWithAccessHashKeyId request, GetDialogOutput output, int layer = 0);
+    Task<IDialogs> ToDialogsAsync(IRequestWithAccessHashKeyId request, GetDialogOutput output, int layer = 0);
+    Task<IPeerDialogs> ToPeerDialogsAsync(IRequestWithAccessHashKeyId request, GetDialogOutput output, int layer = 0);
 }

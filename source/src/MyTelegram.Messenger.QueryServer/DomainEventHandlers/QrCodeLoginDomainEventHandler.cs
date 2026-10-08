@@ -12,8 +12,8 @@ public class QrCodeLoginDomainEventHandler(
             commandBus,
             idGenerator,
             ackCacheService),
-        ISubscribeSynchronousTo<QrCodeAggregate, QrCodeId, QrCodeLoginTokenExportedEvent>,
-        ISubscribeSynchronousTo<QrCodeAggregate, QrCodeId, LoginTokenAcceptedEvent>
+        ISubscribeAsynchronousTo<QrCodeAggregate, QrCodeId, QrCodeLoginTokenExportedEvent>,
+        ISubscribeAsynchronousTo<QrCodeAggregate, QrCodeId, LoginTokenAcceptedEvent>
 {
     private readonly IObjectMessageSender _objectMessageSender = objectMessageSender;
 

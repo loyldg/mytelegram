@@ -17,7 +17,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TWebPagePending), nameof(TWebPagePending))]
 [JsonDerivedType(typeof(TWebPage), nameof(TWebPage))]
 [JsonDerivedType(typeof(TWebPageNotModified), nameof(TWebPageNotModified))]
-public interface IWebPage : IObject
+public partial interface IWebPage : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

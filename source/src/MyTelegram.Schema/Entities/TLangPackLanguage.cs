@@ -70,23 +70,25 @@ public sealed partial class TLangPackLanguage : ILangPackLanguage
     /// </summary>
     public string TranslationsUrl { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Official) { Flags = Flags.SetBit(0); }
-        if (Rtl) { Flags = Flags.SetBit(2); }
-        if (Beta) { Flags = Flags.SetBit(3); }
-        if (BaseLangCode != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Official) { flags = flags.SetBit(0); }
+        if (Rtl) { flags = flags.SetBit(2); }
+        if (Beta) { flags = flags.SetBit(3); }
+        if (BaseLangCode != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Name);
         writer.Write(NativeName);
         writer.Write(LangCode);
-        if (Flags.IsBitSet(1)) { writer.Write(BaseLangCode); }
+        if (flags.IsBitSet(1)) { writer.Write(BaseLangCode); }
         writer.Write(PluralCode);
         writer.Write(StringsCount);
         writer.Write(TranslatedCount);

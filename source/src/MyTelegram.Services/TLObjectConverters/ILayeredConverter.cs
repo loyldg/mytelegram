@@ -12,3 +12,4 @@ public interface ILayeredConverter //: IHasRequestLayer
     ///// </summary>
     //int RequestLayer { get; set; }
 }
+

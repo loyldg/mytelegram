@@ -56,25 +56,27 @@ public sealed partial class TChannelParticipantAdmin : IChannelParticipant
     /// </summary>
     public string? Rank { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (CanEdit) { Flags = Flags.SetBit(0); }
-        if (Self) { Flags = Flags.SetBit(1); }
-        if (/*InviterId != 0 &&*/ InviterId.HasValue) { Flags = Flags.SetBit(1); }
-        if (Rank != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (CanEdit) { flags = flags.SetBit(0); }
+        if (Self) { flags = flags.SetBit(1); }
+        if (/*InviterId != 0 &&*/ InviterId.HasValue) { flags = flags.SetBit(1); }
+        if (Rank != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(UserId);
-        if (Flags.IsBitSet(1)) { writer.Write(InviterId.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(InviterId.Value); }
         writer.Write(PromotedBy);
         writer.Write(Date);
         writer.Write(AdminRights);
-        if (Flags.IsBitSet(2)) { writer.Write(Rank); }
+        if (flags.IsBitSet(2)) { writer.Write(Rank); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

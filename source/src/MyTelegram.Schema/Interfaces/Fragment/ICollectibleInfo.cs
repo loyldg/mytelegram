@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Fragment;
 /// <see cref="TCollectibleInfo"/> See <a href="https://corefork.telegram.org/constructor/fragment.collectibleInfo" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TCollectibleInfo), nameof(TCollectibleInfo))]
-public interface ICollectibleInfo : IObject
+public partial interface ICollectibleInfo : IObject
 {
     /// <summary>
     /// Purchase date (unixtime)

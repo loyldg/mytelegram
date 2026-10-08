@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TBotCommandScopeUsers : IBotCommandScope
 {
     public uint ConstructorId => 0x3c4f04d8;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

@@ -7,11 +7,9 @@ public class DifferenceConverterService(
     IChatConverterService chatConverterService,
     IUserConverterService userConverterService,
     IMessageConverterService messageConverterService,
-    IUpdatesResponseService updatesResponseService,
-    ILayeredService<IMessageConverter> messageLayeredService) : IDifferenceConverterService, ITransientDependency
+    IUpdatesResponseService updatesResponseService) : IDifferenceConverterService, ITransientDependency
 {
-    public IChannelDifference ToChannelDifference(
-        IRequestWithAccessHashKeyId request,
+    public async Task<IChannelDifference> ToChannelDifferenceAsync(IRequestWithAccessHashKeyId request,
         GetMessageOutput output, bool isChannelMember, IList<IUpdate> updatesList,
         int updatesMaxPts = 0,
         bool resetLeftToFalse = false,
@@ -35,7 +33,7 @@ public class DifferenceConverterService(
 
         var channelList = chatConverterService.ToChannelList(request, output.ChannelList, output.PhotoList,
             output.ChannelMemberList, output.JoinedChannelIdList, layer);
-        var userList = userConverterService.ToUserList(request, output.UserList, output.PhotoList,
+        var userList = await userConverterService.ToUserListAsync(request, output.UserList, output.PhotoList,
             output.ContactList, output.PrivacyList, layer);
 
         var layeredUpdates = updatesList.Select(p => updatesResponseService.ToLayeredData(output.SelfUserId, request.AccessHashKeyId, p, layer));
@@ -52,14 +50,14 @@ public class DifferenceConverterService(
         };
     }
 
-    public IDifference ToDifference(
-        IRequestWithAccessHashKeyId request,
+    public async Task<IDifference> ToDifferenceAsync(IRequestWithAccessHashKeyId request,
         GetMessageOutput output, IPtsReadModel? pts, int cachedPts, int limit, IList<IUpdate> updateList,
-        IList<IChat> chatListFromUpdates, IReadOnlyCollection<IEncryptedMessageReadModel>? encryptedMessageReadModels, int layer = 0)
+        IList<IChat> chatListFromUpdates, IReadOnlyCollection<IEncryptedMessageReadModel>? encryptedMessageReadModels,
+        int layer = 0)
     {
         var messageList = messageConverterService.ToMessageList(output.SelfUserId, output.MessageList, output.PollList,
             output.ChosenPollOptions, output.UserReactionList, layer);
-        var userList = userConverterService.ToUserList(request, output.UserList, output.PhotoList,
+        var userList = await userConverterService.ToUserListAsync(request, output.UserList, output.PhotoList,
             output.ContactList, output.PrivacyList, layer);
         var channelList = chatConverterService.ToChannelList(request, output.ChannelList, output.PhotoList,
             output.ChannelMemberList, output.JoinedChannelIdList, layer);

@@ -31,13 +31,9 @@ public sealed partial class RequestInvokeWithLayer : IRequest<IObject>, IHasSubQ
     /// </summary>
     public IObject Query { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Layer);
         writer.Write(Query);

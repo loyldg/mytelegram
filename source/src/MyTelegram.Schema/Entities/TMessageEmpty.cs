@@ -26,18 +26,20 @@ public sealed partial class TMessageEmpty : IMessage
     /// </summary>
     public MyTelegram.Schema.IPeer? PeerId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (PeerId != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (PeerId != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
-        if (Flags.IsBitSet(0)) { writer.Write(PeerId); }
+        if (flags.IsBitSet(0)) { writer.Write(PeerId); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

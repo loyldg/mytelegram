@@ -13,12 +13,14 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputNotifyChats"/> See <a href="https://corefork.telegram.org/constructor/inputNotifyChats" /><br/>
 /// <see cref="TInputNotifyBroadcasts"/> See <a href="https://corefork.telegram.org/constructor/inputNotifyBroadcasts" /><br/>
 /// <see cref="TInputNotifyForumTopic"/> See <a href="https://corefork.telegram.org/constructor/inputNotifyForumTopic" /><br/>
+/// <see cref="TInputNotifyCommunity"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputNotifyPeer), nameof(TInputNotifyPeer))]
 [JsonDerivedType(typeof(TInputNotifyUsers), nameof(TInputNotifyUsers))]
 [JsonDerivedType(typeof(TInputNotifyChats), nameof(TInputNotifyChats))]
 [JsonDerivedType(typeof(TInputNotifyBroadcasts), nameof(TInputNotifyBroadcasts))]
 [JsonDerivedType(typeof(TInputNotifyForumTopic), nameof(TInputNotifyForumTopic))]
-public interface IInputNotifyPeer : IObject
+[JsonDerivedType(typeof(TInputNotifyCommunity), nameof(TInputNotifyCommunity))]
+public partial interface IInputNotifyPeer : IObject
 {
 }

@@ -21,13 +21,9 @@ public sealed partial class TUpdateBotMenuButton : IUpdate
     /// </summary>
     public MyTelegram.Schema.IBotMenuButton Button { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(BotId);
         writer.Write(Button);

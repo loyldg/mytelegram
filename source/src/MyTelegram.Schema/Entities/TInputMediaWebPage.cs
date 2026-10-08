@@ -35,18 +35,20 @@ public sealed partial class TInputMediaWebPage : IInputMedia
     /// </summary>
     public string Url { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ForceLargeMedia) { Flags = Flags.SetBit(0); }
-        if (ForceSmallMedia) { Flags = Flags.SetBit(1); }
-        if (Optional) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (ForceLargeMedia) { flags = flags.SetBit(0); }
+        if (ForceSmallMedia) { flags = flags.SetBit(1); }
+        if (Optional) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Url);
     }
 

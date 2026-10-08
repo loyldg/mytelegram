@@ -27,13 +27,9 @@ public sealed partial class TUpdateNewStoryReaction : IUpdate
     /// </summary>
     public MyTelegram.Schema.IReaction Reaction { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(StoryId);
         writer.Write(Peer);

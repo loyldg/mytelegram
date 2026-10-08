@@ -13,6 +13,6 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TBoolFalse), nameof(TBoolFalse))]
 [JsonDerivedType(typeof(TBoolTrue), nameof(TBoolTrue))]
-public interface IBool : IObject
+public partial interface IBool : IObject
 {
 }

@@ -72,30 +72,32 @@ public sealed partial class TTheme : ITheme
     /// </summary>
     public int? InstallsCount { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Creator) { Flags = Flags.SetBit(0); }
-        if (Default) { Flags = Flags.SetBit(1); }
-        if (ForChat) { Flags = Flags.SetBit(5); }
-        if (Document != null) { Flags = Flags.SetBit(2); }
-        if (Settings?.Count > 0) { Flags = Flags.SetBit(3); }
-        if (Emoticon != null) { Flags = Flags.SetBit(6); }
-        if (/*InstallsCount != 0 && */InstallsCount.HasValue) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (Creator) { flags = flags.SetBit(0); }
+        if (Default) { flags = flags.SetBit(1); }
+        if (ForChat) { flags = flags.SetBit(5); }
+        if (Document != null) { flags = flags.SetBit(2); }
+        if (Settings?.Count > 0) { flags = flags.SetBit(3); }
+        if (Emoticon != null) { flags = flags.SetBit(6); }
+        if (/*InstallsCount != 0 && */InstallsCount.HasValue) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(AccessHash);
         writer.Write(Slug);
         writer.Write(Title);
-        if (Flags.IsBitSet(2)) { writer.Write(Document); }
-        if (Flags.IsBitSet(3)) { writer.Write(Settings); }
-        if (Flags.IsBitSet(6)) { writer.Write(Emoticon); }
-        if (Flags.IsBitSet(4)) { writer.Write(InstallsCount.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(Document); }
+        if (flags.IsBitSet(3)) { writer.Write(Settings); }
+        if (flags.IsBitSet(6)) { writer.Write(Emoticon); }
+        if (flags.IsBitSet(4)) { writer.Write(InstallsCount.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

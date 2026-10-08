@@ -31,13 +31,9 @@ public sealed partial class RequestSendChangePhoneCode : IRequest<MyTelegram.Sch
     /// </summary>
     public MyTelegram.Schema.ICodeSettings Settings { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PhoneNumber);
         writer.Write(Settings);

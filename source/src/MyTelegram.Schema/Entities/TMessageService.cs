@@ -101,36 +101,38 @@ public sealed partial class TMessageService : IMessage, ILayeredServiceMessage
     /// </summary>
     public int? TtlPeriod { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Out) { Flags = Flags.SetBit(1); }
-        if (Mentioned) { Flags = Flags.SetBit(4); }
-        if (MediaUnread) { Flags = Flags.SetBit(5); }
-        if (ReactionsArePossible) { Flags = Flags.SetBit(9); }
-        if (Silent) { Flags = Flags.SetBit(13); }
-        if (Post) { Flags = Flags.SetBit(14); }
-        if (Legacy) { Flags = Flags.SetBit(19); }
-        if (FromId != null) { Flags = Flags.SetBit(8); }
-        if (SavedPeerId != null) { Flags = Flags.SetBit(28); }
-        if (ReplyTo != null) { Flags = Flags.SetBit(3); }
-        if (Reactions != null) { Flags = Flags.SetBit(20); }
-        if (/*TtlPeriod != 0 && */TtlPeriod.HasValue) { Flags = Flags.SetBit(25); }
+        var flags = 0;
+        if (Out) { flags = flags.SetBit(1); }
+        if (Mentioned) { flags = flags.SetBit(4); }
+        if (MediaUnread) { flags = flags.SetBit(5); }
+        if (ReactionsArePossible) { flags = flags.SetBit(9); }
+        if (Silent) { flags = flags.SetBit(13); }
+        if (Post) { flags = flags.SetBit(14); }
+        if (Legacy) { flags = flags.SetBit(19); }
+        if (FromId != null) { flags = flags.SetBit(8); }
+        if (SavedPeerId != null) { flags = flags.SetBit(28); }
+        if (ReplyTo != null) { flags = flags.SetBit(3); }
+        if (Reactions != null) { flags = flags.SetBit(20); }
+        if (/*TtlPeriod != 0 && */TtlPeriod.HasValue) { flags = flags.SetBit(25); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
-        if (Flags.IsBitSet(8)) { writer.Write(FromId); }
+        if (flags.IsBitSet(8)) { writer.Write(FromId); }
         writer.Write(PeerId);
-        if (Flags.IsBitSet(28)) { writer.Write(SavedPeerId); }
-        if (Flags.IsBitSet(3)) { writer.Write(ReplyTo); }
+        if (flags.IsBitSet(28)) { writer.Write(SavedPeerId); }
+        if (flags.IsBitSet(3)) { writer.Write(ReplyTo); }
         writer.Write(Date);
         writer.Write(Action);
-        if (Flags.IsBitSet(20)) { writer.Write(Reactions); }
-        if (Flags.IsBitSet(25)) { writer.Write(TtlPeriod.Value); }
+        if (flags.IsBitSet(20)) { writer.Write(Reactions); }
+        if (flags.IsBitSet(25)) { writer.Write(TtlPeriod.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

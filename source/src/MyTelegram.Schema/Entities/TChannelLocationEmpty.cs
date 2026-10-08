@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TChannelLocationEmpty : IChannelLocation
 {
     public uint ConstructorId => 0xbfb5ad8b;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

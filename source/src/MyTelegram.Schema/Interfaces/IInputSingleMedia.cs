@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputSingleMedia"/> See <a href="https://corefork.telegram.org/constructor/inputSingleMedia" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputSingleMedia), nameof(TInputSingleMedia))]
-public interface IInputSingleMedia : IObject
+public partial interface IInputSingleMedia : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

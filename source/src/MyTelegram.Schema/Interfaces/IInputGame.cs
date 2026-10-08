@@ -13,6 +13,6 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TInputGameID), nameof(TInputGameID))]
 [JsonDerivedType(typeof(TInputGameShortName), nameof(TInputGameShortName))]
-public interface IInputGame : IObject
+public partial interface IInputGame : IObject
 {
 }

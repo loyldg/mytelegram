@@ -24,13 +24,9 @@ public sealed partial class RequestInvokeAfterMsgs : IRequest<IObject>, IHasSubQ
     /// </summary>
     public IObject Query { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(MsgIds);
         writer.Write(Query);

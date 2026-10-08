@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TInvitedUsers"/> See <a href="https://corefork.telegram.org/constructor/messages.invitedUsers" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInvitedUsers), nameof(TInvitedUsers))]
-public interface IInvitedUsers : IObject
+public partial interface IInvitedUsers : IObject
 {
     /// <summary>
     /// List of updates about successfully invited users (and eventually info about the created group)

@@ -20,17 +20,19 @@ public sealed partial class TWebPageNotModified : IWebPage
     /// </summary>
     public int? CachedPageViews { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*CachedPageViews != 0 && */CachedPageViews.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*CachedPageViews != 0 && */CachedPageViews.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(CachedPageViews.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(CachedPageViews.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -51,22 +51,24 @@ public sealed partial class RequestToggleGroupCallRecord : IRequest<MyTelegram.S
     /// </summary>
     public bool? VideoPortrait { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Start) { Flags = Flags.SetBit(0); }
-        if (Video) { Flags = Flags.SetBit(2); }
-        if (Title != null) { Flags = Flags.SetBit(1); }
-        if (VideoPortrait != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Start) { flags = flags.SetBit(0); }
+        if (Video) { flags = flags.SetBit(2); }
+        if (Title != null) { flags = flags.SetBit(1); }
+        if (VideoPortrait != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Call);
-        if (Flags.IsBitSet(1)) { writer.Write(Title); }
-        if (Flags.IsBitSet(2)) { writer.Write(VideoPortrait.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(Title); }
+        if (flags.IsBitSet(2)) { writer.Write(VideoPortrait.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

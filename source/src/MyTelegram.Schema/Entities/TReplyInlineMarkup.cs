@@ -6,29 +6,39 @@ namespace MyTelegram.Schema;
 /// Bot or inline keyboard
 /// <para>See <a href="https://corefork.telegram.org/constructor/replyInlineMarkup" /></para>
 /// </summary>
-[TlObject(0x48a30254)]
+[TlObject(0xb2b15770)]
 public sealed partial class TReplyInlineMarkup : IReplyMarkup
 {
-    public uint ConstructorId => 0x48a30254;
+    public uint ConstructorId => 0xb2b15770;
+    public int Flags { get; set; }
+
+    public bool ForceReply { get; set; }
+
     /// <summary>
     /// Bot or inline keyboard rows
-    /// See <a href="https://corefork.telegram.org/type/KeyboardButtonRow" />
+    /// See <a href="https://corefork.telegram.org/type/KeyboardInlineButtonRow" />
     /// </summary>
-    public TVector<MyTelegram.Schema.IKeyboardButtonRow> Rows { get; set; }
+    public TVector<MyTelegram.Schema.IKeyboardInlineButtonRow> Rows { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
+        var flags = 0;
+        if (ForceReply) { flags = flags.SetBit(5); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
+        writer.Write(flags);
         writer.Write(Rows);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
-        Rows = buffer.Read<TVector<MyTelegram.Schema.IKeyboardButtonRow>>();
+        Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(5)) { ForceReply = true; }
+        Rows = buffer.Read<TVector<MyTelegram.Schema.IKeyboardInlineButtonRow>>();
     }
 }

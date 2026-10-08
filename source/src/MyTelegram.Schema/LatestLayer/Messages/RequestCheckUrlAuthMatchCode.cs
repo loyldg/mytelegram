@@ -17,13 +17,9 @@ public sealed partial class RequestCheckUrlAuthMatchCode : IRequest<IBool>
 
     public string MatchCode { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Url);
         writer.Write(MatchCode);

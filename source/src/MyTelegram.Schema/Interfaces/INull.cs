@@ -10,6 +10,6 @@ namespace MyTelegram.Schema;
 /// <see cref="TNull"/> See <a href="https://corefork.telegram.org/constructor/null" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TNull), nameof(TNull))]
-public interface INull : IObject
+public partial interface INull : IObject
 {
 }

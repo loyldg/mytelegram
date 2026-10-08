@@ -3,7 +3,7 @@
 namespace MyTelegram.Schema;
 
 [TlObject(0xd1435160)]
-public sealed class RequestDestroyAuthKey : IRequest<MyTelegram.Schema.IDestroyAuthKeyRes>
+public sealed partial class RequestDestroyAuthKey : IRequest<MyTelegram.Schema.IDestroyAuthKeyRes>
 {
     public uint ConstructorId => 0xd1435160;
 

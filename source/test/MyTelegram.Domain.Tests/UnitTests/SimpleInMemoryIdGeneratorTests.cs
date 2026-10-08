@@ -8,9 +8,9 @@ public class SimpleInMemoryIdGeneratorTests : TestsFor<SimpleInMemoryIdGenerator
     [InlineData(100)]
     public async Task SequenceId_Should_Increment_By_Step(int step)
     {
-        var id1 = await Sut.NextLongIdAsync(IdType.MessageId, 1, step).ConfigureAwait(false);
-        var id2 = await Sut.NextLongIdAsync(IdType.MessageId, 1, step).ConfigureAwait(false);
-        var id3 = await Sut.NextLongIdAsync(IdType.MessageId, 1, step).ConfigureAwait(false);
+        var id1 = await Sut.NextLongIdAsync(IdType.MessageId, 1, step, TestContext.Current.CancellationToken);
+        var id2 = await Sut.NextLongIdAsync(IdType.MessageId, 1, step, TestContext.Current.CancellationToken);
+        var id3 = await Sut.NextLongIdAsync(IdType.MessageId, 1, step, TestContext.Current.CancellationToken);
 
         id1.ShouldBe(step);
         id2.ShouldBe(id1 + step);

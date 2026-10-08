@@ -34,18 +34,20 @@ public sealed partial class RequestLoadAsyncGraph : IRequest<MyTelegram.Schema.I
     /// </summary>
     public long? X { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*X != 0 &&*/ X.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*X != 0 &&*/ X.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Token);
-        if (Flags.IsBitSet(0)) { writer.Write(X.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(X.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

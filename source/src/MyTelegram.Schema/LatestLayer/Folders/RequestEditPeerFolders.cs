@@ -26,13 +26,9 @@ public sealed partial class RequestEditPeerFolders : IRequest<MyTelegram.Schema.
     /// </summary>
     public TVector<MyTelegram.Schema.IInputFolderPeer> FolderPeers { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(FolderPeers);
     }

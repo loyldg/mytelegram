@@ -60,18 +60,20 @@ public sealed partial class RequestUpdatePinnedMessage : IRequest<MyTelegram.Sch
     /// </summary>
     public int Id { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Silent) { Flags = Flags.SetBit(0); }
-        if (Unpin) { Flags = Flags.SetBit(1); }
-        if (PmOneside) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Silent) { flags = flags.SetBit(0); }
+        if (Unpin) { flags = flags.SetBit(1); }
+        if (PmOneside) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Id);
     }

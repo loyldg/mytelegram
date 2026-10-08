@@ -30,13 +30,9 @@ public sealed partial class RequestReadStories : IRequest<TVector<int>>
     /// </summary>
     public int MaxId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(MaxId);

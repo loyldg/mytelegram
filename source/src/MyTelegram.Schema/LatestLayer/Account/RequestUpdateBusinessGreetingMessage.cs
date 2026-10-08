@@ -25,17 +25,19 @@ public sealed partial class RequestUpdateBusinessGreetingMessage : IRequest<IBoo
     /// </summary>
     public MyTelegram.Schema.IInputBusinessGreetingMessage? Message { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Message != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Message != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(Message); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(Message); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

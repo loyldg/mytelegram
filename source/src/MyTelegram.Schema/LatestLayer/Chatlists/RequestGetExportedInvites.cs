@@ -23,13 +23,9 @@ public sealed partial class RequestGetExportedInvites : IRequest<MyTelegram.Sche
     /// </summary>
     public MyTelegram.Schema.IInputChatlist Chatlist { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Chatlist);
     }

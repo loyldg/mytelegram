@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Help;
 public sealed partial class TAppConfigNotModified : IAppConfig
 {
     public uint ConstructorId => 0x7cde641d;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

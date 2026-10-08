@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Indicates payment for a login code.
 /// <para>See <a href="https://corefork.telegram.org/constructor/inputStorePaymentAuthCode" /></para>
 /// </summary>
-[TlObject(0x9bb2636d)]
+[TlObject(0x3fc18057)]
 public sealed partial class TInputStorePaymentAuthCode : IInputStorePaymentPurpose
 {
-    public uint ConstructorId => 0x9bb2636d;
+    public uint ConstructorId => 0x3fc18057;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -30,6 +30,8 @@ public sealed partial class TInputStorePaymentAuthCode : IInputStorePaymentPurpo
     /// </summary>
     public string PhoneCodeHash { get; set; }
 
+    public int PremiumDays { get; set; }
+
     /// <summary>
     /// Three-letter ISO 4217 <a href="https://corefork.telegram.org/bots/payments#supported-currencies">currency</a> code
     /// </summary>
@@ -40,18 +42,21 @@ public sealed partial class TInputStorePaymentAuthCode : IInputStorePaymentPurpo
     /// </summary>
     public long Amount { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Restore) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Restore) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(PhoneNumber);
         writer.Write(PhoneCodeHash);
+        writer.Write(PremiumDays);
         writer.Write(Currency);
         writer.Write(Amount);
     }
@@ -62,6 +67,7 @@ public sealed partial class TInputStorePaymentAuthCode : IInputStorePaymentPurpo
         if (Flags.IsBitSet(0)) { Restore = true; }
         PhoneNumber = buffer.ReadString();
         PhoneCodeHash = buffer.ReadString();
+        PremiumDays = buffer.ReadInt32();
         Currency = buffer.ReadString();
         Amount = buffer.ReadInt64();
     }

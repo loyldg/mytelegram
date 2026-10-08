@@ -1,7 +1,4 @@
-﻿using MyTelegram.Services.Services;
-using System;
-using System.Buffers.Binary;
-using System.Collections.Generic;
+﻿using System.Buffers.Binary;
 using System.IO.Hashing;
 using System.Text;
 
@@ -10,7 +7,7 @@ namespace MyTelegram.Messenger.Services.Impl;
 public class Tokenizer(IOptionsMonitor<MyTelegramMessengerServerOptions> options) : ITokenizer, ITransientDependency
 {
     private static byte[] _indexEncryptionKey = [];
-    private static KeyConfig? _keyConfig = null;
+    private static KeyConfig? _keyConfig;
 
     //public HashSet<long> BuildSearchTokens(
     //    ReadOnlySpan<byte> key,
@@ -54,7 +51,7 @@ public class Tokenizer(IOptionsMonitor<MyTelegramMessengerServerOptions> options
             _indexEncryptionKey = Encoding.UTF8.GetBytes(_keyConfig.Key);
         }
 
-        var maxLength = message.Length * 4;
+        var maxLength = message!.Length * 4;
         var tempBytes = ArrayPool<byte>.Shared.Rent(maxLength);
         HashSet<long>? tokens;
         try
@@ -68,7 +65,7 @@ public class Tokenizer(IOptionsMonitor<MyTelegramMessengerServerOptions> options
             ArrayPool<byte>.Shared.Return(tempBytes);
         }
 
-        return tokens?.ToList();
+        return [.. tokens];
     }
 
     public HashSet<long> BuildSearchTokens(ReadOnlySpan<byte> key, ReadOnlySpan<byte> utf8Message)

@@ -57,23 +57,25 @@ public sealed partial class TBotApp : IBotApp
     /// </summary>
     public long Hash { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Document != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Document != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(AccessHash);
         writer.Write(ShortName);
         writer.Write(Title);
         writer.Write(Description);
         writer.Write(Photo);
-        if (Flags.IsBitSet(0)) { writer.Write(Document); }
+        if (flags.IsBitSet(0)) { writer.Write(Document); }
         writer.Write(Hash);
     }
 

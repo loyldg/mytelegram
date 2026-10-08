@@ -102,36 +102,38 @@ public sealed partial class TPaymentForm : IPaymentForm
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (CanSaveCredentials) { Flags = Flags.SetBit(2); }
-        if (PasswordMissing) { Flags = Flags.SetBit(3); }
-        if (Photo != null) { Flags = Flags.SetBit(5); }
-        if (NativeProvider != null) { Flags = Flags.SetBit(4); }
-        if (NativeParams != null) { Flags = Flags.SetBit(4); }
-        if (AdditionalMethods?.Count > 0) { Flags = Flags.SetBit(6); }
-        if (SavedInfo != null) { Flags = Flags.SetBit(0); }
-        if (SavedCredentials?.Count > 0) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (CanSaveCredentials) { flags = flags.SetBit(2); }
+        if (PasswordMissing) { flags = flags.SetBit(3); }
+        if (Photo != null) { flags = flags.SetBit(5); }
+        if (NativeProvider != null) { flags = flags.SetBit(4); }
+        if (NativeParams != null) { flags = flags.SetBit(4); }
+        if (AdditionalMethods?.Count > 0) { flags = flags.SetBit(6); }
+        if (SavedInfo != null) { flags = flags.SetBit(0); }
+        if (SavedCredentials?.Count > 0) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(FormId);
         writer.Write(BotId);
         writer.Write(Title);
         writer.Write(Description);
-        if (Flags.IsBitSet(5)) { writer.Write(Photo); }
+        if (flags.IsBitSet(5)) { writer.Write(Photo); }
         writer.Write(Invoice);
         writer.Write(ProviderId);
         writer.Write(Url);
-        if (Flags.IsBitSet(4)) { writer.Write(NativeProvider); }
-        if (Flags.IsBitSet(4)) { writer.Write(NativeParams); }
-        if (Flags.IsBitSet(6)) { writer.Write(AdditionalMethods); }
-        if (Flags.IsBitSet(0)) { writer.Write(SavedInfo); }
-        if (Flags.IsBitSet(1)) { writer.Write(SavedCredentials); }
+        if (flags.IsBitSet(4)) { writer.Write(NativeProvider); }
+        if (flags.IsBitSet(4)) { writer.Write(NativeParams); }
+        if (flags.IsBitSet(6)) { writer.Write(AdditionalMethods); }
+        if (flags.IsBitSet(0)) { writer.Write(SavedInfo); }
+        if (flags.IsBitSet(1)) { writer.Write(SavedCredentials); }
         writer.Write(Users);
     }
 

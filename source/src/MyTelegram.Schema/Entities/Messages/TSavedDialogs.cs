@@ -34,13 +34,9 @@ public sealed partial class TSavedDialogs : ISavedDialogs
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Dialogs);
         writer.Write(Messages);

@@ -4,7 +4,7 @@ namespace MyTelegram.Schema;
 
 
 [TlObject(0xe22045fc)]
-public sealed class TDestroySessionOk : IDestroySessionRes
+public sealed partial class TDestroySessionOk : IDestroySessionRes
 {
     public uint ConstructorId => 0xe22045fc;
     public long SessionId { get; set; }

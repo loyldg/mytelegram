@@ -34,13 +34,9 @@ public sealed partial class RequestEditChatPhoto : IRequest<MyTelegram.Schema.IU
     /// </summary>
     public MyTelegram.Schema.IInputChatPhoto Photo { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ChatId);
         writer.Write(Photo);

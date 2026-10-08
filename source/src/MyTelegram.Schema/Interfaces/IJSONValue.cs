@@ -21,6 +21,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TJsonString), nameof(TJsonString))]
 [JsonDerivedType(typeof(TJsonArray), nameof(TJsonArray))]
 [JsonDerivedType(typeof(TJsonObject), nameof(TJsonObject))]
-public interface IJSONValue : IObject
+public partial interface IJSONValue : IObject
 {
 }

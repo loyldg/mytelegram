@@ -9,7 +9,7 @@ public interface IPollReadModel : IReadModel
     bool Quiz { get; }
     bool PublicVoters { get; }
     string Question { get; }
-    IReadOnlyCollection<PollAnswer> Answers { get; }
+    IReadOnlyCollection<PollAnswer>? Answers { get; }
     IReadOnlyCollection<string>? CorrectAnswers { get; }
     string? Solution { get; }
     byte[]? SolutionEntities { get; }
@@ -22,4 +22,13 @@ public interface IPollReadModel : IReadModel
     byte[]? QuestionEntities { get; }
     IList<IMessageEntity>? QuestionEntities2 { get; }
     long? CreatorUserId { get; }
+    bool OpenAnswers { get; }
+    bool RevotingDisabled { get; }
+    bool ShuffleAnswers { get; }
+    bool HideResultsUntilClose { get; }
+    IMessageMedia? AttachedMedia { get; }
+    IMessageMedia? SolutionMedia { get; }
+    IReadOnlyCollection<IPollAnswer>? Answers2 { get; }
+
+    int Date { get; }
 }

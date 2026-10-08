@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Help;
 /// </remarks>
 [JsonDerivedType(typeof(TUserInfoEmpty), nameof(TUserInfoEmpty))]
 [JsonDerivedType(typeof(TUserInfo), nameof(TUserInfo))]
-public interface IUserInfo : IObject
+public partial interface IUserInfo : IObject
 {
 }

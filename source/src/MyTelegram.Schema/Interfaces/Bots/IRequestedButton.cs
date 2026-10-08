@@ -10,7 +10,7 @@ namespace MyTelegram.Schema.Bots;
 /// <see cref="TRequestedButton"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TRequestedButton), nameof(TRequestedButton))]
-public interface IRequestedButton : IObject
+public partial interface IRequestedButton : IObject
 {
     string WebappReqId { get; set; }
 }

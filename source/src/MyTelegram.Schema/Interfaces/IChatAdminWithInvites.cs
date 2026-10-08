@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TChatAdminWithInvites"/> See <a href="https://corefork.telegram.org/constructor/chatAdminWithInvites" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TChatAdminWithInvites), nameof(TChatAdminWithInvites))]
-public interface IChatAdminWithInvites : IObject
+public partial interface IChatAdminWithInvites : IObject
 {
     /// <summary>
     /// The admin

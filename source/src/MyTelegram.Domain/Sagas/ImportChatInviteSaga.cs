@@ -60,7 +60,7 @@ public class ImportChatInviteSaga :
                 false, // Bot can only be invited by admin
                 domainEvent.AggregateEvent.InviteId,
                 domainEvent.AggregateEvent.IsBroadcast,
-                ChatJoinType.ByLink
+                ChatJoinType.ByChatInvite
             );
             Publish(command);
 
@@ -103,12 +103,12 @@ public class ImportChatInviteSaga :
                 true,
                 SendMessageType.MessageService,
                 MessageType.Text,
-                MessageSubType.ChatJoinByLink,
+                MessageSubType.ChatJoinByChatInvite,
                 MessageAction: new TMessageActionChatJoinedByLink
                 {
                     InviterId = domainEvent.AggregateEvent.InviterId
                 },
-                MessageActionType: MessageActionType.ChatJoinedByLink
+                MessageActionType: MessageActionType.ChatJoinedByChatInvite
             );
             var command = new StartSendMessageCommand(TempId.New,
                 domainEvent.AggregateEvent.RequestInfo,

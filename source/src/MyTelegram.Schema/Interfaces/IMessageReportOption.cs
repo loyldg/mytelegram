@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TMessageReportOption"/> See <a href="https://corefork.telegram.org/constructor/messageReportOption" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TMessageReportOption), nameof(TMessageReportOption))]
-public interface IMessageReportOption : IObject
+public partial interface IMessageReportOption : IObject
 {
     /// <summary>
     /// Option title

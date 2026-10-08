@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TSearchCounter"/> See <a href="https://corefork.telegram.org/constructor/messages.searchCounter" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TSearchCounter), nameof(TSearchCounter))]
-public interface ISearchCounter : IObject
+public partial interface ISearchCounter : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

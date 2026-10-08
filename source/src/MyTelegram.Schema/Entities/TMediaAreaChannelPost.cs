@@ -26,13 +26,9 @@ public sealed partial class TMediaAreaChannelPost : IMediaArea
     /// </summary>
     public int MsgId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Coordinates);
         writer.Write(ChannelId);

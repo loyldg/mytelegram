@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputWebDocument"/> See <a href="https://corefork.telegram.org/constructor/inputWebDocument" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputWebDocument), nameof(TInputWebDocument))]
-public interface IInputWebDocument : IObject
+public partial interface IInputWebDocument : IObject
 {
     /// <summary>
     /// Remote document URL to be downloaded using the appropriate <a href="https://corefork.telegram.org/api/files">method</a>

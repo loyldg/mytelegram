@@ -13,7 +13,7 @@ namespace MyTelegram.Schema.Users;
 /// </remarks>
 [JsonDerivedType(typeof(TSavedMusicNotModified), nameof(TSavedMusicNotModified))]
 [JsonDerivedType(typeof(TSavedMusic), nameof(TSavedMusic))]
-public interface ISavedMusic : IObject
+public partial interface ISavedMusic : IObject
 {
     /// <summary>
     /// Total number of songs on the user's profile.

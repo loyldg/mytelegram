@@ -7,17 +7,17 @@ public class DeleteMessagesEventHandler(
     IAckCacheService ackCacheService,
     IUpdatesConverterService updatesConverterService)
     : DomainEventHandlerBase(objectMessageSender, commandBus, idGenerator, ackCacheService),
-        ISubscribeSynchronousTo<DeleteMessagesSaga4, DeleteMessagesSaga4Id, DeleteSelfMessagesCompletedSagaEvent>,
-        ISubscribeSynchronousTo<DeleteMessagesSaga4, DeleteMessagesSaga4Id,
+        ISubscribeAsynchronousTo<DeleteMessagesSaga4, DeleteMessagesSaga4Id, DeleteSelfMessagesCompletedSagaEvent>,
+        ISubscribeAsynchronousTo<DeleteMessagesSaga4, DeleteMessagesSaga4Id,
             DeleteOtherParticipantMessagesCompletedSagaEvent>,
-        ISubscribeSynchronousTo<DeleteMessagesSaga4, DeleteMessagesSaga4Id, DeleteSelfHistoryCompletedSagaEvent>,
-        ISubscribeSynchronousTo<DeleteMessagesSaga4, DeleteMessagesSaga4Id,
+        ISubscribeAsynchronousTo<DeleteMessagesSaga4, DeleteMessagesSaga4Id, DeleteSelfHistoryCompletedSagaEvent>,
+        ISubscribeAsynchronousTo<DeleteMessagesSaga4, DeleteMessagesSaga4Id,
             DeleteOtherParticipantHistoryCompletedSagaEvent>,
-        ISubscribeSynchronousTo<DeleteChannelMessagesSaga, DeleteChannelMessagesSagaId,
+        ISubscribeAsynchronousTo<DeleteChannelMessagesSaga, DeleteChannelMessagesSagaId,
             DeleteChannelMessagesCompletedSagaEvent>,
-        ISubscribeSynchronousTo<DeleteChannelMessagesSaga, DeleteChannelMessagesSagaId,
+        ISubscribeAsynchronousTo<DeleteChannelMessagesSaga, DeleteChannelMessagesSagaId,
             DeleteChannelHistoryCompletedSagaEvent>,
-        ISubscribeSynchronousTo<DialogAggregate, DialogId, ChannelHistoryClearedEvent> 
+        ISubscribeAsynchronousTo<DialogAggregate, DialogId, ChannelHistoryClearedEvent> 
 {
     public async Task HandleAsync(
         IDomainEvent<DeleteChannelMessagesSaga, DeleteChannelMessagesSagaId, DeleteChannelHistoryCompletedSagaEvent>

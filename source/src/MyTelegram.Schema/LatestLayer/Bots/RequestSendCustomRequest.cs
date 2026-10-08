@@ -30,13 +30,9 @@ public sealed partial class RequestSendCustomRequest : IRequest<MyTelegram.Schem
     /// </summary>
     public MyTelegram.Schema.IDataJSON Params { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(CustomMethod);
         writer.Write(Params);

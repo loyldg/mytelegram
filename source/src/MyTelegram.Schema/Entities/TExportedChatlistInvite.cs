@@ -31,13 +31,9 @@ public sealed partial class TExportedChatlistInvite : IExportedChatlistInvite
     /// </summary>
     public TVector<MyTelegram.Schema.IPeer> Peers { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Flags);
         writer.Write(Title);

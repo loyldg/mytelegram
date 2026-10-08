@@ -27,19 +27,21 @@ public sealed partial class TRequestPeerTypeUser : IRequestPeerType
     /// </summary>
     public bool? Premium { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Bot != null) { Flags = Flags.SetBit(0); }
-        if (Premium != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Bot != null) { flags = flags.SetBit(0); }
+        if (Premium != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(Bot.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(Premium.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(Bot.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(Premium.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

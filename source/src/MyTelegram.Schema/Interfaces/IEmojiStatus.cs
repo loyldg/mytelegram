@@ -17,6 +17,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TEmojiStatus), nameof(TEmojiStatus))]
 [JsonDerivedType(typeof(TEmojiStatusCollectible), nameof(TEmojiStatusCollectible))]
 [JsonDerivedType(typeof(TInputEmojiStatusCollectible), nameof(TInputEmojiStatusCollectible))]
-public interface IEmojiStatus : IObject
+public partial interface IEmojiStatus : IObject
 {
 }

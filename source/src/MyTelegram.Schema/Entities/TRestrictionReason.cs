@@ -25,13 +25,9 @@ public sealed partial class TRestrictionReason : IRestrictionReason
     /// </summary>
     public string Text { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Platform);
         writer.Write(Reason);

@@ -54,24 +54,26 @@ public sealed partial class RequestTranslateText : IRequest<MyTelegram.Schema.Me
 
     public string? Tone { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Peer != null) { Flags = Flags.SetBit(0); }
-        if (Id?.Count > 0) { Flags = Flags.SetBit(0); }
-        if (Text?.Count > 0) { Flags = Flags.SetBit(1); }
-        if (Tone != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Peer != null) { flags = flags.SetBit(0); }
+        if (Id?.Count > 0) { flags = flags.SetBit(0); }
+        if (Text?.Count > 0) { flags = flags.SetBit(1); }
+        if (Tone != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(Peer); }
-        if (Flags.IsBitSet(0)) { writer.Write(Id); }
-        if (Flags.IsBitSet(1)) { writer.Write(Text); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(Peer); }
+        if (flags.IsBitSet(0)) { writer.Write(Id); }
+        if (flags.IsBitSet(1)) { writer.Write(Text); }
         writer.Write(ToLang);
-        if (Flags.IsBitSet(2)) { writer.Write(Tone); }
+        if (flags.IsBitSet(2)) { writer.Write(Tone); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

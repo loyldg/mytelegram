@@ -26,13 +26,9 @@ public sealed partial class TTextUrl : IRichText
     /// </summary>
     public long WebpageId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Text);
         writer.Write(Url);

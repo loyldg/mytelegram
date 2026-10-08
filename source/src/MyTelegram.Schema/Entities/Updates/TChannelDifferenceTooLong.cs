@@ -49,18 +49,20 @@ public sealed partial class TChannelDifferenceTooLong : IChannelDifference
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Final) { Flags = Flags.SetBit(0); }
-        if (/*Timeout != 0 && */Timeout.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Final) { flags = flags.SetBit(0); }
+        if (/*Timeout != 0 && */Timeout.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(1)) { writer.Write(Timeout.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(1)) { writer.Write(Timeout.Value); }
         writer.Write(Dialog);
         writer.Write(Messages);
         writer.Write(Chats);

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Help;
 /// <see cref="TInviteText"/> See <a href="https://corefork.telegram.org/constructor/help.inviteText" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInviteText), nameof(TInviteText))]
-public interface IInviteText : IObject
+public partial interface IInviteText : IObject
 {
     /// <summary>
     /// Text of the message

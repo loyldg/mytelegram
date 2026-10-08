@@ -77,19 +77,21 @@ public sealed partial class TAvailableReaction : IAvailableReaction
     /// </summary>
     public MyTelegram.Schema.IDocument? CenterIcon { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Inactive) { Flags = Flags.SetBit(0); }
-        if (Premium) { Flags = Flags.SetBit(2); }
-        if (AroundAnimation != null) { Flags = Flags.SetBit(1); }
-        if (CenterIcon != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Inactive) { flags = flags.SetBit(0); }
+        if (Premium) { flags = flags.SetBit(2); }
+        if (AroundAnimation != null) { flags = flags.SetBit(1); }
+        if (CenterIcon != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Reaction);
         writer.Write(Title);
         writer.Write(StaticIcon);
@@ -97,8 +99,8 @@ public sealed partial class TAvailableReaction : IAvailableReaction
         writer.Write(SelectAnimation);
         writer.Write(ActivateAnimation);
         writer.Write(EffectAnimation);
-        if (Flags.IsBitSet(1)) { writer.Write(AroundAnimation); }
-        if (Flags.IsBitSet(1)) { writer.Write(CenterIcon); }
+        if (flags.IsBitSet(1)) { writer.Write(AroundAnimation); }
+        if (flags.IsBitSet(1)) { writer.Write(CenterIcon); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

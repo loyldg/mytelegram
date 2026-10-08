@@ -21,13 +21,9 @@ public sealed partial class TBankCardData : IBankCardData
     /// </summary>
     public TVector<MyTelegram.Schema.IBankCardOpenUrl> OpenUrls { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Title);
         writer.Write(OpenUrls);

@@ -23,13 +23,9 @@ public sealed partial class RequestRequestWebViewButton : IRequest<MyTelegram.Sc
     /// </summary>
     public MyTelegram.Schema.IKeyboardButton Button { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(UserId);
         writer.Write(Button);

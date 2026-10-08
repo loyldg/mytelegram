@@ -24,13 +24,9 @@ public sealed partial class RequestStartScheduledGroupCall : IRequest<MyTelegram
     /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Call);
     }

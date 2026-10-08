@@ -22,13 +22,9 @@ public sealed partial class TExportedChatInvite : IExportedChatInvite
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Invite);
         writer.Write(Users);

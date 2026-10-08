@@ -15,13 +15,9 @@ public sealed partial class RequestGetAllDrafts : IRequest<MyTelegram.Schema.IUp
 {
     public uint ConstructorId => 0x6a3f8d65;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

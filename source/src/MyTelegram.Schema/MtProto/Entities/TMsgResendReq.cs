@@ -4,7 +4,7 @@ namespace MyTelegram.Schema;
 
 
 [TlObject(0x7d861a08)]
-public sealed class TMsgResendReq : IObject
+public sealed partial class TMsgResendReq : IObject
 {
     public uint ConstructorId => 0x7d861a08;
     public TVector<long> MsgIds { get; set; }

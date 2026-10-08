@@ -26,13 +26,9 @@ public sealed partial class RequestGetGroupCallStreamChannels : IRequest<MyTeleg
     /// </summary>
     public MyTelegram.Schema.IInputGroupCall Call { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Call);
     }

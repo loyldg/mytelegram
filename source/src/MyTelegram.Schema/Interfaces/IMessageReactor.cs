@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TMessageReactor"/> See <a href="https://corefork.telegram.org/constructor/messageReactor" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TMessageReactor), nameof(TMessageReactor))]
-public interface IMessageReactor : IObject
+public partial interface IMessageReactor : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

@@ -16,13 +16,9 @@ public sealed partial class TInputMediaGame : IInputMedia
     /// </summary>
     public MyTelegram.Schema.IInputGame Id { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
     }

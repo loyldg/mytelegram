@@ -43,19 +43,21 @@ public sealed partial class TStories : IStories
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (PinnedToTop?.Count > 0) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (PinnedToTop?.Count > 0) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Count);
         writer.Write(Stories);
-        if (Flags.IsBitSet(0)) { writer.Write(PinnedToTop); }
+        if (flags.IsBitSet(0)) { writer.Write(PinnedToTop); }
         writer.Write(Chats);
         writer.Write(Users);
     }

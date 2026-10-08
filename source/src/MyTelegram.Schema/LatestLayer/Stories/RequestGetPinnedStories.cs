@@ -35,13 +35,9 @@ public sealed partial class RequestGetPinnedStories : IRequest<MyTelegram.Schema
     /// </summary>
     public int Limit { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(OffsetId);

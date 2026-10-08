@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Channel/supergroup infoWhen updating the <a href="https://corefork.telegram.org/api/peers">local peer database</a>, all fields from the newly received constructor take priority over the old constructor cached locally (including by removing fields that aren't set in the new constructor).The only exception to the above rule is when the <code>min</code> flag is set, in which case <strong>only</strong> the following fields must be applied over any locally stored version:See <a href="https://github.com/tdlib/td/blob/a24af0992245f838f2b4b418a0a2d5fa9caa27b5/td/telegram/ChatManager.cpp#L8329">here »</a> for an implementation of the logic to use when updating the <a href="https://corefork.telegram.org/api/peers">local user peer database</a>.
 /// <para>See <a href="https://corefork.telegram.org/constructor/channel" /></para>
 /// </summary>
-[TlObject(0x1c32b11c)]
+[TlObject(0xd49f34c6)]
 public sealed partial class TChannel : IChat, ILayeredChannel
 {
-    public uint ConstructorId => 0x1c32b11c;
+    public uint ConstructorId => 0xd49f34c6;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -275,82 +275,94 @@ public sealed partial class TChannel : IChat, ILayeredChannel
     /// </summary>
     public long? LinkedMonoforumId { get; set; }
 
-    public void ComputeFlag()
+    public long? LinkedCommunityId { get; set; }
+
+    public int CalculateFlags()
     {
-        if (Creator) { Flags = Flags.SetBit(0); }
-        if (Left) { Flags = Flags.SetBit(2); }
-        if (Broadcast) { Flags = Flags.SetBit(5); }
-        if (Verified) { Flags = Flags.SetBit(7); }
-        if (Megagroup) { Flags = Flags.SetBit(8); }
-        if (Restricted) { Flags = Flags.SetBit(9); }
-        if (Signatures) { Flags = Flags.SetBit(11); }
-        if (Min) { Flags = Flags.SetBit(12); }
-        if (Scam) { Flags = Flags.SetBit(19); }
-        if (HasLink) { Flags = Flags.SetBit(20); }
-        if (HasGeo) { Flags = Flags.SetBit(21); }
-        if (SlowmodeEnabled) { Flags = Flags.SetBit(22); }
-        if (CallActive) { Flags = Flags.SetBit(23); }
-        if (CallNotEmpty) { Flags = Flags.SetBit(24); }
-        if (Fake) { Flags = Flags.SetBit(25); }
-        if (Gigagroup) { Flags = Flags.SetBit(26); }
-        if (Noforwards) { Flags = Flags.SetBit(27); }
-        if (JoinToSend) { Flags = Flags.SetBit(28); }
-        if (JoinRequest) { Flags = Flags.SetBit(29); }
-        if (Forum) { Flags = Flags.SetBit(30); }
-        if (StoriesHidden) { Flags2 = Flags2.SetBit(1); }
-        if (StoriesHiddenMin) { Flags2 = Flags2.SetBit(2); }
-        if (StoriesUnavailable) { Flags2 = Flags2.SetBit(3); }
-        if (SignatureProfiles) { Flags2 = Flags2.SetBit(12); }
-        if (Autotranslation) { Flags2 = Flags2.SetBit(15); }
-        if (BroadcastMessagesAllowed) { Flags2 = Flags2.SetBit(16); }
-        if (Monoforum) { Flags2 = Flags2.SetBit(17); }
-        if (ForumTabs) { Flags2 = Flags2.SetBit(19); }
-        if (/*AccessHash != 0 &&*/ AccessHash.HasValue) { Flags = Flags.SetBit(13); }
-        if (Username != null) { Flags = Flags.SetBit(6); }
-        if (RestrictionReason?.Count > 0) { Flags = Flags.SetBit(9); }
-        if (AdminRights != null) { Flags = Flags.SetBit(14); }
-        if (BannedRights != null) { Flags = Flags.SetBit(15); }
-        if (DefaultBannedRights != null) { Flags = Flags.SetBit(18); }
-        if (/*ParticipantsCount != 0 && */ParticipantsCount.HasValue) { Flags = Flags.SetBit(17); }
-        if (Usernames?.Count > 0) { Flags2 = Flags2.SetBit(0); }
-        if (StoriesMaxId != null) { Flags2 = Flags2.SetBit(4); }
-        if (Color != null) { Flags2 = Flags2.SetBit(7); }
-        if (ProfileColor != null) { Flags2 = Flags2.SetBit(8); }
-        if (EmojiStatus != null) { Flags2 = Flags2.SetBit(9); }
-        if (/*Level != 0 && */Level.HasValue) { Flags2 = Flags2.SetBit(10); }
-        if (/*SubscriptionUntilDate != 0 && */SubscriptionUntilDate.HasValue) { Flags2 = Flags2.SetBit(11); }
-        if (/*BotVerificationIcon != 0 &&*/ BotVerificationIcon.HasValue) { Flags2 = Flags2.SetBit(13); }
-        if (/*SendPaidMessagesStars != 0 &&*/ SendPaidMessagesStars.HasValue) { Flags2 = Flags2.SetBit(14); }
-        if (/*LinkedMonoforumId != 0 &&*/ LinkedMonoforumId.HasValue) { Flags2 = Flags2.SetBit(18); }
+        var flags = 0;
+        if (Creator) { flags = flags.SetBit(0); }
+        if (Left) { flags = flags.SetBit(2); }
+        if (Broadcast) { flags = flags.SetBit(5); }
+        if (Verified) { flags = flags.SetBit(7); }
+        if (Megagroup) { flags = flags.SetBit(8); }
+        if (Restricted) { flags = flags.SetBit(9); }
+        if (Signatures) { flags = flags.SetBit(11); }
+        if (Min) { flags = flags.SetBit(12); }
+        if (Scam) { flags = flags.SetBit(19); }
+        if (HasLink) { flags = flags.SetBit(20); }
+        if (HasGeo) { flags = flags.SetBit(21); }
+        if (SlowmodeEnabled) { flags = flags.SetBit(22); }
+        if (CallActive) { flags = flags.SetBit(23); }
+        if (CallNotEmpty) { flags = flags.SetBit(24); }
+        if (Fake) { flags = flags.SetBit(25); }
+        if (Gigagroup) { flags = flags.SetBit(26); }
+        if (Noforwards) { flags = flags.SetBit(27); }
+        if (JoinToSend) { flags = flags.SetBit(28); }
+        if (JoinRequest) { flags = flags.SetBit(29); }
+        if (Forum) { flags = flags.SetBit(30); }
+        if (/*AccessHash != 0 &&*/ AccessHash.HasValue) { flags = flags.SetBit(13); }
+        if (Username != null) { flags = flags.SetBit(6); }
+        if (RestrictionReason?.Count > 0) { flags = flags.SetBit(9); }
+        if (AdminRights != null) { flags = flags.SetBit(14); }
+        if (BannedRights != null) { flags = flags.SetBit(15); }
+        if (DefaultBannedRights != null) { flags = flags.SetBit(18); }
+        if (/*ParticipantsCount != 0 && */ParticipantsCount.HasValue) { flags = flags.SetBit(17); }
+        return flags;
+    }
+    public int CalculateFlags2()
+    {
+        var flags2 = 0;
+        if (StoriesHidden) { flags2 = flags2.SetBit(1); }
+        if (StoriesHiddenMin) { flags2 = flags2.SetBit(2); }
+        if (StoriesUnavailable) { flags2 = flags2.SetBit(3); }
+        if (SignatureProfiles) { flags2 = flags2.SetBit(12); }
+        if (Autotranslation) { flags2 = flags2.SetBit(15); }
+        if (BroadcastMessagesAllowed) { flags2 = flags2.SetBit(16); }
+        if (Monoforum) { flags2 = flags2.SetBit(17); }
+        if (ForumTabs) { flags2 = flags2.SetBit(19); }
+        if (Usernames?.Count > 0) { flags2 = flags2.SetBit(0); }
+        if (StoriesMaxId != null) { flags2 = flags2.SetBit(4); }
+        if (Color != null) { flags2 = flags2.SetBit(7); }
+        if (ProfileColor != null) { flags2 = flags2.SetBit(8); }
+        if (EmojiStatus != null) { flags2 = flags2.SetBit(9); }
+        if (/*Level != 0 && */Level.HasValue) { flags2 = flags2.SetBit(10); }
+        if (/*SubscriptionUntilDate != 0 && */SubscriptionUntilDate.HasValue) { flags2 = flags2.SetBit(11); }
+        if (/*BotVerificationIcon != 0 &&*/ BotVerificationIcon.HasValue) { flags2 = flags2.SetBit(13); }
+        if (/*SendPaidMessagesStars != 0 &&*/ SendPaidMessagesStars.HasValue) { flags2 = flags2.SetBit(14); }
+        if (/*LinkedMonoforumId != 0 &&*/ LinkedMonoforumId.HasValue) { flags2 = flags2.SetBit(18); }
+        if (/*LinkedCommunityId != 0 &&*/ LinkedCommunityId.HasValue) { flags2 = flags2.SetBit(20); }
+        return flags2;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
+        var flags2  = CalculateFlags2();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        writer.Write(Flags2);
+        writer.Write(flags);
+        writer.Write(flags2);
         writer.Write(Id);
-        if (Flags.IsBitSet(13)) { writer.Write(AccessHash.Value); }
+        if (flags.IsBitSet(13)) { writer.Write(AccessHash.Value); }
         writer.Write(Title);
-        if (Flags.IsBitSet(6)) { writer.Write(Username); }
+        if (flags.IsBitSet(6)) { writer.Write(Username); }
         writer.Write(Photo);
         writer.Write(Date);
-        if (Flags.IsBitSet(9)) { writer.Write(RestrictionReason); }
-        if (Flags.IsBitSet(14)) { writer.Write(AdminRights); }
-        if (Flags.IsBitSet(15)) { writer.Write(BannedRights); }
-        if (Flags.IsBitSet(18)) { writer.Write(DefaultBannedRights); }
-        if (Flags.IsBitSet(17)) { writer.Write(ParticipantsCount.Value); }
-        if (Flags2.IsBitSet(0)) { writer.Write(Usernames); }
-        if (Flags2.IsBitSet(4)) { writer.Write(StoriesMaxId); }
-        if (Flags2.IsBitSet(7)) { writer.Write(Color); }
-        if (Flags2.IsBitSet(8)) { writer.Write(ProfileColor); }
-        if (Flags2.IsBitSet(9)) { writer.Write(EmojiStatus); }
-        if (Flags2.IsBitSet(10)) { writer.Write(Level.Value); }
-        if (Flags2.IsBitSet(11)) { writer.Write(SubscriptionUntilDate.Value); }
-        if (Flags2.IsBitSet(13)) { writer.Write(BotVerificationIcon.Value); }
-        if (Flags2.IsBitSet(14)) { writer.Write(SendPaidMessagesStars.Value); }
-        if (Flags2.IsBitSet(18)) { writer.Write(LinkedMonoforumId.Value); }
+        if (flags.IsBitSet(9)) { writer.Write(RestrictionReason); }
+        if (flags.IsBitSet(14)) { writer.Write(AdminRights); }
+        if (flags.IsBitSet(15)) { writer.Write(BannedRights); }
+        if (flags.IsBitSet(18)) { writer.Write(DefaultBannedRights); }
+        if (flags.IsBitSet(17)) { writer.Write(ParticipantsCount.Value); }
+        if (flags2.IsBitSet(0)) { writer.Write(Usernames); }
+        if (flags2.IsBitSet(4)) { writer.Write(StoriesMaxId); }
+        if (flags2.IsBitSet(7)) { writer.Write(Color); }
+        if (flags2.IsBitSet(8)) { writer.Write(ProfileColor); }
+        if (flags2.IsBitSet(9)) { writer.Write(EmojiStatus); }
+        if (flags2.IsBitSet(10)) { writer.Write(Level.Value); }
+        if (flags2.IsBitSet(11)) { writer.Write(SubscriptionUntilDate.Value); }
+        if (flags2.IsBitSet(13)) { writer.Write(BotVerificationIcon.Value); }
+        if (flags2.IsBitSet(14)) { writer.Write(SendPaidMessagesStars.Value); }
+        if (flags2.IsBitSet(18)) { writer.Write(LinkedMonoforumId.Value); }
+        if (flags2.IsBitSet(20)) { writer.Write(LinkedCommunityId.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -406,5 +418,6 @@ public sealed partial class TChannel : IChat, ILayeredChannel
         if (Flags2.IsBitSet(13)) { BotVerificationIcon = buffer.ReadInt64(); }
         if (Flags2.IsBitSet(14)) { SendPaidMessagesStars = buffer.ReadInt64(); }
         if (Flags2.IsBitSet(18)) { LinkedMonoforumId = buffer.ReadInt64(); }
+        if (Flags2.IsBitSet(20)) { LinkedCommunityId = buffer.ReadInt64(); }
     }
 }

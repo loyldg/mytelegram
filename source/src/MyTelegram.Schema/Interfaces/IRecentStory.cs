@@ -10,7 +10,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TRecentStory"/> See <a href="https://corefork.telegram.org/constructor/recentStory" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TRecentStory), nameof(TRecentStory))]
-public interface IRecentStory : IObject
+public partial interface IRecentStory : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

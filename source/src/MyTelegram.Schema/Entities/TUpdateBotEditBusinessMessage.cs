@@ -37,19 +37,21 @@ public sealed partial class TUpdateBotEditBusinessMessage : IUpdate
     /// </summary>
     public int Qts { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ReplyToMessage != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (ReplyToMessage != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(ConnectionId);
         writer.Write(Message);
-        if (Flags.IsBitSet(0)) { writer.Write(ReplyToMessage); }
+        if (flags.IsBitSet(0)) { writer.Write(ReplyToMessage); }
         writer.Write(Qts);
     }
 

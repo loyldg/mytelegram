@@ -14,13 +14,9 @@ public sealed partial class RequestGetReactionsNotifySettings : IRequest<MyTeleg
 {
     public uint ConstructorId => 0x6dd654c;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

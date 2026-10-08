@@ -38,16 +38,18 @@ public sealed partial class RequestGetStarsSubscriptions : IRequest<MyTelegram.S
     /// </summary>
     public string Offset { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (MissingBalance) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (MissingBalance) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Offset);
     }

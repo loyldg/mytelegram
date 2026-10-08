@@ -28,7 +28,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class InviteToChannelHandler(ICommandBus commandBus, IPeerHelper peerHelper, IPrivacyAppService privacyAppService, IChannelAppService channelAppService, IUserAppService userAppService, IQueryProcessor queryProcessor, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<RequestInviteToChannel, IInvitedUsers>
+internal sealed class InviteToChannelHandler(ICommandBus commandBus, IChannelAppService channelAppService, IUserAppService userAppService, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<RequestInviteToChannel, IInvitedUsers>
 {
     protected override async Task<IInvitedUsers> HandleCoreAsync(IRequestInput input, RequestInviteToChannel obj)
     {

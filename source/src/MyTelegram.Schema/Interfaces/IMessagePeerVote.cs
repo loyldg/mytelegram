@@ -15,7 +15,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TMessagePeerVote), nameof(TMessagePeerVote))]
 [JsonDerivedType(typeof(TMessagePeerVoteInputOption), nameof(TMessagePeerVoteInputOption))]
 [JsonDerivedType(typeof(TMessagePeerVoteMultiple), nameof(TMessagePeerVoteMultiple))]
-public interface IMessagePeerVote : IObject
+public partial interface IMessagePeerVote : IObject
 {
     /// <summary>
     /// The peer that voted for the queried <code>option</code>

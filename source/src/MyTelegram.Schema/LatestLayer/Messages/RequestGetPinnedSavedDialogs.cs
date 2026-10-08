@@ -14,13 +14,9 @@ public sealed partial class RequestGetPinnedSavedDialogs : IRequest<MyTelegram.S
 {
     public uint ConstructorId => 0xd63d94e0;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Help;
 public sealed partial class TDeepLinkInfoEmpty : IDeepLinkInfo
 {
     public uint ConstructorId => 0x66afa166;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

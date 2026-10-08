@@ -37,17 +37,19 @@ public sealed partial class TMediaAreaSuggestedReaction : IMediaArea
     /// </summary>
     public MyTelegram.Schema.IReaction Reaction { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Dark) { Flags = Flags.SetBit(0); }
-        if (Flipped) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Dark) { flags = flags.SetBit(0); }
+        if (Flipped) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Coordinates);
         writer.Write(Reaction);
     }

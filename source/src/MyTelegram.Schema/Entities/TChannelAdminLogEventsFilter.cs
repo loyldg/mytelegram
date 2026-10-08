@@ -115,35 +115,37 @@ public sealed partial class TChannelAdminLogEventsFilter : IChannelAdminLogEvent
     /// </summary>
     public bool EditRank { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Join) { Flags = Flags.SetBit(0); }
-        if (Leave) { Flags = Flags.SetBit(1); }
-        if (Invite) { Flags = Flags.SetBit(2); }
-        if (Ban) { Flags = Flags.SetBit(3); }
-        if (Unban) { Flags = Flags.SetBit(4); }
-        if (Kick) { Flags = Flags.SetBit(5); }
-        if (Unkick) { Flags = Flags.SetBit(6); }
-        if (Promote) { Flags = Flags.SetBit(7); }
-        if (Demote) { Flags = Flags.SetBit(8); }
-        if (Info) { Flags = Flags.SetBit(9); }
-        if (Settings) { Flags = Flags.SetBit(10); }
-        if (Pinned) { Flags = Flags.SetBit(11); }
-        if (Edit) { Flags = Flags.SetBit(12); }
-        if (Delete) { Flags = Flags.SetBit(13); }
-        if (GroupCall) { Flags = Flags.SetBit(14); }
-        if (Invites) { Flags = Flags.SetBit(15); }
-        if (Send) { Flags = Flags.SetBit(16); }
-        if (Forums) { Flags = Flags.SetBit(17); }
-        if (SubExtend) { Flags = Flags.SetBit(18); }
-        if (EditRank) { Flags = Flags.SetBit(19); }
+        var flags = 0;
+        if (Join) { flags = flags.SetBit(0); }
+        if (Leave) { flags = flags.SetBit(1); }
+        if (Invite) { flags = flags.SetBit(2); }
+        if (Ban) { flags = flags.SetBit(3); }
+        if (Unban) { flags = flags.SetBit(4); }
+        if (Kick) { flags = flags.SetBit(5); }
+        if (Unkick) { flags = flags.SetBit(6); }
+        if (Promote) { flags = flags.SetBit(7); }
+        if (Demote) { flags = flags.SetBit(8); }
+        if (Info) { flags = flags.SetBit(9); }
+        if (Settings) { flags = flags.SetBit(10); }
+        if (Pinned) { flags = flags.SetBit(11); }
+        if (Edit) { flags = flags.SetBit(12); }
+        if (Delete) { flags = flags.SetBit(13); }
+        if (GroupCall) { flags = flags.SetBit(14); }
+        if (Invites) { flags = flags.SetBit(15); }
+        if (Send) { flags = flags.SetBit(16); }
+        if (Forums) { flags = flags.SetBit(17); }
+        if (SubExtend) { flags = flags.SetBit(18); }
+        if (EditRank) { flags = flags.SetBit(19); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

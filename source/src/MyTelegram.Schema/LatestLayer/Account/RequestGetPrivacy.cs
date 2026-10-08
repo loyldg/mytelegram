@@ -23,13 +23,9 @@ public sealed partial class RequestGetPrivacy : IRequest<MyTelegram.Schema.Accou
     /// </summary>
     public MyTelegram.Schema.IInputPrivacyKey Key { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Key);
     }

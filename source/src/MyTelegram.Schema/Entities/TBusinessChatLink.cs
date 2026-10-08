@@ -41,21 +41,23 @@ public sealed partial class TBusinessChatLink : IBusinessChatLink
     /// </summary>
     public int Views { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Entities?.Count > 0) { Flags = Flags.SetBit(0); }
-        if (Title != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Entities?.Count > 0) { flags = flags.SetBit(0); }
+        if (Title != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Link);
         writer.Write(Message);
-        if (Flags.IsBitSet(0)) { writer.Write(Entities); }
-        if (Flags.IsBitSet(1)) { writer.Write(Title); }
+        if (flags.IsBitSet(0)) { writer.Write(Entities); }
+        if (flags.IsBitSet(1)) { writer.Write(Title); }
         writer.Write(Views);
     }
 

@@ -17,7 +17,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TStickerSetMultiCovered), nameof(TStickerSetMultiCovered))]
 [JsonDerivedType(typeof(TStickerSetFullCovered), nameof(TStickerSetFullCovered))]
 [JsonDerivedType(typeof(TStickerSetNoCovered), nameof(TStickerSetNoCovered))]
-public interface IStickerSetCovered : IObject
+public partial interface IStickerSetCovered : IObject
 {
     /// <summary>
     /// Stickerset information.

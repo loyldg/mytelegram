@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TPreparedInlineMessage"/> See <a href="https://corefork.telegram.org/constructor/messages.preparedInlineMessage" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPreparedInlineMessage), nameof(TPreparedInlineMessage))]
-public interface IPreparedInlineMessage : IObject
+public partial interface IPreparedInlineMessage : IObject
 {
     /// <summary>
     /// The <code>query_id</code> to pass to <a href="https://corefork.telegram.org/method/messages.sendInlineBotResult">messages.sendInlineBotResult</a>

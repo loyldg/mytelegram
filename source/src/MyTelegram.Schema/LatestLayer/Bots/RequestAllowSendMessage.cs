@@ -23,13 +23,9 @@ public sealed partial class RequestAllowSendMessage : IRequest<MyTelegram.Schema
     /// </summary>
     public MyTelegram.Schema.IInputUser Bot { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Bot);
     }

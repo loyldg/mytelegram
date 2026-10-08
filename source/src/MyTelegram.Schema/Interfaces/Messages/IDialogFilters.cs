@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TDialogFilters"/> See <a href="https://corefork.telegram.org/constructor/messages.dialogFilters" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TDialogFilters), nameof(TDialogFilters))]
-public interface IDialogFilters : IObject
+public partial interface IDialogFilters : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

@@ -45,22 +45,24 @@ public sealed partial class TBotCallbackAnswer : IBotCallbackAnswer
     /// </summary>
     public int CacheTime { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Alert) { Flags = Flags.SetBit(1); }
-        if (HasUrl) { Flags = Flags.SetBit(3); }
-        if (NativeUi) { Flags = Flags.SetBit(4); }
-        if (Message != null) { Flags = Flags.SetBit(0); }
-        if (Url != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Alert) { flags = flags.SetBit(1); }
+        if (HasUrl) { flags = flags.SetBit(3); }
+        if (NativeUi) { flags = flags.SetBit(4); }
+        if (Message != null) { flags = flags.SetBit(0); }
+        if (Url != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(Message); }
-        if (Flags.IsBitSet(2)) { writer.Write(Url); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(Message); }
+        if (flags.IsBitSet(2)) { writer.Write(Url); }
         writer.Write(CacheTime);
     }
 

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TChatOnlines"/> See <a href="https://corefork.telegram.org/constructor/chatOnlines" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TChatOnlines), nameof(TChatOnlines))]
-public interface IChatOnlines : IObject
+public partial interface IChatOnlines : IObject
 {
     /// <summary>
     /// Number of online users

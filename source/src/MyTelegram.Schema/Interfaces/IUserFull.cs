@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TUserFull"/> See <a href="https://corefork.telegram.org/constructor/userFull" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TUserFull), nameof(TUserFull))]
-public interface IUserFull : IObject
+public partial interface IUserFull : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
@@ -117,8 +117,6 @@ public interface IUserFull : IObject
     ///  
     /// </summary>
     bool NoforwardsPeerEnabled { get; set; }
-
-    bool UnofficialSecurityRisk { get; set; }
 
     /// <summary>
     /// User ID
@@ -329,6 +327,4 @@ public interface IUserFull : IObject
     /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
     /// </summary>
     MyTelegram.Schema.ITextWithEntities? Note { get; set; }
-
-    long? BotManagerId { get; set; }
 }

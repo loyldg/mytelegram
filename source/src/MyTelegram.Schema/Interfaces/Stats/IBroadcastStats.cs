@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Stats;
 /// <see cref="TBroadcastStats"/> See <a href="https://corefork.telegram.org/constructor/stats.broadcastStats" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TBroadcastStats), nameof(TBroadcastStats))]
-public interface IBroadcastStats : IObject
+public partial interface IBroadcastStats : IObject
 {
     /// <summary>
     /// Period in consideration

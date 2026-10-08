@@ -16,13 +16,9 @@ public sealed partial class TInputPaymentCredentialsApplePay : IInputPaymentCred
     /// </summary>
     public MyTelegram.Schema.IDataJSON PaymentData { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PaymentData);
     }

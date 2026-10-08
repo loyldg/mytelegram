@@ -65,21 +65,23 @@ public sealed partial class RequestGetStarsTransactions : IRequest<MyTelegram.Sc
     /// </summary>
     public int Limit { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Inbound) { Flags = Flags.SetBit(0); }
-        if (Outbound) { Flags = Flags.SetBit(1); }
-        if (Ascending) { Flags = Flags.SetBit(2); }
-        if (Ton) { Flags = Flags.SetBit(4); }
-        if (SubscriptionId != null) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (Inbound) { flags = flags.SetBit(0); }
+        if (Outbound) { flags = flags.SetBit(1); }
+        if (Ascending) { flags = flags.SetBit(2); }
+        if (Ton) { flags = flags.SetBit(4); }
+        if (SubscriptionId != null) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(3)) { writer.Write(SubscriptionId); }
+        writer.Write(flags);
+        if (flags.IsBitSet(3)) { writer.Write(SubscriptionId); }
         writer.Write(Peer);
         writer.Write(Offset);
         writer.Write(Limit);

@@ -16,7 +16,7 @@ internal sealed class GetContactsHandler(IQueryProcessor queryProcessor, IUserCo
         var userReadModels = await userAppService.GetListAsync(userIdList);
         var privacyReadModels = await privacyAppService.GetPrivacyListAsync(userIdList);
         var photos = await photoAppService.GetPhotosAsync(userReadModels, contactReadModels);
-        var userList = userConverterService.ToUserList(input, userReadModels, photos, contactReadModels, privacyReadModels, input.Layer);
+        var userList = await userConverterService.ToUserListAsync(input, userReadModels, photos, contactReadModels, privacyReadModels, input.Layer);
         var validUserIds = new List<long>();
         foreach (var user in userList)
         {
@@ -32,8 +32,8 @@ internal sealed class GetContactsHandler(IQueryProcessor queryProcessor, IUserCo
 
         var contacts = new TContacts
         {
-            Contacts = [..contactReadModels.Where(p => validUserIds.Contains(p.TargetUserId)).Select(p => new TContact { UserId = p.TargetUserId, Mutual = false })],
-            Users = [..userList],
+            Contacts = [.. contactReadModels.Where(p => validUserIds.Contains(p.TargetUserId)).Select(p => new TContact { UserId = p.TargetUserId, Mutual = false })],
+            Users = [.. userList],
             SavedCount = contactReadModels.Count,
         };
         return contacts;

@@ -14,13 +14,9 @@ public sealed partial class RequestGetPaidReactionPrivacy : IRequest<MyTelegram.
 {
     public uint ConstructorId => 0x472455aa;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

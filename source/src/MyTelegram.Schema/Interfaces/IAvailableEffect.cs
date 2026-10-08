@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TAvailableEffect"/> See <a href="https://corefork.telegram.org/constructor/availableEffect" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TAvailableEffect), nameof(TAvailableEffect))]
-public interface IAvailableEffect : IObject
+public partial interface IAvailableEffect : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

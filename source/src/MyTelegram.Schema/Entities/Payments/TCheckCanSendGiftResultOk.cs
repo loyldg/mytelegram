@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Payments;
 public sealed partial class TCheckCanSendGiftResultOk : ICheckCanSendGiftResult
 {
     public uint ConstructorId => 0x374fa7ad;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

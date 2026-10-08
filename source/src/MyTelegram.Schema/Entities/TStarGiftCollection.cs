@@ -41,19 +41,21 @@ public sealed partial class TStarGiftCollection : IStarGiftCollection
     /// </summary>
     public long Hash { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Icon != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Icon != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(CollectionId);
         writer.Write(Title);
-        if (Flags.IsBitSet(0)) { writer.Write(Icon); }
+        if (flags.IsBitSet(0)) { writer.Write(Icon); }
         writer.Write(GiftsCount);
         writer.Write(Hash);
     }

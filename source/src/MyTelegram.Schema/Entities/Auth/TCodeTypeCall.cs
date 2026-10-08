@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Auth;
 public sealed partial class TCodeTypeCall : ICodeType
 {
     public uint ConstructorId => 0x741cd3e3;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

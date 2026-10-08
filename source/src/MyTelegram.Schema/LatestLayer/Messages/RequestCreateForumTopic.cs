@@ -60,25 +60,27 @@ public sealed partial class RequestCreateForumTopic : IRequest<MyTelegram.Schema
     /// </summary>
     public MyTelegram.Schema.IInputPeer? SendAs { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (TitleMissing) { Flags = Flags.SetBit(4); }
-        if (/*IconColor != 0 && */IconColor.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*IconEmojiId != 0 &&*/ IconEmojiId.HasValue) { Flags = Flags.SetBit(3); }
-        if (SendAs != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (TitleMissing) { flags = flags.SetBit(4); }
+        if (/*IconColor != 0 && */IconColor.HasValue) { flags = flags.SetBit(0); }
+        if (/*IconEmojiId != 0 &&*/ IconEmojiId.HasValue) { flags = flags.SetBit(3); }
+        if (SendAs != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Title);
-        if (Flags.IsBitSet(0)) { writer.Write(IconColor.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(IconEmojiId.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(IconColor.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(IconEmojiId.Value); }
         writer.Write(RandomId);
-        if (Flags.IsBitSet(2)) { writer.Write(SendAs); }
+        if (flags.IsBitSet(2)) { writer.Write(SendAs); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

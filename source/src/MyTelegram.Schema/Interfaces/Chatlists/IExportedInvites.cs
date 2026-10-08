@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Chatlists;
 /// <see cref="TExportedInvites"/> See <a href="https://corefork.telegram.org/constructor/chatlists.exportedInvites" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TExportedInvites), nameof(TExportedInvites))]
-public interface IExportedInvites : IObject
+public partial interface IExportedInvites : IObject
 {
     /// <summary>
     /// The <a href="https://corefork.telegram.org/api/links#chat-folder-links">chat folder deep links »</a>.

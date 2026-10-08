@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TCheckedHistoryImportPeer"/> See <a href="https://corefork.telegram.org/constructor/messages.checkedHistoryImportPeer" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TCheckedHistoryImportPeer), nameof(TCheckedHistoryImportPeer))]
-public interface ICheckedHistoryImportPeer : IObject
+public partial interface ICheckedHistoryImportPeer : IObject
 {
     /// <summary>
     /// A confirmation text to be shown to the user, upon <a href="https://corefork.telegram.org/api/import">importing chat history »</a>.

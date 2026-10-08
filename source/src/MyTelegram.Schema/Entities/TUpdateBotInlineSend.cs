@@ -42,22 +42,24 @@ public sealed partial class TUpdateBotInlineSend : IUpdate
     /// </summary>
     public MyTelegram.Schema.IInputBotInlineMessageID? MsgId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Geo != null) { Flags = Flags.SetBit(0); }
-        if (MsgId != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Geo != null) { flags = flags.SetBit(0); }
+        if (MsgId != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(UserId);
         writer.Write(Query);
-        if (Flags.IsBitSet(0)) { writer.Write(Geo); }
+        if (flags.IsBitSet(0)) { writer.Write(Geo); }
         writer.Write(Id);
-        if (Flags.IsBitSet(1)) { writer.Write(MsgId); }
+        if (flags.IsBitSet(1)) { writer.Write(MsgId); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

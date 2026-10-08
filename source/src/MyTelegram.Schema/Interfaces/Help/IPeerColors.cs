@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Help;
 /// </remarks>
 [JsonDerivedType(typeof(TPeerColorsNotModified), nameof(TPeerColorsNotModified))]
 [JsonDerivedType(typeof(TPeerColors), nameof(TPeerColors))]
-public interface IPeerColors : IObject
+public partial interface IPeerColors : IObject
 {
 }

@@ -120,41 +120,49 @@ public sealed partial class TChatBannedRights : IChatBannedRights
     /// </summary>
     public bool EditRank { get; set; }
 
+    public bool SendReactions { get; set; }
+
+    public bool ManageLinkedPeers { get; set; }
+
     /// <summary>
     /// Validity of said permissions (it is considered forever any value less then 30 seconds or more then 366 days).
     /// </summary>
     public int UntilDate { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ViewMessages) { Flags = Flags.SetBit(0); }
-        if (SendMessages) { Flags = Flags.SetBit(1); }
-        if (SendMedia) { Flags = Flags.SetBit(2); }
-        if (SendStickers) { Flags = Flags.SetBit(3); }
-        if (SendGifs) { Flags = Flags.SetBit(4); }
-        if (SendGames) { Flags = Flags.SetBit(5); }
-        if (SendInline) { Flags = Flags.SetBit(6); }
-        if (EmbedLinks) { Flags = Flags.SetBit(7); }
-        if (SendPolls) { Flags = Flags.SetBit(8); }
-        if (ChangeInfo) { Flags = Flags.SetBit(10); }
-        if (InviteUsers) { Flags = Flags.SetBit(15); }
-        if (PinMessages) { Flags = Flags.SetBit(17); }
-        if (ManageTopics) { Flags = Flags.SetBit(18); }
-        if (SendPhotos) { Flags = Flags.SetBit(19); }
-        if (SendVideos) { Flags = Flags.SetBit(20); }
-        if (SendRoundvideos) { Flags = Flags.SetBit(21); }
-        if (SendAudios) { Flags = Flags.SetBit(22); }
-        if (SendVoices) { Flags = Flags.SetBit(23); }
-        if (SendDocs) { Flags = Flags.SetBit(24); }
-        if (SendPlain) { Flags = Flags.SetBit(25); }
-        if (EditRank) { Flags = Flags.SetBit(26); }
+        var flags = 0;
+        if (ViewMessages) { flags = flags.SetBit(0); }
+        if (SendMessages) { flags = flags.SetBit(1); }
+        if (SendMedia) { flags = flags.SetBit(2); }
+        if (SendStickers) { flags = flags.SetBit(3); }
+        if (SendGifs) { flags = flags.SetBit(4); }
+        if (SendGames) { flags = flags.SetBit(5); }
+        if (SendInline) { flags = flags.SetBit(6); }
+        if (EmbedLinks) { flags = flags.SetBit(7); }
+        if (SendPolls) { flags = flags.SetBit(8); }
+        if (ChangeInfo) { flags = flags.SetBit(10); }
+        if (InviteUsers) { flags = flags.SetBit(15); }
+        if (PinMessages) { flags = flags.SetBit(17); }
+        if (ManageTopics) { flags = flags.SetBit(18); }
+        if (SendPhotos) { flags = flags.SetBit(19); }
+        if (SendVideos) { flags = flags.SetBit(20); }
+        if (SendRoundvideos) { flags = flags.SetBit(21); }
+        if (SendAudios) { flags = flags.SetBit(22); }
+        if (SendVoices) { flags = flags.SetBit(23); }
+        if (SendDocs) { flags = flags.SetBit(24); }
+        if (SendPlain) { flags = flags.SetBit(25); }
+        if (EditRank) { flags = flags.SetBit(26); }
+        if (SendReactions) { flags = flags.SetBit(27); }
+        if (ManageLinkedPeers) { flags = flags.SetBit(28); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(UntilDate);
     }
 
@@ -182,6 +190,8 @@ public sealed partial class TChatBannedRights : IChatBannedRights
         if (Flags.IsBitSet(24)) { SendDocs = true; }
         if (Flags.IsBitSet(25)) { SendPlain = true; }
         if (Flags.IsBitSet(26)) { EditRank = true; }
+        if (Flags.IsBitSet(27)) { SendReactions = true; }
+        if (Flags.IsBitSet(28)) { ManageLinkedPeers = true; }
         UntilDate = buffer.ReadInt32();
     }
 }

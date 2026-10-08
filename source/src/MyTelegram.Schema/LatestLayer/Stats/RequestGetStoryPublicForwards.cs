@@ -38,13 +38,9 @@ public sealed partial class RequestGetStoryPublicForwards : IRequest<MyTelegram.
     /// </summary>
     public int Limit { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(Id);

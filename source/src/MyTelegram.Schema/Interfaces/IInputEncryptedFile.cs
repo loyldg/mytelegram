@@ -17,6 +17,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputEncryptedFileUploaded), nameof(TInputEncryptedFileUploaded))]
 [JsonDerivedType(typeof(TInputEncryptedFile), nameof(TInputEncryptedFile))]
 [JsonDerivedType(typeof(TInputEncryptedFileBigUploaded), nameof(TInputEncryptedFileBigUploaded))]
-public interface IInputEncryptedFile : IObject
+public partial interface IInputEncryptedFile : IObject
 {
 }

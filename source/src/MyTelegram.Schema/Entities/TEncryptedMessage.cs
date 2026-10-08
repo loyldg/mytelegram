@@ -36,13 +36,9 @@ public sealed partial class TEncryptedMessage : IEncryptedMessage
     /// </summary>
     public MyTelegram.Schema.IEncryptedFile File { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(RandomId);
         writer.Write(ChatId);

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TExportedStoryLink"/> See <a href="https://corefork.telegram.org/constructor/exportedStoryLink" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TExportedStoryLink), nameof(TExportedStoryLink))]
-public interface IExportedStoryLink : IObject
+public partial interface IExportedStoryLink : IObject
 {
     /// <summary>
     /// The <a href="https://corefork.telegram.org/api/stories#story-links">story deep link</a>.

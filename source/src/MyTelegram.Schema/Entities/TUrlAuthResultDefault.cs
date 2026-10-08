@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TUrlAuthResultDefault : IUrlAuthResult
 {
     public uint ConstructorId => 0xa9d6db1f;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

@@ -20,13 +20,9 @@ public sealed partial class TLabeledPrice : ILabeledPrice
     /// </summary>
     public long Amount { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Label);
         writer.Write(Amount);

@@ -45,24 +45,26 @@ public sealed partial class TGiveawayInfo : IGiveawayInfo
     /// </summary>
     public string? DisallowedCountry { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Participating) { Flags = Flags.SetBit(0); }
-        if (PreparingResults) { Flags = Flags.SetBit(3); }
-        if (/*JoinedTooEarlyDate != 0 && */JoinedTooEarlyDate.HasValue) { Flags = Flags.SetBit(1); }
-        if (/*AdminDisallowedChatId != 0 &&*/ AdminDisallowedChatId.HasValue) { Flags = Flags.SetBit(2); }
-        if (DisallowedCountry != null) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (Participating) { flags = flags.SetBit(0); }
+        if (PreparingResults) { flags = flags.SetBit(3); }
+        if (/*JoinedTooEarlyDate != 0 && */JoinedTooEarlyDate.HasValue) { flags = flags.SetBit(1); }
+        if (/*AdminDisallowedChatId != 0 &&*/ AdminDisallowedChatId.HasValue) { flags = flags.SetBit(2); }
+        if (DisallowedCountry != null) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(StartDate);
-        if (Flags.IsBitSet(1)) { writer.Write(JoinedTooEarlyDate.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(AdminDisallowedChatId.Value); }
-        if (Flags.IsBitSet(4)) { writer.Write(DisallowedCountry); }
+        if (flags.IsBitSet(1)) { writer.Write(JoinedTooEarlyDate.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(AdminDisallowedChatId.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(DisallowedCountry); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

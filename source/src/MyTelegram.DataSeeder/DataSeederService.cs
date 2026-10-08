@@ -1,16 +1,25 @@
-﻿namespace MyTelegram.DataSeeder;
+﻿using System.Reflection;
+
+namespace MyTelegram.DataSeeder;
 
 public class DataSeederService(
     ILogger<DataSeederService> logger,
     IDataSeederHelper dataSeederHelper,
-	IEnumerable<IDataSeeder> dataSeeders
-) : IDataSeederService, ITransientDependency
+    IEnumerable<IDataSeeder> dataSeeders) : IDataSeederService, ITransientDependency
 {
     public async Task SeedAllAsync()
     {
         try
         {
-			foreach (var dataSeeder in dataSeeders)
+            await dataSeederHelper.LoadDataSeederConfigAsync();
+
+            var sortedDataSeeders = dataSeeders
+                .OrderByDescending(x =>
+                    x.GetType()
+                        .GetCustomAttribute<DataSeederAttribute>()?.Order ?? 0)
+                .ToList();
+
+            foreach (var dataSeeder in sortedDataSeeders)
             {
                 await dataSeeder.SeedAsync();
             }

@@ -27,13 +27,9 @@ public sealed partial class RequestGetFullUser : IRequest<MyTelegram.Schema.User
     /// </summary>
     public MyTelegram.Schema.IInputUser Id { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
     }

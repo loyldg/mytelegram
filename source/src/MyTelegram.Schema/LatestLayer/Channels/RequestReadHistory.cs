@@ -30,13 +30,9 @@ public sealed partial class RequestReadHistory : IRequest<IBool>
     /// </summary>
     public int MaxId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Channel);
         writer.Write(MaxId);

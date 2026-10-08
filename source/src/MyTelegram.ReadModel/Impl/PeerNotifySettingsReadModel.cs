@@ -1,13 +1,16 @@
 ﻿namespace MyTelegram.ReadModel.Impl;
 
 public class PeerNotifySettingsReadModel : ReadModelBase, IPeerNotifySettingsReadModel,
-    IAmReadModelFor<PeerNotifySettingsAggregate, PeerNotifySettingsId, PeerNotifySettingsUpdatedEvent>
+    IAmReadModelFor<PeerNotifySettingsAggregate, PeerNotifySettingsId, PeerNotifySettingsUpdatedEvent>,
+    IAmReadModelFor<PeerNotifySettingsAggregate, PeerNotifySettingsId, PeerNotifySettingsUpdatedEvent2>
 {
     public virtual string Id { get; private set; } = null!;
     public virtual PeerNotifySettings NotifySettings { get; protected set; } = null!;
     public virtual long OwnerPeerId { get; private set; }
     public virtual long PeerId { get; private set; }
     public virtual PeerType PeerType { get; private set; }
+    public PeerNotifyType? PeerNotifyType { get; private set; }
+    public IPeerNotifySettings? PeerNotifySettings { get; private set; }
     public virtual long? Version { get; set; }
 
     public Task ApplyAsync(IReadModelContext context,
@@ -30,4 +33,14 @@ public class PeerNotifySettingsReadModel : ReadModelBase, IPeerNotifySettingsRea
     //public bool Silent { get; private set; }
     //public int MuteUntil { get; private set; }// = int.MaxValue;
     //public string Sound { get; private set; } = "default";
+    public Task ApplyAsync(IReadModelContext context, IDomainEvent<PeerNotifySettingsAggregate, PeerNotifySettingsId, PeerNotifySettingsUpdatedEvent2> domainEvent, CancellationToken cancellationToken)
+    {
+        Id = domainEvent.AggregateIdentity.Value;
+        OwnerPeerId = domainEvent.AggregateEvent.OwnerUserId;
+        PeerNotifyType= domainEvent.AggregateEvent.PeerNotifyType;
+        PeerId = domainEvent.AggregateEvent.ToPeerId;
+        PeerNotifySettings = domainEvent.AggregateEvent.PeerNotifySettings;
+
+        return Task.CompletedTask;
+    }
 }

@@ -63,26 +63,28 @@ public sealed partial class TCheckedGiftCode : ICheckedGiftCode
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ViaGiveaway) { Flags = Flags.SetBit(2); }
-        if (FromId != null) { Flags = Flags.SetBit(4); }
-        if (/*GiveawayMsgId != 0 && */GiveawayMsgId.HasValue) { Flags = Flags.SetBit(3); }
-        if (/*ToId != 0 &&*/ ToId.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*UsedDate != 0 && */UsedDate.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (ViaGiveaway) { flags = flags.SetBit(2); }
+        if (FromId != null) { flags = flags.SetBit(4); }
+        if (/*GiveawayMsgId != 0 && */GiveawayMsgId.HasValue) { flags = flags.SetBit(3); }
+        if (/*ToId != 0 &&*/ ToId.HasValue) { flags = flags.SetBit(0); }
+        if (/*UsedDate != 0 && */UsedDate.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(4)) { writer.Write(FromId); }
-        if (Flags.IsBitSet(3)) { writer.Write(GiveawayMsgId.Value); }
-        if (Flags.IsBitSet(0)) { writer.Write(ToId.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(4)) { writer.Write(FromId); }
+        if (flags.IsBitSet(3)) { writer.Write(GiveawayMsgId.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(ToId.Value); }
         writer.Write(Date);
         writer.Write(Days);
-        if (Flags.IsBitSet(1)) { writer.Write(UsedDate.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(UsedDate.Value); }
         writer.Write(Chats);
         writer.Write(Users);
     }

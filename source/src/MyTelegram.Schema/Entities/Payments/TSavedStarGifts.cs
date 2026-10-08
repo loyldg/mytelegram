@@ -49,21 +49,23 @@ public sealed partial class TSavedStarGifts : ISavedStarGifts
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ChatNotificationsEnabled != null) { Flags = Flags.SetBit(1); }
-        if (NextOffset != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (ChatNotificationsEnabled != null) { flags = flags.SetBit(1); }
+        if (NextOffset != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Count);
-        if (Flags.IsBitSet(1)) { writer.Write(ChatNotificationsEnabled.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(ChatNotificationsEnabled.Value); }
         writer.Write(Gifts);
-        if (Flags.IsBitSet(0)) { writer.Write(NextOffset); }
+        if (flags.IsBitSet(0)) { writer.Write(NextOffset); }
         writer.Write(Chats);
         writer.Write(Users);
     }

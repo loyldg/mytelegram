@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TSendMessageRecordAudioAction : ISendMessageAction
 {
     public uint ConstructorId => 0xd52f73f7;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

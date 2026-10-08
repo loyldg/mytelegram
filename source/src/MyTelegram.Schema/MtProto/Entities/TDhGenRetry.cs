@@ -4,7 +4,7 @@ namespace MyTelegram.Schema;
 
 
 [TlObject(0x46dc1fb9)]
-public sealed class TDhGenRetry : ISetClientDHParamsAnswer
+public sealed partial class TDhGenRetry : ISetClientDHParamsAnswer
 {
     public uint ConstructorId => 0x46dc1fb9;
     public byte[] Nonce { get; set; }

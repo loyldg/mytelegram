@@ -75,29 +75,31 @@ public sealed partial class RequestEditGroupCallParticipant : IRequest<MyTelegra
     /// </summary>
     public bool? PresentationPaused { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Muted != null) { Flags = Flags.SetBit(0); }
-        if (/*Volume != 0 && */Volume.HasValue) { Flags = Flags.SetBit(1); }
-        if (RaiseHand != null) { Flags = Flags.SetBit(2); }
-        if (VideoStopped != null) { Flags = Flags.SetBit(3); }
-        if (VideoPaused != null) { Flags = Flags.SetBit(4); }
-        if (PresentationPaused != null) { Flags = Flags.SetBit(5); }
+        var flags = 0;
+        if (Muted != null) { flags = flags.SetBit(0); }
+        if (/*Volume != 0 && */Volume.HasValue) { flags = flags.SetBit(1); }
+        if (RaiseHand != null) { flags = flags.SetBit(2); }
+        if (VideoStopped != null) { flags = flags.SetBit(3); }
+        if (VideoPaused != null) { flags = flags.SetBit(4); }
+        if (PresentationPaused != null) { flags = flags.SetBit(5); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Call);
         writer.Write(Participant);
-        if (Flags.IsBitSet(0)) { writer.Write(Muted.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(Volume.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(RaiseHand.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(VideoStopped.Value); }
-        if (Flags.IsBitSet(4)) { writer.Write(VideoPaused.Value); }
-        if (Flags.IsBitSet(5)) { writer.Write(PresentationPaused.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(Muted.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(Volume.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(RaiseHand.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(VideoStopped.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(VideoPaused.Value); }
+        if (flags.IsBitSet(5)) { writer.Write(PresentationPaused.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

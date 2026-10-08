@@ -35,13 +35,9 @@ public sealed partial class RequestEditFactCheck : IRequest<MyTelegram.Schema.IU
     /// </summary>
     public MyTelegram.Schema.ITextWithEntities Text { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(MsgId);

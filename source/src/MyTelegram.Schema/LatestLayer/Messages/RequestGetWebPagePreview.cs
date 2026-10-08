@@ -34,18 +34,20 @@ public sealed partial class RequestGetWebPagePreview : IRequest<MyTelegram.Schem
     /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity>? Entities { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Entities?.Count > 0) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (Entities?.Count > 0) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Message);
-        if (Flags.IsBitSet(3)) { writer.Write(Entities); }
+        if (flags.IsBitSet(3)) { writer.Write(Entities); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

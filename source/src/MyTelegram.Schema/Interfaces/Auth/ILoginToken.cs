@@ -15,6 +15,6 @@ namespace MyTelegram.Schema.Auth;
 [JsonDerivedType(typeof(TLoginToken), nameof(TLoginToken))]
 [JsonDerivedType(typeof(TLoginTokenMigrateTo), nameof(TLoginTokenMigrateTo))]
 [JsonDerivedType(typeof(TLoginTokenSuccess), nameof(TLoginTokenSuccess))]
-public interface ILoginToken : IObject
+public partial interface ILoginToken : IObject
 {
 }

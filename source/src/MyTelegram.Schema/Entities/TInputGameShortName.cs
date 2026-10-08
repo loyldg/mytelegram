@@ -21,13 +21,9 @@ public sealed partial class TInputGameShortName : IInputGame
     /// </summary>
     public string ShortName { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(BotId);
         writer.Write(ShortName);

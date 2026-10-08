@@ -28,13 +28,9 @@ public sealed partial class RequestGetFileHashes : IRequest<TVector<MyTelegram.S
     /// </summary>
     public long Offset { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Location);
         writer.Write(Offset);

@@ -21,13 +21,9 @@ public sealed partial class TMessageMediaPaidMedia : IMessageMedia
     /// </summary>
     public TVector<MyTelegram.Schema.IMessageExtendedMedia> ExtendedMedia { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(StarsAmount);
         writer.Write(ExtendedMedia);

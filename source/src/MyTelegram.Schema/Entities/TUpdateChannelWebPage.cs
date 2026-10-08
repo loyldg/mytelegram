@@ -31,13 +31,9 @@ public sealed partial class TUpdateChannelWebPage : IUpdate
     /// </summary>
     public int PtsCount { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ChannelId);
         writer.Write(Webpage);

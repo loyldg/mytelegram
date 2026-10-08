@@ -14,13 +14,9 @@ public sealed partial class RequestGetSplitRanges : IRequest<TVector<MyTelegram.
 {
     public uint ConstructorId => 0x1cff7e08;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

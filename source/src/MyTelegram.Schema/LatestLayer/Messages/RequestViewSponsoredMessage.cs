@@ -19,13 +19,9 @@ public sealed partial class RequestViewSponsoredMessage : IRequest<IBool>
     /// </summary>
     public ReadOnlyMemory<byte> RandomId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(RandomId);
     }

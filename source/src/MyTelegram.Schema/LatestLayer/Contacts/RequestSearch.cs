@@ -13,10 +13,16 @@ namespace MyTelegram.Schema.Contacts;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-[TlObject(0x11f812d8)]
+[TlObject(0x5f58d0f)]
 public sealed partial class RequestSearch : IRequest<MyTelegram.Schema.Contacts.IFound>
 {
-    public uint ConstructorId => 0x11f812d8;
+    public uint ConstructorId => 0x5f58d0f;
+
+    public int Flags { get; set; }
+
+    public bool Broadcasts { get; set; }
+
+    public bool Bots { get; set; }
 
     /// <summary>
     /// Target substring
@@ -28,20 +34,28 @@ public sealed partial class RequestSearch : IRequest<MyTelegram.Schema.Contacts.
     /// </summary>
     public int Limit { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
+        var flags = 0;
+        if (Broadcasts) { flags = flags.SetBit(0); }
+        if (Bots) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
+        writer.Write(flags);
         writer.Write(Q);
         writer.Write(Limit);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(0)) { Broadcasts = true; }
+        if (Flags.IsBitSet(1)) { Bots = true; }
         Q = buffer.ReadString();
         Limit = buffer.ReadInt32();
     }

@@ -65,26 +65,28 @@ public sealed partial class TDcOption : IDcOption
     /// </summary>
     public ReadOnlyMemory<byte>? Secret { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Ipv6) { Flags = Flags.SetBit(0); }
-        if (MediaOnly) { Flags = Flags.SetBit(1); }
-        if (TcpoOnly) { Flags = Flags.SetBit(2); }
-        if (Cdn) { Flags = Flags.SetBit(3); }
-        if (Static) { Flags = Flags.SetBit(4); }
-        if (ThisPortOnly) { Flags = Flags.SetBit(5); }
-        if (Secret != null) { Flags = Flags.SetBit(10); }
+        var flags = 0;
+        if (Ipv6) { flags = flags.SetBit(0); }
+        if (MediaOnly) { flags = flags.SetBit(1); }
+        if (TcpoOnly) { flags = flags.SetBit(2); }
+        if (Cdn) { flags = flags.SetBit(3); }
+        if (Static) { flags = flags.SetBit(4); }
+        if (ThisPortOnly) { flags = flags.SetBit(5); }
+        if (Secret != null) { flags = flags.SetBit(10); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(IpAddress);
         writer.Write(Port);
-        if (Flags.IsBitSet(10)) { writer.Write(Secret); }
+        if (flags.IsBitSet(10)) { writer.Write(Secret); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

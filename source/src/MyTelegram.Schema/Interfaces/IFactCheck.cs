@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TFactCheck"/> See <a href="https://corefork.telegram.org/constructor/factCheck" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TFactCheck), nameof(TFactCheck))]
-public interface IFactCheck : IObject
+public partial interface IFactCheck : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

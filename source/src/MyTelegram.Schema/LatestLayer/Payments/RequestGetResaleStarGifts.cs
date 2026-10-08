@@ -66,24 +66,26 @@ public sealed partial class RequestGetResaleStarGifts : IRequest<MyTelegram.Sche
     /// </summary>
     public int Limit { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (SortByPrice) { Flags = Flags.SetBit(1); }
-        if (SortByNum) { Flags = Flags.SetBit(2); }
-        if (ForCraft) { Flags = Flags.SetBit(4); }
-        if (StarsOnly) { Flags = Flags.SetBit(5); }
-        if (/*AttributesHash != 0 &&*/ AttributesHash.HasValue) { Flags = Flags.SetBit(0); }
-        if (Attributes?.Count > 0) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (SortByPrice) { flags = flags.SetBit(1); }
+        if (SortByNum) { flags = flags.SetBit(2); }
+        if (ForCraft) { flags = flags.SetBit(4); }
+        if (StarsOnly) { flags = flags.SetBit(5); }
+        if (/*AttributesHash != 0 &&*/ AttributesHash.HasValue) { flags = flags.SetBit(0); }
+        if (Attributes?.Count > 0) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(AttributesHash.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(AttributesHash.Value); }
         writer.Write(GiftId);
-        if (Flags.IsBitSet(3)) { writer.Write(Attributes); }
+        if (flags.IsBitSet(3)) { writer.Write(Attributes); }
         writer.Write(Offset);
         writer.Write(Limit);
     }

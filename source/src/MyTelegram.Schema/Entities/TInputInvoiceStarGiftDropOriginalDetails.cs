@@ -15,13 +15,9 @@ public sealed partial class TInputInvoiceStarGiftDropOriginalDetails : IInputInv
     /// </summary>
     public MyTelegram.Schema.IInputSavedStarGift Stargift { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Stargift);
     }

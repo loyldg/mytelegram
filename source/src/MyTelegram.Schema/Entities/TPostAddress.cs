@@ -40,13 +40,9 @@ public sealed partial class TPostAddress : IPostAddress
     /// </summary>
     public string PostCode { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(StreetLine1);
         writer.Write(StreetLine2);

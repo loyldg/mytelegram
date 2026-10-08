@@ -69,24 +69,26 @@ public sealed partial class RequestRequestAppWebView : IRequest<MyTelegram.Schem
     /// </summary>
     public string Platform { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (WriteAllowed) { Flags = Flags.SetBit(0); }
-        if (Compact) { Flags = Flags.SetBit(7); }
-        if (Fullscreen) { Flags = Flags.SetBit(8); }
-        if (StartParam != null) { Flags = Flags.SetBit(1); }
-        if (ThemeParams != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (WriteAllowed) { flags = flags.SetBit(0); }
+        if (Compact) { flags = flags.SetBit(7); }
+        if (Fullscreen) { flags = flags.SetBit(8); }
+        if (StartParam != null) { flags = flags.SetBit(1); }
+        if (ThemeParams != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(App);
-        if (Flags.IsBitSet(1)) { writer.Write(StartParam); }
-        if (Flags.IsBitSet(2)) { writer.Write(ThemeParams); }
+        if (flags.IsBitSet(1)) { writer.Write(StartParam); }
+        if (flags.IsBitSet(2)) { writer.Write(ThemeParams); }
         writer.Write(Platform);
     }
 

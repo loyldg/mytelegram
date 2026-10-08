@@ -40,23 +40,25 @@ public sealed partial class TDocumentAttributeAudio : IDocumentAttribute
     /// </summary>
     public ReadOnlyMemory<byte>? Waveform { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Voice) { Flags = Flags.SetBit(10); }
-        if (Title != null) { Flags = Flags.SetBit(0); }
-        if (Performer != null) { Flags = Flags.SetBit(1); }
-        if (Waveform != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Voice) { flags = flags.SetBit(10); }
+        if (Title != null) { flags = flags.SetBit(0); }
+        if (Performer != null) { flags = flags.SetBit(1); }
+        if (Waveform != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Duration);
-        if (Flags.IsBitSet(0)) { writer.Write(Title); }
-        if (Flags.IsBitSet(1)) { writer.Write(Performer); }
-        if (Flags.IsBitSet(2)) { writer.Write(Waveform); }
+        if (flags.IsBitSet(0)) { writer.Write(Title); }
+        if (flags.IsBitSet(1)) { writer.Write(Performer); }
+        if (flags.IsBitSet(2)) { writer.Write(Waveform); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

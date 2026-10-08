@@ -53,25 +53,27 @@ public sealed partial class RequestUpdateAlbum : IRequest<MyTelegram.Schema.ISto
     /// </summary>
     public TVector<int>? Order { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Title != null) { Flags = Flags.SetBit(0); }
-        if (DeleteStories?.Count > 0) { Flags = Flags.SetBit(1); }
-        if (AddStories?.Count > 0) { Flags = Flags.SetBit(2); }
-        if (Order?.Count > 0) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (Title != null) { flags = flags.SetBit(0); }
+        if (DeleteStories?.Count > 0) { flags = flags.SetBit(1); }
+        if (AddStories?.Count > 0) { flags = flags.SetBit(2); }
+        if (Order?.Count > 0) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(AlbumId);
-        if (Flags.IsBitSet(0)) { writer.Write(Title); }
-        if (Flags.IsBitSet(1)) { writer.Write(DeleteStories); }
-        if (Flags.IsBitSet(2)) { writer.Write(AddStories); }
-        if (Flags.IsBitSet(3)) { writer.Write(Order); }
+        if (flags.IsBitSet(0)) { writer.Write(Title); }
+        if (flags.IsBitSet(1)) { writer.Write(DeleteStories); }
+        if (flags.IsBitSet(2)) { writer.Write(AddStories); }
+        if (flags.IsBitSet(3)) { writer.Write(Order); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

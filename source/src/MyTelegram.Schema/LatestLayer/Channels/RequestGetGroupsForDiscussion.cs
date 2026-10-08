@@ -15,13 +15,9 @@ public sealed partial class RequestGetGroupsForDiscussion : IRequest<MyTelegram.
 {
     public uint ConstructorId => 0xf5dad378;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

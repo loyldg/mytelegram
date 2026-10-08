@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Contacts;
 /// </remarks>
 [JsonDerivedType(typeof(TContactsNotModified), nameof(TContactsNotModified))]
 [JsonDerivedType(typeof(TContacts), nameof(TContacts))]
-public interface IContacts : IObject
+public partial interface IContacts : IObject
 {
 }

@@ -35,20 +35,22 @@ public sealed partial class TBotVerifierSettings : IBotVerifierSettings
     /// </summary>
     public string? CustomDescription { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (CanModifyCustomDescription) { Flags = Flags.SetBit(1); }
-        if (CustomDescription != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (CanModifyCustomDescription) { flags = flags.SetBit(1); }
+        if (CustomDescription != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Icon);
         writer.Write(Company);
-        if (Flags.IsBitSet(0)) { writer.Write(CustomDescription); }
+        if (flags.IsBitSet(0)) { writer.Write(CustomDescription); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

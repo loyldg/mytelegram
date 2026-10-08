@@ -20,9 +20,9 @@ internal sealed class SearchPostsHandler(IQueryProcessor queryProcessor, ITokeni
         //}
         var peer = peerHelper.GetPeer(obj.OffsetPeer);
         var tokens = tokenizer.BuildSearchTokens(obj.Query);
-        var messageReadModels = await queryProcessor.ProcessAsync(new SearchPostsQuery(obj.Hashtag, obj.Query, tokens, obj.OffsetRate, peer.PeerId, obj.OffsetId, obj.Limit));
+        var messageReadModels = await queryProcessor.ProcessAsync(new SearchPostsQuery(obj.Hashtag ?? string.Empty, obj.Query, tokens, obj.OffsetRate, peer.PeerId, obj.OffsetId, obj.Limit));
         var messages = messageConverterService.ToMessageList(input.UserId, messageReadModels, [], [], [], input.Layer);
-        var(userIds, channelIds) = messageAppService.GetExtraPeerIds(messageReadModels);
+        var (userIds, channelIds) = messageAppService.GetExtraPeerIds(messageReadModels);
         var channelIdList = channelIds.ToList();
         var channelMemberReadModels = await queryProcessor.ProcessAsync(new GetChannelMemberListByChannelIdListQuery(input.UserId, channelIdList));
         var channels = await chatConverterService.GetChannelListAsync(input, channelIdList, channelMemberReadModels, input.Layer);
@@ -30,13 +30,13 @@ internal sealed class SearchPostsHandler(IQueryProcessor queryProcessor, ITokeni
         if (messageReadModels.Count == obj.Limit && messageReadModels.Count > 0)
         {
             var nextRate = messageReadModels.Max(p => p.Date);
-            var totalCount = await queryProcessor.ProcessAsync(new GetPostsCountQuery(obj.Hashtag, obj.OffsetRate, obj.OffsetId));
+            var totalCount = await queryProcessor.ProcessAsync(new GetPostsCountQuery(obj.Hashtag ?? string.Empty, obj.OffsetRate, obj.OffsetId));
             return new TMessagesSlice
             {
                 Count = totalCount,
-                Chats = [..channels],
-                Messages = [..messages],
-                Users = [..users],
+                Chats = [.. channels],
+                Messages = [.. messages],
+                Users = [.. users],
                 NextRate = nextRate,
                 Topics = []
             };
@@ -44,9 +44,9 @@ internal sealed class SearchPostsHandler(IQueryProcessor queryProcessor, ITokeni
 
         return new TMessages
         {
-            Chats = [..channels],
-            Messages = [..messages],
-            Users = [..users],
+            Chats = [.. channels],
+            Messages = [.. messages],
+            Users = [.. users],
             Topics = []
         };
     }

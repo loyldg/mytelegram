@@ -26,13 +26,9 @@ public sealed partial class TUpdateReadMonoForumOutbox : IUpdate
     /// </summary>
     public int ReadMaxId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ChannelId);
         writer.Write(SavedPeerId);

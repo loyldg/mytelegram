@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TSearchResultsCalendar"/> See <a href="https://corefork.telegram.org/constructor/messages.searchResultsCalendar" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TSearchResultsCalendar), nameof(TSearchResultsCalendar))]
-public interface ISearchResultsCalendar : IObject
+public partial interface ISearchResultsCalendar : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TMessageRange"/> See <a href="https://corefork.telegram.org/constructor/messageRange" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TMessageRange), nameof(TMessageRange))]
-public interface IMessageRange : IObject
+public partial interface IMessageRange : IObject
 {
     /// <summary>
     /// Start of range (message ID)

@@ -21,13 +21,9 @@ public sealed partial class TTermsOfServiceUpdate : ITermsOfServiceUpdate
     /// </summary>
     public MyTelegram.Schema.Help.ITermsOfService TermsOfService { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Expires);
         writer.Write(TermsOfService);

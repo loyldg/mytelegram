@@ -46,19 +46,21 @@ public sealed partial class RequestHideAllChatJoinRequests : IRequest<MyTelegram
     /// </summary>
     public string? Link { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Approved) { Flags = Flags.SetBit(0); }
-        if (Link != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Approved) { flags = flags.SetBit(0); }
+        if (Link != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
-        if (Flags.IsBitSet(1)) { writer.Write(Link); }
+        if (flags.IsBitSet(1)) { writer.Write(Link); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

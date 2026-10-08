@@ -15,6 +15,8 @@ public sealed partial class TPageBlockPhoto : IPageBlock
     /// </summary>
     public int Flags { get; set; }
 
+    public bool Spoiler { get; set; }
+
     /// <summary>
     /// Photo ID
     /// </summary>
@@ -36,26 +38,30 @@ public sealed partial class TPageBlockPhoto : IPageBlock
     /// </summary>
     public long? WebpageId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Url != null) { Flags = Flags.SetBit(0); }
-        if (/*WebpageId != 0 &&*/ WebpageId.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Spoiler) { flags = flags.SetBit(1); }
+        if (Url != null) { flags = flags.SetBit(0); }
+        if (/*WebpageId != 0 &&*/ WebpageId.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(PhotoId);
         writer.Write(Caption);
-        if (Flags.IsBitSet(0)) { writer.Write(Url); }
-        if (Flags.IsBitSet(0)) { writer.Write(WebpageId.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(Url); }
+        if (flags.IsBitSet(0)) { writer.Write(WebpageId.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(1)) { Spoiler = true; }
         PhotoId = buffer.ReadInt64();
         Caption = buffer.Read<MyTelegram.Schema.IPageCaption>();
         if (Flags.IsBitSet(0)) { Url = buffer.ReadString(); }

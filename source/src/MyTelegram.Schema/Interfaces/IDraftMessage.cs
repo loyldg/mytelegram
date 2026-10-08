@@ -13,7 +13,7 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TDraftMessageEmpty), nameof(TDraftMessageEmpty))]
 [JsonDerivedType(typeof(TDraftMessage), nameof(TDraftMessage))]
-public interface IDraftMessage : IObject
+public partial interface IDraftMessage : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

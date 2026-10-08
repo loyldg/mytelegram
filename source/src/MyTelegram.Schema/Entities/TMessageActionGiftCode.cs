@@ -67,31 +67,33 @@ public sealed partial class TMessageActionGiftCode : IMessageAction
     /// </summary>
     public MyTelegram.Schema.ITextWithEntities? Message { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ViaGiveaway) { Flags = Flags.SetBit(0); }
-        if (Unclaimed) { Flags = Flags.SetBit(5); }
-        if (BoostPeer != null) { Flags = Flags.SetBit(1); }
-        if (Currency != null) { Flags = Flags.SetBit(2); }
-        if (/*Amount != 0 &&*/ Amount.HasValue) { Flags = Flags.SetBit(2); }
-        if (CryptoCurrency != null) { Flags = Flags.SetBit(3); }
-        if (/*CryptoAmount != 0 &&*/ CryptoAmount.HasValue) { Flags = Flags.SetBit(3); }
-        if (Message != null) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (ViaGiveaway) { flags = flags.SetBit(0); }
+        if (Unclaimed) { flags = flags.SetBit(5); }
+        if (BoostPeer != null) { flags = flags.SetBit(1); }
+        if (Currency != null) { flags = flags.SetBit(2); }
+        if (/*Amount != 0 &&*/ Amount.HasValue) { flags = flags.SetBit(2); }
+        if (CryptoCurrency != null) { flags = flags.SetBit(3); }
+        if (/*CryptoAmount != 0 &&*/ CryptoAmount.HasValue) { flags = flags.SetBit(3); }
+        if (Message != null) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(1)) { writer.Write(BoostPeer); }
+        writer.Write(flags);
+        if (flags.IsBitSet(1)) { writer.Write(BoostPeer); }
         writer.Write(Days);
         writer.Write(Slug);
-        if (Flags.IsBitSet(2)) { writer.Write(Currency); }
-        if (Flags.IsBitSet(2)) { writer.Write(Amount.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(CryptoCurrency); }
-        if (Flags.IsBitSet(3)) { writer.Write(CryptoAmount.Value); }
-        if (Flags.IsBitSet(4)) { writer.Write(Message); }
+        if (flags.IsBitSet(2)) { writer.Write(Currency); }
+        if (flags.IsBitSet(2)) { writer.Write(Amount.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(CryptoCurrency); }
+        if (flags.IsBitSet(3)) { writer.Write(CryptoAmount.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(Message); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

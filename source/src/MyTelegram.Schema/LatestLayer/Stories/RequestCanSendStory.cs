@@ -30,13 +30,9 @@ public sealed partial class RequestCanSendStory : IRequest<MyTelegram.Schema.Sto
     /// </summary>
     public MyTelegram.Schema.IInputPeer Peer { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
     }

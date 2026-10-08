@@ -126,29 +126,31 @@ public sealed partial class TForumTopic : IForumTopic
     /// </summary>
     public MyTelegram.Schema.IDraftMessage? Draft { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (My) { Flags = Flags.SetBit(1); }
-        if (Closed) { Flags = Flags.SetBit(2); }
-        if (Pinned) { Flags = Flags.SetBit(3); }
-        if (Short) { Flags = Flags.SetBit(5); }
-        if (Hidden) { Flags = Flags.SetBit(6); }
-        if (TitleMissing) { Flags = Flags.SetBit(7); }
-        if (/*IconEmojiId != 0 &&*/ IconEmojiId.HasValue) { Flags = Flags.SetBit(0); }
-        if (Draft != null) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (My) { flags = flags.SetBit(1); }
+        if (Closed) { flags = flags.SetBit(2); }
+        if (Pinned) { flags = flags.SetBit(3); }
+        if (Short) { flags = flags.SetBit(5); }
+        if (Hidden) { flags = flags.SetBit(6); }
+        if (TitleMissing) { flags = flags.SetBit(7); }
+        if (/*IconEmojiId != 0 &&*/ IconEmojiId.HasValue) { flags = flags.SetBit(0); }
+        if (Draft != null) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(Date);
         writer.Write(Peer);
         writer.Write(Title);
         writer.Write(IconColor);
-        if (Flags.IsBitSet(0)) { writer.Write(IconEmojiId.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(IconEmojiId.Value); }
         writer.Write(TopMessage);
         writer.Write(ReadInboxMaxId);
         writer.Write(ReadOutboxMaxId);
@@ -158,7 +160,7 @@ public sealed partial class TForumTopic : IForumTopic
         writer.Write(UnreadPollVotesCount);
         writer.Write(FromId);
         writer.Write(NotifySettings);
-        if (Flags.IsBitSet(4)) { writer.Write(Draft); }
+        if (flags.IsBitSet(4)) { writer.Write(Draft); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

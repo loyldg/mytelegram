@@ -14,13 +14,9 @@ public sealed partial class RequestResendPasswordEmail : IRequest<IBool>
 {
     public uint ConstructorId => 0x7a7f2a15;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

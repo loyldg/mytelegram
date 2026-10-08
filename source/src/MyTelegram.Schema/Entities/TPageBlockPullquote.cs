@@ -22,13 +22,9 @@ public sealed partial class TPageBlockPullquote : IPageBlock
     /// </summary>
     public MyTelegram.Schema.IRichText Caption { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Text);
         writer.Write(Caption);

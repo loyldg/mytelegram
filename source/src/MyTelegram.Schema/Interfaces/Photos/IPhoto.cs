@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Photos;
 /// <see cref="TPhoto"/> See <a href="https://corefork.telegram.org/constructor/photos.photo" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPhoto), nameof(TPhoto))]
-public interface IPhoto : IObject
+public partial interface IPhoto : IObject
 {
     /// <summary>
     /// Photo

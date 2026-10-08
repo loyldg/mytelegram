@@ -25,13 +25,9 @@ public sealed partial class TMessageEntityTextUrl : IMessageEntity
     /// </summary>
     public string Url { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Offset);
         writer.Write(Length);

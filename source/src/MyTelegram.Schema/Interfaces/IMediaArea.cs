@@ -27,7 +27,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TMediaAreaUrl), nameof(TMediaAreaUrl))]
 [JsonDerivedType(typeof(TMediaAreaWeather), nameof(TMediaAreaWeather))]
 [JsonDerivedType(typeof(TMediaAreaStarGift), nameof(TMediaAreaStarGift))]
-public interface IMediaArea : IObject
+public partial interface IMediaArea : IObject
 {
     /// <summary>
     /// The size and location of the media area corresponding to the URL button on top of the story media.

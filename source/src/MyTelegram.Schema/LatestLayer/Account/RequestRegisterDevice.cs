@@ -58,16 +58,18 @@ public sealed partial class RequestRegisterDevice : IRequest<IBool>
     /// </summary>
     public TVector<long> OtherUids { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (NoMuted) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (NoMuted) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(TokenType);
         writer.Write(Token);
         writer.Write(AppSandbox);

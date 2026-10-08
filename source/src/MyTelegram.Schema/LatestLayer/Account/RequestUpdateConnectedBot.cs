@@ -47,18 +47,20 @@ public sealed partial class RequestUpdateConnectedBot : IRequest<MyTelegram.Sche
     /// </summary>
     public MyTelegram.Schema.IInputBusinessBotRecipients Recipients { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Deleted) { Flags = Flags.SetBit(1); }
-        if (Rights != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Deleted) { flags = flags.SetBit(1); }
+        if (Rights != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(Rights); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(Rights); }
         writer.Write(Bot);
         writer.Write(Recipients);
     }

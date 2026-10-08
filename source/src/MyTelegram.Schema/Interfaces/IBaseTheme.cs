@@ -19,6 +19,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TBaseThemeNight), nameof(TBaseThemeNight))]
 [JsonDerivedType(typeof(TBaseThemeTinted), nameof(TBaseThemeTinted))]
 [JsonDerivedType(typeof(TBaseThemeArctic), nameof(TBaseThemeArctic))]
-public interface IBaseTheme : IObject
+public partial interface IBaseTheme : IObject
 {
 }

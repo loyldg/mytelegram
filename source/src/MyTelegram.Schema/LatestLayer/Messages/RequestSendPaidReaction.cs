@@ -57,21 +57,23 @@ public sealed partial class RequestSendPaidReaction : IRequest<MyTelegram.Schema
     /// </summary>
     public MyTelegram.Schema.IPaidReactionPrivacy? Private { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Private != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Private != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(MsgId);
         writer.Write(Count);
         writer.Write(RandomId);
-        if (Flags.IsBitSet(0)) { writer.Write(Private); }
+        if (flags.IsBitSet(0)) { writer.Write(Private); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

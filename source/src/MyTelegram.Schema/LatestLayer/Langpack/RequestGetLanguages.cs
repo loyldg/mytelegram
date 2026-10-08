@@ -22,13 +22,9 @@ public sealed partial class RequestGetLanguages : IRequest<TVector<MyTelegram.Sc
     /// </summary>
     public string LangPack { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(LangPack);
     }

@@ -13,7 +13,7 @@ public class ChatAdminMigrator(ICommandBus commandBus,
         var config = await dataSeederHelper.LoadDataSeederConfigAsync();
         if (config.IsChatAdminMigrated)
         {
-            logger.LogInformation("Chat admin data has been migrated — skipping.");
+            logger.LogInformation("Chat admin data has been migrated, skipping.");
             return;
         }
 

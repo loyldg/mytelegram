@@ -6,7 +6,7 @@ public class ChatInviteLinkHelper : IChatInviteLinkHelper
 {
     public string GenerateInviteLink()
     {
-        var bytes = new byte[12];
+        Span<byte> bytes = stackalloc byte[12];
         Random.Shared.NextBytes(bytes);
 
         return Base64Url.EncodeToString(bytes);
@@ -30,6 +30,11 @@ public class ChatInviteLinkHelper : IChatInviteLinkHelper
         return GetFullLinkCore(domain, "addlist/", link);
     }
 
+    public string GetFullBusinessChatLink(string domain, string link)
+    {
+        return GetFullLinkCore(domain, "m", link);
+    }
+
     public string GetFullLink(string domain, string link)
     {
         return GetFullLinkCore(domain, "+", link);
@@ -41,6 +46,11 @@ public class ChatInviteLinkHelper : IChatInviteLinkHelper
         if (!newDomain.EndsWith("/"))
         {
             newDomain = $"{domain}/";
+        }
+
+        if (!type.EndsWith("/") && !type.EndsWith("+"))
+        {
+            type = $"{type}/";
         }
 
         return $"{newDomain}{type}{link}";

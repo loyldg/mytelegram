@@ -55,22 +55,24 @@ public sealed partial class TConnectedBotStarRef : IConnectedBotStarRef
     /// </summary>
     public long Revenue { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Revoked) { Flags = Flags.SetBit(1); }
-        if (/*DurationMonths != 0 && */DurationMonths.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Revoked) { flags = flags.SetBit(1); }
+        if (/*DurationMonths != 0 && */DurationMonths.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Url);
         writer.Write(Date);
         writer.Write(BotId);
         writer.Write(CommissionPermille);
-        if (Flags.IsBitSet(0)) { writer.Write(DurationMonths.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(DurationMonths.Value); }
         writer.Write(Participants);
         writer.Write(Revenue);
     }

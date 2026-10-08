@@ -4,7 +4,8 @@ public class UserStatus(
     long userId,
     bool online)
 {
-    public DateTime LastUpdateDate { get; private set; } = DateTime.UtcNow;
+    //public DateTime LastUpdateDate { get; private set; } = DateTime.UtcNow;
+    public int LastUpdateDate { get; private set; }
     public bool Online { get; private set; } = online;
 
     public long UserId { get; private set; } = userId;
@@ -12,6 +13,6 @@ public class UserStatus(
     public void UpdateStatus(bool online)
     {
         Online = online;
-        LastUpdateDate = DateTime.UtcNow;
+        LastUpdateDate = (int)DateTimeOffset.UtcNow.ToUnixTimeSeconds();
     }
 }

@@ -16,13 +16,9 @@ public sealed partial class TUpdateStarsBalance : IUpdate
     /// </summary>
     public MyTelegram.Schema.IStarsAmount Balance { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Balance);
     }

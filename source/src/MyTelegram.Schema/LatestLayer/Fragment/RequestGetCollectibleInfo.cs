@@ -24,13 +24,9 @@ public sealed partial class RequestGetCollectibleInfo : IRequest<MyTelegram.Sche
     /// </summary>
     public MyTelegram.Schema.IInputCollectible Collectible { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Collectible);
     }

@@ -25,6 +25,8 @@ public sealed partial class TPageBlockVideo : IPageBlock
     /// </summary>
     public bool Loop { get; set; }
 
+    public bool Spoiler { get; set; }
+
     /// <summary>
     /// Video ID
     /// </summary>
@@ -36,17 +38,20 @@ public sealed partial class TPageBlockVideo : IPageBlock
     /// </summary>
     public MyTelegram.Schema.IPageCaption Caption { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Autoplay) { Flags = Flags.SetBit(0); }
-        if (Loop) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Autoplay) { flags = flags.SetBit(0); }
+        if (Loop) { flags = flags.SetBit(1); }
+        if (Spoiler) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(VideoId);
         writer.Write(Caption);
     }
@@ -56,6 +61,7 @@ public sealed partial class TPageBlockVideo : IPageBlock
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(0)) { Autoplay = true; }
         if (Flags.IsBitSet(1)) { Loop = true; }
+        if (Flags.IsBitSet(2)) { Spoiler = true; }
         VideoId = buffer.ReadInt64();
         Caption = buffer.Read<MyTelegram.Schema.IPageCaption>();
     }

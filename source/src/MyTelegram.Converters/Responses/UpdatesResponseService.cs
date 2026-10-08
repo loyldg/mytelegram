@@ -145,7 +145,6 @@ public class UpdatesResponseService(
             //        broadcastRevenueBalancesResponseService.ToLayeredData(updateBroadcastRevenueTransactions.Balances,
             //            layer);
 
-                break;
             case TUpdateBusinessBotCallbackQuery updateBusinessBotCallbackQuery:
                 updateBusinessBotCallbackQuery.Message =
                     messageResponseService.ToLayeredData(updateBusinessBotCallbackQuery.Message, layer);

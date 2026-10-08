@@ -36,21 +36,23 @@ public sealed partial class TMessageActionBotAllowed : IMessageAction
     /// </summary>
     public MyTelegram.Schema.IBotApp? App { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (AttachMenu) { Flags = Flags.SetBit(1); }
-        if (FromRequest) { Flags = Flags.SetBit(3); }
-        if (Domain != null) { Flags = Flags.SetBit(0); }
-        if (App != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (AttachMenu) { flags = flags.SetBit(1); }
+        if (FromRequest) { flags = flags.SetBit(3); }
+        if (Domain != null) { flags = flags.SetBit(0); }
+        if (App != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(Domain); }
-        if (Flags.IsBitSet(2)) { writer.Write(App); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(Domain); }
+        if (flags.IsBitSet(2)) { writer.Write(App); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

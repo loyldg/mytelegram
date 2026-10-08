@@ -17,10 +17,10 @@ public class ContactDomainEventHandler(
             commandBus,
             idGenerator,
             ackCacheService),
-        ISubscribeSynchronousTo<ContactAggregate, ContactId, ContactAddedEvent>,
-        ISubscribeSynchronousTo<ContactAggregate, ContactId, ContactDeletedEvent>,
-        ISubscribeSynchronousTo<ImportContactsSaga, ImportContactsSagaId, ImportContactsCompletedSagaEvent>,
-        ISubscribeSynchronousTo<ContactAggregate, ContactId, ContactProfilePhotoChangedEvent>
+        ISubscribeAsynchronousTo<ContactAggregate, ContactId, ContactAddedEvent>,
+        ISubscribeAsynchronousTo<ContactAggregate, ContactId, ContactDeletedEvent>,
+        ISubscribeAsynchronousTo<ImportContactsSaga, ImportContactsSagaId, ImportContactsCompletedSagaEvent>,
+        ISubscribeAsynchronousTo<ContactAggregate, ContactId, ContactProfilePhotoChangedEvent>
 {
     public async Task HandleAsync(IDomainEvent<ContactAggregate, ContactId, ContactAddedEvent> domainEvent,
         CancellationToken cancellationToken)
@@ -40,10 +40,9 @@ public class ContactDomainEventHandler(
             Chats = new TVector<IChat>(),
             Date = DateTime.UtcNow.ToTimestamp(),
             Seq = 0,
-            Updates = new TVector<IUpdate>(new TUpdatePeerSettings
+            Updates = new TVector<IUpdate>(new TUpdateUser
             {
-                Peer = new TPeerUser { UserId = domainEvent.AggregateEvent.TargetUserId },
-                Settings = new TPeerSettings { NeedContactsException = false }
+                UserId = domainEvent.AggregateEvent.TargetUserId
             }),
             Users = new TVector<IUser>(user)
         };

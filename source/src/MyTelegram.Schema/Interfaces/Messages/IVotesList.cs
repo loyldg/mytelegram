@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TVotesList"/> See <a href="https://corefork.telegram.org/constructor/messages.votesList" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TVotesList), nameof(TVotesList))]
-public interface IVotesList : IObject
+public partial interface IVotesList : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

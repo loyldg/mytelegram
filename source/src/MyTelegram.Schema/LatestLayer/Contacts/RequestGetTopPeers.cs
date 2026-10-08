@@ -67,6 +67,8 @@ public sealed partial class RequestGetTopPeers : IRequest<MyTelegram.Schema.Cont
     /// </summary>
     public bool BotsApp { get; set; }
 
+    public bool BotsGuestchat { get; set; }
+
     /// <summary>
     /// Offset for <a href="https://corefork.telegram.org/api/offsets">pagination</a>
     /// </summary>
@@ -82,24 +84,27 @@ public sealed partial class RequestGetTopPeers : IRequest<MyTelegram.Schema.Cont
     /// </summary>
     public long Hash { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Correspondents) { Flags = Flags.SetBit(0); }
-        if (BotsPm) { Flags = Flags.SetBit(1); }
-        if (BotsInline) { Flags = Flags.SetBit(2); }
-        if (PhoneCalls) { Flags = Flags.SetBit(3); }
-        if (ForwardUsers) { Flags = Flags.SetBit(4); }
-        if (ForwardChats) { Flags = Flags.SetBit(5); }
-        if (Groups) { Flags = Flags.SetBit(10); }
-        if (Channels) { Flags = Flags.SetBit(15); }
-        if (BotsApp) { Flags = Flags.SetBit(16); }
+        var flags = 0;
+        if (Correspondents) { flags = flags.SetBit(0); }
+        if (BotsPm) { flags = flags.SetBit(1); }
+        if (BotsInline) { flags = flags.SetBit(2); }
+        if (PhoneCalls) { flags = flags.SetBit(3); }
+        if (ForwardUsers) { flags = flags.SetBit(4); }
+        if (ForwardChats) { flags = flags.SetBit(5); }
+        if (Groups) { flags = flags.SetBit(10); }
+        if (Channels) { flags = flags.SetBit(15); }
+        if (BotsApp) { flags = flags.SetBit(16); }
+        if (BotsGuestchat) { flags = flags.SetBit(17); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Offset);
         writer.Write(Limit);
         writer.Write(Hash);
@@ -117,6 +122,7 @@ public sealed partial class RequestGetTopPeers : IRequest<MyTelegram.Schema.Cont
         if (Flags.IsBitSet(10)) { Groups = true; }
         if (Flags.IsBitSet(15)) { Channels = true; }
         if (Flags.IsBitSet(16)) { BotsApp = true; }
+        if (Flags.IsBitSet(17)) { BotsGuestchat = true; }
         Offset = buffer.ReadInt32();
         Limit = buffer.ReadInt32();
         Hash = buffer.ReadInt64();

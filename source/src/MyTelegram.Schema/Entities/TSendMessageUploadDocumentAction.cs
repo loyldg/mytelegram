@@ -15,13 +15,9 @@ public sealed partial class TSendMessageUploadDocumentAction : ISendMessageActio
     /// </summary>
     public int Progress { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Progress);
     }

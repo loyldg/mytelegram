@@ -16,6 +16,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputBotInlineMessageGame"/> See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageGame" /><br/>
 /// <see cref="TInputBotInlineMessageMediaInvoice"/> See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageMediaInvoice" /><br/>
 /// <see cref="TInputBotInlineMessageMediaWebPage"/> See <a href="https://corefork.telegram.org/constructor/inputBotInlineMessageMediaWebPage" /><br/>
+/// <see cref="TInputBotInlineMessageRichMessage"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputBotInlineMessageMediaAuto), nameof(TInputBotInlineMessageMediaAuto))]
 [JsonDerivedType(typeof(TInputBotInlineMessageText), nameof(TInputBotInlineMessageText))]
@@ -25,7 +26,8 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputBotInlineMessageGame), nameof(TInputBotInlineMessageGame))]
 [JsonDerivedType(typeof(TInputBotInlineMessageMediaInvoice), nameof(TInputBotInlineMessageMediaInvoice))]
 [JsonDerivedType(typeof(TInputBotInlineMessageMediaWebPage), nameof(TInputBotInlineMessageMediaWebPage))]
-public interface IInputBotInlineMessage : IObject
+[JsonDerivedType(typeof(TInputBotInlineMessageRichMessage), nameof(TInputBotInlineMessageRichMessage))]
+public partial interface IInputBotInlineMessage : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

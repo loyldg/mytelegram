@@ -41,21 +41,23 @@ public sealed partial class TStoryView : IStoryView
     /// </summary>
     public MyTelegram.Schema.IReaction? Reaction { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Blocked) { Flags = Flags.SetBit(0); }
-        if (BlockedMyStoriesFrom) { Flags = Flags.SetBit(1); }
-        if (Reaction != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Blocked) { flags = flags.SetBit(0); }
+        if (BlockedMyStoriesFrom) { flags = flags.SetBit(1); }
+        if (Reaction != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(UserId);
         writer.Write(Date);
-        if (Flags.IsBitSet(2)) { writer.Write(Reaction); }
+        if (flags.IsBitSet(2)) { writer.Write(Reaction); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

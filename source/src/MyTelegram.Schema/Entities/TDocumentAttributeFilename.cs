@@ -15,13 +15,9 @@ public sealed partial class TDocumentAttributeFilename : IDocumentAttribute
     /// </summary>
     public string FileName { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(FileName);
     }

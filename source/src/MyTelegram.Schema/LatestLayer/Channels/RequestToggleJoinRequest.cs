@@ -16,10 +16,14 @@ namespace MyTelegram.Schema.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-[TlObject(0x4c2985b6)]
+[TlObject(0xecc2618)]
 public sealed partial class RequestToggleJoinRequest : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0x4c2985b6;
+    public uint ConstructorId => 0xecc2618;
+
+    public int Flags { get; set; }
+
+    public bool ApplyToInvites { get; set; }
 
     /// <summary>
     /// Group
@@ -33,21 +37,35 @@ public sealed partial class RequestToggleJoinRequest : IRequest<MyTelegram.Schem
     /// </summary>
     public bool Enabled { get; set; }
 
-    public void ComputeFlag()
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/InputUser" />
+    /// </summary>
+    public MyTelegram.Schema.IInputUser? GuardBot { get; set; }
+
+    public int CalculateFlags()
     {
+        var flags = 0;
+        if (ApplyToInvites) { flags = flags.SetBit(1); }
+        if (GuardBot != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
+        writer.Write(flags);
         writer.Write(Channel);
         writer.Write(Enabled);
+        if (flags.IsBitSet(0)) { writer.Write(GuardBot); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(1)) { ApplyToInvites = true; }
         Channel = buffer.Read<MyTelegram.Schema.IInputChannel>();
         Enabled = buffer.Read();
+        if (Flags.IsBitSet(0)) { GuardBot = buffer.Read<MyTelegram.Schema.IInputUser>(); }
     }
 }

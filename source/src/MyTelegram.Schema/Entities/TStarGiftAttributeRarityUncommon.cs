@@ -9,13 +9,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TStarGiftAttributeRarityUncommon : IStarGiftAttributeRarity
 {
     public uint ConstructorId => 0xdbce6389;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

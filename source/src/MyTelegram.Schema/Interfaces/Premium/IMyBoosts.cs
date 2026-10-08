@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Premium;
 /// <see cref="TMyBoosts"/> See <a href="https://corefork.telegram.org/constructor/premium.myBoosts" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TMyBoosts), nameof(TMyBoosts))]
-public interface IMyBoosts : IObject
+public partial interface IMyBoosts : IObject
 {
     /// <summary>
     /// Info about boosted peers and remaining boost slots.

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Premium;
 /// <see cref="TBoostsStatus"/> See <a href="https://corefork.telegram.org/constructor/premium.boostsStatus" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TBoostsStatus), nameof(TBoostsStatus))]
-public interface IBoostsStatus : IObject
+public partial interface IBoostsStatus : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

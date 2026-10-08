@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TQuickReply"/> See <a href="https://corefork.telegram.org/constructor/quickReply" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TQuickReply), nameof(TQuickReply))]
-public interface IQuickReply : IObject
+public partial interface IQuickReply : IObject
 {
     /// <summary>
     /// Unique shortcut ID.

@@ -4,31 +4,6 @@ namespace MyTelegram;
 
 public class ChatBannedRights
 {
-    //public static readonly ChatBannedRights Default = new(false, false, false, false, false, false, false, false, false,
-    //    true, true, true, true, false, false, false, false, false, false, false, int.MaxValue);
-
-    public static ChatBannedRights CreateDefaultBannedRights()
-    {
-        return new(false, false, false, false, false, false, false, false, false,
-            true, true, true, true, false, false, false, false, false, false, false, int.MaxValue);
-    }
-
-    //private BitArray _flags = new(32);
-
-    //public ChatBannedRights(BitArray flags)
-    //{
-    //    _flags = flags;
-    //}
-
-    //public ChatBannedRights()
-    //{
-    //    ChangeInfo = true;
-    //    InviteUsers = true;
-    //    PinMessages = true;
-    //    ManageTopics = true;
-    //    UntilDate = int.MaxValue;
-    //}
-
     public ChatBannedRights(
         bool viewMessages,
         bool sendMessages,
@@ -50,6 +25,9 @@ public class ChatBannedRights
         bool sendVoices,
         bool sendDocs,
         bool sendPlain,
+        bool editRank,
+        bool sendReactions,
+        bool manageLinkedPeers,
         int untilDate
     )
     {
@@ -74,29 +52,25 @@ public class ChatBannedRights
         SendVoices = sendVoices;
         SendDocs = sendDocs;
         SendPlain = sendPlain;
+        EditRank = editRank;
+        SendReactions = sendReactions;
+        ManageLinkedPeers = manageLinkedPeers;
     }
 
+    public ChatBannedRights()
+    {
+    }
     public bool ChangeInfo { get; set; } = true;
-
     public bool EmbedLinks { get; set; }
-
     public bool InviteUsers { get; set; } = true;
-
     public bool PinMessages { get; set; } = true;
-
     public bool SendGames { get; set; }
-
     public bool SendGifs { get; set; }
-
     public bool SendInline { get; set; }
-
     public bool SendMedia { get; set; }
     public bool SendMessages { get; set; }
-
     public bool SendPolls { get; set; }
-
     public bool SendStickers { get; set; }
-
     public int UntilDate { get; set; } = int.MaxValue;
     public bool ManageTopics { get; set; }
     public bool SendPhotos { get; set; }
@@ -106,9 +80,32 @@ public class ChatBannedRights
     public bool SendVoices { get; set; }
     public bool SendDocs { get; set; }
     public bool SendPlain { get; set; }
+    public bool EditRank { get; set; } = true;
+    public bool SendReactions { get; set; }
+    public bool ManageLinkedPeers { get; set; }
 
     //public BitArray Flags { get; init; } = new(32);
     public bool ViewMessages { get; set; }
+    //public static readonly ChatBannedRights Default = new(false, false, false, false, false, false, false, false, false,
+    //    true, true, true, true, false, false, false, false, false, false, false, int.MaxValue);
+
+    public static ChatBannedRights CreateDefaultBannedRights()
+    {
+        return new ChatBannedRights(false, false, false, false, false, false, false, false, false,
+            true, true, true, true, false, false, false, false, false, false, false, true, false, true, int.MaxValue);
+    }
+
+    public static ChatBannedRights CreateCommunityDefaultBannedRights()
+    {
+        return new ChatBannedRights(false, false, false, false, false, false, false, false, false,
+            false, false, false, false, false, false, false, false, false, false, false, false, false, true, int.MaxValue);
+    }
+
+    public static ChatBannedRights CreateCommunityAdminDefaultBannedRights()
+    {
+        return new ChatBannedRights(false, false, false, false, false, false, false, false, false,
+            false, false, false, false, false, false, false, false, false, false, false, false, false, false, int.MaxValue);
+    }
 
     public static ChatBannedRights FromValue(int value,
         int untilDate)
@@ -135,6 +132,9 @@ public class ChatBannedRights
             flags[23],
             flags[24],
             flags[25],
+            flags[26],
+            flags[27],
+            flags[28],
             untilDate
         );
         return rights;
@@ -152,45 +152,120 @@ public class ChatBannedRights
     private BitArray ComputeFlag()
     {
         var flag = new BitArray(32);
-        if (ViewMessages) flag[0] = true;
+        if (ViewMessages)
+        {
+            flag[0] = true;
+        }
 
-        if (SendMessages) flag[1] = true;
+        if (SendMessages)
+        {
+            flag[1] = true;
+        }
 
-        if (SendMedia) flag[2] = true;
+        if (SendMedia)
+        {
+            flag[2] = true;
+        }
 
-        if (SendStickers) flag[3] = true;
+        if (SendStickers)
+        {
+            flag[3] = true;
+        }
 
-        if (SendGifs) flag[4] = true;
+        if (SendGifs)
+        {
+            flag[4] = true;
+        }
 
-        if (SendGames) flag[5] = true;
+        if (SendGames)
+        {
+            flag[5] = true;
+        }
 
-        if (SendInline) flag[6] = true;
+        if (SendInline)
+        {
+            flag[6] = true;
+        }
 
-        if (EmbedLinks) flag[7] = true;
+        if (EmbedLinks)
+        {
+            flag[7] = true;
+        }
 
-        if (SendPolls) flag[8] = true;
+        if (SendPolls)
+        {
+            flag[8] = true;
+        }
 
-        if (ChangeInfo) flag[10] = true;
+        if (ChangeInfo)
+        {
+            flag[10] = true;
+        }
 
-        if (InviteUsers) flag[15] = true;
+        if (InviteUsers)
+        {
+            flag[15] = true;
+        }
 
-        if (PinMessages) flag[17] = true;
+        if (PinMessages)
+        {
+            flag[17] = true;
+        }
 
-        if (ManageTopics) flag[18] = true;
+        if (ManageTopics)
+        {
+            flag[18] = true;
+        }
 
-        if (SendPhotos) flag[19] = true;
+        if (SendPhotos)
+        {
+            flag[19] = true;
+        }
 
-        if (SendVideos) flag[20] = true;
+        if (SendVideos)
+        {
+            flag[20] = true;
+        }
 
-        if (SendRoundVideos) flag[21] = true;
+        if (SendRoundVideos)
+        {
+            flag[21] = true;
+        }
 
-        if (SendAudios) flag[22] = true;
+        if (SendAudios)
+        {
+            flag[22] = true;
+        }
 
-        if (SendVoices) flag[23] = true;
+        if (SendVoices)
+        {
+            flag[23] = true;
+        }
 
-        if (SendDocs) flag[24] = true;
+        if (SendDocs)
+        {
+            flag[24] = true;
+        }
 
-        if (SendPlain) flag[25] = true;
+        if (SendPlain)
+        {
+            flag[25] = true;
+        }
+
+        if (EditRank)
+        {
+            flag[26] = true;
+        }
+
+        if (SendReactions)
+        {
+            flag[27] = true;
+        }
+
+        if (ManageLinkedPeers)
+        {
+            flag[28] = true;
+        }
 
         return flag;
     }

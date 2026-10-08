@@ -27,16 +27,18 @@ public sealed partial class RequestUpdateSettings : IRequest<IBool>
     /// </summary>
     public bool AllowInternational { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (AllowInternational) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (AllowInternational) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

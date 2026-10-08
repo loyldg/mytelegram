@@ -38,13 +38,9 @@ public sealed partial class RequestSendWebViewData : IRequest<MyTelegram.Schema.
     /// </summary>
     public string Data { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Bot);
         writer.Write(RandomId);

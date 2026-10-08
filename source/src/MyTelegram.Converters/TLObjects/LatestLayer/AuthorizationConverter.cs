@@ -1,7 +1,5 @@
 ﻿using MyTelegram.Schema.Auth;
 using MyTelegram.Schema.Help;
-using IAuthorization = MyTelegram.Schema.Auth.IAuthorization;
-using TAuthorization = MyTelegram.Schema.Auth.TAuthorization;
 
 namespace MyTelegram.Converters.TLObjects.LatestLayer;
 
@@ -10,7 +8,7 @@ internal sealed class AuthorizationConverter(IObjectMapper objectMapper) : IAuth
     
     public int Layer => Layers.LayerLatest;
 
-    public IAuthorization CreateAuthorization(IUser? user, bool setupPasswordRequired = false)
+    public MyTelegram.Schema.Auth.IAuthorization CreateAuthorization(IUser? user, bool setupPasswordRequired = false)
     {
         if (user == null)
         {
@@ -30,7 +28,7 @@ internal sealed class AuthorizationConverter(IObjectMapper objectMapper) : IAuth
             };
         }
 
-        return new TAuthorization
+        return new MyTelegram.Schema.Auth.TAuthorization
         {
             User = user,
             SetupPasswordRequired = setupPasswordRequired,
@@ -38,7 +36,7 @@ internal sealed class AuthorizationConverter(IObjectMapper objectMapper) : IAuth
         };
     }
 
-    public IAuthorization CreateSignUpAuthorization()
+    public MyTelegram.Schema.Auth.IAuthorization CreateSignUpAuthorization()
     {
         return new TAuthorizationSignUpRequired
         {

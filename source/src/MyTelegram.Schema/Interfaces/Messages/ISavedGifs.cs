@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Messages;
 /// </remarks>
 [JsonDerivedType(typeof(TSavedGifsNotModified), nameof(TSavedGifsNotModified))]
 [JsonDerivedType(typeof(TSavedGifs), nameof(TSavedGifs))]
-public interface ISavedGifs : IObject
+public partial interface ISavedGifs : IObject
 {
 }

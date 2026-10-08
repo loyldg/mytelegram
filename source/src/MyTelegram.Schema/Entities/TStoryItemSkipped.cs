@@ -40,17 +40,19 @@ public sealed partial class TStoryItemSkipped : IStoryItem
     /// </summary>
     public int ExpireDate { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (CloseFriends) { Flags = Flags.SetBit(8); }
-        if (Live) { Flags = Flags.SetBit(9); }
+        var flags = 0;
+        if (CloseFriends) { flags = flags.SetBit(8); }
+        if (Live) { flags = flags.SetBit(9); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(Date);
         writer.Write(ExpireDate);

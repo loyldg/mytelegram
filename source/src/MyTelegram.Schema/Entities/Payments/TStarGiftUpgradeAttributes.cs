@@ -15,13 +15,9 @@ public sealed partial class TStarGiftUpgradeAttributes : IStarGiftUpgradeAttribu
     /// </summary>
     public TVector<MyTelegram.Schema.IStarGiftAttribute> Attributes { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Attributes);
     }

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TTimezone"/> See <a href="https://corefork.telegram.org/constructor/timezone" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TTimezone), nameof(TTimezone))]
-public interface ITimezone : IObject
+public partial interface ITimezone : IObject
 {
     /// <summary>
     /// Unique timezone ID.

@@ -15,13 +15,9 @@ public sealed partial class TEmojiLanguage : IEmojiLanguage
     /// </summary>
     public string LangCode { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(LangCode);
     }

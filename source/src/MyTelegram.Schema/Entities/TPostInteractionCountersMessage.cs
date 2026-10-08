@@ -30,13 +30,9 @@ public sealed partial class TPostInteractionCountersMessage : IPostInteractionCo
     /// </summary>
     public int Reactions { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(MsgId);
         writer.Write(Views);

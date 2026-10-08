@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TReportResultChooseOption), nameof(TReportResultChooseOption))]
 [JsonDerivedType(typeof(TReportResultAddComment), nameof(TReportResultAddComment))]
 [JsonDerivedType(typeof(TReportResultReported), nameof(TReportResultReported))]
-public interface IReportResult : IObject
+public partial interface IReportResult : IObject
 {
 }

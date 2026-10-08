@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TOutboxReadDate"/> See <a href="https://corefork.telegram.org/constructor/outboxReadDate" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TOutboxReadDate), nameof(TOutboxReadDate))]
-public interface IOutboxReadDate : IObject
+public partial interface IOutboxReadDate : IObject
 {
     /// <summary>
     /// UNIX timestamp with the read date.

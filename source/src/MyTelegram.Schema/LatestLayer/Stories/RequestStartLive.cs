@@ -75,29 +75,31 @@ public sealed partial class RequestStartLive : IRequest<MyTelegram.Schema.IUpdat
     /// </summary>
     public long? SendPaidMessagesStars { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Pinned) { Flags = Flags.SetBit(2); }
-        if (Noforwards) { Flags = Flags.SetBit(4); }
-        if (RtmpStream) { Flags = Flags.SetBit(5); }
-        if (Caption != null) { Flags = Flags.SetBit(0); }
-        if (Entities?.Count > 0) { Flags = Flags.SetBit(1); }
-        if (MessagesEnabled != null) { Flags = Flags.SetBit(6); }
-        if (/*SendPaidMessagesStars != 0 &&*/ SendPaidMessagesStars.HasValue) { Flags = Flags.SetBit(7); }
+        var flags = 0;
+        if (Pinned) { flags = flags.SetBit(2); }
+        if (Noforwards) { flags = flags.SetBit(4); }
+        if (RtmpStream) { flags = flags.SetBit(5); }
+        if (Caption != null) { flags = flags.SetBit(0); }
+        if (Entities?.Count > 0) { flags = flags.SetBit(1); }
+        if (MessagesEnabled != null) { flags = flags.SetBit(6); }
+        if (/*SendPaidMessagesStars != 0 &&*/ SendPaidMessagesStars.HasValue) { flags = flags.SetBit(7); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
-        if (Flags.IsBitSet(0)) { writer.Write(Caption); }
-        if (Flags.IsBitSet(1)) { writer.Write(Entities); }
+        if (flags.IsBitSet(0)) { writer.Write(Caption); }
+        if (flags.IsBitSet(1)) { writer.Write(Entities); }
         writer.Write(PrivacyRules);
         writer.Write(RandomId);
-        if (Flags.IsBitSet(6)) { writer.Write(MessagesEnabled.Value); }
-        if (Flags.IsBitSet(7)) { writer.Write(SendPaidMessagesStars.Value); }
+        if (flags.IsBitSet(6)) { writer.Write(MessagesEnabled.Value); }
+        if (flags.IsBitSet(7)) { writer.Write(SendPaidMessagesStars.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

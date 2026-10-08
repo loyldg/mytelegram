@@ -20,13 +20,9 @@ public sealed partial class TBankCardOpenUrl : IBankCardOpenUrl
     /// </summary>
     public string Name { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Url);
         writer.Write(Name);

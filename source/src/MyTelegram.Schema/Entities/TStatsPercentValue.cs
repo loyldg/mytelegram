@@ -21,13 +21,9 @@ public sealed partial class TStatsPercentValue : IStatsPercentValue
     /// </summary>
     public double Total { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Part);
         writer.Write(Total);

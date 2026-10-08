@@ -47,7 +47,7 @@ public class UserConverterService(
             privacyReadModels = await privacyAppService.GetPrivacyListAsync(userId);
         }
 
-        return ToUserCore(request, userReadModel, photoReadModels, myContactReadModel, targetUserContactReadModel,
+        return await ToUserCore(request, userReadModel, photoReadModels, myContactReadModel, targetUserContactReadModel,
             privacyReadModels, layer);
     }
 
@@ -69,10 +69,10 @@ public class UserConverterService(
             privacyReadModels = await privacyAppService.GetPrivacyListAsync(userIds);
         }
 
-        return ToUserList(request, userReadModels, photoReadModels, contactReadModels, privacyReadModels, layer);
+        return await ToUserListAsync(request, userReadModels, photoReadModels, contactReadModels, privacyReadModels, layer);
     }
 
-    public IUserFull ToUserFull(IRequestWithAccessHashKeyId request,
+    public async Task<IUserFull> ToUserFullAsync(IRequestWithAccessHashKeyId request,
         IUserReadModel userReadModel,
         IReadOnlyCollection<IPhotoReadModel>? photoReadModels,
         IReadOnlyCollection<IContactReadModel>? contactReadModels,
@@ -163,19 +163,19 @@ public class UserConverterService(
         }
         var photoReadModels = await photoAppService.GetPhotosAsync(userReadModel, myContactReadModel);
 
-        return ToUserFull(request, userReadModel, photoReadModels, contactReadModels, privacyReadModels, layer);
+        return await ToUserFullAsync(request, userReadModel, photoReadModels, contactReadModels, privacyReadModels, layer);
     }
 
-    public ILayeredUser ToUser(IRequestWithAccessHashKeyId request, IUserReadModel userReadModel, IReadOnlyCollection<IPhotoReadModel>? photoReadModels = null,
+    public async Task<ILayeredUser> ToUserAsync(IRequestWithAccessHashKeyId request, IUserReadModel userReadModel, IReadOnlyCollection<IPhotoReadModel>? photoReadModels = null,
         IContactReadModel? contactReadModel = null, IContactReadModel? targetUserContactReadModel = null, IReadOnlyCollection<IPrivacyReadModel>? privacyReadModels = null, int layer = 0)
     {
         var photos = photoReadModels?.ToDictionary(k => k.PhotoId);
 
-        return ToUserCore(request, userReadModel, photos, contactReadModel, targetUserContactReadModel,
+        return await ToUserCore(request, userReadModel, photos, contactReadModel, targetUserContactReadModel,
             privacyReadModels, layer);
     }
 
-    public List<ILayeredUser> ToUserList(IRequestWithAccessHashKeyId request, IReadOnlyCollection<IUserReadModel> userReadModels, IReadOnlyCollection<IPhotoReadModel>? photoReadModels = null,
+    public async Task<List<ILayeredUser>> ToUserListAsync(IRequestWithAccessHashKeyId request, IReadOnlyCollection<IUserReadModel> userReadModels, IReadOnlyCollection<IPhotoReadModel>? photoReadModels = null,
         IReadOnlyCollection<IContactReadModel>? contactReadModels = null, IReadOnlyCollection<IPrivacyReadModel>? privacyReadModels = null, int layer = 0)
     {
         var users = new List<ILayeredUser>();
@@ -200,7 +200,7 @@ public class UserConverterService(
             myContacts.TryGetValue(userReadModel.UserId, out var myContactReadModel);
             targetUserContacts.TryGetValue(request.UserId, out var targetUserContactReadModel);
             groupedPrivacyReadModels.TryGetValue(userReadModel.UserId, out var currentUserPrivacyReadModels);
-            var user = ToUserCore(request, userReadModel, photos, myContactReadModel,
+            var user = await ToUserCore(request, userReadModel, photos, myContactReadModel,
                 targetUserContactReadModel, currentUserPrivacyReadModels, layer);
             users.Add(user);
         }
@@ -208,7 +208,7 @@ public class UserConverterService(
         return users;
     }
 
-    private ILayeredUser ToUserCore(IRequestWithAccessHashKeyId request, IUserReadModel userReadModel,
+    private async Task<ILayeredUser> ToUserCore(IRequestWithAccessHashKeyId request, IUserReadModel userReadModel,
         Dictionary<long, IPhotoReadModel>? photoReadModels = null,
         //Dictionary<long, IContactReadModel>? contactReadModels = null,
         IContactReadModel? myContactReadModel = null,
@@ -236,7 +236,7 @@ public class UserConverterService(
             user.Self = true;
         }
 
-        user.Status = userStatusCacheAppService.GetUserStatus(user.Id);
+        user.Status = await userStatusCacheAppService.GetUserStatusAsync(user.Id);
         EmojiStatus? emojiStatus = null;
         if (userReadModel.EmojiStatusDocumentId != null)
         {

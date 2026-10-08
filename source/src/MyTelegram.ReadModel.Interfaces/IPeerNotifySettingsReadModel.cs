@@ -7,4 +7,6 @@ public interface IPeerNotifySettingsReadModel : IReadModel
     long OwnerPeerId { get; }
     long PeerId { get; }
     PeerType PeerType { get; }
+    PeerNotifyType? PeerNotifyType { get; }
+    IPeerNotifySettings? PeerNotifySettings { get; }
 }

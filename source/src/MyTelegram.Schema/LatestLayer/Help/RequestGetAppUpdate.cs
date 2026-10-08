@@ -19,13 +19,9 @@ public sealed partial class RequestGetAppUpdate : IRequest<MyTelegram.Schema.Hel
     /// </summary>
     public string Source { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Source);
     }

@@ -20,13 +20,9 @@ public sealed partial class TUpdateMessageID : IUpdate
     /// </summary>
     public long RandomId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
         writer.Write(RandomId);

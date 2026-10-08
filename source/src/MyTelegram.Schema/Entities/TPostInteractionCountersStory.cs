@@ -30,13 +30,9 @@ public sealed partial class TPostInteractionCountersStory : IPostInteractionCoun
     /// </summary>
     public int Reactions { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(StoryId);
         writer.Write(Views);

@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Account;
 /// </remarks>
 [JsonDerivedType(typeof(TWallPapersNotModified), nameof(TWallPapersNotModified))]
 [JsonDerivedType(typeof(TWallPapers), nameof(TWallPapers))]
-public interface IWallPapers : IObject
+public partial interface IWallPapers : IObject
 {
 }

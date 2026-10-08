@@ -21,13 +21,9 @@ public sealed partial class TPreviewInfo : IPreviewInfo
     /// </summary>
     public TVector<string> LangCodes { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Media);
         writer.Write(LangCodes);

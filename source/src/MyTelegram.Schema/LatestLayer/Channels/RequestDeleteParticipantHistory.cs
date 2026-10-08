@@ -34,13 +34,9 @@ public sealed partial class RequestDeleteParticipantHistory : IRequest<MyTelegra
     /// </summary>
     public MyTelegram.Schema.IInputPeer Participant { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Channel);
         writer.Write(Participant);

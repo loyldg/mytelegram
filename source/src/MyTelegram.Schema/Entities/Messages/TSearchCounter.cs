@@ -31,16 +31,18 @@ public sealed partial class TSearchCounter : ISearchCounter
     /// </summary>
     public int Count { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Inexact) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Inexact) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Filter);
         writer.Write(Count);
     }

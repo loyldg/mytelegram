@@ -21,6 +21,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TUserStatusRecently), nameof(TUserStatusRecently))]
 [JsonDerivedType(typeof(TUserStatusLastWeek), nameof(TUserStatusLastWeek))]
 [JsonDerivedType(typeof(TUserStatusLastMonth), nameof(TUserStatusLastMonth))]
-public interface IUserStatus : IObject
+public partial interface IUserStatus : IObject
 {
 }

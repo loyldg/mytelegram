@@ -28,13 +28,9 @@ public sealed partial class RequestSendConferenceCallBroadcast : IRequest<MyTele
     /// </summary>
     public ReadOnlyMemory<byte> Block { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Call);
         writer.Write(Block);

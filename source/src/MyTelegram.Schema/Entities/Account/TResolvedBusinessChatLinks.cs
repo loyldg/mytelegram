@@ -44,19 +44,21 @@ public sealed partial class TResolvedBusinessChatLinks : IResolvedBusinessChatLi
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Entities?.Count > 0) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Entities?.Count > 0) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Message);
-        if (Flags.IsBitSet(0)) { writer.Write(Entities); }
+        if (flags.IsBitSet(0)) { writer.Write(Entities); }
         writer.Write(Chats);
         writer.Write(Users);
     }

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="THighScore"/> See <a href="https://corefork.telegram.org/constructor/highScore" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(THighScore), nameof(THighScore))]
-public interface IHighScore : IObject
+public partial interface IHighScore : IObject
 {
     /// <summary>
     /// Position in highscore list

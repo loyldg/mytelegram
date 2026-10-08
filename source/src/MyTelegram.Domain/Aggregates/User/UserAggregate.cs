@@ -4,7 +4,7 @@
 public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, UserId, UserSnapshot>
 {
     private readonly UserState _state = new();
-    private readonly int AccountDefaultTtl = 365;
+    private readonly int _accountDefaultTtl = 365;
 
     public UserAggregate(UserId id) : base(id, SnapshotEveryFewVersionsStrategy.Default)
     {
@@ -63,7 +63,7 @@ public class UserAggregate : MyInMemorySnapshotAggregateRoot<UserAggregate, User
         Specs.IsNotEmptyOrNull.ThrowDomainErrorIfNotSatisfied(firstName);
 
         var creationTime = DateTime.UtcNow;
-        var accountTtl = AccountDefaultTtl;
+        var accountTtl = _accountDefaultTtl;
         Emit(new UserCreatedEvent(requestInfo,
             userId,
             accessHash,

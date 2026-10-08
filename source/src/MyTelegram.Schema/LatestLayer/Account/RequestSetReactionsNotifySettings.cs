@@ -20,13 +20,9 @@ public sealed partial class RequestSetReactionsNotifySettings : IRequest<MyTeleg
     /// </summary>
     public MyTelegram.Schema.IReactionsNotifySettings Settings { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Settings);
     }

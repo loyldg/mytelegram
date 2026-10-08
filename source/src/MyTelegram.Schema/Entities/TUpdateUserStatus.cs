@@ -21,13 +21,9 @@ public sealed partial class TUpdateUserStatus : IUpdate
     /// </summary>
     public MyTelegram.Schema.IUserStatus Status { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(UserId);
         writer.Write(Status);

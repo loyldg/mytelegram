@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// A <a href="https://corefork.telegram.org/api/gifts">gift »</a> was upgraded to a <a href="https://corefork.telegram.org/api/gifts#collectible-gifts">collectible gift »</a>.
 /// <para>See <a href="https://corefork.telegram.org/constructor/messageActionStarGiftUnique" /></para>
 /// </summary>
-[TlObject(0xe6c31522)]
+[TlObject(0x7e1c1187)]
 public sealed partial class TMessageActionStarGiftUnique : IMessageAction
 {
-    public uint ConstructorId => 0xe6c31522;
+    public uint ConstructorId => 0x7e1c1187;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -54,6 +54,8 @@ public sealed partial class TMessageActionStarGiftUnique : IMessageAction
     ///  
     /// </summary>
     public bool Craft { get; set; }
+
+    public bool NameHidden { get; set; }
 
     /// <summary>
     /// The collectible gift.
@@ -114,44 +116,54 @@ public sealed partial class TMessageActionStarGiftUnique : IMessageAction
     /// </summary>
     public int? CanCraftAt { get; set; }
 
-    public void ComputeFlag()
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
+    /// </summary>
+    public MyTelegram.Schema.ITextWithEntities? Message { get; set; }
+
+    public int CalculateFlags()
     {
-        if (Upgrade) { Flags = Flags.SetBit(0); }
-        if (Transferred) { Flags = Flags.SetBit(1); }
-        if (Saved) { Flags = Flags.SetBit(2); }
-        if (Refunded) { Flags = Flags.SetBit(5); }
-        if (PrepaidUpgrade) { Flags = Flags.SetBit(11); }
-        if (Assigned) { Flags = Flags.SetBit(13); }
-        if (FromOffer) { Flags = Flags.SetBit(14); }
-        if (Craft) { Flags = Flags.SetBit(16); }
-        if (/*CanExportAt != 0 && */CanExportAt.HasValue) { Flags = Flags.SetBit(3); }
-        if (/*TransferStars != 0 &&*/ TransferStars.HasValue) { Flags = Flags.SetBit(4); }
-        if (FromId != null) { Flags = Flags.SetBit(6); }
-        if (Peer != null) { Flags = Flags.SetBit(7); }
-        if (/*SavedId != 0 &&*/ SavedId.HasValue) { Flags = Flags.SetBit(7); }
-        if (ResaleAmount != null) { Flags = Flags.SetBit(8); }
-        if (/*CanTransferAt != 0 && */CanTransferAt.HasValue) { Flags = Flags.SetBit(9); }
-        if (/*CanResellAt != 0 && */CanResellAt.HasValue) { Flags = Flags.SetBit(10); }
-        if (/*DropOriginalDetailsStars != 0 &&*/ DropOriginalDetailsStars.HasValue) { Flags = Flags.SetBit(12); }
-        if (/*CanCraftAt != 0 && */CanCraftAt.HasValue) { Flags = Flags.SetBit(15); }
+        var flags = 0;
+        if (Upgrade) { flags = flags.SetBit(0); }
+        if (Transferred) { flags = flags.SetBit(1); }
+        if (Saved) { flags = flags.SetBit(2); }
+        if (Refunded) { flags = flags.SetBit(5); }
+        if (PrepaidUpgrade) { flags = flags.SetBit(11); }
+        if (Assigned) { flags = flags.SetBit(13); }
+        if (FromOffer) { flags = flags.SetBit(14); }
+        if (Craft) { flags = flags.SetBit(16); }
+        if (NameHidden) { flags = flags.SetBit(17); }
+        if (/*CanExportAt != 0 && */CanExportAt.HasValue) { flags = flags.SetBit(3); }
+        if (/*TransferStars != 0 &&*/ TransferStars.HasValue) { flags = flags.SetBit(4); }
+        if (FromId != null) { flags = flags.SetBit(6); }
+        if (Peer != null) { flags = flags.SetBit(7); }
+        if (/*SavedId != 0 &&*/ SavedId.HasValue) { flags = flags.SetBit(7); }
+        if (ResaleAmount != null) { flags = flags.SetBit(8); }
+        if (/*CanTransferAt != 0 && */CanTransferAt.HasValue) { flags = flags.SetBit(9); }
+        if (/*CanResellAt != 0 && */CanResellAt.HasValue) { flags = flags.SetBit(10); }
+        if (/*DropOriginalDetailsStars != 0 &&*/ DropOriginalDetailsStars.HasValue) { flags = flags.SetBit(12); }
+        if (/*CanCraftAt != 0 && */CanCraftAt.HasValue) { flags = flags.SetBit(15); }
+        if (Message != null) { flags = flags.SetBit(18); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Gift);
-        if (Flags.IsBitSet(3)) { writer.Write(CanExportAt.Value); }
-        if (Flags.IsBitSet(4)) { writer.Write(TransferStars.Value); }
-        if (Flags.IsBitSet(6)) { writer.Write(FromId); }
-        if (Flags.IsBitSet(7)) { writer.Write(Peer); }
-        if (Flags.IsBitSet(7)) { writer.Write(SavedId.Value); }
-        if (Flags.IsBitSet(8)) { writer.Write(ResaleAmount); }
-        if (Flags.IsBitSet(9)) { writer.Write(CanTransferAt.Value); }
-        if (Flags.IsBitSet(10)) { writer.Write(CanResellAt.Value); }
-        if (Flags.IsBitSet(12)) { writer.Write(DropOriginalDetailsStars.Value); }
-        if (Flags.IsBitSet(15)) { writer.Write(CanCraftAt.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(CanExportAt.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(TransferStars.Value); }
+        if (flags.IsBitSet(6)) { writer.Write(FromId); }
+        if (flags.IsBitSet(7)) { writer.Write(Peer); }
+        if (flags.IsBitSet(7)) { writer.Write(SavedId.Value); }
+        if (flags.IsBitSet(8)) { writer.Write(ResaleAmount); }
+        if (flags.IsBitSet(9)) { writer.Write(CanTransferAt.Value); }
+        if (flags.IsBitSet(10)) { writer.Write(CanResellAt.Value); }
+        if (flags.IsBitSet(12)) { writer.Write(DropOriginalDetailsStars.Value); }
+        if (flags.IsBitSet(15)) { writer.Write(CanCraftAt.Value); }
+        if (flags.IsBitSet(18)) { writer.Write(Message); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -165,6 +177,7 @@ public sealed partial class TMessageActionStarGiftUnique : IMessageAction
         if (Flags.IsBitSet(13)) { Assigned = true; }
         if (Flags.IsBitSet(14)) { FromOffer = true; }
         if (Flags.IsBitSet(16)) { Craft = true; }
+        if (Flags.IsBitSet(17)) { NameHidden = true; }
         Gift = buffer.Read<MyTelegram.Schema.IStarGift>();
         if (Flags.IsBitSet(3)) { CanExportAt = buffer.ReadInt32(); }
         if (Flags.IsBitSet(4)) { TransferStars = buffer.ReadInt64(); }
@@ -176,5 +189,6 @@ public sealed partial class TMessageActionStarGiftUnique : IMessageAction
         if (Flags.IsBitSet(10)) { CanResellAt = buffer.ReadInt32(); }
         if (Flags.IsBitSet(12)) { DropOriginalDetailsStars = buffer.ReadInt64(); }
         if (Flags.IsBitSet(15)) { CanCraftAt = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(18)) { Message = buffer.Read<MyTelegram.Schema.ITextWithEntities>(); }
     }
 }

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TWebViewResultUrl"/> See <a href="https://corefork.telegram.org/constructor/webViewResultUrl" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TWebViewResultUrl), nameof(TWebViewResultUrl))]
-public interface IWebViewResult : IObject
+public partial interface IWebViewResult : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

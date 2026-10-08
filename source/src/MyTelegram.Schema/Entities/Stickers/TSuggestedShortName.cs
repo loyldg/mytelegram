@@ -15,13 +15,9 @@ public sealed partial class TSuggestedShortName : ISuggestedShortName
     /// </summary>
     public string ShortName { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ShortName);
     }

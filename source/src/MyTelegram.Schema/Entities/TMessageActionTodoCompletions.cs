@@ -20,13 +20,9 @@ public sealed partial class TMessageActionTodoCompletions : IMessageAction
     /// </summary>
     public TVector<int> Incompleted { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Completed);
         writer.Write(Incompleted);

@@ -26,13 +26,9 @@ public sealed partial class TFile : IFile
     /// </summary>
     public ReadOnlyMemory<byte> Bytes { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Type);
         writer.Write(Mtime);

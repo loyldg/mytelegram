@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TGroupCallStreamChannel"/> See <a href="https://corefork.telegram.org/constructor/groupCallStreamChannel" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TGroupCallStreamChannel), nameof(TGroupCallStreamChannel))]
-public interface IGroupCallStreamChannel : IObject
+public partial interface IGroupCallStreamChannel : IObject
 {
     /// <summary>
     /// Channel ID

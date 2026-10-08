@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TNearestDc"/> See <a href="https://corefork.telegram.org/constructor/nearestDc" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TNearestDc), nameof(TNearestDc))]
-public interface INearestDc : IObject
+public partial interface INearestDc : IObject
 {
     /// <summary>
     /// Country code determined by geo-ip

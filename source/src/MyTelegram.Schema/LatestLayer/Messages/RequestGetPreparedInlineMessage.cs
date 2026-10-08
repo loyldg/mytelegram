@@ -29,13 +29,9 @@ public sealed partial class RequestGetPreparedInlineMessage : IRequest<MyTelegra
     /// </summary>
     public string Id { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Bot);
         writer.Write(Id);

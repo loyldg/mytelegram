@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Payments;
 /// <see cref="TStarGiftUpgradePreview"/> See <a href="https://corefork.telegram.org/constructor/payments.starGiftUpgradePreview" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStarGiftUpgradePreview), nameof(TStarGiftUpgradePreview))]
-public interface IStarGiftUpgradePreview : IObject
+public partial interface IStarGiftUpgradePreview : IObject
 {
     /// <summary>
     /// Possible gift attributes

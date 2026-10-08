@@ -64,21 +64,23 @@ public sealed partial class RequestGetStoryViewsList : IRequest<MyTelegram.Schem
     /// </summary>
     public int Limit { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (JustContacts) { Flags = Flags.SetBit(0); }
-        if (ReactionsFirst) { Flags = Flags.SetBit(2); }
-        if (ForwardsFirst) { Flags = Flags.SetBit(3); }
-        if (Q != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (JustContacts) { flags = flags.SetBit(0); }
+        if (ReactionsFirst) { flags = flags.SetBit(2); }
+        if (ForwardsFirst) { flags = flags.SetBit(3); }
+        if (Q != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
-        if (Flags.IsBitSet(1)) { writer.Write(Q); }
+        if (flags.IsBitSet(1)) { writer.Write(Q); }
         writer.Write(Id);
         writer.Write(Offset);
         writer.Write(Limit);

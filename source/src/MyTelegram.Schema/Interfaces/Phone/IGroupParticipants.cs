@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Phone;
 /// <see cref="TGroupParticipants"/> See <a href="https://corefork.telegram.org/constructor/phone.groupParticipants" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TGroupParticipants), nameof(TGroupParticipants))]
-public interface IGroupParticipants : IObject
+public partial interface IGroupParticipants : IObject
 {
     /// <summary>
     /// Number of participants

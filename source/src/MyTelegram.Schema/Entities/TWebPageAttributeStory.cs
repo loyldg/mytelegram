@@ -32,19 +32,21 @@ public sealed partial class TWebPageAttributeStory : IWebPageAttribute
     /// </summary>
     public MyTelegram.Schema.IStoryItem? Story { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Story != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Story != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Id);
-        if (Flags.IsBitSet(0)) { writer.Write(Story); }
+        if (flags.IsBitSet(0)) { writer.Write(Story); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

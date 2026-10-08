@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TWallPaperSettings"/> See <a href="https://corefork.telegram.org/constructor/wallPaperSettings" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TWallPaperSettings), nameof(TWallPaperSettings))]
-public interface IWallPaperSettings : IObject
+public partial interface IWallPaperSettings : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

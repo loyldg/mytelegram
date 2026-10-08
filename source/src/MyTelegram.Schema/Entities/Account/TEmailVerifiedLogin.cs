@@ -21,13 +21,9 @@ public sealed partial class TEmailVerifiedLogin : IEmailVerified
     /// </summary>
     public MyTelegram.Schema.Auth.ISentCode SentCode { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Email);
         writer.Write(SentCode);

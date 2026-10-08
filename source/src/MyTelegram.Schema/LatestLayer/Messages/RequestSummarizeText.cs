@@ -39,21 +39,23 @@ public sealed partial class RequestSummarizeText : IRequest<MyTelegram.Schema.IT
 
     public string? Tone { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ToLang != null) { Flags = Flags.SetBit(0); }
-        if (Tone != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (ToLang != null) { flags = flags.SetBit(0); }
+        if (Tone != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Id);
-        if (Flags.IsBitSet(0)) { writer.Write(ToLang); }
-        if (Flags.IsBitSet(2)) { writer.Write(Tone); }
+        if (flags.IsBitSet(0)) { writer.Write(ToLang); }
+        if (flags.IsBitSet(2)) { writer.Write(Tone); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

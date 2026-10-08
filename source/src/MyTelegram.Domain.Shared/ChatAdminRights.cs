@@ -21,6 +21,8 @@ public class ChatAdminRights
         true,
         true,
         true,
+        true,
+        true,
         true
     );
 
@@ -54,7 +56,9 @@ public class ChatAdminRights
         bool postStories,
         bool editStories,
         bool deleteStories,
-        bool manageDirectMessages
+        bool manageDirectMessages,
+        bool manageRanks,
+        bool manageLinkedPeers
     )
     {
         ChangeInfo = changeInfo;
@@ -73,6 +77,8 @@ public class ChatAdminRights
         EditStories = editStories;
         DeleteStories = deleteStories;
         ManageDirectMessages = manageDirectMessages;
+        ManageRanks = manageRanks;
+        ManageLinkedPeers = manageLinkedPeers;
 
         ComputeFlag();
     }
@@ -94,6 +100,8 @@ public class ChatAdminRights
     public bool EditStories { get; set; }
     public bool DeleteStories { get; set; }
     public bool ManageDirectMessages { get; set; }
+    public bool ManageRanks { get; set; }
+    public bool ManageLinkedPeers { get; set; }
 
     public bool HasNoRights()
     {
@@ -112,7 +120,10 @@ public class ChatAdminRights
                !PostStories &&
                !EditStories &&
                !DeleteStories &&
-               !ManageDirectMessages
+               !ManageDirectMessages &&
+               !ManageRanks &&
+               !ManageLinkedPeers &&
+               !ManageLinkedPeers
             ;
     }
 
@@ -134,6 +145,8 @@ public class ChatAdminRights
         _flags[15] = EditStories;
         _flags[16] = DeleteStories;
         _flags[17] = ManageDirectMessages;
+        _flags[18] = ManageRanks;
+        _flags[19] = ManageLinkedPeers;
     }
 
     public BitArray GetFlags()
@@ -161,5 +174,7 @@ public class ChatAdminRights
         EditStories = _flags[15];
         DeleteStories = _flags[16];
         ManageDirectMessages = _flags[17];
+        ManageRanks = _flags[18];
+        ManageLinkedPeers = _flags[19];
     }
 }

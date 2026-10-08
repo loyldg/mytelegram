@@ -19,7 +19,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TEncryptedChatRequested), nameof(TEncryptedChatRequested))]
 [JsonDerivedType(typeof(TEncryptedChat), nameof(TEncryptedChat))]
 [JsonDerivedType(typeof(TEncryptedChatDiscarded), nameof(TEncryptedChatDiscarded))]
-public interface IEncryptedChat : IObject
+public partial interface IEncryptedChat : IObject
 {
     /// <summary>
     /// Chat ID

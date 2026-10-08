@@ -31,21 +31,23 @@ public sealed partial class TMessageViews : IMessageViews
     /// </summary>
     public MyTelegram.Schema.IMessageReplies? Replies { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*Views != 0 && */Views.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*Forwards != 0 && */Forwards.HasValue) { Flags = Flags.SetBit(1); }
-        if (Replies != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (/*Views != 0 && */Views.HasValue) { flags = flags.SetBit(0); }
+        if (/*Forwards != 0 && */Forwards.HasValue) { flags = flags.SetBit(1); }
+        if (Replies != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(Views.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(Forwards.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(Replies); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(Views.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(Forwards.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(Replies); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

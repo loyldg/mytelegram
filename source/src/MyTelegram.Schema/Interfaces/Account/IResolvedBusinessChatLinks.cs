@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Account;
 /// <see cref="TResolvedBusinessChatLinks"/> See <a href="https://corefork.telegram.org/constructor/account.resolvedBusinessChatLinks" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TResolvedBusinessChatLinks), nameof(TResolvedBusinessChatLinks))]
-public interface IResolvedBusinessChatLinks : IObject
+public partial interface IResolvedBusinessChatLinks : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

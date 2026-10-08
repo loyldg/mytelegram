@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Payments;
 /// </remarks>
 [JsonDerivedType(typeof(TPaymentResult), nameof(TPaymentResult))]
 [JsonDerivedType(typeof(TPaymentVerificationNeeded), nameof(TPaymentVerificationNeeded))]
-public interface IPaymentResult : IObject
+public partial interface IPaymentResult : IObject
 {
 }

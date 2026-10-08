@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Smsjobs;
 /// <see cref="TEligibleToJoin"/> See <a href="https://corefork.telegram.org/constructor/smsjobs.eligibleToJoin" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TEligibleToJoin), nameof(TEligibleToJoin))]
-public interface IEligibilityToJoin : IObject
+public partial interface IEligibilityToJoin : IObject
 {
     /// <summary>
     /// Terms of service URL

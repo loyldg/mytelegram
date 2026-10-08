@@ -13,7 +13,7 @@ namespace MyTelegram.Schema.Payments;
 /// </remarks>
 [JsonDerivedType(typeof(TGiveawayInfo), nameof(TGiveawayInfo))]
 [JsonDerivedType(typeof(TGiveawayInfoResults), nameof(TGiveawayInfoResults))]
-public interface IGiveawayInfo : IObject
+public partial interface IGiveawayInfo : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

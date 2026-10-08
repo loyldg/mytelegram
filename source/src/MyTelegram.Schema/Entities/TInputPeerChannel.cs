@@ -20,13 +20,9 @@ public sealed partial class TInputPeerChannel : IInputPeer
     /// </summary>
     public long AccessHash { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ChannelId);
         writer.Write(AccessHash);

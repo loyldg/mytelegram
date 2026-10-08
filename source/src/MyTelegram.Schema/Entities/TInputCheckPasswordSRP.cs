@@ -25,13 +25,9 @@ public sealed partial class TInputCheckPasswordSRP : IInputCheckPasswordSRP
     /// </summary>
     public ReadOnlyMemory<byte> M1 { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(SrpId);
         writer.Write(A);

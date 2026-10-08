@@ -40,13 +40,9 @@ public sealed partial class RequestImportBotAuthorization : IRequest<MyTelegram.
     /// </summary>
     public string BotAuthToken { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Flags);
         writer.Write(ApiId);

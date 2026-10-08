@@ -20,13 +20,9 @@ public sealed partial class TMessageRange : IMessageRange
     /// </summary>
     public int MaxId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(MinId);
         writer.Write(MaxId);

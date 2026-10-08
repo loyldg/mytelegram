@@ -30,13 +30,9 @@ public sealed partial class TInputPasskeyResponseLogin : IInputPasskeyResponse
     /// </summary>
     public string UserHandle { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ClientData);
         writer.Write(AuthenticatorData);

@@ -16,7 +16,7 @@ public class ForwardMessageSagaStartedSagaEvent(
     )
     : RequestAggregateEvent2<ForwardMessageSaga, ForwardMessageSagaId>(requestInfo)
 {
-    public RequestInfo RequestInfo { get; } = requestInfo;
+    //public RequestInfo RequestInfo { get; } = requestInfo;
     public Peer FromPeer { get; } = fromPeer;
     public IReadOnlyList<int> IdList { get; } = idList;
     public IReadOnlyList<long> RandomIdList { get; } = randomIdList;

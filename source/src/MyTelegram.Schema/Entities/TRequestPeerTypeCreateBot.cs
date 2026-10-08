@@ -17,20 +17,22 @@ public sealed partial class TRequestPeerTypeCreateBot : IRequestPeerType
 
     public string? SuggestedUsername { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (BotManaged) { Flags = Flags.SetBit(0); }
-        if (SuggestedName != null) { Flags = Flags.SetBit(1); }
-        if (SuggestedUsername != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (BotManaged) { flags = flags.SetBit(0); }
+        if (SuggestedName != null) { flags = flags.SetBit(1); }
+        if (SuggestedUsername != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(1)) { writer.Write(SuggestedName); }
-        if (Flags.IsBitSet(2)) { writer.Write(SuggestedUsername); }
+        writer.Write(flags);
+        if (flags.IsBitSet(1)) { writer.Write(SuggestedName); }
+        if (flags.IsBitSet(2)) { writer.Write(SuggestedUsername); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

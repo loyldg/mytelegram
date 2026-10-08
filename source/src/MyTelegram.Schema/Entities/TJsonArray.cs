@@ -16,13 +16,9 @@ public sealed partial class TJsonArray : IJSONValue
     /// </summary>
     public TVector<MyTelegram.Schema.IJSONValue> Value { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Value);
     }

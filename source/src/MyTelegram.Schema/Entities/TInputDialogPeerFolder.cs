@@ -15,13 +15,9 @@ public sealed partial class TInputDialogPeerFolder : IInputDialogPeer
     /// </summary>
     public int FolderId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(FolderId);
     }

@@ -57,16 +57,18 @@ public sealed partial class RequestRequestCall : IRequest<MyTelegram.Schema.Phon
     /// </summary>
     public MyTelegram.Schema.IPhoneCallProtocol Protocol { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Video) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Video) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(UserId);
         writer.Write(RandomId);
         writer.Write(GAHash);

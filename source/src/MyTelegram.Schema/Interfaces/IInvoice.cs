@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TInvoice"/> See <a href="https://corefork.telegram.org/constructor/invoice" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInvoice), nameof(TInvoice))]
-public interface IInvoice : IObject
+public partial interface IInvoice : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

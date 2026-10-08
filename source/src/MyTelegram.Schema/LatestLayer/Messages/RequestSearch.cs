@@ -114,25 +114,27 @@ public sealed partial class RequestSearch : IRequest<MyTelegram.Schema.Messages.
     /// </summary>
     public long Hash { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (FromId != null) { Flags = Flags.SetBit(0); }
-        if (SavedPeerId != null) { Flags = Flags.SetBit(2); }
-        if (SavedReaction?.Count > 0) { Flags = Flags.SetBit(3); }
-        if (/*TopMsgId != 0 && */TopMsgId.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (FromId != null) { flags = flags.SetBit(0); }
+        if (SavedPeerId != null) { flags = flags.SetBit(2); }
+        if (SavedReaction?.Count > 0) { flags = flags.SetBit(3); }
+        if (/*TopMsgId != 0 && */TopMsgId.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Q);
-        if (Flags.IsBitSet(0)) { writer.Write(FromId); }
-        if (Flags.IsBitSet(2)) { writer.Write(SavedPeerId); }
-        if (Flags.IsBitSet(3)) { writer.Write(SavedReaction); }
-        if (Flags.IsBitSet(1)) { writer.Write(TopMsgId.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(FromId); }
+        if (flags.IsBitSet(2)) { writer.Write(SavedPeerId); }
+        if (flags.IsBitSet(3)) { writer.Write(SavedReaction); }
+        if (flags.IsBitSet(1)) { writer.Write(TopMsgId.Value); }
         writer.Write(Filter);
         writer.Write(MinDate);
         writer.Write(MaxDate);

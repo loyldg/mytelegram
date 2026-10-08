@@ -27,13 +27,9 @@ public sealed partial class TMessageActionGeoProximityReached : IMessageAction
     /// </summary>
     public int Distance { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(FromId);
         writer.Write(ToId);

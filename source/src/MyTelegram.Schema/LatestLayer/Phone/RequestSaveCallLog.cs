@@ -29,13 +29,9 @@ public sealed partial class RequestSaveCallLog : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IInputFile File { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(File);

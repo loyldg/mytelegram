@@ -31,13 +31,9 @@ public sealed partial class RequestSaveDefaultSendAs : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IInputPeer SendAs { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(SendAs);

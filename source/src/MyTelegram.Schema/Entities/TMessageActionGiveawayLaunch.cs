@@ -20,17 +20,19 @@ public sealed partial class TMessageActionGiveawayLaunch : IMessageAction
     /// </summary>
     public long? Stars { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*Stars != 0 &&*/ Stars.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*Stars != 0 &&*/ Stars.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(Stars.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(Stars.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

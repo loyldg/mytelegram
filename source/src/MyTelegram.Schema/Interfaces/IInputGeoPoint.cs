@@ -13,6 +13,6 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TInputGeoPointEmpty), nameof(TInputGeoPointEmpty))]
 [JsonDerivedType(typeof(TInputGeoPoint), nameof(TInputGeoPoint))]
-public interface IInputGeoPoint : IObject
+public partial interface IInputGeoPoint : IObject
 {
 }

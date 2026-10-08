@@ -16,13 +16,9 @@ public sealed partial class TMessageActionSetChatTheme : IMessageAction
     /// </summary>
     public MyTelegram.Schema.IChatTheme Theme { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Theme);
     }

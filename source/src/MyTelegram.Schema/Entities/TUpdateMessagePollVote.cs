@@ -33,13 +33,9 @@ public sealed partial class TUpdateMessagePollVote : IUpdate
     /// </summary>
     public int Qts { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PollId);
         writer.Write(Peer);

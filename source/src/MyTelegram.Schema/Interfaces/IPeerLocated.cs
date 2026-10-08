@@ -13,7 +13,7 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TPeerLocated), nameof(TPeerLocated))]
 [JsonDerivedType(typeof(TPeerSelfLocated), nameof(TPeerSelfLocated))]
-public interface IPeerLocated : IObject
+public partial interface IPeerLocated : IObject
 {
     /// <summary>
     /// Expiry of geolocation info for current peer

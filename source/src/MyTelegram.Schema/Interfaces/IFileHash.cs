@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TFileHash"/> See <a href="https://corefork.telegram.org/constructor/fileHash" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TFileHash), nameof(TFileHash))]
-public interface IFileHash : IObject
+public partial interface IFileHash : IObject
 {
     /// <summary>
     /// Offset from where to start computing SHA-256 hash

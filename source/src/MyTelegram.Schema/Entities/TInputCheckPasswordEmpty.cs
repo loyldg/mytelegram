@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TInputCheckPasswordEmpty : IInputCheckPasswordSRP
 {
     public uint ConstructorId => 0x9880f658;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

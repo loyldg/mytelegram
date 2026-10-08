@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TBankCardOpenUrl"/> See <a href="https://corefork.telegram.org/constructor/bankCardOpenUrl" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TBankCardOpenUrl), nameof(TBankCardOpenUrl))]
-public interface IBankCardOpenUrl : IObject
+public partial interface IBankCardOpenUrl : IObject
 {
     /// <summary>
     /// Info URL

@@ -32,19 +32,21 @@ public sealed partial class TUpdatePeerWallpaper : IUpdate
     /// </summary>
     public MyTelegram.Schema.IWallPaper? Wallpaper { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (WallpaperOverridden) { Flags = Flags.SetBit(1); }
-        if (Wallpaper != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (WallpaperOverridden) { flags = flags.SetBit(1); }
+        if (Wallpaper != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
-        if (Flags.IsBitSet(0)) { writer.Write(Wallpaper); }
+        if (flags.IsBitSet(0)) { writer.Write(Wallpaper); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -17,6 +17,6 @@ internal sealed class GetPinnedDialogsHandler(IDialogAppService dialogAppService
         var getDialogOutput = await dialogAppService.GetDialogsAsync(new GetDialogInput { Pinned = true, OwnerId = userId, Limit = DefaultPageSize, FolderId = obj.FolderId });
         var cachedPts = ptsHelper.GetCachedPts(input.UserId);
         getDialogOutput.CachedPts = cachedPts;
-        return dialogConverterService.ToPeerDialogs(input, getDialogOutput, input.Layer);
+        return await dialogConverterService.ToPeerDialogsAsync(input, getDialogOutput, input.Layer);
     }
 }

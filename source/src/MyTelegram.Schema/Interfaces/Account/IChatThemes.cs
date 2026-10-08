@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Account;
 /// </remarks>
 [JsonDerivedType(typeof(TChatThemesNotModified), nameof(TChatThemesNotModified))]
 [JsonDerivedType(typeof(TChatThemes), nameof(TChatThemes))]
-public interface IChatThemes : IObject
+public partial interface IChatThemes : IObject
 {
 }

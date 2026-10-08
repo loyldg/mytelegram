@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Account;
 /// <see cref="TSentEmailCode"/> See <a href="https://corefork.telegram.org/constructor/account.sentEmailCode" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TSentEmailCode), nameof(TSentEmailCode))]
-public interface ISentEmailCode : IObject
+public partial interface ISentEmailCode : IObject
 {
     /// <summary>
     /// The email (to which the code was sent) must match this <a href="https://corefork.telegram.org/api/pattern">pattern</a>

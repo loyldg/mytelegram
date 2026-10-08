@@ -21,13 +21,9 @@ public sealed partial class TReportResultChooseOption : IReportResult
     /// </summary>
     public TVector<MyTelegram.Schema.IMessageReportOption> Options { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Title);
         writer.Write(Options);

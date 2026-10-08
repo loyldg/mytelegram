@@ -61,17 +61,18 @@ public sealed partial class RequestInitConnection : IRequest<IObject>, IHasSubQu
     ///</summary>
     public IObject Query { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Proxy != null) { Flags = Flags.SetBit(0); }
-
+        var flags = 0;
+        if (Proxy != null) { flags= flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var falgs= CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(falgs);
         writer.Write(ApiId);
         writer.Write(DeviceModel);
         writer.Write(SystemVersion);
@@ -79,7 +80,7 @@ public sealed partial class RequestInitConnection : IRequest<IObject>, IHasSubQu
         writer.Write(SystemLangCode);
         writer.Write(LangPack);
         writer.Write(LangCode);
-        if (Flags.IsBitSet(0)) { writer.Write(Proxy); }
+        if (falgs.IsBitSet(0)) { writer.Write(Proxy); }
         writer.Write(Query);
     }
 

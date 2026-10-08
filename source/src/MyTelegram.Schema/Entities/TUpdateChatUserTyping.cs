@@ -27,13 +27,9 @@ public sealed partial class TUpdateChatUserTyping : IUpdate
     /// </summary>
     public MyTelegram.Schema.ISendMessageAction Action { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ChatId);
         writer.Write(FromId);

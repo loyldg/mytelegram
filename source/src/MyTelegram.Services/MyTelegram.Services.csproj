@@ -11,6 +11,7 @@
     <ProjectReference Include="..\MyTelegram.Core\MyTelegram.Core.csproj" />
     <ProjectReference Include="..\MyTelegram.Domain.Shared\MyTelegram.Domain.Shared.csproj" />
     <ProjectReference Include="..\MyTelegram.EventBus.RabbitMQ\MyTelegram.EventBus.RabbitMQ.csproj" />
+    <ProjectReference Include="..\MyTelegram.EventBus.Redis\MyTelegram.EventBus.Redis.csproj" />
     <ProjectReference Include="..\MyTelegram.EventBus\MyTelegram.EventBus.csproj" />
     <ProjectReference Include="..\MyTelegram.EventFlow\MyTelegram.EventFlow.csproj" />
     <ProjectReference Include="..\MyTelegram.Schema\MyTelegram.Schema.csproj" />

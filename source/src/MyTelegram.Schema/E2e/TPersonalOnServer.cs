@@ -4,10 +4,10 @@
 namespace MyTelegram.Schema.E2e;
 
 
-[TlObject(0x3DDB7846)]
-public sealed class TPersonalOnServer : IPersonalOnServer
+[TlObject(0xD04D2C83)]
+public sealed partial class TPersonalOnServer : IPersonalOnServer
 {
-    public uint ConstructorId => 0x3DDB7846;
+    public uint ConstructorId => 0xD04D2C83;
     public ReadOnlyMemory<byte> Signature { get; set; }
     public int SignedAt { get; set; }
     public MyTelegram.Schema.E2e.IPersonal Personal { get; set; }

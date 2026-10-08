@@ -41,22 +41,24 @@ public sealed partial class TMyBoost : IMyBoost
     /// </summary>
     public int? CooldownUntilDate { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Peer != null) { Flags = Flags.SetBit(0); }
-        if (/*CooldownUntilDate != 0 && */CooldownUntilDate.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Peer != null) { flags = flags.SetBit(0); }
+        if (/*CooldownUntilDate != 0 && */CooldownUntilDate.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Slot);
-        if (Flags.IsBitSet(0)) { writer.Write(Peer); }
+        if (flags.IsBitSet(0)) { writer.Write(Peer); }
         writer.Write(Date);
         writer.Write(Expires);
-        if (Flags.IsBitSet(1)) { writer.Write(CooldownUntilDate.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(CooldownUntilDate.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

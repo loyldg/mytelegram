@@ -32,13 +32,9 @@ public sealed partial class TRecentStickers : IRecentStickers
     /// </summary>
     public TVector<int> Dates { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Hash);
         writer.Write(Packs);

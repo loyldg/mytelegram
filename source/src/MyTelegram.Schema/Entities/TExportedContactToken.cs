@@ -20,13 +20,9 @@ public sealed partial class TExportedContactToken : IExportedContactToken
     /// </summary>
     public int Expires { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Url);
         writer.Write(Expires);

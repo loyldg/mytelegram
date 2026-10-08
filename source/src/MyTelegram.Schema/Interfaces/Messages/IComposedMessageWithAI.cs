@@ -10,7 +10,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TComposedMessageWithAI"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TComposedMessageWithAI), nameof(TComposedMessageWithAI))]
-public interface IComposedMessageWithAI : IObject
+public partial interface IComposedMessageWithAI : IObject
 {
     int Flags { get; set; }
 

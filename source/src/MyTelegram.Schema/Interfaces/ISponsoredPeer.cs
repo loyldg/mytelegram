@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TSponsoredPeer"/> See <a href="https://corefork.telegram.org/constructor/sponsoredPeer" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TSponsoredPeer), nameof(TSponsoredPeer))]
-public interface ISponsoredPeer : IObject
+public partial interface ISponsoredPeer : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

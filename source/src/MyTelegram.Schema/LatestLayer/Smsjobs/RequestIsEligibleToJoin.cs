@@ -14,13 +14,9 @@ public sealed partial class RequestIsEligibleToJoin : IRequest<MyTelegram.Schema
 {
     public uint ConstructorId => 0xedc39d0;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

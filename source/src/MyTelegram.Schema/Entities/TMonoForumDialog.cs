@@ -62,25 +62,27 @@ public sealed partial class TMonoForumDialog : ISavedDialog
     /// </summary>
     public MyTelegram.Schema.IDraftMessage? Draft { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (UnreadMark) { Flags = Flags.SetBit(3); }
-        if (NopaidMessagesException) { Flags = Flags.SetBit(4); }
-        if (Draft != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (UnreadMark) { flags = flags.SetBit(3); }
+        if (NopaidMessagesException) { flags = flags.SetBit(4); }
+        if (Draft != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(TopMessage);
         writer.Write(ReadInboxMaxId);
         writer.Write(ReadOutboxMaxId);
         writer.Write(UnreadCount);
         writer.Write(UnreadReactionsCount);
-        if (Flags.IsBitSet(1)) { writer.Write(Draft); }
+        if (flags.IsBitSet(1)) { writer.Write(Draft); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

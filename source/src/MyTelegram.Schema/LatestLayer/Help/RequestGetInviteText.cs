@@ -14,13 +14,9 @@ public sealed partial class RequestGetInviteText : IRequest<MyTelegram.Schema.He
 {
     public uint ConstructorId => 0x4d392343;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

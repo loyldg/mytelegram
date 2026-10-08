@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TStickerKeyword"/> See <a href="https://corefork.telegram.org/constructor/stickerKeyword" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStickerKeyword), nameof(TStickerKeyword))]
-public interface IStickerKeyword : IObject
+public partial interface IStickerKeyword : IObject
 {
     /// <summary>
     /// Sticker ID

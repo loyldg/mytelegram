@@ -30,13 +30,9 @@ public sealed partial class RequestGetRecentLocations : IRequest<MyTelegram.Sche
     /// </summary>
     public long Hash { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(Limit);

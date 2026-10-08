@@ -207,71 +207,73 @@ public sealed partial class TStarsTransaction : IStarsTransaction
     /// </summary>
     public int? AdsProceedsToDate { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Refund) { Flags = Flags.SetBit(3); }
-        if (Pending) { Flags = Flags.SetBit(4); }
-        if (Failed) { Flags = Flags.SetBit(6); }
-        if (Gift) { Flags = Flags.SetBit(10); }
-        if (Reaction) { Flags = Flags.SetBit(11); }
-        if (StargiftUpgrade) { Flags = Flags.SetBit(18); }
-        if (BusinessTransfer) { Flags = Flags.SetBit(21); }
-        if (StargiftResale) { Flags = Flags.SetBit(22); }
-        if (PostsSearch) { Flags = Flags.SetBit(24); }
-        if (StargiftPrepaidUpgrade) { Flags = Flags.SetBit(25); }
-        if (StargiftDropOriginalDetails) { Flags = Flags.SetBit(26); }
-        if (PhonegroupMessage) { Flags = Flags.SetBit(27); }
-        if (StargiftAuctionBid) { Flags = Flags.SetBit(28); }
-        if (Offer) { Flags = Flags.SetBit(29); }
-        if (Title != null) { Flags = Flags.SetBit(0); }
-        if (Description != null) { Flags = Flags.SetBit(1); }
-        if (Photo != null) { Flags = Flags.SetBit(2); }
-        if (/*TransactionDate != 0 && */TransactionDate.HasValue) { Flags = Flags.SetBit(5); }
-        if (TransactionUrl != null) { Flags = Flags.SetBit(5); }
-        if (BotPayload != null) { Flags = Flags.SetBit(7); }
-        if (/*MsgId != 0 && */MsgId.HasValue) { Flags = Flags.SetBit(8); }
-        if (ExtendedMedia?.Count > 0) { Flags = Flags.SetBit(9); }
-        if (/*SubscriptionPeriod != 0 && */SubscriptionPeriod.HasValue) { Flags = Flags.SetBit(12); }
-        if (/*GiveawayPostId != 0 && */GiveawayPostId.HasValue) { Flags = Flags.SetBit(13); }
-        if (Stargift != null) { Flags = Flags.SetBit(14); }
-        if (/*FloodskipNumber != 0 && */FloodskipNumber.HasValue) { Flags = Flags.SetBit(15); }
-        if (/*StarrefCommissionPermille != 0 && */StarrefCommissionPermille.HasValue) { Flags = Flags.SetBit(16); }
-        if (StarrefPeer != null) { Flags = Flags.SetBit(17); }
-        if (StarrefAmount != null) { Flags = Flags.SetBit(17); }
-        if (/*PaidMessages != 0 && */PaidMessages.HasValue) { Flags = Flags.SetBit(19); }
-        if (/*PremiumGiftMonths != 0 && */PremiumGiftMonths.HasValue) { Flags = Flags.SetBit(20); }
-        if (/*AdsProceedsFromDate != 0 && */AdsProceedsFromDate.HasValue) { Flags = Flags.SetBit(23); }
-        if (/*AdsProceedsToDate != 0 && */AdsProceedsToDate.HasValue) { Flags = Flags.SetBit(23); }
+        var flags = 0;
+        if (Refund) { flags = flags.SetBit(3); }
+        if (Pending) { flags = flags.SetBit(4); }
+        if (Failed) { flags = flags.SetBit(6); }
+        if (Gift) { flags = flags.SetBit(10); }
+        if (Reaction) { flags = flags.SetBit(11); }
+        if (StargiftUpgrade) { flags = flags.SetBit(18); }
+        if (BusinessTransfer) { flags = flags.SetBit(21); }
+        if (StargiftResale) { flags = flags.SetBit(22); }
+        if (PostsSearch) { flags = flags.SetBit(24); }
+        if (StargiftPrepaidUpgrade) { flags = flags.SetBit(25); }
+        if (StargiftDropOriginalDetails) { flags = flags.SetBit(26); }
+        if (PhonegroupMessage) { flags = flags.SetBit(27); }
+        if (StargiftAuctionBid) { flags = flags.SetBit(28); }
+        if (Offer) { flags = flags.SetBit(29); }
+        if (Title != null) { flags = flags.SetBit(0); }
+        if (Description != null) { flags = flags.SetBit(1); }
+        if (Photo != null) { flags = flags.SetBit(2); }
+        if (/*TransactionDate != 0 && */TransactionDate.HasValue) { flags = flags.SetBit(5); }
+        if (TransactionUrl != null) { flags = flags.SetBit(5); }
+        if (BotPayload != null) { flags = flags.SetBit(7); }
+        if (/*MsgId != 0 && */MsgId.HasValue) { flags = flags.SetBit(8); }
+        if (ExtendedMedia?.Count > 0) { flags = flags.SetBit(9); }
+        if (/*SubscriptionPeriod != 0 && */SubscriptionPeriod.HasValue) { flags = flags.SetBit(12); }
+        if (/*GiveawayPostId != 0 && */GiveawayPostId.HasValue) { flags = flags.SetBit(13); }
+        if (Stargift != null) { flags = flags.SetBit(14); }
+        if (/*FloodskipNumber != 0 && */FloodskipNumber.HasValue) { flags = flags.SetBit(15); }
+        if (/*StarrefCommissionPermille != 0 && */StarrefCommissionPermille.HasValue) { flags = flags.SetBit(16); }
+        if (StarrefPeer != null) { flags = flags.SetBit(17); }
+        if (StarrefAmount != null) { flags = flags.SetBit(17); }
+        if (/*PaidMessages != 0 && */PaidMessages.HasValue) { flags = flags.SetBit(19); }
+        if (/*PremiumGiftMonths != 0 && */PremiumGiftMonths.HasValue) { flags = flags.SetBit(20); }
+        if (/*AdsProceedsFromDate != 0 && */AdsProceedsFromDate.HasValue) { flags = flags.SetBit(23); }
+        if (/*AdsProceedsToDate != 0 && */AdsProceedsToDate.HasValue) { flags = flags.SetBit(23); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(Amount);
         writer.Write(Date);
         writer.Write(Peer);
-        if (Flags.IsBitSet(0)) { writer.Write(Title); }
-        if (Flags.IsBitSet(1)) { writer.Write(Description); }
-        if (Flags.IsBitSet(2)) { writer.Write(Photo); }
-        if (Flags.IsBitSet(5)) { writer.Write(TransactionDate.Value); }
-        if (Flags.IsBitSet(5)) { writer.Write(TransactionUrl); }
-        if (Flags.IsBitSet(7)) { writer.Write(BotPayload); }
-        if (Flags.IsBitSet(8)) { writer.Write(MsgId.Value); }
-        if (Flags.IsBitSet(9)) { writer.Write(ExtendedMedia); }
-        if (Flags.IsBitSet(12)) { writer.Write(SubscriptionPeriod.Value); }
-        if (Flags.IsBitSet(13)) { writer.Write(GiveawayPostId.Value); }
-        if (Flags.IsBitSet(14)) { writer.Write(Stargift); }
-        if (Flags.IsBitSet(15)) { writer.Write(FloodskipNumber.Value); }
-        if (Flags.IsBitSet(16)) { writer.Write(StarrefCommissionPermille.Value); }
-        if (Flags.IsBitSet(17)) { writer.Write(StarrefPeer); }
-        if (Flags.IsBitSet(17)) { writer.Write(StarrefAmount); }
-        if (Flags.IsBitSet(19)) { writer.Write(PaidMessages.Value); }
-        if (Flags.IsBitSet(20)) { writer.Write(PremiumGiftMonths.Value); }
-        if (Flags.IsBitSet(23)) { writer.Write(AdsProceedsFromDate.Value); }
-        if (Flags.IsBitSet(23)) { writer.Write(AdsProceedsToDate.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(Title); }
+        if (flags.IsBitSet(1)) { writer.Write(Description); }
+        if (flags.IsBitSet(2)) { writer.Write(Photo); }
+        if (flags.IsBitSet(5)) { writer.Write(TransactionDate.Value); }
+        if (flags.IsBitSet(5)) { writer.Write(TransactionUrl); }
+        if (flags.IsBitSet(7)) { writer.Write(BotPayload); }
+        if (flags.IsBitSet(8)) { writer.Write(MsgId.Value); }
+        if (flags.IsBitSet(9)) { writer.Write(ExtendedMedia); }
+        if (flags.IsBitSet(12)) { writer.Write(SubscriptionPeriod.Value); }
+        if (flags.IsBitSet(13)) { writer.Write(GiveawayPostId.Value); }
+        if (flags.IsBitSet(14)) { writer.Write(Stargift); }
+        if (flags.IsBitSet(15)) { writer.Write(FloodskipNumber.Value); }
+        if (flags.IsBitSet(16)) { writer.Write(StarrefCommissionPermille.Value); }
+        if (flags.IsBitSet(17)) { writer.Write(StarrefPeer); }
+        if (flags.IsBitSet(17)) { writer.Write(StarrefAmount); }
+        if (flags.IsBitSet(19)) { writer.Write(PaidMessages.Value); }
+        if (flags.IsBitSet(20)) { writer.Write(PremiumGiftMonths.Value); }
+        if (flags.IsBitSet(23)) { writer.Write(AdsProceedsFromDate.Value); }
+        if (flags.IsBitSet(23)) { writer.Write(AdsProceedsToDate.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -27,18 +27,20 @@ public sealed partial class TMessageMediaToDo : IMessageMedia
     /// </summary>
     public TVector<MyTelegram.Schema.ITodoCompletion>? Completions { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Completions?.Count > 0) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Completions?.Count > 0) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Todo);
-        if (Flags.IsBitSet(0)) { writer.Write(Completions); }
+        if (flags.IsBitSet(0)) { writer.Write(Completions); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

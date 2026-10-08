@@ -40,20 +40,22 @@ public sealed partial class TSearchPostsFlood : ISearchPostsFlood
     /// </summary>
     public long StarsAmount { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (QueryIsFree) { Flags = Flags.SetBit(0); }
-        if (/*WaitTill != 0 && */WaitTill.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (QueryIsFree) { flags = flags.SetBit(0); }
+        if (/*WaitTill != 0 && */WaitTill.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(TotalDaily);
         writer.Write(Remains);
-        if (Flags.IsBitSet(1)) { writer.Write(WaitTill.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(WaitTill.Value); }
         writer.Write(StarsAmount);
     }
 

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TSponsoredMessage"/> See <a href="https://corefork.telegram.org/constructor/sponsoredMessage" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TSponsoredMessage), nameof(TSponsoredMessage))]
-public interface ISponsoredMessage : IObject
+public partial interface ISponsoredMessage : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

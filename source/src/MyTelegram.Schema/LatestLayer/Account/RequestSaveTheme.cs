@@ -29,13 +29,9 @@ public sealed partial class RequestSaveTheme : IRequest<IBool>
     /// </summary>
     public bool Unsave { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Theme);
         writer.Write(Unsave);

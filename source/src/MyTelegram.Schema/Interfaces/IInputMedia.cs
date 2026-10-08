@@ -9,8 +9,6 @@ namespace MyTelegram.Schema;
 /// <remarks>
 /// <para>Implementations:</para>
 /// <see cref="TInputMediaEmpty"/> See <a href="https://corefork.telegram.org/constructor/inputMediaEmpty" /><br/>
-/// <see cref="TInputMediaUploadedPhoto"/> See <a href="https://corefork.telegram.org/constructor/inputMediaUploadedPhoto" /><br/>
-/// <see cref="TInputMediaPhoto"/> See <a href="https://corefork.telegram.org/constructor/inputMediaPhoto" /><br/>
 /// <see cref="TInputMediaGeoPoint"/> See <a href="https://corefork.telegram.org/constructor/inputMediaGeoPoint" /><br/>
 /// <see cref="TInputMediaContact"/> See <a href="https://corefork.telegram.org/constructor/inputMediaContact" /><br/>
 /// <see cref="TInputMediaUploadedDocument"/> See <a href="https://corefork.telegram.org/constructor/inputMediaUploadedDocument" /><br/>
@@ -21,17 +19,17 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputMediaGame"/> See <a href="https://corefork.telegram.org/constructor/inputMediaGame" /><br/>
 /// <see cref="TInputMediaInvoice"/> See <a href="https://corefork.telegram.org/constructor/inputMediaInvoice" /><br/>
 /// <see cref="TInputMediaGeoLive"/> See <a href="https://corefork.telegram.org/constructor/inputMediaGeoLive" /><br/>
-/// <see cref="TInputMediaPoll"/> See <a href="https://corefork.telegram.org/constructor/inputMediaPoll" /><br/>
 /// <see cref="TInputMediaDice"/> See <a href="https://corefork.telegram.org/constructor/inputMediaDice" /><br/>
 /// <see cref="TInputMediaStory"/> See <a href="https://corefork.telegram.org/constructor/inputMediaStory" /><br/>
 /// <see cref="TInputMediaWebPage"/> See <a href="https://corefork.telegram.org/constructor/inputMediaWebPage" /><br/>
 /// <see cref="TInputMediaPaidMedia"/> See <a href="https://corefork.telegram.org/constructor/inputMediaPaidMedia" /><br/>
 /// <see cref="TInputMediaTodo"/> See <a href="https://corefork.telegram.org/constructor/inputMediaTodo" /><br/>
 /// <see cref="TInputMediaStakeDice"/> See <a href="https://corefork.telegram.org/constructor/inputMediaStakeDice" /><br/>
+/// <see cref="TInputMediaUploadedPhoto"/> See <a href="https://corefork.telegram.org/constructor/inputMediaUploadedPhoto" /><br/>
+/// <see cref="TInputMediaPhoto"/> See <a href="https://corefork.telegram.org/constructor/inputMediaPhoto" /><br/>
+/// <see cref="TInputMediaPoll"/> See <a href="https://corefork.telegram.org/constructor/inputMediaPoll" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputMediaEmpty), nameof(TInputMediaEmpty))]
-[JsonDerivedType(typeof(TInputMediaUploadedPhoto), nameof(TInputMediaUploadedPhoto))]
-[JsonDerivedType(typeof(TInputMediaPhoto), nameof(TInputMediaPhoto))]
 [JsonDerivedType(typeof(TInputMediaGeoPoint), nameof(TInputMediaGeoPoint))]
 [JsonDerivedType(typeof(TInputMediaContact), nameof(TInputMediaContact))]
 [JsonDerivedType(typeof(TInputMediaUploadedDocument), nameof(TInputMediaUploadedDocument))]
@@ -42,13 +40,15 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputMediaGame), nameof(TInputMediaGame))]
 [JsonDerivedType(typeof(TInputMediaInvoice), nameof(TInputMediaInvoice))]
 [JsonDerivedType(typeof(TInputMediaGeoLive), nameof(TInputMediaGeoLive))]
-[JsonDerivedType(typeof(TInputMediaPoll), nameof(TInputMediaPoll))]
 [JsonDerivedType(typeof(TInputMediaDice), nameof(TInputMediaDice))]
 [JsonDerivedType(typeof(TInputMediaStory), nameof(TInputMediaStory))]
 [JsonDerivedType(typeof(TInputMediaWebPage), nameof(TInputMediaWebPage))]
 [JsonDerivedType(typeof(TInputMediaPaidMedia), nameof(TInputMediaPaidMedia))]
 [JsonDerivedType(typeof(TInputMediaTodo), nameof(TInputMediaTodo))]
 [JsonDerivedType(typeof(TInputMediaStakeDice), nameof(TInputMediaStakeDice))]
-public interface IInputMedia : IObject
+[JsonDerivedType(typeof(TInputMediaUploadedPhoto), nameof(TInputMediaUploadedPhoto))]
+[JsonDerivedType(typeof(TInputMediaPhoto), nameof(TInputMediaPhoto))]
+[JsonDerivedType(typeof(TInputMediaPoll), nameof(TInputMediaPoll))]
+public partial interface IInputMedia : IObject
 {
 }

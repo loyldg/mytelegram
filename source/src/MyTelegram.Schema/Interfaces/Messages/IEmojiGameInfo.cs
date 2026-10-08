@@ -12,6 +12,6 @@ namespace MyTelegram.Schema.Messages;
 /// </remarks>
 [JsonDerivedType(typeof(TEmojiGameUnavailable), nameof(TEmojiGameUnavailable))]
 [JsonDerivedType(typeof(TEmojiGameDiceInfo), nameof(TEmojiGameDiceInfo))]
-public interface IEmojiGameInfo : IObject
+public partial interface IEmojiGameInfo : IObject
 {
 }

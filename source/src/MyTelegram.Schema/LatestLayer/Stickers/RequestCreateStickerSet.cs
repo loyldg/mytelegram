@@ -88,26 +88,28 @@ public sealed partial class RequestCreateStickerSet : IRequest<MyTelegram.Schema
     /// </summary>
     public string? Software { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Masks) { Flags = Flags.SetBit(0); }
-        if (Emojis) { Flags = Flags.SetBit(5); }
-        if (TextColor) { Flags = Flags.SetBit(6); }
-        if (Thumb != null) { Flags = Flags.SetBit(2); }
-        if (Software != null) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (Masks) { flags = flags.SetBit(0); }
+        if (Emojis) { flags = flags.SetBit(5); }
+        if (TextColor) { flags = flags.SetBit(6); }
+        if (Thumb != null) { flags = flags.SetBit(2); }
+        if (Software != null) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(UserId);
         writer.Write(Title);
         writer.Write(ShortName);
-        if (Flags.IsBitSet(2)) { writer.Write(Thumb); }
+        if (flags.IsBitSet(2)) { writer.Write(Thumb); }
         writer.Write(Stickers);
-        if (Flags.IsBitSet(3)) { writer.Write(Software); }
+        if (flags.IsBitSet(3)) { writer.Write(Software); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -16,13 +16,9 @@ public sealed partial class TWebPageAttributeUniqueStarGift : IWebPageAttribute
     /// </summary>
     public MyTelegram.Schema.IStarGift Gift { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Gift);
     }

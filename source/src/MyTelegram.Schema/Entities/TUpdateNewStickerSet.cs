@@ -16,13 +16,9 @@ public sealed partial class TUpdateNewStickerSet : IUpdate
     /// </summary>
     public MyTelegram.Schema.Messages.IStickerSet Stickerset { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Stickerset);
     }

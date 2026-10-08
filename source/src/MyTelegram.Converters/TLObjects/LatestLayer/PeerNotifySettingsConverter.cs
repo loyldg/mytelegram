@@ -13,7 +13,11 @@ internal sealed class PeerNotifySettingsConverter(IObjectMapper objectMapper)
 
     public IPeerNotifySettings ToPeerNotifySettings(IPeerNotifySettingsReadModel? readModel)
     {
-        return objectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(readModel?.NotifySettings ??
-                                                                         PeerNotifySettings.DefaultSettings);
+        if (readModel?.PeerNotifySettings!=null)
+        {
+            return readModel.PeerNotifySettings;
+        }
+
+        return objectMapper.Map<PeerNotifySettings, TPeerNotifySettings>(readModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings);
     }
 }

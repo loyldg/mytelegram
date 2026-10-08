@@ -28,13 +28,9 @@ public sealed partial class RequestGetPeerDialogs : IRequest<MyTelegram.Schema.M
     /// </summary>
     public TVector<MyTelegram.Schema.IInputDialogPeer> Peers { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peers);
     }

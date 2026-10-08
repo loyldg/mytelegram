@@ -13,7 +13,7 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TInputBotInlineMessageID), nameof(TInputBotInlineMessageID))]
 [JsonDerivedType(typeof(TInputBotInlineMessageID64), nameof(TInputBotInlineMessageID64))]
-public interface IInputBotInlineMessageID : IObject
+public partial interface IInputBotInlineMessageID : IObject
 {
     /// <summary>
     /// DC ID to use when working with this inline message

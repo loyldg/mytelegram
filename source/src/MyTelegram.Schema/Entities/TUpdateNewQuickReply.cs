@@ -16,13 +16,9 @@ public sealed partial class TUpdateNewQuickReply : IUpdate
     /// </summary>
     public MyTelegram.Schema.IQuickReply QuickReply { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(QuickReply);
     }

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Payments;
 /// <see cref="TBankCardData"/> See <a href="https://corefork.telegram.org/constructor/payments.bankCardData" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TBankCardData), nameof(TBankCardData))]
-public interface IBankCardData : IObject
+public partial interface IBankCardData : IObject
 {
     /// <summary>
     /// Credit card title

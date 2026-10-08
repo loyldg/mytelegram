@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Users;
 /// <see cref="TUserFull"/> See <a href="https://corefork.telegram.org/constructor/users.userFull" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TUserFull), nameof(TUserFull))]
-public interface IUserFull : IObject
+public partial interface IUserFull : IObject
 {
     /// <summary>
     /// Full user information

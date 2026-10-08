@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TDiscussionMessage"/> See <a href="https://corefork.telegram.org/constructor/messages.discussionMessage" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TDiscussionMessage), nameof(TDiscussionMessage))]
-public interface IDiscussionMessage : IObject
+public partial interface IDiscussionMessage : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

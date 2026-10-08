@@ -14,13 +14,9 @@ public sealed partial class RequestDeclinePasswordReset : IRequest<IBool>
 {
     public uint ConstructorId => 0x4c9409f6;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

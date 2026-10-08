@@ -51,7 +51,8 @@ public class HandlerHelper(IServiceProvider serviceProvider, ILogger<HandlerHelp
 
         logger.LogWarning("****************** Unsupported request, objectId: {ObjectId:x2}", objectId);
 
-        throw new NotImplementedException();
+        return false;
+        //throw new NotImplementedException();
     }
 
     public bool TryGetHandlerName(uint objectId, [NotNullWhen(true)] out string? handlerName)

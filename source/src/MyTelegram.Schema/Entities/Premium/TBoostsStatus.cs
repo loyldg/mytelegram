@@ -67,30 +67,32 @@ public sealed partial class TBoostsStatus : IBoostsStatus
     /// </summary>
     public TVector<int>? MyBoostSlots { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (MyBoost) { Flags = Flags.SetBit(2); }
-        if (/*GiftBoosts != 0 && */GiftBoosts.HasValue) { Flags = Flags.SetBit(4); }
-        if (/*NextLevelBoosts != 0 && */NextLevelBoosts.HasValue) { Flags = Flags.SetBit(0); }
-        if (PremiumAudience != null) { Flags = Flags.SetBit(1); }
-        if (PrepaidGiveaways?.Count > 0) { Flags = Flags.SetBit(3); }
-        if (MyBoostSlots?.Count > 0) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (MyBoost) { flags = flags.SetBit(2); }
+        if (/*GiftBoosts != 0 && */GiftBoosts.HasValue) { flags = flags.SetBit(4); }
+        if (/*NextLevelBoosts != 0 && */NextLevelBoosts.HasValue) { flags = flags.SetBit(0); }
+        if (PremiumAudience != null) { flags = flags.SetBit(1); }
+        if (PrepaidGiveaways?.Count > 0) { flags = flags.SetBit(3); }
+        if (MyBoostSlots?.Count > 0) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Level);
         writer.Write(CurrentLevelBoosts);
         writer.Write(Boosts);
-        if (Flags.IsBitSet(4)) { writer.Write(GiftBoosts.Value); }
-        if (Flags.IsBitSet(0)) { writer.Write(NextLevelBoosts.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(PremiumAudience); }
+        if (flags.IsBitSet(4)) { writer.Write(GiftBoosts.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(NextLevelBoosts.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(PremiumAudience); }
         writer.Write(BoostUrl);
-        if (Flags.IsBitSet(3)) { writer.Write(PrepaidGiveaways); }
-        if (Flags.IsBitSet(2)) { writer.Write(MyBoostSlots); }
+        if (flags.IsBitSet(3)) { writer.Write(PrepaidGiveaways); }
+        if (flags.IsBitSet(2)) { writer.Write(MyBoostSlots); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

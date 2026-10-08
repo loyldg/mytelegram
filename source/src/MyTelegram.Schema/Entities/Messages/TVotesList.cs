@@ -43,21 +43,23 @@ public sealed partial class TVotesList : IVotesList
     /// </summary>
     public string? NextOffset { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (NextOffset != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (NextOffset != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Count);
         writer.Write(Votes);
         writer.Write(Chats);
         writer.Write(Users);
-        if (Flags.IsBitSet(0)) { writer.Write(NextOffset); }
+        if (flags.IsBitSet(0)) { writer.Write(NextOffset); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

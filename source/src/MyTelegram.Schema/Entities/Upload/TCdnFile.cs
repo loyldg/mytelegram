@@ -15,13 +15,9 @@ public sealed partial class TCdnFile : ICdnFile
     /// </summary>
     public ReadOnlyMemory<byte> Bytes { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Bytes);
     }

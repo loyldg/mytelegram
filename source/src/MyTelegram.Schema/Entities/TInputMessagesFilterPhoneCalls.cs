@@ -20,16 +20,18 @@ public sealed partial class TInputMessagesFilterPhoneCalls : IMessagesFilter
     /// </summary>
     public bool Missed { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Missed) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Missed) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

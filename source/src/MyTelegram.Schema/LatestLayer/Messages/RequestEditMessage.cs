@@ -59,10 +59,10 @@ namespace MyTelegram.Schema.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-[TlObject(0x51e842e1)]
+[TlObject(0xb106e66c)]
 public sealed partial class RequestEditMessage : IRequest<MyTelegram.Schema.IUpdates>
 {
-    public uint ConstructorId => 0x51e842e1;
+    public uint ConstructorId => 0xb106e66c;
 
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
@@ -128,33 +128,42 @@ public sealed partial class RequestEditMessage : IRequest<MyTelegram.Schema.IUpd
     /// </summary>
     public int? QuickReplyShortcutId { get; set; }
 
-    public void ComputeFlag()
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/InputRichMessage" />
+    /// </summary>
+    public MyTelegram.Schema.IInputRichMessage? RichMessage { get; set; }
+
+    public int CalculateFlags()
     {
-        if (NoWebpage) { Flags = Flags.SetBit(1); }
-        if (InvertMedia) { Flags = Flags.SetBit(16); }
-        if (Message != null) { Flags = Flags.SetBit(11); }
-        if (Media != null) { Flags = Flags.SetBit(14); }
-        if (ReplyMarkup != null) { Flags = Flags.SetBit(2); }
-        if (Entities?.Count > 0) { Flags = Flags.SetBit(3); }
-        if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { Flags = Flags.SetBit(15); }
-        if (/*ScheduleRepeatPeriod != 0 && */ScheduleRepeatPeriod.HasValue) { Flags = Flags.SetBit(18); }
-        if (/*QuickReplyShortcutId != 0 && */QuickReplyShortcutId.HasValue) { Flags = Flags.SetBit(17); }
+        var flags = 0;
+        if (NoWebpage) { flags = flags.SetBit(1); }
+        if (InvertMedia) { flags = flags.SetBit(16); }
+        if (Message != null) { flags = flags.SetBit(11); }
+        if (Media != null) { flags = flags.SetBit(14); }
+        if (ReplyMarkup != null) { flags = flags.SetBit(2); }
+        if (Entities?.Count > 0) { flags = flags.SetBit(3); }
+        if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { flags = flags.SetBit(15); }
+        if (/*ScheduleRepeatPeriod != 0 && */ScheduleRepeatPeriod.HasValue) { flags = flags.SetBit(18); }
+        if (/*QuickReplyShortcutId != 0 && */QuickReplyShortcutId.HasValue) { flags = flags.SetBit(17); }
+        if (RichMessage != null) { flags = flags.SetBit(23); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Id);
-        if (Flags.IsBitSet(11)) { writer.Write(Message); }
-        if (Flags.IsBitSet(14)) { writer.Write(Media); }
-        if (Flags.IsBitSet(2)) { writer.Write(ReplyMarkup); }
-        if (Flags.IsBitSet(3)) { writer.Write(Entities); }
-        if (Flags.IsBitSet(15)) { writer.Write(ScheduleDate.Value); }
-        if (Flags.IsBitSet(18)) { writer.Write(ScheduleRepeatPeriod.Value); }
-        if (Flags.IsBitSet(17)) { writer.Write(QuickReplyShortcutId.Value); }
+        if (flags.IsBitSet(11)) { writer.Write(Message); }
+        if (flags.IsBitSet(14)) { writer.Write(Media); }
+        if (flags.IsBitSet(2)) { writer.Write(ReplyMarkup); }
+        if (flags.IsBitSet(3)) { writer.Write(Entities); }
+        if (flags.IsBitSet(15)) { writer.Write(ScheduleDate.Value); }
+        if (flags.IsBitSet(18)) { writer.Write(ScheduleRepeatPeriod.Value); }
+        if (flags.IsBitSet(17)) { writer.Write(QuickReplyShortcutId.Value); }
+        if (flags.IsBitSet(23)) { writer.Write(RichMessage); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -171,5 +180,6 @@ public sealed partial class RequestEditMessage : IRequest<MyTelegram.Schema.IUpd
         if (Flags.IsBitSet(15)) { ScheduleDate = buffer.ReadInt32(); }
         if (Flags.IsBitSet(18)) { ScheduleRepeatPeriod = buffer.ReadInt32(); }
         if (Flags.IsBitSet(17)) { QuickReplyShortcutId = buffer.ReadInt32(); }
+        if (Flags.IsBitSet(23)) { RichMessage = buffer.Read<MyTelegram.Schema.IInputRichMessage>(); }
     }
 }

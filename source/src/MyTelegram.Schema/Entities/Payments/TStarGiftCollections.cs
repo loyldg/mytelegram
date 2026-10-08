@@ -16,13 +16,9 @@ public sealed partial class TStarGiftCollections : IStarGiftCollections
     /// </summary>
     public TVector<MyTelegram.Schema.IStarGiftCollection> Collections { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Collections);
     }

@@ -22,13 +22,9 @@ public sealed partial class RequestDeclineConferenceCallInvite : IRequest<MyTele
     /// </summary>
     public int MsgId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(MsgId);
     }

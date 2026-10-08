@@ -85,29 +85,31 @@ public sealed partial class TBusinessBotRights : IBusinessBotRights
     /// </summary>
     public bool ManageStories { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Reply) { Flags = Flags.SetBit(0); }
-        if (ReadMessages) { Flags = Flags.SetBit(1); }
-        if (DeleteSentMessages) { Flags = Flags.SetBit(2); }
-        if (DeleteReceivedMessages) { Flags = Flags.SetBit(3); }
-        if (EditName) { Flags = Flags.SetBit(4); }
-        if (EditBio) { Flags = Flags.SetBit(5); }
-        if (EditProfilePhoto) { Flags = Flags.SetBit(6); }
-        if (EditUsername) { Flags = Flags.SetBit(7); }
-        if (ViewGifts) { Flags = Flags.SetBit(8); }
-        if (SellGifts) { Flags = Flags.SetBit(9); }
-        if (ChangeGiftSettings) { Flags = Flags.SetBit(10); }
-        if (TransferAndUpgradeGifts) { Flags = Flags.SetBit(11); }
-        if (TransferStars) { Flags = Flags.SetBit(12); }
-        if (ManageStories) { Flags = Flags.SetBit(13); }
+        var flags = 0;
+        if (Reply) { flags = flags.SetBit(0); }
+        if (ReadMessages) { flags = flags.SetBit(1); }
+        if (DeleteSentMessages) { flags = flags.SetBit(2); }
+        if (DeleteReceivedMessages) { flags = flags.SetBit(3); }
+        if (EditName) { flags = flags.SetBit(4); }
+        if (EditBio) { flags = flags.SetBit(5); }
+        if (EditProfilePhoto) { flags = flags.SetBit(6); }
+        if (EditUsername) { flags = flags.SetBit(7); }
+        if (ViewGifts) { flags = flags.SetBit(8); }
+        if (SellGifts) { flags = flags.SetBit(9); }
+        if (ChangeGiftSettings) { flags = flags.SetBit(10); }
+        if (TransferAndUpgradeGifts) { flags = flags.SetBit(11); }
+        if (TransferStars) { flags = flags.SetBit(12); }
+        if (ManageStories) { flags = flags.SetBit(13); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

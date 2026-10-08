@@ -17,7 +17,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputBotInlineResultPhoto), nameof(TInputBotInlineResultPhoto))]
 [JsonDerivedType(typeof(TInputBotInlineResultDocument), nameof(TInputBotInlineResultDocument))]
 [JsonDerivedType(typeof(TInputBotInlineResultGame), nameof(TInputBotInlineResultGame))]
-public interface IInputBotInlineResult : IObject
+public partial interface IInputBotInlineResult : IObject
 {
     /// <summary>
     /// Result ID

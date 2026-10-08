@@ -27,7 +27,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TSecureValueError), nameof(TSecureValueError))]
 [JsonDerivedType(typeof(TSecureValueErrorTranslationFile), nameof(TSecureValueErrorTranslationFile))]
 [JsonDerivedType(typeof(TSecureValueErrorTranslationFiles), nameof(TSecureValueErrorTranslationFiles))]
-public interface ISecureValueError : IObject
+public partial interface ISecureValueError : IObject
 {
     /// <summary>
     /// One of <a href="https://corefork.telegram.org/constructor/secureValueTypePassport">secureValueTypePassport</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeDriverLicense">secureValueTypeDriverLicense</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeIdentityCard">secureValueTypeIdentityCard</a>, <a href="https://corefork.telegram.org/constructor/secureValueTypeInternalPassport">secureValueTypeInternalPassport</a>

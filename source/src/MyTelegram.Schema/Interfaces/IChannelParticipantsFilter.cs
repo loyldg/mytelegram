@@ -25,6 +25,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TChannelParticipantsSearch), nameof(TChannelParticipantsSearch))]
 [JsonDerivedType(typeof(TChannelParticipantsContacts), nameof(TChannelParticipantsContacts))]
 [JsonDerivedType(typeof(TChannelParticipantsMentions), nameof(TChannelParticipantsMentions))]
-public interface IChannelParticipantsFilter : IObject
+public partial interface IChannelParticipantsFilter : IObject
 {
 }

@@ -25,13 +25,9 @@ public sealed partial class TUpdateChannelMessageViews : IUpdate
     /// </summary>
     public int Views { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ChannelId);
         writer.Write(Id);

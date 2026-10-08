@@ -29,13 +29,9 @@ public sealed partial class RequestEditBusinessChatLink : IRequest<MyTelegram.Sc
     /// </summary>
     public MyTelegram.Schema.IInputBusinessChatLink Link { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Slug);
         writer.Write(Link);

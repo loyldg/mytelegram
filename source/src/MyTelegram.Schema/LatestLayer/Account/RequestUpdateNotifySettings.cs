@@ -33,13 +33,9 @@ public sealed partial class RequestUpdateNotifySettings : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IInputPeerNotifySettings Settings { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(Settings);

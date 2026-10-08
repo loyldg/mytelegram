@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TExportedChatInvites"/> See <a href="https://corefork.telegram.org/constructor/messages.exportedChatInvites" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TExportedChatInvites), nameof(TExportedChatInvites))]
-public interface IExportedChatInvites : IObject
+public partial interface IExportedChatInvites : IObject
 {
     /// <summary>
     /// Number of invites exported by the admin

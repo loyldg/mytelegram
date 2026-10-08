@@ -36,23 +36,25 @@ public sealed partial class TPaymentRequestedInfo : IPaymentRequestedInfo
     /// </summary>
     public MyTelegram.Schema.IPostAddress? ShippingAddress { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Name != null) { Flags = Flags.SetBit(0); }
-        if (Phone != null) { Flags = Flags.SetBit(1); }
-        if (Email != null) { Flags = Flags.SetBit(2); }
-        if (ShippingAddress != null) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (Name != null) { flags = flags.SetBit(0); }
+        if (Phone != null) { flags = flags.SetBit(1); }
+        if (Email != null) { flags = flags.SetBit(2); }
+        if (ShippingAddress != null) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(Name); }
-        if (Flags.IsBitSet(1)) { writer.Write(Phone); }
-        if (Flags.IsBitSet(2)) { writer.Write(Email); }
-        if (Flags.IsBitSet(3)) { writer.Write(ShippingAddress); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(Name); }
+        if (flags.IsBitSet(1)) { writer.Write(Phone); }
+        if (flags.IsBitSet(2)) { writer.Write(Email); }
+        if (flags.IsBitSet(3)) { writer.Write(ShippingAddress); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -17,7 +17,7 @@ public enum ChatJoinType
     /// <summary>
     ///     Joined By link
     /// </summary>
-    ByLink,
+    ByChatInvite,
 
     /// <summary>
     ///     Approved by admin

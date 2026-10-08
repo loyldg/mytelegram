@@ -28,13 +28,9 @@ public sealed partial class RequestSendConfirmPhoneCode : IRequest<MyTelegram.Sc
     /// </summary>
     public MyTelegram.Schema.ICodeSettings Settings { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Hash);
         writer.Write(Settings);

@@ -56,7 +56,6 @@ public class ContactAppService(
     IPhotoAppService photoAppService,
     IChannelAppService channelAppService,
     IUserAppService userAppService,
-    IPeerHelper peerHelper,
     IOptionsMonitor<MyTelegramMessengerServerOptions> options)
     : BaseAppService, IContactAppService, ITransientDependency
 {

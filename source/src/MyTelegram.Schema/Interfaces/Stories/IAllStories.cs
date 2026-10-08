@@ -13,7 +13,7 @@ namespace MyTelegram.Schema.Stories;
 /// </remarks>
 [JsonDerivedType(typeof(TAllStoriesNotModified), nameof(TAllStoriesNotModified))]
 [JsonDerivedType(typeof(TAllStories), nameof(TAllStories))]
-public interface IAllStories : IObject
+public partial interface IAllStories : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

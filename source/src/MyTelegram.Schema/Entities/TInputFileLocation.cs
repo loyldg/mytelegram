@@ -30,13 +30,9 @@ public sealed partial class TInputFileLocation : IInputFileLocation
     /// </summary>
     public ReadOnlyMemory<byte> FileReference { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(VolumeId);
         writer.Write(LocalId);

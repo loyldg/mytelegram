@@ -119,49 +119,51 @@ public sealed partial class TWebPage : IWebPage
     /// </summary>
     public TVector<MyTelegram.Schema.IWebPageAttribute>? Attributes { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (HasLargeMedia) { Flags = Flags.SetBit(13); }
-        if (VideoCoverPhoto) { Flags = Flags.SetBit(14); }
-        if (Type != null) { Flags = Flags.SetBit(0); }
-        if (SiteName != null) { Flags = Flags.SetBit(1); }
-        if (Title != null) { Flags = Flags.SetBit(2); }
-        if (Description != null) { Flags = Flags.SetBit(3); }
-        if (Photo != null) { Flags = Flags.SetBit(4); }
-        if (EmbedUrl != null) { Flags = Flags.SetBit(5); }
-        if (EmbedType != null) { Flags = Flags.SetBit(5); }
-        if (/*EmbedWidth != 0 && */EmbedWidth.HasValue) { Flags = Flags.SetBit(6); }
-        if (/*EmbedHeight != 0 && */EmbedHeight.HasValue) { Flags = Flags.SetBit(6); }
-        if (/*Duration != 0 && */Duration.HasValue) { Flags = Flags.SetBit(7); }
-        if (Author != null) { Flags = Flags.SetBit(8); }
-        if (Document != null) { Flags = Flags.SetBit(9); }
-        if (CachedPage != null) { Flags = Flags.SetBit(10); }
-        if (Attributes?.Count > 0) { Flags = Flags.SetBit(12); }
+        var flags = 0;
+        if (HasLargeMedia) { flags = flags.SetBit(13); }
+        if (VideoCoverPhoto) { flags = flags.SetBit(14); }
+        if (Type != null) { flags = flags.SetBit(0); }
+        if (SiteName != null) { flags = flags.SetBit(1); }
+        if (Title != null) { flags = flags.SetBit(2); }
+        if (Description != null) { flags = flags.SetBit(3); }
+        if (Photo != null) { flags = flags.SetBit(4); }
+        if (EmbedUrl != null) { flags = flags.SetBit(5); }
+        if (EmbedType != null) { flags = flags.SetBit(5); }
+        if (/*EmbedWidth != 0 && */EmbedWidth.HasValue) { flags = flags.SetBit(6); }
+        if (/*EmbedHeight != 0 && */EmbedHeight.HasValue) { flags = flags.SetBit(6); }
+        if (/*Duration != 0 && */Duration.HasValue) { flags = flags.SetBit(7); }
+        if (Author != null) { flags = flags.SetBit(8); }
+        if (Document != null) { flags = flags.SetBit(9); }
+        if (CachedPage != null) { flags = flags.SetBit(10); }
+        if (Attributes?.Count > 0) { flags = flags.SetBit(12); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(Url);
         writer.Write(DisplayUrl);
         writer.Write(Hash);
-        if (Flags.IsBitSet(0)) { writer.Write(Type); }
-        if (Flags.IsBitSet(1)) { writer.Write(SiteName); }
-        if (Flags.IsBitSet(2)) { writer.Write(Title); }
-        if (Flags.IsBitSet(3)) { writer.Write(Description); }
-        if (Flags.IsBitSet(4)) { writer.Write(Photo); }
-        if (Flags.IsBitSet(5)) { writer.Write(EmbedUrl); }
-        if (Flags.IsBitSet(5)) { writer.Write(EmbedType); }
-        if (Flags.IsBitSet(6)) { writer.Write(EmbedWidth.Value); }
-        if (Flags.IsBitSet(6)) { writer.Write(EmbedHeight.Value); }
-        if (Flags.IsBitSet(7)) { writer.Write(Duration.Value); }
-        if (Flags.IsBitSet(8)) { writer.Write(Author); }
-        if (Flags.IsBitSet(9)) { writer.Write(Document); }
-        if (Flags.IsBitSet(10)) { writer.Write(CachedPage); }
-        if (Flags.IsBitSet(12)) { writer.Write(Attributes); }
+        if (flags.IsBitSet(0)) { writer.Write(Type); }
+        if (flags.IsBitSet(1)) { writer.Write(SiteName); }
+        if (flags.IsBitSet(2)) { writer.Write(Title); }
+        if (flags.IsBitSet(3)) { writer.Write(Description); }
+        if (flags.IsBitSet(4)) { writer.Write(Photo); }
+        if (flags.IsBitSet(5)) { writer.Write(EmbedUrl); }
+        if (flags.IsBitSet(5)) { writer.Write(EmbedType); }
+        if (flags.IsBitSet(6)) { writer.Write(EmbedWidth.Value); }
+        if (flags.IsBitSet(6)) { writer.Write(EmbedHeight.Value); }
+        if (flags.IsBitSet(7)) { writer.Write(Duration.Value); }
+        if (flags.IsBitSet(8)) { writer.Write(Author); }
+        if (flags.IsBitSet(9)) { writer.Write(Document); }
+        if (flags.IsBitSet(10)) { writer.Write(CachedPage); }
+        if (flags.IsBitSet(12)) { writer.Write(Attributes); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

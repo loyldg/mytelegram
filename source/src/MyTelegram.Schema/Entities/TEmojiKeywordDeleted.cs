@@ -20,13 +20,9 @@ public sealed partial class TEmojiKeywordDeleted : IEmojiKeyword
     /// </summary>
     public TVector<string> Emoticons { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Keyword);
         writer.Write(Emoticons);

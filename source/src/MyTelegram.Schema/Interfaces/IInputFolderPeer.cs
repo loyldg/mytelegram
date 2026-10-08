@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputFolderPeer"/> See <a href="https://corefork.telegram.org/constructor/inputFolderPeer" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputFolderPeer), nameof(TInputFolderPeer))]
-public interface IInputFolderPeer : IObject
+public partial interface IInputFolderPeer : IObject
 {
     /// <summary>
     /// Peer

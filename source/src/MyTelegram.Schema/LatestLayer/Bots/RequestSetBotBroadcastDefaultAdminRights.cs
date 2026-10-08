@@ -24,13 +24,9 @@ public sealed partial class RequestSetBotBroadcastDefaultAdminRights : IRequest<
     /// </summary>
     public MyTelegram.Schema.IChatAdminRights AdminRights { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(AdminRights);
     }

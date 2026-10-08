@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TBotMenuButtonCommands : IBotMenuButton
 {
     public uint ConstructorId => 0x4258c205;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

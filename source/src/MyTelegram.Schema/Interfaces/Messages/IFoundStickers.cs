@@ -13,7 +13,7 @@ namespace MyTelegram.Schema.Messages;
 /// </remarks>
 [JsonDerivedType(typeof(TFoundStickersNotModified), nameof(TFoundStickersNotModified))]
 [JsonDerivedType(typeof(TFoundStickers), nameof(TFoundStickers))]
-public interface IFoundStickers : IObject
+public partial interface IFoundStickers : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

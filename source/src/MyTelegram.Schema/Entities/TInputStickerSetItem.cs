@@ -37,21 +37,23 @@ public sealed partial class TInputStickerSetItem : IInputStickerSetItem
     /// </summary>
     public string? Keywords { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (MaskCoords != null) { Flags = Flags.SetBit(0); }
-        if (Keywords != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (MaskCoords != null) { flags = flags.SetBit(0); }
+        if (Keywords != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Document);
         writer.Write(Emoji);
-        if (Flags.IsBitSet(0)) { writer.Write(MaskCoords); }
-        if (Flags.IsBitSet(1)) { writer.Write(Keywords); }
+        if (flags.IsBitSet(0)) { writer.Write(MaskCoords); }
+        if (flags.IsBitSet(1)) { writer.Write(Keywords); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

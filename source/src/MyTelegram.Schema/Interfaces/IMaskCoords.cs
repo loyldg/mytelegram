@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TMaskCoords"/> See <a href="https://corefork.telegram.org/constructor/maskCoords" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TMaskCoords), nameof(TMaskCoords))]
-public interface IMaskCoords : IObject
+public partial interface IMaskCoords : IObject
 {
     /// <summary>
     /// Part of the face, relative to which the mask should be placed

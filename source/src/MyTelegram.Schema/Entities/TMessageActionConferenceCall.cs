@@ -46,23 +46,25 @@ public sealed partial class TMessageActionConferenceCall : IMessageAction
     /// </summary>
     public TVector<MyTelegram.Schema.IPeer>? OtherParticipants { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Missed) { Flags = Flags.SetBit(0); }
-        if (Active) { Flags = Flags.SetBit(1); }
-        if (Video) { Flags = Flags.SetBit(4); }
-        if (/*Duration != 0 && */Duration.HasValue) { Flags = Flags.SetBit(2); }
-        if (OtherParticipants?.Count > 0) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (Missed) { flags = flags.SetBit(0); }
+        if (Active) { flags = flags.SetBit(1); }
+        if (Video) { flags = flags.SetBit(4); }
+        if (/*Duration != 0 && */Duration.HasValue) { flags = flags.SetBit(2); }
+        if (OtherParticipants?.Count > 0) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(CallId);
-        if (Flags.IsBitSet(2)) { writer.Write(Duration.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(OtherParticipants); }
+        if (flags.IsBitSet(2)) { writer.Write(Duration.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(OtherParticipants); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

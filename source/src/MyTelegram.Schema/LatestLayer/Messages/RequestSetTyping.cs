@@ -54,18 +54,20 @@ public sealed partial class RequestSetTyping : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.ISendMessageAction Action { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*TopMsgId != 0 && */TopMsgId.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*TopMsgId != 0 && */TopMsgId.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
-        if (Flags.IsBitSet(0)) { writer.Write(TopMsgId.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(TopMsgId.Value); }
         writer.Write(Action);
     }
 

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Contacts;
 /// <see cref="TResolvedPeer"/> See <a href="https://corefork.telegram.org/constructor/contacts.resolvedPeer" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TResolvedPeer), nameof(TResolvedPeer))]
-public interface IResolvedPeer : IObject
+public partial interface IResolvedPeer : IObject
 {
     /// <summary>
     /// The peer

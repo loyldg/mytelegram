@@ -1,9 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using Microsoft.AspNetCore.HttpOverrides;
-using MyTelegram.EventBus.RabbitMQ.Extensions;
-
-Console.Title = "MyTelegram gateway server";
+﻿Console.Title = "MyTelegram gateway server";
 
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
@@ -22,47 +17,29 @@ builder.Host.UseSerilog((context,
 {
     configuration.ReadFrom.Configuration(context.Configuration);
 });
+var configFile =
+    Environment.GetEnvironmentVariable("MYTELEGRAM_CONFIG");
+if (!string.IsNullOrEmpty(configFile))
+{
+    if (File.Exists(configFile))
+    {
+        builder.Configuration.AddJsonFile(configFile,
+            false,
+            true
+        );
+    }
+}
 builder.Configuration.AddEnvironmentVariables();
 builder.Configuration.AddCommandLine(args);
 
 builder.Services.AddMyTelegramGatewayServer();
-
-builder.Services.Configure<EventBusRabbitMqOptions>(builder.Configuration.GetRequiredSection("RabbitMQ:EventBus"));
-builder.Services.Configure<RabbitMqOptions>(builder.Configuration.GetRequiredSection("RabbitMQ:Connections:Default"));
 builder.Services.Configure<MyTelegramGatewayServerOption>(builder.Configuration.GetRequiredSection("App"));
 
-var eventBusOptions = builder.Configuration.GetRequiredSection("RabbitMQ:EventBus").Get<EventBusRabbitMqOptions>();
-var rabbitMqOptions = builder.Configuration.GetRequiredSection("RabbitMQ:Connections:Default").Get<RabbitMqOptions>();
-if (rabbitMqOptions == null)
-{
-    Log.Error("RabbitMQ:Connections:Default is null");
-    return;
-}
-
-if (eventBusOptions == null)
-{
-    Log.Error("RabbitMQ:EventBus is null");
-
-    return;
-}
-
-builder.Services.AddMyTelegramRabbitMqEventBus();
-//builder.Services.AddRebusEventBus(options =>
-//{
-//    options.Transport(t =>
-//    {
-//        t.UseRabbitMq(
-//                $"amqp://{rabbitMqOptions.UserName}:{rabbitMqOptions.Password}@{rabbitMqOptions.HostName}:{rabbitMqOptions.Port}",
-//                eventBusOptions.ClientName)
-//            .ExchangeNames(eventBusOptions.ExchangeName, eventBusOptions.TopicExchangeName ?? "RebusTopics")
-//            ;
-//    });
-
-//    options.AddSystemTextJson(jsonOptions =>
-//    {
-//        jsonOptions.TypeInfoResolverChain.Add(GatewayServerJsonContext.Default);
-//    });
-//});
+#if USE_REDIS_EVENTBUS
+builder.Services.AddMyTelegramRedisEventBus(builder.Configuration);
+#else
+builder.Services.AddMyTelegramRabbitMqEventBus(builder.Configuration);
+#endif
 
 var appConfig = builder.Configuration.GetRequiredSection("App").Get<MyTelegramGatewayServerOption>();
 
@@ -187,7 +164,7 @@ builder.WebHost.ConfigureKestrel(options =>
 builder.Services.AddConnections();
 
 var app = builder.Build();
-if (appConfig.UseForwardedHeaders)
+if (appConfig?.UseForwardedHeaders ?? false)
 {
     app.UseForwardedHeaders(new ForwardedHeadersOptions
     {

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Account;
 /// <see cref="TPrivacyRules"/> See <a href="https://corefork.telegram.org/constructor/account.privacyRules" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPrivacyRules), nameof(TPrivacyRules))]
-public interface IPrivacyRules : IObject
+public partial interface IPrivacyRules : IObject
 {
     /// <summary>
     /// Privacy rules

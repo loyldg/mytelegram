@@ -28,13 +28,9 @@ public sealed partial class RequestSendSignalingData : IRequest<IBool>
     /// </summary>
     public ReadOnlyMemory<byte> Data { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(Data);

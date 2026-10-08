@@ -13,13 +13,9 @@ public sealed partial class TMessageEntityDiffDelete : IMessageEntity
 
     public int Length { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Offset);
         writer.Write(Length);

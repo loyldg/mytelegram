@@ -30,19 +30,21 @@ public sealed partial class TInputMediaPhotoExternal : IInputMedia
     /// </summary>
     public int? TtlSeconds { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Spoiler) { Flags = Flags.SetBit(1); }
-        if (/*TtlSeconds != 0 && */TtlSeconds.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Spoiler) { flags = flags.SetBit(1); }
+        if (/*TtlSeconds != 0 && */TtlSeconds.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Url);
-        if (Flags.IsBitSet(0)) { writer.Write(TtlSeconds.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(TtlSeconds.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

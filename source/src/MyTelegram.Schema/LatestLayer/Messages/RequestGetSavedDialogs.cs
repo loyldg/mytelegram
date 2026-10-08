@@ -56,18 +56,20 @@ public sealed partial class RequestGetSavedDialogs : IRequest<MyTelegram.Schema.
     /// </summary>
     public long Hash { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ExcludePinned) { Flags = Flags.SetBit(0); }
-        if (ParentPeer != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (ExcludePinned) { flags = flags.SetBit(0); }
+        if (ParentPeer != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(1)) { writer.Write(ParentPeer); }
+        writer.Write(flags);
+        if (flags.IsBitSet(1)) { writer.Write(ParentPeer); }
         writer.Write(OffsetDate);
         writer.Write(OffsetId);
         writer.Write(OffsetPeer);

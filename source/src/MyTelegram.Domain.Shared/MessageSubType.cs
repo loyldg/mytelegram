@@ -27,7 +27,7 @@ public enum MessageSubType
     SetChatTheme = 20,
     CreateQuickReplyMessage = 21,
     SetHistoryTtl = 22,
-    ChatJoinByLink = 23,
+    ChatJoinByChatInvite = 23,
     ChatJoinBySelf = 24,
     ChatJoinByRequest = 25,
     PaidMessagesPriceUpdated = 26,

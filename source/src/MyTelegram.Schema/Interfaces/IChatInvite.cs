@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TChatInviteAlready), nameof(TChatInviteAlready))]
 [JsonDerivedType(typeof(TChatInvite), nameof(TChatInvite))]
 [JsonDerivedType(typeof(TChatInvitePeek), nameof(TChatInvitePeek))]
-public interface IChatInvite : IObject
+public partial interface IChatInvite : IObject
 {
 }

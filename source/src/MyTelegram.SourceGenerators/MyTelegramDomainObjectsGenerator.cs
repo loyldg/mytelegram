@@ -57,10 +57,15 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
         return char.ToUpper(s[0]) + s[1..];
     }
 
-    private static void Generate_Event_Command_CommandHandler(SourceProductionContext ctx, MethodInfoModel model)
+    private static void Generate_Event_Command_CommandHandler(SourceProductionContext ctx, MethodInfoModel? model)
     {
+        if (model == null)
+        {
+            return;
+        }
+
         var methodSyntax = model.MethodSyntax;
-        var methodSymbol = model.MethodSymbol;
+        //var methodSymbol = model.MethodSymbol;
 
         var methodName = methodSyntax.Identifier.Text;
         var parameters = model.EventParameters; // methodSyntax.ParameterList.Parameters;
@@ -72,10 +77,10 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
         var commandParameters = model.CommandParameters; // methodSyntax.ParameterList.Parameters;
 
         var eventName = model.EventName;
-        var commandName = GetCommandName(model.AggregateName, methodName, methodSymbol);
+        var commandName = GetCommandName(model.AggregateName, methodName);
         var handlerName = commandName + "Handler";
 
-        var eventCtorParameters = parameters?.Count > 0 ? BuildCtorParams(parameters) : string.Empty;
+        var eventCtorParameters = parameters.Count > 0 ? BuildCtorParams(parameters) : string.Empty;
         var commandCtorParameters = BuildCtorParams(commandParameters);
 
         var eventProperties = BuildProperties(parameters, hasRequestInfo);
@@ -156,7 +161,7 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
         ctx.AddSource($"{model.AggregateName}_{handlerName}.g.cs", handlerSource);
     }
 
-    private static string GetCommandName(string aggregateName, string method, IMethodSymbol symbol)
+    private static string GetCommandName(string aggregateName, string method)
     {
         var lastChar = method[^1];
         if (char.IsDigit(lastChar))
@@ -172,7 +177,7 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
         return $"{method}Command";
     }
 
-    private static string GetNamespace(SyntaxNode node)
+    private static string GetNamespace(SyntaxNode? node)
     {
         while (node != null)
         {
@@ -257,7 +262,7 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
     private static string? TryExtractEventName(MethodDeclarationSyntax methodSyntax)
     {
         var bodyText = methodSyntax.Body?.ToString()
-                       ?? methodSyntax.ExpressionBody?.Expression?.ToString()
+                       ?? methodSyntax.ExpressionBody?.Expression.ToString()
                        ?? string.Empty;
 
         const string pattern = "Emit(new ";
@@ -303,7 +308,7 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
 
         var classSymbol = methodSymbol.ContainingType;
         var isAutoGenEnabledAtClassLevel = false;
-        var isAutoGenDisabledAtClassLevel = false;
+        //var isAutoGenDisabledAtClassLevel = false;
         var isAutoGenEnabledAtMethod = HasAttribute(methodSymbol, "EnableAutoGenerationAttribute");
         var isAutoGenDisabledAtMethod = HasAttribute(methodSymbol, "DisableAutoGenerationAttribute");
         var doNotInheritRequestCommand = HasAttribute(methodSymbol, "DoNotInheritRequestCommandAttribute");
@@ -325,7 +330,7 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
         }
 
         var bodyText = methodSyntax.Body?.ToString()
-                       ?? methodSyntax.ExpressionBody?.Expression?.ToString()
+                       ?? methodSyntax.ExpressionBody?.Expression.ToString()
                        ?? string.Empty;
         if (!bodyText.Contains("Emit(new"))
         {
@@ -351,14 +356,14 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
 
         foreach (var item in methodSyntax.ParameterList.Parameters)
         {
-            var typeInfo = ctx.SemanticModel.GetTypeInfo(item.Type!);
-            var typeSymbol = typeInfo.Type!;
+            //var typeInfo = ctx.SemanticModel.GetTypeInfo(item.Type!);
+            //var typeSymbol = typeInfo.Type!;
 
-            bool isNullableType = IsTypeNullable(typeSymbol);
+            //bool isNullableType = IsTypeNullable(typeSymbol);
 
             var parameterModel = new ParameterModel(
                 item.Type!.ToFullString(),
-                item.Identifier.Text, item.Default?.Value.ToString(), isNullableType);
+                item.Identifier.Text, item.Default?.Value.ToString());
             //eventParameters.Add(parameterModel);
             commandParameters.Add(parameterModel);
         }
@@ -367,29 +372,29 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
             ns,
             aggregateName,
             idType,
-            extractedEventName,
+            extractedEventName ?? string.Empty,
             eventParameters,
             commandParameters,
             methodSyntax,
-            methodSymbol,
+            //methodSymbol,
             doNotInheritRequestCommand
         );
     }
 
-    private static bool IsTypeNullable(ITypeSymbol type)
-    {
-        if (type.NullableAnnotation == NullableAnnotation.Annotated)
-        {
-            return true;
-        }
+    //private static bool IsTypeNullable(ITypeSymbol type)
+    //{
+    //    if (type.NullableAnnotation == NullableAnnotation.Annotated)
+    //    {
+    //        return true;
+    //    }
 
-        if (type.IsValueType && type is INamedTypeSymbol namedType)
-        {
-            return namedType.ConstructedFrom.SpecialType == SpecialType.System_Nullable_T;
-        }
+    //    if (type.IsValueType && type is INamedTypeSymbol namedType)
+    //    {
+    //        return namedType.ConstructedFrom.SpecialType == SpecialType.System_Nullable_T;
+    //    }
 
-        return false;
-    }
+    //    return false;
+    //}
 
     private static List<ParameterModel> GetEventParameters(
      MethodDeclarationSyntax methodSyntax,
@@ -448,11 +453,10 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
                 if (names.Contains(parameterName))
                     continue;
 
-                var isNullableType =
-                    typeSymbol.NullableAnnotation == NullableAnnotation.Annotated
-                    || typeSymbol.OriginalDefinition.SpecialType == SpecialType.System_Nullable_T;
+                //var isNullableType =
+                //    typeSymbol.NullableAnnotation == NullableAnnotation.Annotated
+                //    || typeSymbol.OriginalDefinition.SpecialType == SpecialType.System_Nullable_T;
 
-               
                 var parameterType = typeSymbol.ToDisplayString();
                 if (arg.ToFullString().Contains("?") && !parameterType.Contains("?"))
                 {
@@ -461,9 +465,7 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
 
                 result.Add(new ParameterModel(
                     parameterType,
-                    parameterName,
-                    null,
-                    isNullableType));
+                    parameterName));
 
                 names.Add(parameterName);
             }
@@ -520,12 +522,12 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
         return false;
     }
 
-    private class ParameterModel(string parameterType, string parameterName, string? defaultValue = null, bool isNullableType = false)
+    private class ParameterModel(string parameterType, string parameterName, string? defaultValue = null)
     {
         public string ParameterType { get; } = parameterType;
         public string ParameterName { get; } = parameterName;
         public string? DefaultValue { get; } = defaultValue;
-        public bool IsNullableType { get; } = isNullableType;
+        //public bool IsNullableType { get; } = isNullableType;
     }
 
     private sealed class MethodInfoModel(
@@ -536,14 +538,14 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
         List<ParameterModel> eventParameters,
         List<ParameterModel> commandParameters,
         MethodDeclarationSyntax syntax,
-        IMethodSymbol symbol,
+        //IMethodSymbol symbol,
         bool doNotInheritRequestCommand
     )
     {
         public string AggregateName { get; } = aggregateName;
         public string EventName { get; } = eventName;
         public string IdType { get; } = idType;
-        public IMethodSymbol MethodSymbol { get; } = symbol;
+        //public IMethodSymbol MethodSymbol { get; } = symbol;
         public bool DoNotInheritRequestCommand { get; } = doNotInheritRequestCommand;
         public MethodDeclarationSyntax MethodSyntax { get; } = syntax;
         public string Namespace { get; } = ns;

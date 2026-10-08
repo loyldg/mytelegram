@@ -31,19 +31,21 @@ public sealed partial class THistoryImportParsed : IHistoryImportParsed
     /// </summary>
     public string? Title { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Pm) { Flags = Flags.SetBit(0); }
-        if (Group) { Flags = Flags.SetBit(1); }
-        if (Title != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Pm) { flags = flags.SetBit(0); }
+        if (Group) { flags = flags.SetBit(1); }
+        if (Title != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(2)) { writer.Write(Title); }
+        writer.Write(flags);
+        if (flags.IsBitSet(2)) { writer.Write(Title); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

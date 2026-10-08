@@ -55,26 +55,28 @@ public sealed partial class TGiveawayInfoResults : IGiveawayInfo
     /// </summary>
     public int? ActivatedCount { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Winner) { Flags = Flags.SetBit(0); }
-        if (Refunded) { Flags = Flags.SetBit(1); }
-        if (GiftCodeSlug != null) { Flags = Flags.SetBit(3); }
-        if (/*StarsPrize != 0 &&*/ StarsPrize.HasValue) { Flags = Flags.SetBit(4); }
-        if (/*ActivatedCount != 0 && */ActivatedCount.HasValue) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Winner) { flags = flags.SetBit(0); }
+        if (Refunded) { flags = flags.SetBit(1); }
+        if (GiftCodeSlug != null) { flags = flags.SetBit(3); }
+        if (/*StarsPrize != 0 &&*/ StarsPrize.HasValue) { flags = flags.SetBit(4); }
+        if (/*ActivatedCount != 0 && */ActivatedCount.HasValue) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(StartDate);
-        if (Flags.IsBitSet(3)) { writer.Write(GiftCodeSlug); }
-        if (Flags.IsBitSet(4)) { writer.Write(StarsPrize.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(GiftCodeSlug); }
+        if (flags.IsBitSet(4)) { writer.Write(StarsPrize.Value); }
         writer.Write(FinishDate);
         writer.Write(WinnersCount);
-        if (Flags.IsBitSet(2)) { writer.Write(ActivatedCount.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(ActivatedCount.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

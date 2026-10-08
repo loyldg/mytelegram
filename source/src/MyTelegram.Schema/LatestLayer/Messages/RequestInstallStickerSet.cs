@@ -29,13 +29,9 @@ public sealed partial class RequestInstallStickerSet : IRequest<MyTelegram.Schem
     /// </summary>
     public bool Archived { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Stickerset);
         writer.Write(Archived);

@@ -1,7 +1,7 @@
 ﻿// ReSharper disable All
 namespace MyTelegram.Schema;
 
-public interface ILayeredDialog : IDialog
+public partial interface ILayeredDialog : IDialog
 {
     MyTelegram.Schema.IDraftMessage? Draft { get; set; }
 }

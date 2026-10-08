@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TPeerUser), nameof(TPeerUser))]
 [JsonDerivedType(typeof(TPeerChat), nameof(TPeerChat))]
 [JsonDerivedType(typeof(TPeerChannel), nameof(TPeerChannel))]
-public interface IPeer : IObject
+public partial interface IPeer : IObject
 {
 }

@@ -63,26 +63,28 @@ public sealed partial class RequestUploadContactProfilePhoto : IRequest<MyTelegr
     /// </summary>
     public MyTelegram.Schema.IVideoSize? VideoEmojiMarkup { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Suggest) { Flags = Flags.SetBit(3); }
-        if (Save) { Flags = Flags.SetBit(4); }
-        if (File != null) { Flags = Flags.SetBit(0); }
-        if (Video != null) { Flags = Flags.SetBit(1); }
-        if (VideoStartTs>0) { Flags = Flags.SetBit(2); }
-        if (VideoEmojiMarkup != null) { Flags = Flags.SetBit(5); }
+        var flags = 0;
+        if (Suggest) { flags = flags.SetBit(3); }
+        if (Save) { flags = flags.SetBit(4); }
+        if (File != null) { flags = flags.SetBit(0); }
+        if (Video != null) { flags = flags.SetBit(1); }
+        if (VideoStartTs>0) { flags = flags.SetBit(2); }
+        if (VideoEmojiMarkup != null) { flags = flags.SetBit(5); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(UserId);
-        if (Flags.IsBitSet(0)) { writer.Write(File); }
-        if (Flags.IsBitSet(1)) { writer.Write(Video); }
-        if (Flags.IsBitSet(2)) { writer.Write(VideoStartTs.Value); }
-        if (Flags.IsBitSet(5)) { writer.Write(VideoEmojiMarkup); }
+        if (flags.IsBitSet(0)) { writer.Write(File); }
+        if (flags.IsBitSet(1)) { writer.Write(Video); }
+        if (flags.IsBitSet(2)) { writer.Write(VideoStartTs.Value); }
+        if (flags.IsBitSet(5)) { writer.Write(VideoEmojiMarkup); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

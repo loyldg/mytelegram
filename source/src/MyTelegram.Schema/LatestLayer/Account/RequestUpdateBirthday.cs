@@ -28,17 +28,19 @@ public sealed partial class RequestUpdateBirthday : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IBirthday? Birthday { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Birthday != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Birthday != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(Birthday); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(Birthday); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

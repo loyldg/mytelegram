@@ -5,28 +5,35 @@ namespace MyTelegram.Schema.E2e;
 
 
 [TlObject(0xD6B679E6)]
-public sealed class TStateProof : IStateProof
+public sealed partial class TStateProof : IStateProof
 {
     public uint ConstructorId => 0xD6B679E6;
     public int Flags { get; set; }
+
+    /// <summary>
+    /// int256
+    /// </summary>
     public ReadOnlyMemory<byte> KvHash { get; set; }
     public MyTelegram.Schema.E2e.IGroupState? GroupState { get; set; }
     public MyTelegram.Schema.E2e.ISharedKey? SharedKey { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (GroupState != null) { Flags = Flags.SetBit(0); }
-        if (SharedKey != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (GroupState != null) { flags = flags.SetBit(0); }
+        if (SharedKey != null) { flags = flags.SetBit(1); }
+
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.WriteRawBytes(KvHash);
-        if (Flags.IsBitSet(0)) { writer.Write(GroupState); }
-        if (Flags.IsBitSet(1)) { writer.Write(SharedKey); }
+        if (flags.IsBitSet(0)) { writer.Write(GroupState); }
+        if (flags.IsBitSet(1)) { writer.Write(SharedKey); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

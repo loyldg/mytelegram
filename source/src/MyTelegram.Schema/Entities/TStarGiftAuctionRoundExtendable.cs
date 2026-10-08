@@ -29,13 +29,9 @@ public sealed partial class TStarGiftAuctionRoundExtendable : IStarGiftAuctionRo
     /// </summary>
     public int ExtendWindow { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Num);
         writer.Write(Duration);

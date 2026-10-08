@@ -13,6 +13,6 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TAttachMenuBotsNotModified), nameof(TAttachMenuBotsNotModified))]
 [JsonDerivedType(typeof(TAttachMenuBots), nameof(TAttachMenuBots))]
-public interface IAttachMenuBots : IObject
+public partial interface IAttachMenuBots : IObject
 {
 }

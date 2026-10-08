@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TDcOption"/> See <a href="https://corefork.telegram.org/constructor/dcOption" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TDcOption), nameof(TDcOption))]
-public interface IDcOption : IObject
+public partial interface IDcOption : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

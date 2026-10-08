@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="THistoryImportParsed"/> See <a href="https://corefork.telegram.org/constructor/messages.historyImportParsed" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(THistoryImportParsed), nameof(THistoryImportParsed))]
-public interface IHistoryImportParsed : IObject
+public partial interface IHistoryImportParsed : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

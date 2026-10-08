@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TContactBirthday"/> See <a href="https://corefork.telegram.org/constructor/contactBirthday" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TContactBirthday), nameof(TContactBirthday))]
-public interface IContactBirthday : IObject
+public partial interface IContactBirthday : IObject
 {
     /// <summary>
     /// User ID.

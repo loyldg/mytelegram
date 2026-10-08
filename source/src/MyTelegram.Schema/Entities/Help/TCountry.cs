@@ -41,20 +41,22 @@ public sealed partial class TCountry : ICountry
     /// </summary>
     public TVector<MyTelegram.Schema.Help.ICountryCode> CountryCodes { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Hidden) { Flags = Flags.SetBit(0); }
-        if (Name != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Hidden) { flags = flags.SetBit(0); }
+        if (Name != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Iso2);
         writer.Write(DefaultName);
-        if (Flags.IsBitSet(1)) { writer.Write(Name); }
+        if (flags.IsBitSet(1)) { writer.Write(Name); }
         writer.Write(CountryCodes);
     }
 

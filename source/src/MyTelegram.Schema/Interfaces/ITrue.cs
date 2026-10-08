@@ -11,6 +11,6 @@ namespace MyTelegram.Schema;
 /// <see cref="TTrue"/> See <a href="https://corefork.telegram.org/constructor/true" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TTrue), nameof(TTrue))]
-public interface ITrue : IObject
+public partial interface ITrue : IObject
 {
 }

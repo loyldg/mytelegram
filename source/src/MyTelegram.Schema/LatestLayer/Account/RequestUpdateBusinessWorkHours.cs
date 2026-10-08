@@ -31,17 +31,19 @@ public sealed partial class RequestUpdateBusinessWorkHours : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IBusinessWorkHours? BusinessWorkHours { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (BusinessWorkHours != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (BusinessWorkHours != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(BusinessWorkHours); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(BusinessWorkHours); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

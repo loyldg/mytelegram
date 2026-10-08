@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Help;
 public sealed partial class TPeerColorsNotModified : IPeerColors
 {
     public uint ConstructorId => 0x2ba1f5ce;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

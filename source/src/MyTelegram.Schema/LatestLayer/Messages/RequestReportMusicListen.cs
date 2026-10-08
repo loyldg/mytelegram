@@ -20,13 +20,9 @@ public sealed partial class RequestReportMusicListen : IRequest<IBool>
 
     public int ListenedDuration { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
         writer.Write(ListenedDuration);

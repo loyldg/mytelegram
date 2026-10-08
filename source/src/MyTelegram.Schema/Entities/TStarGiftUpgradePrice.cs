@@ -19,13 +19,9 @@ public sealed partial class TStarGiftUpgradePrice : IStarGiftUpgradePrice
     /// </summary>
     public long UpgradeStars { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Date);
         writer.Write(UpgradeStars);

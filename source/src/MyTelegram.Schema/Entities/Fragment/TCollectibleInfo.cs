@@ -40,13 +40,9 @@ public sealed partial class TCollectibleInfo : ICollectibleInfo
     /// </summary>
     public string Url { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PurchaseDate);
         writer.Write(Currency);

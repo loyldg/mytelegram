@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TSuggestedPost"/> See <a href="https://corefork.telegram.org/constructor/suggestedPost" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TSuggestedPost), nameof(TSuggestedPost))]
-public interface ISuggestedPost : IObject
+public partial interface ISuggestedPost : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

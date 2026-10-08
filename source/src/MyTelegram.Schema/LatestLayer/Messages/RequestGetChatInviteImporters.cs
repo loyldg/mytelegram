@@ -70,22 +70,24 @@ public sealed partial class RequestGetChatInviteImporters : IRequest<MyTelegram.
     /// </summary>
     public int Limit { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Requested) { Flags = Flags.SetBit(0); }
-        if (SubscriptionExpired) { Flags = Flags.SetBit(3); }
-        if (Link != null) { Flags = Flags.SetBit(1); }
-        if (Q != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Requested) { flags = flags.SetBit(0); }
+        if (SubscriptionExpired) { flags = flags.SetBit(3); }
+        if (Link != null) { flags = flags.SetBit(1); }
+        if (Q != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
-        if (Flags.IsBitSet(1)) { writer.Write(Link); }
-        if (Flags.IsBitSet(2)) { writer.Write(Q); }
+        if (flags.IsBitSet(1)) { writer.Write(Link); }
+        if (flags.IsBitSet(2)) { writer.Write(Q); }
         writer.Write(OffsetDate);
         writer.Write(OffsetUser);
         writer.Write(Limit);

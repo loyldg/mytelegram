@@ -20,13 +20,9 @@ public sealed partial class TLangPackString : ILangPackString
     /// </summary>
     public string Value { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Key);
         writer.Write(Value);

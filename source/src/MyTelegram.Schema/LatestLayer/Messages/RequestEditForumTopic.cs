@@ -54,25 +54,27 @@ public sealed partial class RequestEditForumTopic : IRequest<MyTelegram.Schema.I
     /// </summary>
     public bool? Hidden { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Title != null) { Flags = Flags.SetBit(0); }
-        if (/*IconEmojiId != 0 &&*/ IconEmojiId.HasValue) { Flags = Flags.SetBit(1); }
-        if (Closed != null) { Flags = Flags.SetBit(2); }
-        if (Hidden != null) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (Title != null) { flags = flags.SetBit(0); }
+        if (/*IconEmojiId != 0 &&*/ IconEmojiId.HasValue) { flags = flags.SetBit(1); }
+        if (Closed != null) { flags = flags.SetBit(2); }
+        if (Hidden != null) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(TopicId);
-        if (Flags.IsBitSet(0)) { writer.Write(Title); }
-        if (Flags.IsBitSet(1)) { writer.Write(IconEmojiId.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(Closed.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(Hidden.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(Title); }
+        if (flags.IsBitSet(1)) { writer.Write(IconEmojiId.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(Closed.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(Hidden.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

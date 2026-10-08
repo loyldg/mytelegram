@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TJsonObjectValue"/> See <a href="https://corefork.telegram.org/constructor/jsonObjectValue" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TJsonObjectValue), nameof(TJsonObjectValue))]
-public interface IJSONObjectValue : IObject
+public partial interface IJSONObjectValue : IObject
 {
     /// <summary>
     /// Key

@@ -22,13 +22,9 @@ public sealed partial class TStickerSetMultiCovered : IStickerSetCovered
     /// </summary>
     public TVector<MyTelegram.Schema.IDocument> Covers { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Set);
         writer.Write(Covers);

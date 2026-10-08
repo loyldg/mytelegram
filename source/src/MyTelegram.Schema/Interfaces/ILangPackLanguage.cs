@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TLangPackLanguage"/> See <a href="https://corefork.telegram.org/constructor/langPackLanguage" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TLangPackLanguage), nameof(TLangPackLanguage))]
-public interface ILangPackLanguage : IObject
+public partial interface ILangPackLanguage : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

@@ -34,13 +34,9 @@ public sealed partial class RequestGetWebFile : IRequest<MyTelegram.Schema.Uploa
     /// </summary>
     public int Limit { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Location);
         writer.Write(Offset);

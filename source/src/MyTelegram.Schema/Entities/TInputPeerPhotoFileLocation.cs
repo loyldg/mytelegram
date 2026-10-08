@@ -31,16 +31,18 @@ public sealed partial class TInputPeerPhotoFileLocation : IInputFileLocation
     /// </summary>
     public long PhotoId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Big) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Big) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(PhotoId);
     }

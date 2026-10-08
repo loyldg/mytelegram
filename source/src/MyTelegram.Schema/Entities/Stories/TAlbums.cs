@@ -21,13 +21,9 @@ public sealed partial class TAlbums : IAlbums
     /// </summary>
     public TVector<MyTelegram.Schema.IStoryAlbum> Albums { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Hash);
         writer.Write(Albums);

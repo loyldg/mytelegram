@@ -40,25 +40,27 @@ public sealed partial class TBotAppSettings : IBotAppSettings
     /// </summary>
     public int? HeaderDarkColor { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (PlaceholderPath != null) { Flags = Flags.SetBit(0); }
-        if (/*BackgroundColor != 0 && */BackgroundColor.HasValue) { Flags = Flags.SetBit(1); }
-        if (/*BackgroundDarkColor != 0 && */BackgroundDarkColor.HasValue) { Flags = Flags.SetBit(2); }
-        if (/*HeaderColor != 0 && */HeaderColor.HasValue) { Flags = Flags.SetBit(3); }
-        if (/*HeaderDarkColor != 0 && */HeaderDarkColor.HasValue) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (PlaceholderPath != null) { flags = flags.SetBit(0); }
+        if (/*BackgroundColor != 0 && */BackgroundColor.HasValue) { flags = flags.SetBit(1); }
+        if (/*BackgroundDarkColor != 0 && */BackgroundDarkColor.HasValue) { flags = flags.SetBit(2); }
+        if (/*HeaderColor != 0 && */HeaderColor.HasValue) { flags = flags.SetBit(3); }
+        if (/*HeaderDarkColor != 0 && */HeaderDarkColor.HasValue) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(PlaceholderPath); }
-        if (Flags.IsBitSet(1)) { writer.Write(BackgroundColor.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(BackgroundDarkColor.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(HeaderColor.Value); }
-        if (Flags.IsBitSet(4)) { writer.Write(HeaderDarkColor.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(PlaceholderPath); }
+        if (flags.IsBitSet(1)) { writer.Write(BackgroundColor.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(BackgroundDarkColor.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(HeaderColor.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(HeaderDarkColor.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

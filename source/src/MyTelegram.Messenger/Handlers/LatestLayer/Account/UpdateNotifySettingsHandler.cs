@@ -13,20 +13,53 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class UpdateNotifySettingsHandler(ICommandBus commandBus, IPeerHelper peerHelper) : RpcResultObjectHandler<RequestUpdateNotifySettings, IBool>
+internal sealed class UpdateNotifySettingsHandler(ICommandBus commandBus) : RpcResultObjectHandler<RequestUpdateNotifySettings, IBool>
 {
     protected override async Task<IBool> HandleCoreAsync(IRequestInput input, RequestUpdateNotifySettings obj)
     {
-        if (obj.Peer is TInputNotifyPeer inputNotifyPeer)
+        PeerNotifyType peerNotifyType = PeerNotifyType.Unknown;
+        long toPeerId = 0;
+        switch (obj.Peer)
         {
-            var userId = input.UserId;
-            var targetPeer = peerHelper.GetPeer(inputNotifyPeer.Peer, userId);
-            var aggregateId = PeerNotifySettingsId.Create(userId, targetPeer.PeerType, targetPeer.PeerId);
-            var updatePeerNotifySettingsCommand = new UpdatePeerNotifySettingsCommand(aggregateId, input.ToRequestInfo(), input.UserId, targetPeer.PeerType, targetPeer.PeerId, obj.Settings.ShowPreviews, obj.Settings.Silent, obj.Settings.MuteUntil, string.Empty);
-            await commandBus.PublishAsync(updatePeerNotifySettingsCommand);
-            return null !;
+            case TInputNotifyBroadcasts:
+                peerNotifyType = PeerNotifyType.Broadcasts;
+                break;
+            case TInputNotifyChats:
+                peerNotifyType = PeerNotifyType.Chats;
+                break;
+            case TInputNotifyForumTopic:
+                peerNotifyType = PeerNotifyType.ForumTopic;
+                break;
+            case TInputNotifyPeer inputNotifyPeer1:
+                peerNotifyType = PeerNotifyType.Peer;
+                var peer = inputNotifyPeer1.Peer.ToPeer(input.UserId);
+                toPeerId = peer.PeerId;
+                break;
+            case TInputNotifyUsers:
+                peerNotifyType = PeerNotifyType.Users;
+                break;
         }
 
-        throw new NotImplementedException();
+        var userId = input.UserId;
+        var id = PeerNotifySettingsId.Create2(userId, peerNotifyType, toPeerId);
+        var peerNotifySettings = new TPeerNotifySettings
+        {
+            AndroidSound = obj.Settings.Sound,
+            IosSound = obj.Settings.Sound,
+            StoriesAndroidSound = obj.Settings.StoriesSound,
+            OtherSound = obj.Settings.Sound,
+            StoriesIosSound = obj.Settings.StoriesSound,
+            StoriesOtherSound = obj.Settings.Sound,
+            StoriesHideSender = obj.Settings.StoriesHideSender,
+            MuteUntil = obj.Settings.MuteUntil,
+            StoriesMuted = obj.Settings.StoriesMuted,
+            ShowPreviews = obj.Settings.ShowPreviews,
+            Silent = obj.Settings.Silent,
+        };
+        var command = new UpdatePeerNotifySettingsCommand2(id, input.ToRequestInfo(), input.UserId, peerNotifyType,
+            toPeerId, peerNotifySettings);
+        await commandBus.PublishAsync(command);
+
+        return new TBoolTrue();
     }
 }

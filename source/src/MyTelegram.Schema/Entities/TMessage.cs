@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// A message
 /// <para>See <a href="https://corefork.telegram.org/constructor/message" /></para>
 /// </summary>
-[TlObject(0x3ae56482)]
+[TlObject(0x7600b9d3)]
 public sealed partial class TMessage : IMessage, ILayeredMessage
 {
-    public uint ConstructorId => 0x3ae56482;
+    public uint ConstructorId => 0x7600b9d3;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -145,6 +145,11 @@ public sealed partial class TMessage : IMessage, ILayeredMessage
     public long? ViaBusinessBotId { get; set; }
 
     /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/Peer" />
+    /// </summary>
+    public MyTelegram.Schema.IPeer? GuestchatViaFrom { get; set; }
+
+    /// <summary>
     /// Reply information
     /// See <a href="https://corefork.telegram.org/type/MessageReplyHeader" />
     /// </summary>
@@ -268,91 +273,108 @@ public sealed partial class TMessage : IMessage, ILayeredMessage
     /// </summary>
     public string? SummaryFromLanguage { get; set; }
 
-    public void ComputeFlag()
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/RichMessage" />
+    /// </summary>
+    public MyTelegram.Schema.IRichMessage? RichMessage { get; set; }
+
+    public int CalculateFlags()
     {
-        if (Out) { Flags = Flags.SetBit(1); }
-        if (Mentioned) { Flags = Flags.SetBit(4); }
-        if (MediaUnread) { Flags = Flags.SetBit(5); }
-        if (Silent) { Flags = Flags.SetBit(13); }
-        if (Post) { Flags = Flags.SetBit(14); }
-        if (FromScheduled) { Flags = Flags.SetBit(18); }
-        if (Legacy) { Flags = Flags.SetBit(19); }
-        if (EditHide) { Flags = Flags.SetBit(21); }
-        if (Pinned) { Flags = Flags.SetBit(24); }
-        if (Noforwards) { Flags = Flags.SetBit(26); }
-        if (InvertMedia) { Flags = Flags.SetBit(27); }
-        if (Offline) { Flags2 = Flags2.SetBit(1); }
-        if (VideoProcessingPending) { Flags2 = Flags2.SetBit(4); }
-        if (PaidSuggestedPostStars) { Flags2 = Flags2.SetBit(8); }
-        if (PaidSuggestedPostTon) { Flags2 = Flags2.SetBit(9); }
-        if (FromId != null) { Flags = Flags.SetBit(8); }
-        if (/*FromBoostsApplied != 0 && */FromBoostsApplied.HasValue) { Flags = Flags.SetBit(29); }
-        if (FromRank != null) { Flags2 = Flags2.SetBit(12); }
-        if (SavedPeerId != null) { Flags = Flags.SetBit(28); }
-        if (FwdFrom != null) { Flags = Flags.SetBit(2); }
-        if (/*ViaBotId != 0 &&*/ ViaBotId.HasValue) { Flags = Flags.SetBit(11); }
-        if (/*ViaBusinessBotId != 0 &&*/ ViaBusinessBotId.HasValue) { Flags2 = Flags2.SetBit(0); }
-        if (ReplyTo != null) { Flags = Flags.SetBit(3); }
-        if (Media != null) { Flags = Flags.SetBit(9); }
-        if (ReplyMarkup != null) { Flags = Flags.SetBit(6); }
-        if (Entities?.Count > 0) { Flags = Flags.SetBit(7); }
-        if (/*Views != 0 && */Views.HasValue) { Flags = Flags.SetBit(10); }
-        if (/*Forwards != 0 && */Forwards.HasValue) { Flags = Flags.SetBit(10); }
-        if (Replies != null) { Flags = Flags.SetBit(23); }
-        if (/*EditDate != 0 && */EditDate.HasValue) { Flags = Flags.SetBit(15); }
-        if (PostAuthor != null) { Flags = Flags.SetBit(16); }
-        if (/*GroupedId != 0 &&*/ GroupedId.HasValue) { Flags = Flags.SetBit(17); }
-        if (Reactions != null) { Flags = Flags.SetBit(20); }
-        if (RestrictionReason?.Count > 0) { Flags = Flags.SetBit(22); }
-        if (/*TtlPeriod != 0 && */TtlPeriod.HasValue) { Flags = Flags.SetBit(25); }
-        if (/*QuickReplyShortcutId != 0 && */QuickReplyShortcutId.HasValue) { Flags = Flags.SetBit(30); }
-        if (/*Effect != 0 &&*/ Effect.HasValue) { Flags2 = Flags2.SetBit(2); }
-        if (Factcheck != null) { Flags2 = Flags2.SetBit(3); }
-        if (/*ReportDeliveryUntilDate != 0 && */ReportDeliveryUntilDate.HasValue) { Flags2 = Flags2.SetBit(5); }
-        if (/*PaidMessageStars != 0 &&*/ PaidMessageStars.HasValue) { Flags2 = Flags2.SetBit(6); }
-        if (SuggestedPost != null) { Flags2 = Flags2.SetBit(7); }
-        if (/*ScheduleRepeatPeriod != 0 && */ScheduleRepeatPeriod.HasValue) { Flags2 = Flags2.SetBit(10); }
-        if (SummaryFromLanguage != null) { Flags2 = Flags2.SetBit(11); }
+        var flags = 0;
+        if (Out) { flags = flags.SetBit(1); }
+        if (Mentioned) { flags = flags.SetBit(4); }
+        if (MediaUnread) { flags = flags.SetBit(5); }
+        if (Silent) { flags = flags.SetBit(13); }
+        if (Post) { flags = flags.SetBit(14); }
+        if (FromScheduled) { flags = flags.SetBit(18); }
+        if (Legacy) { flags = flags.SetBit(19); }
+        if (EditHide) { flags = flags.SetBit(21); }
+        if (Pinned) { flags = flags.SetBit(24); }
+        if (Noforwards) { flags = flags.SetBit(26); }
+        if (InvertMedia) { flags = flags.SetBit(27); }
+        if (FromId != null) { flags = flags.SetBit(8); }
+        if (/*FromBoostsApplied != 0 && */FromBoostsApplied.HasValue) { flags = flags.SetBit(29); }
+        if (SavedPeerId != null) { flags = flags.SetBit(28); }
+        if (FwdFrom != null) { flags = flags.SetBit(2); }
+        if (/*ViaBotId != 0 &&*/ ViaBotId.HasValue) { flags = flags.SetBit(11); }
+        if (ReplyTo != null) { flags = flags.SetBit(3); }
+        if (Media != null) { flags = flags.SetBit(9); }
+        if (ReplyMarkup != null) { flags = flags.SetBit(6); }
+        if (Entities?.Count > 0) { flags = flags.SetBit(7); }
+        if (/*Views != 0 && */Views.HasValue) { flags = flags.SetBit(10); }
+        if (/*Forwards != 0 && */Forwards.HasValue) { flags = flags.SetBit(10); }
+        if (Replies != null) { flags = flags.SetBit(23); }
+        if (/*EditDate != 0 && */EditDate.HasValue) { flags = flags.SetBit(15); }
+        if (PostAuthor != null) { flags = flags.SetBit(16); }
+        if (/*GroupedId != 0 &&*/ GroupedId.HasValue) { flags = flags.SetBit(17); }
+        if (Reactions != null) { flags = flags.SetBit(20); }
+        if (RestrictionReason?.Count > 0) { flags = flags.SetBit(22); }
+        if (/*TtlPeriod != 0 && */TtlPeriod.HasValue) { flags = flags.SetBit(25); }
+        if (/*QuickReplyShortcutId != 0 && */QuickReplyShortcutId.HasValue) { flags = flags.SetBit(30); }
+        return flags;
+    }
+    public int CalculateFlags2()
+    {
+        var flags2 = 0;
+        if (Offline) { flags2 = flags2.SetBit(1); }
+        if (VideoProcessingPending) { flags2 = flags2.SetBit(4); }
+        if (PaidSuggestedPostStars) { flags2 = flags2.SetBit(8); }
+        if (PaidSuggestedPostTon) { flags2 = flags2.SetBit(9); }
+        if (FromRank != null) { flags2 = flags2.SetBit(12); }
+        if (/*ViaBusinessBotId != 0 &&*/ ViaBusinessBotId.HasValue) { flags2 = flags2.SetBit(0); }
+        if (GuestchatViaFrom != null) { flags2 = flags2.SetBit(19); }
+        if (/*Effect != 0 &&*/ Effect.HasValue) { flags2 = flags2.SetBit(2); }
+        if (Factcheck != null) { flags2 = flags2.SetBit(3); }
+        if (/*ReportDeliveryUntilDate != 0 && */ReportDeliveryUntilDate.HasValue) { flags2 = flags2.SetBit(5); }
+        if (/*PaidMessageStars != 0 &&*/ PaidMessageStars.HasValue) { flags2 = flags2.SetBit(6); }
+        if (SuggestedPost != null) { flags2 = flags2.SetBit(7); }
+        if (/*ScheduleRepeatPeriod != 0 && */ScheduleRepeatPeriod.HasValue) { flags2 = flags2.SetBit(10); }
+        if (SummaryFromLanguage != null) { flags2 = flags2.SetBit(11); }
+        if (RichMessage != null) { flags2 = flags2.SetBit(13); }
+        return flags2;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
+        var flags2  = CalculateFlags2();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        writer.Write(Flags2);
+        writer.Write(flags);
+        writer.Write(flags2);
         writer.Write(Id);
-        if (Flags.IsBitSet(8)) { writer.Write(FromId); }
-        if (Flags.IsBitSet(29)) { writer.Write(FromBoostsApplied.Value); }
-        if (Flags2.IsBitSet(12)) { writer.Write(FromRank); }
+        if (flags.IsBitSet(8)) { writer.Write(FromId); }
+        if (flags.IsBitSet(29)) { writer.Write(FromBoostsApplied.Value); }
+        if (flags2.IsBitSet(12)) { writer.Write(FromRank); }
         writer.Write(PeerId);
-        if (Flags.IsBitSet(28)) { writer.Write(SavedPeerId); }
-        if (Flags.IsBitSet(2)) { writer.Write(FwdFrom); }
-        if (Flags.IsBitSet(11)) { writer.Write(ViaBotId.Value); }
-        if (Flags2.IsBitSet(0)) { writer.Write(ViaBusinessBotId.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(ReplyTo); }
+        if (flags.IsBitSet(28)) { writer.Write(SavedPeerId); }
+        if (flags.IsBitSet(2)) { writer.Write(FwdFrom); }
+        if (flags.IsBitSet(11)) { writer.Write(ViaBotId.Value); }
+        if (flags2.IsBitSet(0)) { writer.Write(ViaBusinessBotId.Value); }
+        if (flags2.IsBitSet(19)) { writer.Write(GuestchatViaFrom); }
+        if (flags.IsBitSet(3)) { writer.Write(ReplyTo); }
         writer.Write(Date);
         writer.Write(Message);
-        if (Flags.IsBitSet(9)) { writer.Write(Media); }
-        if (Flags.IsBitSet(6)) { writer.Write(ReplyMarkup); }
-        if (Flags.IsBitSet(7)) { writer.Write(Entities); }
-        if (Flags.IsBitSet(10)) { writer.Write(Views.Value); }
-        if (Flags.IsBitSet(10)) { writer.Write(Forwards.Value); }
-        if (Flags.IsBitSet(23)) { writer.Write(Replies); }
-        if (Flags.IsBitSet(15)) { writer.Write(EditDate.Value); }
-        if (Flags.IsBitSet(16)) { writer.Write(PostAuthor); }
-        if (Flags.IsBitSet(17)) { writer.Write(GroupedId.Value); }
-        if (Flags.IsBitSet(20)) { writer.Write(Reactions); }
-        if (Flags.IsBitSet(22)) { writer.Write(RestrictionReason); }
-        if (Flags.IsBitSet(25)) { writer.Write(TtlPeriod.Value); }
-        if (Flags.IsBitSet(30)) { writer.Write(QuickReplyShortcutId.Value); }
-        if (Flags2.IsBitSet(2)) { writer.Write(Effect.Value); }
-        if (Flags2.IsBitSet(3)) { writer.Write(Factcheck); }
-        if (Flags2.IsBitSet(5)) { writer.Write(ReportDeliveryUntilDate.Value); }
-        if (Flags2.IsBitSet(6)) { writer.Write(PaidMessageStars.Value); }
-        if (Flags2.IsBitSet(7)) { writer.Write(SuggestedPost); }
-        if (Flags2.IsBitSet(10)) { writer.Write(ScheduleRepeatPeriod.Value); }
-        if (Flags2.IsBitSet(11)) { writer.Write(SummaryFromLanguage); }
+        if (flags.IsBitSet(9)) { writer.Write(Media); }
+        if (flags.IsBitSet(6)) { writer.Write(ReplyMarkup); }
+        if (flags.IsBitSet(7)) { writer.Write(Entities); }
+        if (flags.IsBitSet(10)) { writer.Write(Views.Value); }
+        if (flags.IsBitSet(10)) { writer.Write(Forwards.Value); }
+        if (flags.IsBitSet(23)) { writer.Write(Replies); }
+        if (flags.IsBitSet(15)) { writer.Write(EditDate.Value); }
+        if (flags.IsBitSet(16)) { writer.Write(PostAuthor); }
+        if (flags.IsBitSet(17)) { writer.Write(GroupedId.Value); }
+        if (flags.IsBitSet(20)) { writer.Write(Reactions); }
+        if (flags.IsBitSet(22)) { writer.Write(RestrictionReason); }
+        if (flags.IsBitSet(25)) { writer.Write(TtlPeriod.Value); }
+        if (flags.IsBitSet(30)) { writer.Write(QuickReplyShortcutId.Value); }
+        if (flags2.IsBitSet(2)) { writer.Write(Effect.Value); }
+        if (flags2.IsBitSet(3)) { writer.Write(Factcheck); }
+        if (flags2.IsBitSet(5)) { writer.Write(ReportDeliveryUntilDate.Value); }
+        if (flags2.IsBitSet(6)) { writer.Write(PaidMessageStars.Value); }
+        if (flags2.IsBitSet(7)) { writer.Write(SuggestedPost); }
+        if (flags2.IsBitSet(10)) { writer.Write(ScheduleRepeatPeriod.Value); }
+        if (flags2.IsBitSet(11)) { writer.Write(SummaryFromLanguage); }
+        if (flags2.IsBitSet(13)) { writer.Write(RichMessage); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -383,6 +405,7 @@ public sealed partial class TMessage : IMessage, ILayeredMessage
         if (Flags.IsBitSet(2)) { FwdFrom = buffer.Read<MyTelegram.Schema.IMessageFwdHeader>(); }
         if (Flags.IsBitSet(11)) { ViaBotId = buffer.ReadInt64(); }
         if (Flags2.IsBitSet(0)) { ViaBusinessBotId = buffer.ReadInt64(); }
+        if (Flags2.IsBitSet(19)) { GuestchatViaFrom = buffer.Read<MyTelegram.Schema.IPeer>(); }
         if (Flags.IsBitSet(3)) { ReplyTo = buffer.Read<MyTelegram.Schema.IMessageReplyHeader>(); }
         Date = buffer.ReadInt32();
         Message = buffer.ReadString();
@@ -406,5 +429,6 @@ public sealed partial class TMessage : IMessage, ILayeredMessage
         if (Flags2.IsBitSet(7)) { SuggestedPost = buffer.Read<MyTelegram.Schema.ISuggestedPost>(); }
         if (Flags2.IsBitSet(10)) { ScheduleRepeatPeriod = buffer.ReadInt32(); }
         if (Flags2.IsBitSet(11)) { SummaryFromLanguage = buffer.ReadString(); }
+        if (Flags2.IsBitSet(13)) { RichMessage = buffer.Read<MyTelegram.Schema.IRichMessage>(); }
     }
 }

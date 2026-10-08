@@ -13,7 +13,7 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TEncryptedMessage), nameof(TEncryptedMessage))]
 [JsonDerivedType(typeof(TEncryptedMessageService), nameof(TEncryptedMessageService))]
-public interface IEncryptedMessage : IObject
+public partial interface IEncryptedMessage : IObject
 {
     /// <summary>
     /// Random message ID, assigned by the author of message

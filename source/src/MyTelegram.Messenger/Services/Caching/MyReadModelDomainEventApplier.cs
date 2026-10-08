@@ -51,10 +51,10 @@ public class MyReadModelDomainEventApplier : IReadModelDomainEventApplier, ISing
 
                     // no matching 'Apply' method found
 
-                    return null;
+                    return null!;
                 });
 
-            if (applyMethod != null)
+            if (applyMethod != null!)
             {
                 await applyMethod.Apply(readModel, readModelContext, domainEvent, cancellationToken).ConfigureAwait(false);
                 appliedAny = true;
@@ -78,7 +78,7 @@ public class MyReadModelDomainEventApplier : IReadModelDomainEventApplier, ISing
         var type = interfaceType.GetTypeInfo();
         return type.IsAssignableFrom(instanceType)
             ? type.GetMethod(name, parameters)
-            : default;
+            : null;
     }
 
     private class ApplyMethod(Func<IReadModel, IReadModelContext, IDomainEvent, CancellationToken, Task> method)

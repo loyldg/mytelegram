@@ -253,31 +253,33 @@ public sealed partial class TConfig : IConfig
     /// </summary>
     public string? AutologinToken { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (DefaultP2pContacts) { Flags = Flags.SetBit(3); }
-        if (PreloadFeaturedStickers) { Flags = Flags.SetBit(4); }
-        if (RevokePmInbox) { Flags = Flags.SetBit(6); }
-        if (BlockedMode) { Flags = Flags.SetBit(8); }
-        if (ForceTryIpv6) { Flags = Flags.SetBit(14); }
-        if (/*TmpSessions != 0 && */TmpSessions.HasValue) { Flags = Flags.SetBit(0); }
-        if (AutoupdateUrlPrefix != null) { Flags = Flags.SetBit(7); }
-        if (GifSearchUsername != null) { Flags = Flags.SetBit(9); }
-        if (VenueSearchUsername != null) { Flags = Flags.SetBit(10); }
-        if (ImgSearchUsername != null) { Flags = Flags.SetBit(11); }
-        if (StaticMapsProvider != null) { Flags = Flags.SetBit(12); }
-        if (SuggestedLangCode != null) { Flags = Flags.SetBit(2); }
-        if (/*LangPackVersion != 0 && */LangPackVersion.HasValue) { Flags = Flags.SetBit(2); }
-        if (/*BaseLangPackVersion != 0 && */BaseLangPackVersion.HasValue) { Flags = Flags.SetBit(2); }
-        if (ReactionsDefault != null) { Flags = Flags.SetBit(15); }
-        if (AutologinToken != null) { Flags = Flags.SetBit(16); }
+        var flags = 0;
+        if (DefaultP2pContacts) { flags = flags.SetBit(3); }
+        if (PreloadFeaturedStickers) { flags = flags.SetBit(4); }
+        if (RevokePmInbox) { flags = flags.SetBit(6); }
+        if (BlockedMode) { flags = flags.SetBit(8); }
+        if (ForceTryIpv6) { flags = flags.SetBit(14); }
+        if (/*TmpSessions != 0 && */TmpSessions.HasValue) { flags = flags.SetBit(0); }
+        if (AutoupdateUrlPrefix != null) { flags = flags.SetBit(7); }
+        if (GifSearchUsername != null) { flags = flags.SetBit(9); }
+        if (VenueSearchUsername != null) { flags = flags.SetBit(10); }
+        if (ImgSearchUsername != null) { flags = flags.SetBit(11); }
+        if (StaticMapsProvider != null) { flags = flags.SetBit(12); }
+        if (SuggestedLangCode != null) { flags = flags.SetBit(2); }
+        if (/*LangPackVersion != 0 && */LangPackVersion.HasValue) { flags = flags.SetBit(2); }
+        if (/*BaseLangPackVersion != 0 && */BaseLangPackVersion.HasValue) { flags = flags.SetBit(2); }
+        if (ReactionsDefault != null) { flags = flags.SetBit(15); }
+        if (AutologinToken != null) { flags = flags.SetBit(16); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Date);
         writer.Write(Expires);
         writer.Write(TestMode);
@@ -301,25 +303,25 @@ public sealed partial class TConfig : IConfig
         writer.Write(RatingEDecay);
         writer.Write(StickersRecentLimit);
         writer.Write(ChannelsReadMediaPeriod);
-        if (Flags.IsBitSet(0)) { writer.Write(TmpSessions.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(TmpSessions.Value); }
         writer.Write(CallReceiveTimeoutMs);
         writer.Write(CallRingTimeoutMs);
         writer.Write(CallConnectTimeoutMs);
         writer.Write(CallPacketTimeoutMs);
         writer.Write(MeUrlPrefix);
-        if (Flags.IsBitSet(7)) { writer.Write(AutoupdateUrlPrefix); }
-        if (Flags.IsBitSet(9)) { writer.Write(GifSearchUsername); }
-        if (Flags.IsBitSet(10)) { writer.Write(VenueSearchUsername); }
-        if (Flags.IsBitSet(11)) { writer.Write(ImgSearchUsername); }
-        if (Flags.IsBitSet(12)) { writer.Write(StaticMapsProvider); }
+        if (flags.IsBitSet(7)) { writer.Write(AutoupdateUrlPrefix); }
+        if (flags.IsBitSet(9)) { writer.Write(GifSearchUsername); }
+        if (flags.IsBitSet(10)) { writer.Write(VenueSearchUsername); }
+        if (flags.IsBitSet(11)) { writer.Write(ImgSearchUsername); }
+        if (flags.IsBitSet(12)) { writer.Write(StaticMapsProvider); }
         writer.Write(CaptionLengthMax);
         writer.Write(MessageLengthMax);
         writer.Write(WebfileDcId);
-        if (Flags.IsBitSet(2)) { writer.Write(SuggestedLangCode); }
-        if (Flags.IsBitSet(2)) { writer.Write(LangPackVersion.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(BaseLangPackVersion.Value); }
-        if (Flags.IsBitSet(15)) { writer.Write(ReactionsDefault); }
-        if (Flags.IsBitSet(16)) { writer.Write(AutologinToken); }
+        if (flags.IsBitSet(2)) { writer.Write(SuggestedLangCode); }
+        if (flags.IsBitSet(2)) { writer.Write(LangPackVersion.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(BaseLangPackVersion.Value); }
+        if (flags.IsBitSet(15)) { writer.Write(ReactionsDefault); }
+        if (flags.IsBitSet(16)) { writer.Write(AutologinToken); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

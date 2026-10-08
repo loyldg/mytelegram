@@ -4,6 +4,16 @@ public class GetMaxUserIdQueryHandler(IQueryOnlyReadModelStore<UserReadModel> st
 {
     public async Task<long> ExecuteQueryAsync(GetMaxUserIdQuery query, CancellationToken cancellationToken)
     {
-        return await store.FirstOrDefaultAsync(p => p.UserId > 0, createResult: p => p.UserId, sort: new SortOptions<UserReadModel>(p => p.UserId, SortType.Descending), cancellationToken: cancellationToken);
+        var maxId = await store.FirstOrDefaultAsync(p => p.UserId > 0 && !p.Bot && p.UserId < 600000000000, createResult: p => p.UserId, sort: new SortOptions<UserReadModel>(p => p.UserId, SortType.Descending), cancellationToken: cancellationToken);
+        if (maxId > 0)
+        {
+            maxId -= MyTelegramConsts.UserIdBase;
+        }
+        else
+        {
+            maxId = 0;
+        }
+
+        return maxId;
     }
 }

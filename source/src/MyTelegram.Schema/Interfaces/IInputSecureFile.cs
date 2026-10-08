@@ -13,7 +13,7 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TInputSecureFileUploaded), nameof(TInputSecureFileUploaded))]
 [JsonDerivedType(typeof(TInputSecureFile), nameof(TInputSecureFile))]
-public interface IInputSecureFile : IObject
+public partial interface IInputSecureFile : IObject
 {
     /// <summary>
     /// Secure file ID

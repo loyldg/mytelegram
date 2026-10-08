@@ -136,17 +136,6 @@ internal sealed class EditMessageHandler(IMediaHelper mediaHelper, ICommandBus c
             message = string.Empty;
         }
 
-        //InboxItem? inboxItem = null;
-        //if (messageReadModel!.ToPeerType == PeerType.User)
-        //{
-        //    var inboxMessageReadModel =
-        //        await queryProcessor.ProcessAsync(new GetMessageByBatchIdQuery(messageReadModel.BatchId,
-        //            messageReadModel.OwnerPeerId));
-        //    if (inboxMessageReadModel != null)
-        //    {
-        //        inboxItem = new InboxItem(inboxMessageReadModel.OwnerPeerId, inboxMessageReadModel.MessageId);
-        //    }
-        //}
         var entities = obj.Entities ?? [];
         await messageAppService.ProcessMessageEntitiesAsync(obj.Message, entities, peer);
         if (entities.Count == 0)

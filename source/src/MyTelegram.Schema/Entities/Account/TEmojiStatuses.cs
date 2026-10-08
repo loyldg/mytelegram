@@ -21,13 +21,9 @@ public sealed partial class TEmojiStatuses : IEmojiStatuses
     /// </summary>
     public TVector<MyTelegram.Schema.IEmojiStatus> Statuses { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Hash);
         writer.Write(Statuses);

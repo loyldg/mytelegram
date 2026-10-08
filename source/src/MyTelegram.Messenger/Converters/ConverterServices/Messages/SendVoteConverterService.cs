@@ -2,10 +2,10 @@
 
 internal sealed class SendVoteConverterService(IPollConverterService pollConverterService) : ISendVoteConverterService, ITransientDependency
 {
-    public IUpdates ToSelfUpdates(IPollReadModel pollReadModel, List<string> chosenOptions, int layer)
+    public IUpdates ToSelfUpdates(long userId, IPollReadModel pollReadModel, List<string> chosenOptions, int layer)
     {
         var poll = pollConverterService.ToPoll(pollReadModel, layer);
-        var pollResults = pollConverterService.ToPollResults(pollReadModel, chosenOptions, layer);
+        var pollResults = pollConverterService.ToPollResults(userId, pollReadModel, chosenOptions, layer);
 
         var updateMessagePoll = new TUpdateMessagePoll
         {
@@ -23,10 +23,10 @@ internal sealed class SendVoteConverterService(IPollConverterService pollConvert
         };
     }
 
-    public IUpdates ToUpdates(IPollReadModel pollReadModel, List<string> chosenOptions)
+    public IUpdates ToUpdates(long userId, IPollReadModel pollReadModel, List<string> chosenOptions)
     {
         //var poll = pollConverterService.ToPoll(pollReadModel);
-        var pollResults = pollConverterService.ToPollResults(pollReadModel, chosenOptions);
+        var pollResults = pollConverterService.ToPollResults(userId, pollReadModel, chosenOptions);
         pollResults.Min = true;
 
         var updateMessagePoll = new TUpdateMessagePoll

@@ -25,13 +25,9 @@ public sealed partial class TUpdateEncryptedMessagesRead : IUpdate
     /// </summary>
     public int Date { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ChatId);
         writer.Write(MaxDate);

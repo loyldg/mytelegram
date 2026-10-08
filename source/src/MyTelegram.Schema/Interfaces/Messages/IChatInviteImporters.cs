@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TChatInviteImporters"/> See <a href="https://corefork.telegram.org/constructor/messages.chatInviteImporters" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TChatInviteImporters), nameof(TChatInviteImporters))]
-public interface IChatInviteImporters : IObject
+public partial interface IChatInviteImporters : IObject
 {
     /// <summary>
     /// Number of users that joined

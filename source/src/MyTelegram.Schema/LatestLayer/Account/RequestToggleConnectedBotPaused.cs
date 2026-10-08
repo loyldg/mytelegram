@@ -29,13 +29,9 @@ public sealed partial class RequestToggleConnectedBotPaused : IRequest<IBool>
     /// </summary>
     public bool Paused { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(Paused);

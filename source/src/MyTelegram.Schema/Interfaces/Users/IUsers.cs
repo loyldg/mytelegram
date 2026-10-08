@@ -13,7 +13,7 @@ namespace MyTelegram.Schema.Users;
 /// </remarks>
 [JsonDerivedType(typeof(TUsers), nameof(TUsers))]
 [JsonDerivedType(typeof(TUsersSlice), nameof(TUsersSlice))]
-public interface IUsers : IObject
+public partial interface IUsers : IObject
 {
     /// <summary>
     /// Users

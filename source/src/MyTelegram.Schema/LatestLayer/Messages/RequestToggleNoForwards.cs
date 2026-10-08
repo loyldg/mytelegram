@@ -41,19 +41,21 @@ public sealed partial class RequestToggleNoForwards : IRequest<MyTelegram.Schema
     /// </summary>
     public int? RequestMsgId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*RequestMsgId != 0 && */RequestMsgId.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*RequestMsgId != 0 && */RequestMsgId.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Enabled);
-        if (Flags.IsBitSet(0)) { writer.Write(RequestMsgId.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(RequestMsgId.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -13,7 +13,7 @@ namespace MyTelegram.Schema.Messages;
 /// </remarks>
 [JsonDerivedType(typeof(TDhConfigNotModified), nameof(TDhConfigNotModified))]
 [JsonDerivedType(typeof(TDhConfig), nameof(TDhConfig))]
-public interface IDhConfig : IObject
+public partial interface IDhConfig : IObject
 {
     /// <summary>
     /// Random sequence of bytes of assigned length

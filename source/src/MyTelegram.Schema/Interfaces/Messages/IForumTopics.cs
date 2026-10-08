@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TForumTopics"/> See <a href="https://corefork.telegram.org/constructor/messages.forumTopics" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TForumTopics), nameof(TForumTopics))]
-public interface IForumTopics : IObject
+public partial interface IForumTopics : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

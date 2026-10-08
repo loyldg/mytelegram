@@ -22,9 +22,9 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class ImportChatInviteHandler(ICommandBus commandBus, IChannelAppService channelAppService, IQueryProcessor queryProcessor) : RpcResultObjectHandler<RequestImportChatInvite, IUpdates>
+internal sealed class ImportChatInviteHandler(ICommandBus commandBus, IChannelAppService channelAppService, IQueryProcessor queryProcessor) : RpcResultObjectHandler<RequestImportChatInvite, MyTelegram.Schema.Messages.IChatInviteJoinResult>
 {
-    protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestImportChatInvite obj)
+    protected override async Task<MyTelegram.Schema.Messages.IChatInviteJoinResult> HandleCoreAsync(IRequestInput input, RequestImportChatInvite obj)
     {
         if (string.IsNullOrEmpty(obj.Hash))
         {

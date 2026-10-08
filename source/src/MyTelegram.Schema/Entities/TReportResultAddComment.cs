@@ -25,16 +25,18 @@ public sealed partial class TReportResultAddComment : IReportResult
     /// </summary>
     public ReadOnlyMemory<byte> Option { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Optional) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Optional) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Option);
     }
 

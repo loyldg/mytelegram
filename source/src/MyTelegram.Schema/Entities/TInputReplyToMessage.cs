@@ -60,32 +60,34 @@ public sealed partial class TInputReplyToMessage : IInputReplyTo
 
     public ReadOnlyMemory<byte>? PollOption { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*TopMsgId != 0 && */TopMsgId.HasValue) { Flags = Flags.SetBit(0); }
-        if (ReplyToPeerId != null) { Flags = Flags.SetBit(1); }
-        if (QuoteText != null) { Flags = Flags.SetBit(2); }
-        if (QuoteEntities?.Count > 0) { Flags = Flags.SetBit(3); }
-        if (/*QuoteOffset != 0 && */QuoteOffset.HasValue) { Flags = Flags.SetBit(4); }
-        if (MonoforumPeerId != null) { Flags = Flags.SetBit(5); }
-        if (/*TodoItemId != 0 && */TodoItemId.HasValue) { Flags = Flags.SetBit(6); }
-        if (PollOption != null) { Flags = Flags.SetBit(7); }
+        var flags = 0;
+        if (/*TopMsgId != 0 && */TopMsgId.HasValue) { flags = flags.SetBit(0); }
+        if (ReplyToPeerId != null) { flags = flags.SetBit(1); }
+        if (QuoteText != null) { flags = flags.SetBit(2); }
+        if (QuoteEntities?.Count > 0) { flags = flags.SetBit(3); }
+        if (/*QuoteOffset != 0 && */QuoteOffset.HasValue) { flags = flags.SetBit(4); }
+        if (MonoforumPeerId != null) { flags = flags.SetBit(5); }
+        if (/*TodoItemId != 0 && */TodoItemId.HasValue) { flags = flags.SetBit(6); }
+        if (PollOption != null) { flags = flags.SetBit(7); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(ReplyToMsgId);
-        if (Flags.IsBitSet(0)) { writer.Write(TopMsgId.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(ReplyToPeerId); }
-        if (Flags.IsBitSet(2)) { writer.Write(QuoteText); }
-        if (Flags.IsBitSet(3)) { writer.Write(QuoteEntities); }
-        if (Flags.IsBitSet(4)) { writer.Write(QuoteOffset.Value); }
-        if (Flags.IsBitSet(5)) { writer.Write(MonoforumPeerId); }
-        if (Flags.IsBitSet(6)) { writer.Write(TodoItemId.Value); }
-        if (Flags.IsBitSet(7)) { writer.Write(PollOption); }
+        if (flags.IsBitSet(0)) { writer.Write(TopMsgId.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(ReplyToPeerId); }
+        if (flags.IsBitSet(2)) { writer.Write(QuoteText); }
+        if (flags.IsBitSet(3)) { writer.Write(QuoteEntities); }
+        if (flags.IsBitSet(4)) { writer.Write(QuoteOffset.Value); }
+        if (flags.IsBitSet(5)) { writer.Write(MonoforumPeerId); }
+        if (flags.IsBitSet(6)) { writer.Write(TodoItemId.Value); }
+        if (flags.IsBitSet(7)) { writer.Write(PollOption); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

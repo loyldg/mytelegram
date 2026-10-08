@@ -59,25 +59,27 @@ public sealed partial class RequestSearchPosts : IRequest<MyTelegram.Schema.Mess
     /// </summary>
     public long? AllowPaidStars { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Hashtag != null) { Flags = Flags.SetBit(0); }
-        if (Query != null) { Flags = Flags.SetBit(1); }
-        if (/*AllowPaidStars != 0 &&*/ AllowPaidStars.HasValue) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Hashtag != null) { flags = flags.SetBit(0); }
+        if (Query != null) { flags = flags.SetBit(1); }
+        if (/*AllowPaidStars != 0 &&*/ AllowPaidStars.HasValue) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(Hashtag); }
-        if (Flags.IsBitSet(1)) { writer.Write(Query); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(Hashtag); }
+        if (flags.IsBitSet(1)) { writer.Write(Query); }
         writer.Write(OffsetRate);
         writer.Write(OffsetPeer);
         writer.Write(OffsetId);
         writer.Write(Limit);
-        if (Flags.IsBitSet(2)) { writer.Write(AllowPaidStars.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(AllowPaidStars.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

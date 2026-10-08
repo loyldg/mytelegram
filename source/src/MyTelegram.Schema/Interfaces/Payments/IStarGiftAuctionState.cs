@@ -10,7 +10,7 @@ namespace MyTelegram.Schema.Payments;
 /// <see cref="TStarGiftAuctionState"/> See <a href="https://corefork.telegram.org/constructor/payments.starGiftAuctionState" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStarGiftAuctionState), nameof(TStarGiftAuctionState))]
-public interface IStarGiftAuctionState : IObject
+public partial interface IStarGiftAuctionState : IObject
 {
     /// <summary>
     ///  

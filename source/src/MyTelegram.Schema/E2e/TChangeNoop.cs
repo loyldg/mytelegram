@@ -5,9 +5,13 @@ namespace MyTelegram.Schema.E2e;
 
 
 [TlObject(0xDEB4A41B)]
-public sealed class TChangeNoop : IChange
+public sealed partial class TChangeNoop : IChange
 {
     public uint ConstructorId => 0xDEB4A41B;
+
+    /// <summary>
+    /// int256
+    /// </summary>
     public ReadOnlyMemory<byte> Nonce { get; set; }
 
     public void ComputeFlag()

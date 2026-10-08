@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TSecurePasswordKdfAlgoUnknown), nameof(TSecurePasswordKdfAlgoUnknown))]
 [JsonDerivedType(typeof(TSecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000), nameof(TSecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000))]
 [JsonDerivedType(typeof(TSecurePasswordKdfAlgoSHA512), nameof(TSecurePasswordKdfAlgoSHA512))]
-public interface ISecurePasswordKdfAlgo : IObject
+public partial interface ISecurePasswordKdfAlgo : IObject
 {
 }

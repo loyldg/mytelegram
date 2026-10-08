@@ -21,13 +21,9 @@ public sealed partial class TTextAnchor : IRichText
     /// </summary>
     public string Name { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Text);
         writer.Write(Name);

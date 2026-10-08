@@ -100,32 +100,40 @@ public sealed partial class TChatAdminRights : IChatAdminRights
     /// </summary>
     public bool ManageRanks { get; set; }
 
-    public void ComputeFlag()
+    public bool ManageLinkedPeers { get; set; }
+
+    public bool ManageWelcomeMessages { get; set; }
+
+    public int CalculateFlags()
     {
-        if (ChangeInfo) { Flags = Flags.SetBit(0); }
-        if (PostMessages) { Flags = Flags.SetBit(1); }
-        if (EditMessages) { Flags = Flags.SetBit(2); }
-        if (DeleteMessages) { Flags = Flags.SetBit(3); }
-        if (BanUsers) { Flags = Flags.SetBit(4); }
-        if (InviteUsers) { Flags = Flags.SetBit(5); }
-        if (PinMessages) { Flags = Flags.SetBit(7); }
-        if (AddAdmins) { Flags = Flags.SetBit(9); }
-        if (Anonymous) { Flags = Flags.SetBit(10); }
-        if (ManageCall) { Flags = Flags.SetBit(11); }
-        if (Other) { Flags = Flags.SetBit(12); }
-        if (ManageTopics) { Flags = Flags.SetBit(13); }
-        if (PostStories) { Flags = Flags.SetBit(14); }
-        if (EditStories) { Flags = Flags.SetBit(15); }
-        if (DeleteStories) { Flags = Flags.SetBit(16); }
-        if (ManageDirectMessages) { Flags = Flags.SetBit(17); }
-        if (ManageRanks) { Flags = Flags.SetBit(18); }
+        var flags = 0;
+        if (ChangeInfo) { flags = flags.SetBit(0); }
+        if (PostMessages) { flags = flags.SetBit(1); }
+        if (EditMessages) { flags = flags.SetBit(2); }
+        if (DeleteMessages) { flags = flags.SetBit(3); }
+        if (BanUsers) { flags = flags.SetBit(4); }
+        if (InviteUsers) { flags = flags.SetBit(5); }
+        if (PinMessages) { flags = flags.SetBit(7); }
+        if (AddAdmins) { flags = flags.SetBit(9); }
+        if (Anonymous) { flags = flags.SetBit(10); }
+        if (ManageCall) { flags = flags.SetBit(11); }
+        if (Other) { flags = flags.SetBit(12); }
+        if (ManageTopics) { flags = flags.SetBit(13); }
+        if (PostStories) { flags = flags.SetBit(14); }
+        if (EditStories) { flags = flags.SetBit(15); }
+        if (DeleteStories) { flags = flags.SetBit(16); }
+        if (ManageDirectMessages) { flags = flags.SetBit(17); }
+        if (ManageRanks) { flags = flags.SetBit(18); }
+        if (ManageLinkedPeers) { flags = flags.SetBit(19); }
+        if (ManageWelcomeMessages) { flags = flags.SetBit(20); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -148,5 +156,7 @@ public sealed partial class TChatAdminRights : IChatAdminRights
         if (Flags.IsBitSet(16)) { DeleteStories = true; }
         if (Flags.IsBitSet(17)) { ManageDirectMessages = true; }
         if (Flags.IsBitSet(18)) { ManageRanks = true; }
+        if (Flags.IsBitSet(19)) { ManageLinkedPeers = true; }
+        if (Flags.IsBitSet(20)) { ManageWelcomeMessages = true; }
     }
 }

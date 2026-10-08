@@ -109,38 +109,40 @@ public sealed partial class TChatInvite : IChatInvite
     /// </summary>
     public MyTelegram.Schema.IBotVerification? BotVerification { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Channel) { Flags = Flags.SetBit(0); }
-        if (Broadcast) { Flags = Flags.SetBit(1); }
-        if (Public) { Flags = Flags.SetBit(2); }
-        if (Megagroup) { Flags = Flags.SetBit(3); }
-        if (RequestNeeded) { Flags = Flags.SetBit(6); }
-        if (Verified) { Flags = Flags.SetBit(7); }
-        if (Scam) { Flags = Flags.SetBit(8); }
-        if (Fake) { Flags = Flags.SetBit(9); }
-        if (CanRefulfillSubscription) { Flags = Flags.SetBit(11); }
-        if (About != null) { Flags = Flags.SetBit(5); }
-        if (Participants?.Count > 0) { Flags = Flags.SetBit(4); }
-        if (SubscriptionPricing != null) { Flags = Flags.SetBit(10); }
-        if (/*SubscriptionFormId != 0 &&*/ SubscriptionFormId.HasValue) { Flags = Flags.SetBit(12); }
-        if (BotVerification != null) { Flags = Flags.SetBit(13); }
+        var flags = 0;
+        if (Channel) { flags = flags.SetBit(0); }
+        if (Broadcast) { flags = flags.SetBit(1); }
+        if (Public) { flags = flags.SetBit(2); }
+        if (Megagroup) { flags = flags.SetBit(3); }
+        if (RequestNeeded) { flags = flags.SetBit(6); }
+        if (Verified) { flags = flags.SetBit(7); }
+        if (Scam) { flags = flags.SetBit(8); }
+        if (Fake) { flags = flags.SetBit(9); }
+        if (CanRefulfillSubscription) { flags = flags.SetBit(11); }
+        if (About != null) { flags = flags.SetBit(5); }
+        if (Participants?.Count > 0) { flags = flags.SetBit(4); }
+        if (SubscriptionPricing != null) { flags = flags.SetBit(10); }
+        if (/*SubscriptionFormId != 0 &&*/ SubscriptionFormId.HasValue) { flags = flags.SetBit(12); }
+        if (BotVerification != null) { flags = flags.SetBit(13); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Title);
-        if (Flags.IsBitSet(5)) { writer.Write(About); }
+        if (flags.IsBitSet(5)) { writer.Write(About); }
         writer.Write(Photo);
         writer.Write(ParticipantsCount);
-        if (Flags.IsBitSet(4)) { writer.Write(Participants); }
+        if (flags.IsBitSet(4)) { writer.Write(Participants); }
         writer.Write(Color);
-        if (Flags.IsBitSet(10)) { writer.Write(SubscriptionPricing); }
-        if (Flags.IsBitSet(12)) { writer.Write(SubscriptionFormId.Value); }
-        if (Flags.IsBitSet(13)) { writer.Write(BotVerification); }
+        if (flags.IsBitSet(10)) { writer.Write(SubscriptionPricing); }
+        if (flags.IsBitSet(12)) { writer.Write(SubscriptionFormId.Value); }
+        if (flags.IsBitSet(13)) { writer.Write(BotVerification); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

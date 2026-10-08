@@ -23,13 +23,9 @@ public sealed partial class RequestSetAccountTTL : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IAccountDaysTTL Ttl { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Ttl);
     }

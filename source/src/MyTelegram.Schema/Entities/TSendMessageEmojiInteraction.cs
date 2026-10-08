@@ -26,13 +26,9 @@ public sealed partial class TSendMessageEmojiInteraction : ISendMessageAction
     /// </summary>
     public MyTelegram.Schema.IDataJSON Interaction { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Emoticon);
         writer.Write(MsgId);

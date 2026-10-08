@@ -21,13 +21,9 @@ public sealed partial class TBotPreviewMedia : IBotPreviewMedia
     /// </summary>
     public MyTelegram.Schema.IMessageMedia Media { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Date);
         writer.Write(Media);

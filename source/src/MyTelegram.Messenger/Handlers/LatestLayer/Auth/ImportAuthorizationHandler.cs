@@ -12,7 +12,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Auth;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✔]
 /// </remarks>
-internal sealed class ImportAuthorizationHandler(IHashHelper hashHelper, ICacheManager<AuthorizationCacheItem> cacheManager, IEventBus eventBus, IUserAppService userAppService, ILayeredService<IAuthorizationConverter> layeredService, IUserConverterService userConverterService, IPhotoAppService photoAppService, ILogger<ImportAuthorizationHandler> logger) : RpcResultObjectHandler<MyTelegram.Schema.Auth.RequestImportAuthorization, MyTelegram.Schema.Auth.IAuthorization>
+internal sealed class ImportAuthorizationHandler(ICacheManager<AuthorizationCacheItem> cacheManager, IEventBus eventBus, IUserAppService userAppService, ILayeredService<IAuthorizationConverter> layeredService, IUserConverterService userConverterService, IPhotoAppService photoAppService) : RpcResultObjectHandler<MyTelegram.Schema.Auth.RequestImportAuthorization, MyTelegram.Schema.Auth.IAuthorization>
 {
     protected override async Task<MyTelegram.Schema.Auth.IAuthorization> HandleCoreAsync(IRequestInput input, RequestImportAuthorization obj)
     {
@@ -27,28 +27,23 @@ internal sealed class ImportAuthorizationHandler(IHashHelper hashHelper, ICacheM
         }
 
         var userId = cachedAuthItem!.UserId;
+        if (userId != obj.Id)
         {
-            if (userId != obj.Id)
-            {
-                RpcErrors.RpcErrors400.UserIdInvalid.ThrowRpcError();
-            }
-
-            var userReadModel = await userAppService.GetAsync(userId);
-            if (userReadModel == null)
-            {
-                RpcErrors.RpcErrors400.UserIdInvalid.ThrowRpcError();
-            }
-
-            await eventBus.PublishAsync(new BindUserIdToSessionEvent(userReadModel!.UserId, input.AuthKeyId, input.PermAuthKeyId, cachedAuthItem.AccessHashKeyId));
-            await cacheManager.RemoveAsync(key);
-            var photos = await photoAppService.GetPhotosAsync(userReadModel);
-            ILayeredUser user = userConverterService.ToUser(input, userReadModel, photos, layer: input.Layer);
-            user.Self = true;
-            //logger.LogInformation("ImportAuthorizationHandler[{UserId}][{@Input}]:{@data}", userId,input, obj);
-            return layeredService.GetConverter(input.Layer).CreateAuthorization(user);
+            RpcErrors.RpcErrors400.UserIdInvalid.ThrowRpcError();
         }
 
-        RpcErrors.RpcErrors400.UserIdInvalid.ThrowRpcError();
-        return null !;
+        var userReadModel = await userAppService.GetAsync(userId);
+        if (userReadModel == null)
+        {
+            RpcErrors.RpcErrors400.UserIdInvalid.ThrowRpcError();
+        }
+
+        await eventBus.PublishAsync(new BindUserIdToSessionEvent(userReadModel!.UserId, input.AuthKeyId, input.PermAuthKeyId, cachedAuthItem.AccessHashKeyId));
+        await cacheManager.RemoveAsync(key);
+        var photos = await photoAppService.GetPhotosAsync(userReadModel);
+        ILayeredUser user = await userConverterService.ToUserAsync(input, userReadModel, photos, layer: input.Layer);
+        user.Self = true;
+        //logger.LogInformation("ImportAuthorizationHandler[{UserId}][{@Input}]:{@data}", userId,input, obj);
+        return layeredService.GetConverter(input.Layer).CreateAuthorization(user);
     }
 }

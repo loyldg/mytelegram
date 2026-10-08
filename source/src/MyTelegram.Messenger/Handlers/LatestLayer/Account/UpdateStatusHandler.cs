@@ -8,9 +8,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
 /// </remarks>
 internal sealed class UpdateStatusHandler(IUserStatusCacheAppService userStatusAppService) : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestUpdateStatus, IBool>
 {
-    protected override Task<IBool> HandleCoreAsync(IRequestInput input, RequestUpdateStatus obj)
+    protected override async Task<IBool> HandleCoreAsync(IRequestInput input, RequestUpdateStatus obj)
     {
-        userStatusAppService.UpdateStatus(input.UserId, !obj.Offline);
-        return Task.FromResult<IBool>(new TBoolTrue());
+        await userStatusAppService.UpdateStatusAsync(input.UserId, !obj.Offline);
+
+        return new TBoolTrue();
     }
 }

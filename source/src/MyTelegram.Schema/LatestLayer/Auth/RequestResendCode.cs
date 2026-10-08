@@ -42,19 +42,21 @@ public sealed partial class RequestResendCode : IRequest<MyTelegram.Schema.Auth.
     /// </summary>
     public string? Reason { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Reason != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Reason != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(PhoneNumber);
         writer.Write(PhoneCodeHash);
-        if (Flags.IsBitSet(0)) { writer.Write(Reason); }
+        if (flags.IsBitSet(0)) { writer.Write(Reason); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

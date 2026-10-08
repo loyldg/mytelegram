@@ -41,22 +41,24 @@ public sealed partial class TInputGroupCallStream : IInputFileLocation
     /// </summary>
     public int? VideoQuality { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*VideoChannel != 0 && */VideoChannel.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*VideoQuality != 0 && */VideoQuality.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*VideoChannel != 0 && */VideoChannel.HasValue) { flags = flags.SetBit(0); }
+        if (/*VideoQuality != 0 && */VideoQuality.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Call);
         writer.Write(TimeMs);
         writer.Write(Scale);
-        if (Flags.IsBitSet(0)) { writer.Write(VideoChannel.Value); }
-        if (Flags.IsBitSet(0)) { writer.Write(VideoQuality.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(VideoChannel.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(VideoQuality.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

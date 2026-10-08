@@ -15,13 +15,9 @@ public sealed partial class TStarGiftAttributeIdPattern : IStarGiftAttributeId
     /// </summary>
     public long DocumentId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(DocumentId);
     }

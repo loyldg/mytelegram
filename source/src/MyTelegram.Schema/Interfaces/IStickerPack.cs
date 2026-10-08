@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TStickerPack"/> See <a href="https://corefork.telegram.org/constructor/stickerPack" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStickerPack), nameof(TStickerPack))]
-public interface IStickerPack : IObject
+public partial interface IStickerPack : IObject
 {
     /// <summary>
     /// Emoji

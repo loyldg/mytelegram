@@ -5,7 +5,7 @@ namespace MyTelegram.Schema.E2e;
 
 
 [TlObject(0xEBA65211)]
-public sealed class TPersonalOnClient : IPersonalOnClient
+public sealed partial class TPersonalOnClient : IPersonalOnClient
 {
     public uint ConstructorId => 0xEBA65211;
     public int SignedAt { get; set; }

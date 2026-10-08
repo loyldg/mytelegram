@@ -57,22 +57,24 @@ public sealed partial class RequestGetBotCallbackAnswer : IRequest<MyTelegram.Sc
     /// </summary>
     public MyTelegram.Schema.IInputCheckPasswordSRP? Password { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Game) { Flags = Flags.SetBit(1); }
-        if (Data != null) { Flags = Flags.SetBit(0); }
-        if (Password != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Game) { flags = flags.SetBit(1); }
+        if (Data != null) { flags = flags.SetBit(0); }
+        if (Password != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(MsgId);
-        if (Flags.IsBitSet(0)) { writer.Write(Data); }
-        if (Flags.IsBitSet(2)) { writer.Write(Password); }
+        if (flags.IsBitSet(0)) { writer.Write(Data); }
+        if (flags.IsBitSet(2)) { writer.Write(Password); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

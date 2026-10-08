@@ -28,13 +28,9 @@ public sealed partial class RequestEditChatCreator : IRequest<MyTelegram.Schema.
     /// </summary>
     public MyTelegram.Schema.IInputCheckPasswordSRP Password { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(UserId);

@@ -28,13 +28,9 @@ public sealed partial class RequestLeaveGroupCall : IRequest<MyTelegram.Schema.I
     /// </summary>
     public int Source { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Call);
         writer.Write(Source);

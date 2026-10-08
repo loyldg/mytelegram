@@ -34,20 +34,22 @@ public sealed partial class TKeyboardButtonStyle : IKeyboardButtonStyle
     /// </summary>
     public long? Icon { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (BgPrimary) { Flags = Flags.SetBit(0); }
-        if (BgDanger) { Flags = Flags.SetBit(1); }
-        if (BgSuccess) { Flags = Flags.SetBit(2); }
-        if (/*Icon != 0 &&*/ Icon.HasValue) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (BgPrimary) { flags = flags.SetBit(0); }
+        if (BgDanger) { flags = flags.SetBit(1); }
+        if (BgSuccess) { flags = flags.SetBit(2); }
+        if (/*Icon != 0 &&*/ Icon.HasValue) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(3)) { writer.Write(Icon.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(3)) { writer.Write(Icon.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

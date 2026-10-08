@@ -42,24 +42,26 @@ public sealed partial class TBotInlineMessageMediaGeo : IBotInlineMessage
     /// </summary>
     public MyTelegram.Schema.IReplyMarkup? ReplyMarkup { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*Heading != 0 && */Heading.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*Period != 0 && */Period.HasValue) { Flags = Flags.SetBit(1); }
-        if (/*ProximityNotificationRadius != 0 && */ProximityNotificationRadius.HasValue) { Flags = Flags.SetBit(3); }
-        if (ReplyMarkup != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (/*Heading != 0 && */Heading.HasValue) { flags = flags.SetBit(0); }
+        if (/*Period != 0 && */Period.HasValue) { flags = flags.SetBit(1); }
+        if (/*ProximityNotificationRadius != 0 && */ProximityNotificationRadius.HasValue) { flags = flags.SetBit(3); }
+        if (ReplyMarkup != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Geo);
-        if (Flags.IsBitSet(0)) { writer.Write(Heading.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(Period.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(ProximityNotificationRadius.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(ReplyMarkup); }
+        if (flags.IsBitSet(0)) { writer.Write(Heading.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(Period.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(ProximityNotificationRadius.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(ReplyMarkup); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

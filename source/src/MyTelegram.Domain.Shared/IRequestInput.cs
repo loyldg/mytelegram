@@ -48,13 +48,22 @@ public interface IRequestInput : IRequestWithAccessHashKeyId
     ConnectedBotData? ConnectedBotData { get; set; }
     //long AccessHashKeyId { get; }
     long InvokeAfterMsgId { get; set; }
+    int DcId { get; }
 }
 
 public record ConnectedBotData(long UserId, long BotUserId, IBusinessBotRights Rights);
 
 public interface IRequestWithAccessHashKeyId
 {
+    /// <summary>
+    /// Request user id
+    /// </summary>
     long UserId { get; }
+
     long AccessHashKeyId { get; }
+
+    /// <summary>
+    /// Client layer version, used to determine which API layer are supported by the client
+    /// </summary>
     int Layer { get; set; }
 }

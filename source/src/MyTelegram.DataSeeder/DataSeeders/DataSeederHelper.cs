@@ -55,7 +55,7 @@ public class DataSeederHelper(ILogger<DataSeederHelper> logger) : IDataSeederHel
         var jsonText = await GetJsonTextAsync(jsonFileName);
         if (string.IsNullOrEmpty(jsonText))
         {
-            logger.LogWarning("Read data from json file failed, fileName: {JsonFile}", jsonText);
+            logger.LogWarning("Read data from json file failed, fileName: {JsonFile}", jsonFileName);
             return default;
         }
 

@@ -46,22 +46,24 @@ public sealed partial class TFolder : IFolder
     /// </summary>
     public MyTelegram.Schema.IChatPhoto? Photo { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (AutofillNewBroadcasts) { Flags = Flags.SetBit(0); }
-        if (AutofillPublicGroups) { Flags = Flags.SetBit(1); }
-        if (AutofillNewCorrespondents) { Flags = Flags.SetBit(2); }
-        if (Photo != null) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (AutofillNewBroadcasts) { flags = flags.SetBit(0); }
+        if (AutofillPublicGroups) { flags = flags.SetBit(1); }
+        if (AutofillNewCorrespondents) { flags = flags.SetBit(2); }
+        if (Photo != null) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(Title);
-        if (Flags.IsBitSet(3)) { writer.Write(Photo); }
+        if (flags.IsBitSet(3)) { writer.Write(Photo); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

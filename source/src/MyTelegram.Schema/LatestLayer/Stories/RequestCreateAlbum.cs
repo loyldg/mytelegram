@@ -33,13 +33,9 @@ public sealed partial class RequestCreateAlbum : IRequest<MyTelegram.Schema.ISto
     /// </summary>
     public TVector<int> Stories { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(Title);

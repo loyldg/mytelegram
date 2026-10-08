@@ -8,7 +8,8 @@ public class ChannelMemberSnapshot(
     bool left,
     bool isBot,
     bool broadcast,
-    int untilDate
+    int untilDate,
+    string? rank
     )
     : ISnapshot
 {
@@ -22,4 +23,5 @@ public class ChannelMemberSnapshot(
     public bool IsBot { get; } = isBot;
     public bool Broadcast { get; } = broadcast;
     public int UntilDate { get; } = untilDate;
+    public string? Rank { get; } = rank;
 }

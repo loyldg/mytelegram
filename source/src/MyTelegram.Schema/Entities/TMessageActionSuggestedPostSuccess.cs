@@ -16,13 +16,9 @@ public sealed partial class TMessageActionSuggestedPostSuccess : IMessageAction
     /// </summary>
     public MyTelegram.Schema.IStarsAmount Price { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Price);
     }

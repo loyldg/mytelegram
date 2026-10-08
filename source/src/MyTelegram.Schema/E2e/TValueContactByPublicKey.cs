@@ -5,7 +5,7 @@ namespace MyTelegram.Schema.E2e;
 
 
 [TlObject(0xAB73BAE1)]
-public sealed class TValueContactByPublicKey : IValue
+public sealed partial class TValueContactByPublicKey : IValue
 {
     public uint ConstructorId => 0xAB73BAE1;
     public TVector<MyTelegram.Schema.E2e.IPersonalOnClient> Entries { get; set; }

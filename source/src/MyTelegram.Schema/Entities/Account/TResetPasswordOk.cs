@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Account;
 public sealed partial class TResetPasswordOk : IResetPasswordResult
 {
     public uint ConstructorId => 0xe926d63e;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

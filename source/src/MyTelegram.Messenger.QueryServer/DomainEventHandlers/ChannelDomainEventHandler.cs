@@ -24,33 +24,33 @@ public class ChannelDomainEventHandler(
             commandBus,
             idGenerator,
             ackCacheService),
-        ISubscribeSynchronousTo<ChannelAggregate, ChannelId, DiscussionGroupUpdatedEvent>,
-        ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelTitleEditedEvent>,
-        ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelAboutEditedEvent>,
-        ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelDefaultBannedRightsEditedEvent>,
-        ISubscribeSynchronousTo<ChannelAggregate, ChannelId, SlowModeChangedEvent>,
-        ISubscribeSynchronousTo<ChannelAggregate, ChannelId, PreHistoryHiddenChangedEvent>,
-        ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelAdminRightsEditedEvent>,
-        ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelUserNameChangedEvent>,
-        //ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent>,
-        ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberBannedRightsChangedEvent>,
-        ISubscribeSynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberLeftEvent>,
-        ISubscribeSynchronousTo<InviteToChannelSaga, InviteToChannelSagaId, InviteToChannelCompletedSagaEvent>,
-        ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelNoForwardsChangedEvent>,
-        ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelSignatureChangedEvent>,
-        ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelColorUpdatedEvent>,
-        ISubscribeSynchronousTo<ChatInviteAggregate, ChatInviteId, ChatInviteCreatedEvent>,
-        //ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChatInviteRequestPendingUpdatedEvent>,
-        //ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChatJoinRequestHiddenEvent>,
-        ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelDeletedEvent>,
-        //ISubscribeSynchronousTo<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdatePinnedMessageCompletedSagaEvent>,
-        ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelParticipantsHiddenUpdatedEvent>,
-        ISubscribeSynchronousTo<ChannelAggregate, ChannelId, ChannelJoinRequestUpdatedEvent>,
-        ISubscribeSynchronousTo<JoinChannelAggregate, JoinChannelId, JoinChannelRequestCreatedEvent>,
-        ISubscribeSynchronousTo<ApproveJoinChannelSaga, ApproveJoinChannelSagaId, ApproveJoinChannelCompletedSagaEvent>,
-        ISubscribeSynchronousTo<ImportChatInviteSaga, ImportChatInviteSagaId, ImportChatInviteCompletedSagaEvent>,
-        ISubscribeSynchronousTo<JoinChannelSaga, JoinChannelSagaId, JoinChannelCompletedSagaEvent>,
-        ISubscribeSynchronousTo<EditExportedChatInviteSaga, EditExportedChatInviteSagaId, EditExportedChatInviteCompletedSagaEvent>
+        ISubscribeAsynchronousTo<ChannelAggregate, ChannelId, DiscussionGroupUpdatedEvent>,
+        ISubscribeAsynchronousTo<ChannelAggregate, ChannelId, ChannelTitleEditedEvent>,
+        ISubscribeAsynchronousTo<ChannelAggregate, ChannelId, ChannelAboutEditedEvent>,
+        ISubscribeAsynchronousTo<ChannelAggregate, ChannelId, ChannelDefaultBannedRightsEditedEvent>,
+        ISubscribeAsynchronousTo<ChannelAggregate, ChannelId, SlowModeChangedEvent>,
+        ISubscribeAsynchronousTo<ChannelAggregate, ChannelId, PreHistoryHiddenChangedEvent>,
+        ISubscribeAsynchronousTo<ChannelAggregate, ChannelId, ChannelAdminRightsEditedEvent>,
+        ISubscribeAsynchronousTo<ChannelAggregate, ChannelId, ChannelUserNameChangedEvent>,
+        //ISubscribeAsynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberJoinedEvent>,
+        ISubscribeAsynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberBannedRightsChangedEvent>,
+        ISubscribeAsynchronousTo<ChannelMemberAggregate, ChannelMemberId, ChannelMemberLeftEvent>,
+        ISubscribeAsynchronousTo<InviteToChannelSaga, InviteToChannelSagaId, InviteToChannelCompletedSagaEvent>,
+        ISubscribeAsynchronousTo<ChannelAggregate, ChannelId, ChannelNoForwardsChangedEvent>,
+        ISubscribeAsynchronousTo<ChannelAggregate, ChannelId, ChannelSignatureChangedEvent>,
+        ISubscribeAsynchronousTo<ChannelAggregate, ChannelId, ChannelColorUpdatedEvent>,
+        ISubscribeAsynchronousTo<ChatInviteAggregate, ChatInviteId, ChatInviteCreatedEvent>,
+        //ISubscribeAsynchronousTo<ChannelAggregate, ChannelId, ChatInviteRequestPendingUpdatedEvent>,
+        //ISubscribeAsynchronousTo<ChannelAggregate, ChannelId, ChatJoinRequestHiddenEvent>,
+        ISubscribeAsynchronousTo<ChannelAggregate, ChannelId, ChannelDeletedEvent>,
+        //ISubscribeAsynchronousTo<UpdatePinnedMessageSaga, UpdatePinnedMessageSagaId, UpdatePinnedMessageCompletedSagaEvent>,
+        ISubscribeAsynchronousTo<ChannelAggregate, ChannelId, ChannelParticipantsHiddenUpdatedEvent>,
+        ISubscribeAsynchronousTo<ChannelAggregate, ChannelId, ChannelJoinRequestUpdatedEvent>,
+        ISubscribeAsynchronousTo<JoinChannelAggregate, JoinChannelId, JoinChannelRequestCreatedEvent>,
+        ISubscribeAsynchronousTo<ApproveJoinChannelSaga, ApproveJoinChannelSagaId, ApproveJoinChannelCompletedSagaEvent>,
+        ISubscribeAsynchronousTo<ImportChatInviteSaga, ImportChatInviteSagaId, ImportChatInviteCompletedSagaEvent>,
+        ISubscribeAsynchronousTo<JoinChannelSaga, JoinChannelSagaId, JoinChannelCompletedSagaEvent>,
+        ISubscribeAsynchronousTo<EditExportedChatInviteSaga, EditExportedChatInviteSagaId, EditExportedChatInviteCompletedSagaEvent>
 {
     public Task HandleAsync(IDomainEvent<ChannelAggregate, ChannelId, ChannelAboutEditedEvent> domainEvent,
         CancellationToken cancellationToken)
@@ -277,11 +277,11 @@ public class ChannelDomainEventHandler(
             Date = DateTime.UtcNow.ToTimestamp()
         });
 
-        var channelForMember = await chatConverterService.GetChannelAsync(RequestInfo.Empty with { UserId = domainEvent.AggregateEvent.MemberUserId },
+        var channelForMember = await chatConverterService.GetChannelAsync(
+            RequestInfo.Empty with { UserId = domainEvent.AggregateEvent.MemberUserId },
             domainEvent.AggregateEvent.ChannelId,
             false,
-            false,
-            0);
+            false);
         if (channelForMember is ILayeredChannel layeredChannel)
         {
             layeredChannel.BannedRights = domainEvent.AggregateEvent.BannedRights.ToChatBannedRights();
@@ -446,7 +446,7 @@ public class ChannelDomainEventHandler(
 
                     break;
                 case ChatJoinType.BySelf:
-                case ChatJoinType.ByLink:
+                case ChatJoinType.ByChatInvite:
                     updateChannelParticipant.ActorId = userId;
 
                     break;
@@ -455,14 +455,15 @@ public class ChannelDomainEventHandler(
             updates.Updates.Add(updateChannelParticipant);
         }
 
-        var channel = await chatConverterService.GetChannelAsync(RequestInfo.Empty, aggregateEvent.ChannelId, false, false,
+        var channel = await chatConverterService.GetChannelAsync(RequestInfo.Empty, aggregateEvent.ChannelId, false,
+            false,
             aggregateEvent.RequestInfo.Layer);
         updates.Chats.Add(channel);
 
         var userReadModels = await userAppService.GetListAsync(aggregateEvent.MemberUserIds.ToList());
         var photoReadModels = await photoAppService.GetPhotosAsync(userReadModels);
 
-        var users = userConverterService.ToUserList(RequestInfo.Empty, userReadModels, photoReadModels, [], [],
+        var users = await userConverterService.ToUserListAsync(RequestInfo.Empty, userReadModels, photoReadModels, [], [],
             aggregateEvent.RequestInfo.Layer);
 
         updates.Users = new TVector<IUser>(users);

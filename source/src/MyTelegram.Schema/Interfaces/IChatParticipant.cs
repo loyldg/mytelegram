@@ -15,7 +15,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TChatParticipant), nameof(TChatParticipant))]
 [JsonDerivedType(typeof(TChatParticipantCreator), nameof(TChatParticipantCreator))]
 [JsonDerivedType(typeof(TChatParticipantAdmin), nameof(TChatParticipantAdmin))]
-public interface IChatParticipant : IObject
+public partial interface IChatParticipant : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

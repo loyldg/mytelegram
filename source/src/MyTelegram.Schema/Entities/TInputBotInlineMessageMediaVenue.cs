@@ -52,23 +52,25 @@ public sealed partial class TInputBotInlineMessageMediaVenue : IInputBotInlineMe
     /// </summary>
     public MyTelegram.Schema.IReplyMarkup? ReplyMarkup { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ReplyMarkup != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (ReplyMarkup != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(GeoPoint);
         writer.Write(Title);
         writer.Write(Address);
         writer.Write(Provider);
         writer.Write(VenueId);
         writer.Write(VenueType);
-        if (Flags.IsBitSet(2)) { writer.Write(ReplyMarkup); }
+        if (flags.IsBitSet(2)) { writer.Write(ReplyMarkup); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

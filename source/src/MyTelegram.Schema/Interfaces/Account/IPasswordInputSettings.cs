@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Account;
 /// <see cref="TPasswordInputSettings"/> See <a href="https://corefork.telegram.org/constructor/account.passwordInputSettings" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPasswordInputSettings), nameof(TPasswordInputSettings))]
-public interface IPasswordInputSettings : IObject
+public partial interface IPasswordInputSettings : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

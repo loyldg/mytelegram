@@ -25,6 +25,8 @@ public sealed partial class TPageBlockTable : IPageBlock
     /// </summary>
     public bool Striped { get; set; }
 
+    public bool Compact { get; set; }
+
     /// <summary>
     /// Title
     /// See <a href="https://corefork.telegram.org/type/RichText" />
@@ -37,17 +39,20 @@ public sealed partial class TPageBlockTable : IPageBlock
     /// </summary>
     public TVector<MyTelegram.Schema.IPageTableRow> Rows { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Bordered) { Flags = Flags.SetBit(0); }
-        if (Striped) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Bordered) { flags = flags.SetBit(0); }
+        if (Striped) { flags = flags.SetBit(1); }
+        if (Compact) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Title);
         writer.Write(Rows);
     }
@@ -57,6 +62,7 @@ public sealed partial class TPageBlockTable : IPageBlock
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(0)) { Bordered = true; }
         if (Flags.IsBitSet(1)) { Striped = true; }
+        if (Flags.IsBitSet(2)) { Compact = true; }
         Title = buffer.Read<MyTelegram.Schema.IRichText>();
         Rows = buffer.Read<TVector<MyTelegram.Schema.IPageTableRow>>();
     }

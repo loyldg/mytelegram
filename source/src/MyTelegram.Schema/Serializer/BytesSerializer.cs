@@ -46,6 +46,42 @@ public class BytesSerializer : ISerializer<byte[]>
         Serialize(value.Span, writer);
     }
 
+    public int Serialize(ReadOnlySpan<byte> value, Span<byte> dest)
+    {
+        int padding;
+        int offset;
+        if (value.Length < 254)
+        {
+            padding = (value.Length + 1) % 4;
+            dest[0] = (byte)value.Length;
+            value.CopyTo(dest[1..]);
+            offset = 1 + value.Length;
+        }
+        else
+        {
+            padding = value.Length % 4;
+            dest[0] = 254;
+            dest[1] = (byte)value.Length;
+            dest[2] = (byte)(value.Length >> 8);
+            dest[3] = (byte)(value.Length >> 16);
+            value.CopyTo(dest[4..]);
+
+            offset = 4 + value.Length;
+        }
+
+        if (padding != 0)
+        {
+            padding = 4 - padding;
+        }
+
+        for (var i = 0; i < padding; i++)
+        {
+            dest[offset + i] = 0;
+        }
+
+        return offset + padding;
+    }
+
     public void Serialize(ReadOnlySpan<byte> value,
         IBufferWriter<byte> writer)
     {
@@ -156,7 +192,7 @@ public class BytesSerializer : ISerializer<byte[]>
             padding = 4 - padding;
             buffer = buffer[padding..];
         }
-
+        
         return span.ToArray();
     }
 

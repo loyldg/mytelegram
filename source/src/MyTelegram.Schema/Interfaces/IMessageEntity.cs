@@ -59,7 +59,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TMessageEntityDiffInsert), nameof(TMessageEntityDiffInsert))]
 [JsonDerivedType(typeof(TMessageEntityDiffReplace), nameof(TMessageEntityDiffReplace))]
 [JsonDerivedType(typeof(TMessageEntityDiffDelete), nameof(TMessageEntityDiffDelete))]
-public interface IMessageEntity : IObject
+public partial interface IMessageEntity : IObject
 {
     /// <summary>
     /// Offset of message entity within message (in <a href="https://corefork.telegram.org/api/entities#entity-length">UTF-16 code units</a>)

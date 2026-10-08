@@ -17,6 +17,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TTopPeerCategoryForwardUsers"/> See <a href="https://corefork.telegram.org/constructor/topPeerCategoryForwardUsers" /><br/>
 /// <see cref="TTopPeerCategoryForwardChats"/> See <a href="https://corefork.telegram.org/constructor/topPeerCategoryForwardChats" /><br/>
 /// <see cref="TTopPeerCategoryBotsApp"/> See <a href="https://corefork.telegram.org/constructor/topPeerCategoryBotsApp" /><br/>
+/// <see cref="TTopPeerCategoryBotsGuestChat"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TTopPeerCategoryBotsPM), nameof(TTopPeerCategoryBotsPM))]
 [JsonDerivedType(typeof(TTopPeerCategoryBotsInline), nameof(TTopPeerCategoryBotsInline))]
@@ -27,6 +28,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TTopPeerCategoryForwardUsers), nameof(TTopPeerCategoryForwardUsers))]
 [JsonDerivedType(typeof(TTopPeerCategoryForwardChats), nameof(TTopPeerCategoryForwardChats))]
 [JsonDerivedType(typeof(TTopPeerCategoryBotsApp), nameof(TTopPeerCategoryBotsApp))]
-public interface ITopPeerCategory : IObject
+[JsonDerivedType(typeof(TTopPeerCategoryBotsGuestChat), nameof(TTopPeerCategoryBotsGuestChat))]
+public partial interface ITopPeerCategory : IObject
 {
 }

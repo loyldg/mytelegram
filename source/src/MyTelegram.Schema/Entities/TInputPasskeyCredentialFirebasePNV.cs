@@ -14,13 +14,9 @@ public sealed partial class TInputPasskeyCredentialFirebasePNV : IInputPasskeyCr
     /// </summary>
     public string PnvToken { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PnvToken);
     }

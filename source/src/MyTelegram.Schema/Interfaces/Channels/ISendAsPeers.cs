@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Channels;
 /// <see cref="TSendAsPeers"/> See <a href="https://corefork.telegram.org/constructor/channels.sendAsPeers" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TSendAsPeers), nameof(TSendAsPeers))]
-public interface ISendAsPeers : IObject
+public partial interface ISendAsPeers : IObject
 {
     /// <summary>
     /// Peers that can be used to send messages to the group

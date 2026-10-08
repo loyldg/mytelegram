@@ -13,7 +13,7 @@ namespace MyTelegram.Schema.Payments;
 /// </remarks>
 [JsonDerivedType(typeof(TPaymentReceipt), nameof(TPaymentReceipt))]
 [JsonDerivedType(typeof(TPaymentReceiptStars), nameof(TPaymentReceiptStars))]
-public interface IPaymentReceipt : IObject
+public partial interface IPaymentReceipt : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

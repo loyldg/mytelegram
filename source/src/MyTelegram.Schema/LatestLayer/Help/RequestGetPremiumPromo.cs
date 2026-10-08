@@ -14,13 +14,9 @@ public sealed partial class RequestGetPremiumPromo : IRequest<MyTelegram.Schema.
 {
     public uint ConstructorId => 0xb81b93d4;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

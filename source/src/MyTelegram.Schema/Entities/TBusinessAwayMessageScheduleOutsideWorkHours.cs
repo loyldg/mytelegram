@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TBusinessAwayMessageScheduleOutsideWorkHours : IBusinessAwayMessageSchedule
 {
     public uint ConstructorId => 0xc3f2f501;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

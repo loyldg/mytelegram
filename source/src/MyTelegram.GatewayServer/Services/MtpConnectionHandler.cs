@@ -15,11 +15,6 @@ public sealed class MtpConnectionHandler(
     {
         var remoteEndPoint = connection.RemoteEndPoint;
 
-        logger.LogInformation(
-            "{ConnectionId}:{RemoteEndpoint}",
-            connection.ConnectionId,
-            remoteEndPoint);
-
         var proxyProtocolFeature =
             connection.Features.Get<ProxyProtocolFeature>();
 
@@ -163,17 +158,6 @@ public sealed class MtpConnectionHandler(
         ConnectionContext connection,
         Task[] tasks)
     {
-        // Closing the transport causes:
-        //
-        // PipeReader.ReadAsync()
-        // ChannelReader.WaitToReadAsync()
-        // Output.WriteAsync()
-        // Output.FlushAsync()
-        //
-        // to finish/cancel.
-        //
-        // ConnectionClosed is also triggered as part of connection shutdown.
-
         try
         {
             await connection.Transport.Input

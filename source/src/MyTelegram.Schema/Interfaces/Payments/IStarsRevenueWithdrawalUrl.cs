@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Payments;
 /// <see cref="TStarsRevenueWithdrawalUrl"/> See <a href="https://corefork.telegram.org/constructor/payments.starsRevenueWithdrawalUrl" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStarsRevenueWithdrawalUrl), nameof(TStarsRevenueWithdrawalUrl))]
-public interface IStarsRevenueWithdrawalUrl : IObject
+public partial interface IStarsRevenueWithdrawalUrl : IObject
 {
     /// <summary>
     /// Contains the URL to use to <a href="https://corefork.telegram.org/api/stars#withdrawing-revenue">withdraw Telegram Star revenue</a>.

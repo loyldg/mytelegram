@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TDialogFilter), nameof(TDialogFilter))]
 [JsonDerivedType(typeof(TDialogFilterDefault), nameof(TDialogFilterDefault))]
 [JsonDerivedType(typeof(TDialogFilterChatlist), nameof(TDialogFilterChatlist))]
-public interface IDialogFilter : IObject
+public partial interface IDialogFilter : IObject
 {
 }

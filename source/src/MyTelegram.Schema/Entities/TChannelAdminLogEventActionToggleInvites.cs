@@ -16,13 +16,9 @@ public sealed partial class TChannelAdminLogEventActionToggleInvites : IChannelA
     /// </summary>
     public bool NewValue { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(NewValue);
     }

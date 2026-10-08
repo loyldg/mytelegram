@@ -2,7 +2,7 @@
 
 namespace MyTelegram.Schema;
 
-public interface ILayeredServiceMessage : IMessage
+public partial interface ILayeredServiceMessage : IMessage
 {
     IPeer? FromId { get; set; }
     bool Out { get; set; }

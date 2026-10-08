@@ -12,7 +12,7 @@ public class UserAppService(IQueryProcessor queryProcessor,
             RpcErrors.RpcErrors400.UserIdInvalid.ThrowRpcError();
         }
 
-        if (!userReadModel!.Premium)
+        if (!userReadModel.Premium)
         {
             RpcErrors.RpcErrors400.PremiumAccountRequired.ThrowRpcError();
         }
@@ -28,20 +28,20 @@ public class UserAppService(IQueryProcessor queryProcessor,
     public override async Task<IUserReadModel> GetAsync(long id, bool throwIfNotExists = true)
     {
         var userReadModel = await base.GetAsync(id, false);
-        if (userReadModel?.IsDeleted ?? false)
+        if (userReadModel.IsDeleted)
         {
             userReadModelCacheHelper.Remove(userReadModel.Id);
         }
 
         if (throwIfNotExists)
         {
-            if (userReadModel == null)
+            if (userReadModel == null!)
             {
                 RpcErrors.RpcErrors400.UserIdInvalid.ThrowRpcError();
             }
         }
 
-        return userReadModel!;
+        return userReadModel;
     }
 
     protected override Task<IUserReadModel?> GetReadModelAsync(long id)

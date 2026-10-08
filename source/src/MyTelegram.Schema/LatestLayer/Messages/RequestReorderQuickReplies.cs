@@ -22,13 +22,9 @@ public sealed partial class RequestReorderQuickReplies : IRequest<IBool>
     /// </summary>
     public TVector<int> Order { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Order);
     }

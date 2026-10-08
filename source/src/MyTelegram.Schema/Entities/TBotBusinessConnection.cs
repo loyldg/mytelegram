@@ -46,22 +46,24 @@ public sealed partial class TBotBusinessConnection : IBotBusinessConnection
     /// </summary>
     public MyTelegram.Schema.IBusinessBotRights? Rights { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Disabled) { Flags = Flags.SetBit(1); }
-        if (Rights != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Disabled) { flags = flags.SetBit(1); }
+        if (Rights != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(ConnectionId);
         writer.Write(UserId);
         writer.Write(DcId);
         writer.Write(Date);
-        if (Flags.IsBitSet(2)) { writer.Write(Rights); }
+        if (flags.IsBitSet(2)) { writer.Write(Rights); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

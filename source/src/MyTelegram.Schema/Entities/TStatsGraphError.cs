@@ -15,13 +15,9 @@ public sealed partial class TStatsGraphError : IStatsGraph
     /// </summary>
     public string Error { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Error);
     }

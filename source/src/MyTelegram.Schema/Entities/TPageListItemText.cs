@@ -6,29 +6,43 @@ namespace MyTelegram.Schema;
 /// List item
 /// <para>See <a href="https://corefork.telegram.org/constructor/pageListItemText" /></para>
 /// </summary>
-[TlObject(0xb92fb6cd)]
+[TlObject(0x2f58683c)]
 public sealed partial class TPageListItemText : IPageListItem
 {
-    public uint ConstructorId => 0xb92fb6cd;
+    public uint ConstructorId => 0x2f58683c;
+    public int Flags { get; set; }
+
+    public bool Checkbox { get; set; }
+
+    public bool Checked { get; set; }
+
     /// <summary>
     /// Text
     /// See <a href="https://corefork.telegram.org/type/RichText" />
     /// </summary>
     public MyTelegram.Schema.IRichText Text { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
+        var flags = 0;
+        if (Checkbox) { flags = flags.SetBit(0); }
+        if (Checked) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
+        writer.Write(flags);
         writer.Write(Text);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(0)) { Checkbox = true; }
+        if (Flags.IsBitSet(1)) { Checked = true; }
         Text = buffer.Read<MyTelegram.Schema.IRichText>();
     }
 }

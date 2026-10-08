@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TTextWithEntities"/> See <a href="https://corefork.telegram.org/constructor/textWithEntities" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TTextWithEntities), nameof(TTextWithEntities))]
-public interface ITextWithEntities : IObject
+public partial interface ITextWithEntities : IObject
 {
     /// <summary>
     /// Text

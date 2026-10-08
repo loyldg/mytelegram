@@ -56,7 +56,7 @@ internal sealed class GetPeerDialogsHandler(IDialogAppService dialogAppService, 
         var cachedPts = ptsHelper.GetCachedPts(input.UserId);
         output.PtsReadModel = pts;
         output.CachedPts = cachedPts;
-        var peerDialogs = dialogConverterService.ToPeerDialogs(input, output, input.Layer);
+        var peerDialogs = await dialogConverterService.ToPeerDialogsAsync(input, output, input.Layer);
         foreach (var dialog in peerDialogs.Dialogs)
         {
             switch (dialog)

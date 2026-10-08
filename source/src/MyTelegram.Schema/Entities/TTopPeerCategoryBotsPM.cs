@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TTopPeerCategoryBotsPM : ITopPeerCategory
 {
     public uint ConstructorId => 0xab661b5b;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

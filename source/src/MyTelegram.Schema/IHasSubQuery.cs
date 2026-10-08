@@ -1,4 +1,8 @@
 ﻿namespace MyTelegram.Schema;
+public interface ILayeredData
+{
+    int Layer { get; }
+}
 
 public interface IHasSubQuery
 {

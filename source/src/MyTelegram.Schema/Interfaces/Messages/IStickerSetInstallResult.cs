@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Messages;
 /// </remarks>
 [JsonDerivedType(typeof(TStickerSetInstallResultSuccess), nameof(TStickerSetInstallResultSuccess))]
 [JsonDerivedType(typeof(TStickerSetInstallResultArchive), nameof(TStickerSetInstallResultArchive))]
-public interface IStickerSetInstallResult : IObject
+public partial interface IStickerSetInstallResult : IObject
 {
 }

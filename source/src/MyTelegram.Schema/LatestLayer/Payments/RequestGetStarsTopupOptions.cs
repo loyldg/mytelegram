@@ -14,13 +14,9 @@ public sealed partial class RequestGetStarsTopupOptions : IRequest<TVector<MyTel
 {
     public uint ConstructorId => 0xc00ec7d3;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

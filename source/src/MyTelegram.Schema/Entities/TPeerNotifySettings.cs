@@ -80,37 +80,39 @@ public sealed partial class TPeerNotifySettings : IPeerNotifySettings
     /// </summary>
     public MyTelegram.Schema.INotificationSound? StoriesOtherSound { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ShowPreviews != null) { Flags = Flags.SetBit(0); }
-        if (Silent != null) { Flags = Flags.SetBit(1); }
-        if (/*MuteUntil != 0 && */MuteUntil.HasValue) { Flags = Flags.SetBit(2); }
-        if (IosSound != null) { Flags = Flags.SetBit(3); }
-        if (AndroidSound != null) { Flags = Flags.SetBit(4); }
-        if (OtherSound != null) { Flags = Flags.SetBit(5); }
-        if (StoriesMuted != null) { Flags = Flags.SetBit(6); }
-        if (StoriesHideSender != null) { Flags = Flags.SetBit(7); }
-        if (StoriesIosSound != null) { Flags = Flags.SetBit(8); }
-        if (StoriesAndroidSound != null) { Flags = Flags.SetBit(9); }
-        if (StoriesOtherSound != null) { Flags = Flags.SetBit(10); }
+        var flags = 0;
+        if (ShowPreviews != null) { flags = flags.SetBit(0); }
+        if (Silent != null) { flags = flags.SetBit(1); }
+        if (/*MuteUntil != 0 && */MuteUntil.HasValue) { flags = flags.SetBit(2); }
+        if (IosSound != null) { flags = flags.SetBit(3); }
+        if (AndroidSound != null) { flags = flags.SetBit(4); }
+        if (OtherSound != null) { flags = flags.SetBit(5); }
+        if (StoriesMuted != null) { flags = flags.SetBit(6); }
+        if (StoriesHideSender != null) { flags = flags.SetBit(7); }
+        if (StoriesIosSound != null) { flags = flags.SetBit(8); }
+        if (StoriesAndroidSound != null) { flags = flags.SetBit(9); }
+        if (StoriesOtherSound != null) { flags = flags.SetBit(10); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(ShowPreviews.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(Silent.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(MuteUntil.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(IosSound); }
-        if (Flags.IsBitSet(4)) { writer.Write(AndroidSound); }
-        if (Flags.IsBitSet(5)) { writer.Write(OtherSound); }
-        if (Flags.IsBitSet(6)) { writer.Write(StoriesMuted.Value); }
-        if (Flags.IsBitSet(7)) { writer.Write(StoriesHideSender.Value); }
-        if (Flags.IsBitSet(8)) { writer.Write(StoriesIosSound); }
-        if (Flags.IsBitSet(9)) { writer.Write(StoriesAndroidSound); }
-        if (Flags.IsBitSet(10)) { writer.Write(StoriesOtherSound); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(ShowPreviews.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(Silent.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(MuteUntil.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(IosSound); }
+        if (flags.IsBitSet(4)) { writer.Write(AndroidSound); }
+        if (flags.IsBitSet(5)) { writer.Write(OtherSound); }
+        if (flags.IsBitSet(6)) { writer.Write(StoriesMuted.Value); }
+        if (flags.IsBitSet(7)) { writer.Write(StoriesHideSender.Value); }
+        if (flags.IsBitSet(8)) { writer.Write(StoriesIosSound); }
+        if (flags.IsBitSet(9)) { writer.Write(StoriesAndroidSound); }
+        if (flags.IsBitSet(10)) { writer.Write(StoriesOtherSound); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -20,13 +20,9 @@ public sealed partial class TEmojiGroupPremium : IEmojiGroup
     /// </summary>
     public long IconEmojiId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Title);
         writer.Write(IconEmojiId);

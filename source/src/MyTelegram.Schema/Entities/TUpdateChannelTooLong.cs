@@ -26,18 +26,20 @@ public sealed partial class TUpdateChannelTooLong : IUpdate
     /// </summary>
     public int? Pts { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*Pts != 0 && */Pts.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*Pts != 0 && */Pts.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(ChannelId);
-        if (Flags.IsBitSet(0)) { writer.Write(Pts.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(Pts.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

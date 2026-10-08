@@ -22,13 +22,9 @@ public sealed partial class TChannelAdminLogEventActionChangeEmojiStatus : IChan
     /// </summary>
     public MyTelegram.Schema.IEmojiStatus NewValue { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PrevValue);
         writer.Write(NewValue);

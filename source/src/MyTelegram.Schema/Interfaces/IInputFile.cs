@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputFile), nameof(TInputFile))]
 [JsonDerivedType(typeof(TInputFileBig), nameof(TInputFileBig))]
 [JsonDerivedType(typeof(TInputFileStoryDocument), nameof(TInputFileStoryDocument))]
-public interface IInputFile : IObject
+public partial interface IInputFile : IObject
 {
 }

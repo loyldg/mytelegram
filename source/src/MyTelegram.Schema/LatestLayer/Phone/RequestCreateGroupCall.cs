@@ -53,22 +53,24 @@ public sealed partial class RequestCreateGroupCall : IRequest<MyTelegram.Schema.
     /// </summary>
     public int? ScheduleDate { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (RtmpStream) { Flags = Flags.SetBit(2); }
-        if (Title != null) { Flags = Flags.SetBit(0); }
-        if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (RtmpStream) { flags = flags.SetBit(2); }
+        if (Title != null) { flags = flags.SetBit(0); }
+        if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(RandomId);
-        if (Flags.IsBitSet(0)) { writer.Write(Title); }
-        if (Flags.IsBitSet(1)) { writer.Write(ScheduleDate.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(Title); }
+        if (flags.IsBitSet(1)) { writer.Write(ScheduleDate.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

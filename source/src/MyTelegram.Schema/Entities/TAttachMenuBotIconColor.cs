@@ -20,13 +20,9 @@ public sealed partial class TAttachMenuBotIconColor : IAttachMenuBotIconColor
     /// </summary>
     public int Color { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Name);
         writer.Write(Color);

@@ -29,13 +29,9 @@ public sealed partial class RequestUpdateEmojiStatus : IRequest<MyTelegram.Schem
     /// </summary>
     public MyTelegram.Schema.IEmojiStatus EmojiStatus { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Channel);
         writer.Write(EmojiStatus);

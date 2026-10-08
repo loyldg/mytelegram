@@ -66,26 +66,28 @@ public sealed partial class RequestEditExportedChatInvite : IRequest<MyTelegram.
     /// </summary>
     public string? Title { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Revoked) { Flags = Flags.SetBit(2); }
-        if (/*ExpireDate != 0 && */ExpireDate.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*UsageLimit != 0 && */UsageLimit.HasValue) { Flags = Flags.SetBit(1); }
-        if (RequestNeeded != null) { Flags = Flags.SetBit(3); }
-        if (Title != null) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (Revoked) { flags = flags.SetBit(2); }
+        if (/*ExpireDate != 0 && */ExpireDate.HasValue) { flags = flags.SetBit(0); }
+        if (/*UsageLimit != 0 && */UsageLimit.HasValue) { flags = flags.SetBit(1); }
+        if (RequestNeeded != null) { flags = flags.SetBit(3); }
+        if (Title != null) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Link);
-        if (Flags.IsBitSet(0)) { writer.Write(ExpireDate.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(UsageLimit.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(RequestNeeded.Value); }
-        if (Flags.IsBitSet(4)) { writer.Write(Title); }
+        if (flags.IsBitSet(0)) { writer.Write(ExpireDate.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(UsageLimit.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(RequestNeeded.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(Title); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

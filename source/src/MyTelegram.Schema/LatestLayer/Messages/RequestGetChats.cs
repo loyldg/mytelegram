@@ -23,13 +23,9 @@ public sealed partial class RequestGetChats : IRequest<MyTelegram.Schema.Message
     /// </summary>
     public TVector<long> Id { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
     }

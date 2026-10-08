@@ -15,13 +15,9 @@ public sealed partial class TRequirementToContactPaidMessages : IRequirementToCo
     /// </summary>
     public long StarsAmount { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(StarsAmount);
     }

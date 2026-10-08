@@ -46,23 +46,25 @@ public sealed partial class TPhoneCallDiscarded : IPhoneCall
     /// </summary>
     public int? Duration { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (NeedRating) { Flags = Flags.SetBit(2); }
-        if (NeedDebug) { Flags = Flags.SetBit(3); }
-        if (Video) { Flags = Flags.SetBit(6); }
-        if (Reason != null) { Flags = Flags.SetBit(0); }
-        if (/*Duration != 0 && */Duration.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (NeedRating) { flags = flags.SetBit(2); }
+        if (NeedDebug) { flags = flags.SetBit(3); }
+        if (Video) { flags = flags.SetBit(6); }
+        if (Reason != null) { flags = flags.SetBit(0); }
+        if (/*Duration != 0 && */Duration.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
-        if (Flags.IsBitSet(0)) { writer.Write(Reason); }
-        if (Flags.IsBitSet(1)) { writer.Write(Duration.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(Reason); }
+        if (flags.IsBitSet(1)) { writer.Write(Duration.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

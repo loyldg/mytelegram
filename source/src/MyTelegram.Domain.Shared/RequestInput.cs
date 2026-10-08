@@ -7,7 +7,6 @@ namespace MyTelegram;
 public record RequestInput(
     string ConnectionId,
     ConnectionType ConnectionType,
-    //int DcId,
     Guid RequestId,
     uint ObjectId,
     long ReqMsgId,
@@ -22,6 +21,7 @@ public record RequestInput(
     long SessionId,
     long AccessHashKeyId,
     long InvokeAfterMsgId,
+    int DcId,
     ConnectedBotData? ConnectedBotData = null
 ) : IRequestInput
 {

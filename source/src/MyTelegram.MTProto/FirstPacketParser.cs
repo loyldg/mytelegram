@@ -76,12 +76,10 @@ public class FirstPacketParser(
 
             if (data.ProtocolType != ProtocolType.Unknown)
             {
-                var dcId = BitConverter.ToInt16(encryptedNonce, 60);
-                logger.LogInformation("[{ProtocolType}] Protocol detected, dcId: {DcId} bytes: {Bytes}", data.ProtocolType, dcId, firstPacket.Length);
                 data.SendKey = sendKey;
                 data.SendIv = sendIv;
                 data.ReceiveKey = receiveKey;
-                data.ReceiveIv =receiveIv;
+                data.ReceiveIv = receiveIv;
             }
 
             return data;

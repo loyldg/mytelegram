@@ -28,13 +28,9 @@ public sealed partial class TAutoDownloadSettings : IAutoDownloadSettings
     /// </summary>
     public MyTelegram.Schema.IAutoDownloadSettings High { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Low);
         writer.Write(Medium);

@@ -13,6 +13,6 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TInputCheckPasswordEmpty), nameof(TInputCheckPasswordEmpty))]
 [JsonDerivedType(typeof(TInputCheckPasswordSRP), nameof(TInputCheckPasswordSRP))]
-public interface IInputCheckPasswordSRP : IObject
+public partial interface IInputCheckPasswordSRP : IObject
 {
 }

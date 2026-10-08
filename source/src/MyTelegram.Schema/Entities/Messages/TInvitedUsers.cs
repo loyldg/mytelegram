@@ -22,13 +22,9 @@ public sealed partial class TInvitedUsers : IInvitedUsers
     /// </summary>
     public TVector<MyTelegram.Schema.IMissingInvitee> MissingInvitees { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Updates);
         writer.Write(MissingInvitees);

@@ -40,16 +40,18 @@ public sealed partial class RequestValidateRequestedInfo : IRequest<MyTelegram.S
     /// </summary>
     public MyTelegram.Schema.IPaymentRequestedInfo Info { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Save) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Save) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Invoice);
         writer.Write(Info);
     }

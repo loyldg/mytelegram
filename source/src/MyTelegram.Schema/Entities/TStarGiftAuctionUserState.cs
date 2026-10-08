@@ -45,24 +45,26 @@ public sealed partial class TStarGiftAuctionUserState : IStarGiftAuctionUserStat
     /// </summary>
     public int AcquiredCount { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Returned) { Flags = Flags.SetBit(1); }
-        if (/*BidAmount != 0 &&*/ BidAmount.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*BidDate != 0 && */BidDate.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*MinBidAmount != 0 &&*/ MinBidAmount.HasValue) { Flags = Flags.SetBit(0); }
-        if (BidPeer != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Returned) { flags = flags.SetBit(1); }
+        if (/*BidAmount != 0 &&*/ BidAmount.HasValue) { flags = flags.SetBit(0); }
+        if (/*BidDate != 0 && */BidDate.HasValue) { flags = flags.SetBit(0); }
+        if (/*MinBidAmount != 0 &&*/ MinBidAmount.HasValue) { flags = flags.SetBit(0); }
+        if (BidPeer != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(BidAmount.Value); }
-        if (Flags.IsBitSet(0)) { writer.Write(BidDate.Value); }
-        if (Flags.IsBitSet(0)) { writer.Write(MinBidAmount.Value); }
-        if (Flags.IsBitSet(0)) { writer.Write(BidPeer); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(BidAmount.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(BidDate.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(MinBidAmount.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(BidPeer); }
         writer.Write(AcquiredCount);
     }
 

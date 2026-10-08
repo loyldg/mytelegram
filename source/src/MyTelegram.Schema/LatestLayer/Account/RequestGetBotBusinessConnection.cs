@@ -25,13 +25,9 @@ public sealed partial class RequestGetBotBusinessConnection : IRequest<MyTelegra
     /// </summary>
     public string ConnectionId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ConnectionId);
     }

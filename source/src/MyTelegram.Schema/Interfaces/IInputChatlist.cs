@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputChatlistDialogFilter"/> See <a href="https://corefork.telegram.org/constructor/inputChatlistDialogFilter" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputChatlistDialogFilter), nameof(TInputChatlistDialogFilter))]
-public interface IInputChatlist : IObject
+public partial interface IInputChatlist : IObject
 {
     /// <summary>
     /// <a href="https://corefork.telegram.org/api/folders">Folder</a> ID

@@ -11,13 +11,9 @@ public sealed partial class TExportedBotToken : IExportedBotToken
     public uint ConstructorId => 0x3c60b621;
     public string Token { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Token);
     }

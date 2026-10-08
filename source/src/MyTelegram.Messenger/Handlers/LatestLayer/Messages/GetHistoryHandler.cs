@@ -53,6 +53,6 @@ internal sealed class GetHistoryHandler(IMessageAppService messageAppService, IQ
         }
 
         var r = await messageAppService.GetHistoryAsync(new GetHistoryInput { OwnerPeerId = ownerPeerId, SelfUserId = userId, AddOffset = obj.AddOffset, Limit = obj.Limit, MaxId = obj.MaxId, MinId = obj.MinId, OffsetId = obj.OffsetId, Peer = peerHelper.GetPeer(obj.Peer, userId), ChannelHistoryMinId = channelHistoryMinId });
-        return getHistoryConverterService.ToMessages(input, r, input.Layer);
+        return await getHistoryConverterService.ToMessagesAsync(input, r, input.Layer);
     }
 }

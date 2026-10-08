@@ -36,22 +36,24 @@ public sealed partial class TStoryFwdHeader : IStoryFwdHeader
     /// </summary>
     public int? StoryId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Modified) { Flags = Flags.SetBit(3); }
-        if (From != null) { Flags = Flags.SetBit(0); }
-        if (FromName != null) { Flags = Flags.SetBit(1); }
-        if (/*StoryId != 0 && */StoryId.HasValue) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Modified) { flags = flags.SetBit(3); }
+        if (From != null) { flags = flags.SetBit(0); }
+        if (FromName != null) { flags = flags.SetBit(1); }
+        if (/*StoryId != 0 && */StoryId.HasValue) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(From); }
-        if (Flags.IsBitSet(1)) { writer.Write(FromName); }
-        if (Flags.IsBitSet(2)) { writer.Write(StoryId.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(From); }
+        if (flags.IsBitSet(1)) { writer.Write(FromName); }
+        if (flags.IsBitSet(2)) { writer.Write(StoryId.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -41,21 +41,23 @@ public sealed partial class TBotInlineMessageMediaContact : IBotInlineMessage
     /// </summary>
     public MyTelegram.Schema.IReplyMarkup? ReplyMarkup { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ReplyMarkup != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (ReplyMarkup != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(PhoneNumber);
         writer.Write(FirstName);
         writer.Write(LastName);
         writer.Write(Vcard);
-        if (Flags.IsBitSet(2)) { writer.Write(ReplyMarkup); }
+        if (flags.IsBitSet(2)) { writer.Write(ReplyMarkup); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TInputReportReasonGeoIrrelevant : IReportReason
 {
     public uint ConstructorId => 0xdbd4feed;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

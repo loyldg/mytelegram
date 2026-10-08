@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Upload;
 /// </remarks>
 [JsonDerivedType(typeof(TFile), nameof(TFile))]
 [JsonDerivedType(typeof(TFileCdnRedirect), nameof(TFileCdnRedirect))]
-public interface IFile : IObject
+public partial interface IFile : IObject
 {
 }

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TPageTableCell"/> See <a href="https://corefork.telegram.org/constructor/pageTableCell" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPageTableCell), nameof(TPageTableCell))]
-public interface IPageTableCell : IObject
+public partial interface IPageTableCell : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

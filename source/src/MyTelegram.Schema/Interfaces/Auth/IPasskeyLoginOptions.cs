@@ -10,7 +10,7 @@ namespace MyTelegram.Schema.Auth;
 /// <see cref="TPasskeyLoginOptions"/> See <a href="https://corefork.telegram.org/constructor/auth.passkeyLoginOptions" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPasskeyLoginOptions), nameof(TPasskeyLoginOptions))]
-public interface IPasskeyLoginOptions : IObject
+public partial interface IPasskeyLoginOptions : IObject
 {
     /// <summary>
     ///  

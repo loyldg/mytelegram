@@ -58,25 +58,27 @@ public sealed partial class TUpdateChatParticipant : IUpdate
     /// </summary>
     public int Qts { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (PrevParticipant != null) { Flags = Flags.SetBit(0); }
-        if (NewParticipant != null) { Flags = Flags.SetBit(1); }
-        if (Invite != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (PrevParticipant != null) { flags = flags.SetBit(0); }
+        if (NewParticipant != null) { flags = flags.SetBit(1); }
+        if (Invite != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(ChatId);
         writer.Write(Date);
         writer.Write(ActorId);
         writer.Write(UserId);
-        if (Flags.IsBitSet(0)) { writer.Write(PrevParticipant); }
-        if (Flags.IsBitSet(1)) { writer.Write(NewParticipant); }
-        if (Flags.IsBitSet(2)) { writer.Write(Invite); }
+        if (flags.IsBitSet(0)) { writer.Write(PrevParticipant); }
+        if (flags.IsBitSet(1)) { writer.Write(NewParticipant); }
+        if (flags.IsBitSet(2)) { writer.Write(Invite); }
         writer.Write(Qts);
     }
 

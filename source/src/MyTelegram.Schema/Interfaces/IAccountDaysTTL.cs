@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TAccountDaysTTL"/> See <a href="https://corefork.telegram.org/constructor/accountDaysTTL" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TAccountDaysTTL), nameof(TAccountDaysTTL))]
-public interface IAccountDaysTTL : IObject
+public partial interface IAccountDaysTTL : IObject
 {
     /// <summary>
     /// This account will self-destruct in the specified number of days

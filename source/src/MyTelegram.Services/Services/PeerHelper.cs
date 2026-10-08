@@ -24,12 +24,12 @@ public class PeerHelper : IPeerHelper, ITransientDependency
 
     public bool IsChannelPeer(long peerId)
     {
-        return peerId >= MyTelegramConsts.ChannelInitId;
+        return peerId.IsChannelPeer();
     }
 
     public bool IsUserPeer(long peerId)
     {
-        return peerId is >= MyTelegramConsts.UserIdInitId and < MyTelegramConsts.BotUserInitId;
+        return peerId.IsUserPeer();
     }
 
     public IPeer ToPeer(Peer peer)
@@ -54,16 +54,16 @@ public class PeerHelper : IPeerHelper, ITransientDependency
 
     public bool IsBotUser(long userId)
     {
-        return userId is >= MyTelegramConsts.BotUserInitId and <= MyTelegramConsts.ChatIdInitId;
+        return userId.IsBotPeer();
     }
 
     public PeerType GetPeerType(long peerId)
     {
         var peerType = peerId switch
         {
-            < MyTelegramConsts.ChatIdInitId => PeerType.User,
-            >= MyTelegramConsts.ChatIdInitId and < MyTelegramConsts.ChannelInitId => PeerType.Chat,
-            >= MyTelegramConsts.ChannelInitId => PeerType.Channel
+            < MyTelegramConsts.ChatIdBase => PeerType.User,
+            >= MyTelegramConsts.ChatIdBase and < MyTelegramConsts.ChannelIdBase => PeerType.Chat,
+            >= MyTelegramConsts.ChannelIdBase => PeerType.Channel
         };
 
         return peerType;

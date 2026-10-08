@@ -41,13 +41,9 @@ public sealed partial class TMessageMediaVenue : IMessageMedia
     /// </summary>
     public string VenueType { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Geo);
         writer.Write(Title);

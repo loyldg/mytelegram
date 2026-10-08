@@ -3,8 +3,7 @@
 public class InviteToChannelSaga :
     MyInMemoryAggregateSaga<InviteToChannelSaga, InviteToChannelSagaId, InviteToChannelSagaLocator>,
     ISagaIsStartedBy<TempAggregate, TempId, InviteToChannelStartedEvent>,
-    ISagaHandles<ChannelMemberAggregate, ChannelMemberId, ChannelMemberCreatedEvent>,
-    IApply<InviteToChannelCompletedSagaEvent>
+    ISagaHandles<ChannelMemberAggregate, ChannelMemberId, ChannelMemberCreatedEvent>
 {
     private readonly InviteToChannelSagaState _state = new();
 
@@ -12,11 +11,6 @@ public class InviteToChannelSaga :
         eventStore)
     {
         Register(_state);
-    }
-
-    public void Apply(InviteToChannelCompletedSagaEvent aggregateEvent)
-    {
-        CompleteAsync();
     }
 
     public async Task HandleAsync(
@@ -120,8 +114,8 @@ public class InviteToChannelSaga :
                     case ChatJoinType.BySelf:
                         messageSubType = MessageSubType.ChatJoinByRequest;
                         break;
-                    case ChatJoinType.ByLink:
-                        messageSubType = MessageSubType.ChatJoinByLink;
+                    case ChatJoinType.ByChatInvite:
+                        messageSubType = MessageSubType.ChatJoinByChatInvite;
                         break;
                     case ChatJoinType.ByRequest:
                         messageSubType = MessageSubType.ChatJoinByRequest;
@@ -165,6 +159,8 @@ public class InviteToChannelSaga :
                 _state.HasLink,
                 _state.ChatJoinType
             ));
+
+            return CompleteAsync();
         }
 
         return Task.CompletedTask;

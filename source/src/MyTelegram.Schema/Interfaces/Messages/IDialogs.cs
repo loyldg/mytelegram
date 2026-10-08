@@ -15,6 +15,6 @@ namespace MyTelegram.Schema.Messages;
 [JsonDerivedType(typeof(TDialogs), nameof(TDialogs))]
 [JsonDerivedType(typeof(TDialogsSlice), nameof(TDialogsSlice))]
 [JsonDerivedType(typeof(TDialogsNotModified), nameof(TDialogsNotModified))]
-public interface IDialogs : IObject
+public partial interface IDialogs : IObject
 {
 }

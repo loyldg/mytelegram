@@ -22,13 +22,9 @@ public sealed partial class RequestRegisterPasskey : IRequest<MyTelegram.Schema.
     /// </summary>
     public MyTelegram.Schema.IInputPasskeyCredential Credential { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Credential);
     }

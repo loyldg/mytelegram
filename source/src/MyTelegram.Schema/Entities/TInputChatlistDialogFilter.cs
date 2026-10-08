@@ -15,13 +15,9 @@ public sealed partial class TInputChatlistDialogFilter : IInputChatlist
     /// </summary>
     public int FilterId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(FilterId);
     }

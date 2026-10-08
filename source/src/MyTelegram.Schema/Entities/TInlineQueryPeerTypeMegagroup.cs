@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TInlineQueryPeerTypeMegagroup : IInlineQueryPeerType
 {
     public uint ConstructorId => 0x5ec4be43;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

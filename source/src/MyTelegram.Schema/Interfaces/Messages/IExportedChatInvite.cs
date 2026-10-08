@@ -13,7 +13,7 @@ namespace MyTelegram.Schema.Messages;
 /// </remarks>
 [JsonDerivedType(typeof(TExportedChatInvite), nameof(TExportedChatInvite))]
 [JsonDerivedType(typeof(TExportedChatInviteReplaced), nameof(TExportedChatInviteReplaced))]
-public interface IExportedChatInvite : IObject
+public partial interface IExportedChatInvite : IObject
 {
     /// <summary>
     /// Info about the chat invite

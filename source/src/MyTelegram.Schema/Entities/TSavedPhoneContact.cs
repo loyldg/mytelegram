@@ -30,13 +30,9 @@ public sealed partial class TSavedPhoneContact : ISavedContact
     /// </summary>
     public int Date { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Phone);
         writer.Write(FirstName);

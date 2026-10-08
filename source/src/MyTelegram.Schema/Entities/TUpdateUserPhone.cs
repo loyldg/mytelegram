@@ -20,13 +20,9 @@ public sealed partial class TUpdateUserPhone : IUpdate
     /// </summary>
     public string Phone { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(UserId);
         writer.Write(Phone);

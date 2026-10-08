@@ -7,9 +7,9 @@ public interface IMyReadModel : IReadModel, ISoftDelete
 {
     long? CreatedBy { get; set; }
     long CreatedAt { get; set; }
-    long? LastModificationTime { get; set; }
-    long? LastModifiedBy { get; set; }
-    long? DeletionTime { get; set; }
+    long? LastUpdatedAt { get; set; }
+    long? LastUpdatedBy { get; set; }
+    long? DeletedAt { get; set; }
     long? DeletedBy { get; set; }
 }
 
@@ -54,4 +54,8 @@ public interface IQueryOnlyReadModelStore<TQueryOnlyReadModel> //: IReadModelSto
         Expression<Func<TQueryOnlyReadModel, bool>>? filter,
         Expression<Func<TQueryOnlyReadModel, TKey>> keySelector,
         Expression<Func<IGrouping<TKey, TQueryOnlyReadModel>, TResult>> resultSelector);
+
+    Task<double> AverageAsync<TKey>(Expression<Func<TQueryOnlyReadModel, bool>>? filter, Expression<Func<TQueryOnlyReadModel, TKey>> keySelector,
+        Expression<Func<TQueryOnlyReadModel, double>> valueSelector,
+        CancellationToken cancellationToken = default);
 }

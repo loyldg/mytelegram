@@ -133,53 +133,55 @@ public sealed partial class TSavedStarGift : ISavedStarGift
     /// </summary>
     public int? CanCraftAt { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (NameHidden) { Flags = Flags.SetBit(0); }
-        if (Unsaved) { Flags = Flags.SetBit(5); }
-        if (Refunded) { Flags = Flags.SetBit(9); }
-        if (CanUpgrade) { Flags = Flags.SetBit(10); }
-        if (PinnedToTop) { Flags = Flags.SetBit(12); }
-        if (UpgradeSeparate) { Flags = Flags.SetBit(17); }
-        if (FromId != null) { Flags = Flags.SetBit(1); }
-        if (Message != null) { Flags = Flags.SetBit(2); }
-        if (/*MsgId != 0 && */MsgId.HasValue) { Flags = Flags.SetBit(3); }
-        if (/*SavedId != 0 &&*/ SavedId.HasValue) { Flags = Flags.SetBit(11); }
-        if (/*ConvertStars != 0 &&*/ ConvertStars.HasValue) { Flags = Flags.SetBit(4); }
-        if (/*UpgradeStars != 0 &&*/ UpgradeStars.HasValue) { Flags = Flags.SetBit(6); }
-        if (/*CanExportAt != 0 && */CanExportAt.HasValue) { Flags = Flags.SetBit(7); }
-        if (/*TransferStars != 0 &&*/ TransferStars.HasValue) { Flags = Flags.SetBit(8); }
-        if (/*CanTransferAt != 0 && */CanTransferAt.HasValue) { Flags = Flags.SetBit(13); }
-        if (/*CanResellAt != 0 && */CanResellAt.HasValue) { Flags = Flags.SetBit(14); }
-        if (CollectionId?.Count > 0) { Flags = Flags.SetBit(15); }
-        if (PrepaidUpgradeHash != null) { Flags = Flags.SetBit(16); }
-        if (/*DropOriginalDetailsStars != 0 &&*/ DropOriginalDetailsStars.HasValue) { Flags = Flags.SetBit(18); }
-        if (/*GiftNum != 0 && */GiftNum.HasValue) { Flags = Flags.SetBit(19); }
-        if (/*CanCraftAt != 0 && */CanCraftAt.HasValue) { Flags = Flags.SetBit(20); }
+        var flags = 0;
+        if (NameHidden) { flags = flags.SetBit(0); }
+        if (Unsaved) { flags = flags.SetBit(5); }
+        if (Refunded) { flags = flags.SetBit(9); }
+        if (CanUpgrade) { flags = flags.SetBit(10); }
+        if (PinnedToTop) { flags = flags.SetBit(12); }
+        if (UpgradeSeparate) { flags = flags.SetBit(17); }
+        if (FromId != null) { flags = flags.SetBit(1); }
+        if (Message != null) { flags = flags.SetBit(2); }
+        if (/*MsgId != 0 && */MsgId.HasValue) { flags = flags.SetBit(3); }
+        if (/*SavedId != 0 &&*/ SavedId.HasValue) { flags = flags.SetBit(11); }
+        if (/*ConvertStars != 0 &&*/ ConvertStars.HasValue) { flags = flags.SetBit(4); }
+        if (/*UpgradeStars != 0 &&*/ UpgradeStars.HasValue) { flags = flags.SetBit(6); }
+        if (/*CanExportAt != 0 && */CanExportAt.HasValue) { flags = flags.SetBit(7); }
+        if (/*TransferStars != 0 &&*/ TransferStars.HasValue) { flags = flags.SetBit(8); }
+        if (/*CanTransferAt != 0 && */CanTransferAt.HasValue) { flags = flags.SetBit(13); }
+        if (/*CanResellAt != 0 && */CanResellAt.HasValue) { flags = flags.SetBit(14); }
+        if (CollectionId?.Count > 0) { flags = flags.SetBit(15); }
+        if (PrepaidUpgradeHash != null) { flags = flags.SetBit(16); }
+        if (/*DropOriginalDetailsStars != 0 &&*/ DropOriginalDetailsStars.HasValue) { flags = flags.SetBit(18); }
+        if (/*GiftNum != 0 && */GiftNum.HasValue) { flags = flags.SetBit(19); }
+        if (/*CanCraftAt != 0 && */CanCraftAt.HasValue) { flags = flags.SetBit(20); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(1)) { writer.Write(FromId); }
+        writer.Write(flags);
+        if (flags.IsBitSet(1)) { writer.Write(FromId); }
         writer.Write(Date);
         writer.Write(Gift);
-        if (Flags.IsBitSet(2)) { writer.Write(Message); }
-        if (Flags.IsBitSet(3)) { writer.Write(MsgId.Value); }
-        if (Flags.IsBitSet(11)) { writer.Write(SavedId.Value); }
-        if (Flags.IsBitSet(4)) { writer.Write(ConvertStars.Value); }
-        if (Flags.IsBitSet(6)) { writer.Write(UpgradeStars.Value); }
-        if (Flags.IsBitSet(7)) { writer.Write(CanExportAt.Value); }
-        if (Flags.IsBitSet(8)) { writer.Write(TransferStars.Value); }
-        if (Flags.IsBitSet(13)) { writer.Write(CanTransferAt.Value); }
-        if (Flags.IsBitSet(14)) { writer.Write(CanResellAt.Value); }
-        if (Flags.IsBitSet(15)) { writer.Write(CollectionId); }
-        if (Flags.IsBitSet(16)) { writer.Write(PrepaidUpgradeHash); }
-        if (Flags.IsBitSet(18)) { writer.Write(DropOriginalDetailsStars.Value); }
-        if (Flags.IsBitSet(19)) { writer.Write(GiftNum.Value); }
-        if (Flags.IsBitSet(20)) { writer.Write(CanCraftAt.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(Message); }
+        if (flags.IsBitSet(3)) { writer.Write(MsgId.Value); }
+        if (flags.IsBitSet(11)) { writer.Write(SavedId.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(ConvertStars.Value); }
+        if (flags.IsBitSet(6)) { writer.Write(UpgradeStars.Value); }
+        if (flags.IsBitSet(7)) { writer.Write(CanExportAt.Value); }
+        if (flags.IsBitSet(8)) { writer.Write(TransferStars.Value); }
+        if (flags.IsBitSet(13)) { writer.Write(CanTransferAt.Value); }
+        if (flags.IsBitSet(14)) { writer.Write(CanResellAt.Value); }
+        if (flags.IsBitSet(15)) { writer.Write(CollectionId); }
+        if (flags.IsBitSet(16)) { writer.Write(PrepaidUpgradeHash); }
+        if (flags.IsBitSet(18)) { writer.Write(DropOriginalDetailsStars.Value); }
+        if (flags.IsBitSet(19)) { writer.Write(GiftNum.Value); }
+        if (flags.IsBitSet(20)) { writer.Write(CanCraftAt.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TChatFull"/> See <a href="https://corefork.telegram.org/constructor/messages.chatFull" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TChatFull), nameof(TChatFull))]
-public interface IChatFull : IObject
+public partial interface IChatFull : IObject
 {
     /// <summary>
     /// Full info

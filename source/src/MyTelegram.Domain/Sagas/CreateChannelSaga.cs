@@ -41,7 +41,6 @@ public class CreateChannelSaga :
             SendMessageType.MessageService,
             MessageType.Text,
             subType,
-            null,
             //_state.MessageActionData,
             MessageActionType: MessageActionType.ChannelCreate,
             MessageAction: new TMessageActionChannelCreate
@@ -76,8 +75,8 @@ public class CreateChannelSaga :
             domainEvent.AggregateEvent.AutoCreateFromChat,
             domainEvent.AggregateEvent.TtlPeriod,
             domainEvent.AggregateEvent.TtlFromDefaultSetting,
-            domainEvent.AggregateEvent.MemberUserIds,
-            domainEvent.AggregateEvent.BotUserIds
+            domainEvent.AggregateEvent.MemberUserIds ?? [],
+            domainEvent.AggregateEvent.BotUserIds ?? []
             ));
         var ownerPeerId = domainEvent.AggregateEvent.ChannelId;
         await _idGenerator.NextIdAsync(IdType.Pts, ownerPeerId, cancellationToken: cancellationToken);
@@ -127,7 +126,7 @@ public class CreateChannelSaga :
         );
         Publish(createChatInviteCommand);
 
-        if (domainEvent.AggregateEvent.MemberUserIds.Count > 0)
+        if (domainEvent.AggregateEvent.MemberUserIds?.Count > 0)
         {
             var command = new StartInviteToChannelCommand(TempId.New,
                 domainEvent.AggregateEvent.RequestInfo with { RequestId = Guid.NewGuid(), ReqMsgId = 0 },
@@ -138,7 +137,7 @@ public class CreateChannelSaga :
                 0,
                 1,
                 domainEvent.AggregateEvent.MemberUserIds,
-                domainEvent.AggregateEvent.BotUserIds,
+                domainEvent.AggregateEvent.BotUserIds ?? [],
                 ChatJoinType.InvitedByAdmin
             );
             Publish(command);

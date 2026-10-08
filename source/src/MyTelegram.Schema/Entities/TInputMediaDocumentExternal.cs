@@ -41,23 +41,25 @@ public sealed partial class TInputMediaDocumentExternal : IInputMedia
     /// </summary>
     public int? VideoTimestamp { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Spoiler) { Flags = Flags.SetBit(1); }
-        if (/*TtlSeconds != 0 && */TtlSeconds.HasValue) { Flags = Flags.SetBit(0); }
-        if (VideoCover != null) { Flags = Flags.SetBit(2); }
-        if (/*VideoTimestamp != 0 && */VideoTimestamp.HasValue) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (Spoiler) { flags = flags.SetBit(1); }
+        if (/*TtlSeconds != 0 && */TtlSeconds.HasValue) { flags = flags.SetBit(0); }
+        if (VideoCover != null) { flags = flags.SetBit(2); }
+        if (/*VideoTimestamp != 0 && */VideoTimestamp.HasValue) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Url);
-        if (Flags.IsBitSet(0)) { writer.Write(TtlSeconds.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(VideoCover); }
-        if (Flags.IsBitSet(3)) { writer.Write(VideoTimestamp.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(TtlSeconds.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(VideoCover); }
+        if (flags.IsBitSet(3)) { writer.Write(VideoTimestamp.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -34,13 +34,9 @@ public sealed partial class RequestInviteToGroupCall : IRequest<MyTelegram.Schem
     /// </summary>
     public TVector<MyTelegram.Schema.IInputUser> Users { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Call);
         writer.Write(Users);

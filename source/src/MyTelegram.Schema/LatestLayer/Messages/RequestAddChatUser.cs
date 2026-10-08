@@ -48,13 +48,9 @@ public sealed partial class RequestAddChatUser : IRequest<MyTelegram.Schema.Mess
     /// </summary>
     public int FwdLimit { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ChatId);
         writer.Write(UserId);

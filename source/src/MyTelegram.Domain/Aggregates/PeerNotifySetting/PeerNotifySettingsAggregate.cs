@@ -11,8 +11,19 @@ public class PeerNotifySettingsAggregate : SnapshotAggregateRoot<PeerNotifySetti
         Register(_state);
     }
 
+    public void UpdatePeerNotifySettings2(RequestInfo requestInfo,
+        long ownerUserId,
+        PeerNotifyType peerNotifyType,
+        long toPeerId,
+        IPeerNotifySettings peerNotifySettings
+        )
+    {
+        Emit(new PeerNotifySettingsUpdatedEvent2(requestInfo, ownerUserId, peerNotifyType, toPeerId, peerNotifySettings));
+    }
+
     public void UpdatePeerNotifySettings(RequestInfo requestInfo,
         long ownerPeerId,
+        PeerNotifyType peerNotifyType,
         PeerType peerType,
         long peerId,
         bool? showPreviews,
@@ -23,6 +34,7 @@ public class PeerNotifySettingsAggregate : SnapshotAggregateRoot<PeerNotifySetti
         var peerNotifySettings = new PeerNotifySettings(showPreviews, silent, muteUntil, sound);
         Emit(new PeerNotifySettingsUpdatedEvent(requestInfo,
             ownerPeerId,
+            peerNotifyType,
             peerType,
             peerId,
             peerNotifySettings));

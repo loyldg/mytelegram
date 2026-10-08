@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Contacts;
 public sealed partial class TContactsNotModified : IContacts
 {
     public uint ConstructorId => 0xb74ba9d2;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

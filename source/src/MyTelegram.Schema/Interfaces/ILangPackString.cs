@@ -15,7 +15,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TLangPackString), nameof(TLangPackString))]
 [JsonDerivedType(typeof(TLangPackStringPluralized), nameof(TLangPackStringPluralized))]
 [JsonDerivedType(typeof(TLangPackStringDeleted), nameof(TLangPackStringDeleted))]
-public interface ILangPackString : IObject
+public partial interface ILangPackString : IObject
 {
     /// <summary>
     /// Localization key

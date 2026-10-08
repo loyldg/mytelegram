@@ -5,7 +5,7 @@ namespace MyTelegram.Schema.E2e;
 
 
 [TlObject(0x15161335)]
-public sealed class THandshakePrivateFinish : IHandshakePrivate
+public sealed partial class THandshakePrivateFinish : IHandshakePrivate
 {
     public uint ConstructorId => 0x15161335;
     public ReadOnlyMemory<byte> AlicePK { get; set; }

@@ -22,13 +22,9 @@ public sealed partial class TPageCaption : IPageCaption
     /// </summary>
     public MyTelegram.Schema.IRichText Credit { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Text);
         writer.Write(Credit);

@@ -31,13 +31,9 @@ public sealed partial class TUpdateGroupCallChainBlocks : IUpdate
     /// </summary>
     public int NextOffset { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Call);
         writer.Write(SubChainId);

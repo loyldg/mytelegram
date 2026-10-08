@@ -21,13 +21,9 @@ public sealed partial class TPaymentFormStarGift : IPaymentForm
     /// </summary>
     public MyTelegram.Schema.IInvoice Invoice { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(FormId);
         writer.Write(Invoice);

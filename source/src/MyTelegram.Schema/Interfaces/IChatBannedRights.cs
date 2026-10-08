@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TChatBannedRights"/> See <a href="https://corefork.telegram.org/constructor/chatBannedRights" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TChatBannedRights), nameof(TChatBannedRights))]
-public interface IChatBannedRights : IObject
+public partial interface IChatBannedRights : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

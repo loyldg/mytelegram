@@ -32,13 +32,9 @@ public sealed partial class RequestUnregisterDevice : IRequest<IBool>
     /// </summary>
     public TVector<long> OtherUids { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(TokenType);
         writer.Write(Token);

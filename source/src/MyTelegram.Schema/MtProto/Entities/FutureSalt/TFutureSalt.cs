@@ -4,7 +4,7 @@ namespace MyTelegram.Schema;
 
 
 [TlObject(0x0949d9dc)]
-public sealed class TFutureSalt : IFutureSalt
+public sealed partial class TFutureSalt : IFutureSalt
 {
     public uint ConstructorId => 0x0949d9dc;
     public int ValidSince { get; set; }

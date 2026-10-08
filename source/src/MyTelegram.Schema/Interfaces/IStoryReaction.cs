@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TStoryReaction), nameof(TStoryReaction))]
 [JsonDerivedType(typeof(TStoryReactionPublicForward), nameof(TStoryReactionPublicForward))]
 [JsonDerivedType(typeof(TStoryReactionPublicRepost), nameof(TStoryReactionPublicRepost))]
-public interface IStoryReaction : IObject
+public partial interface IStoryReaction : IObject
 {
 }

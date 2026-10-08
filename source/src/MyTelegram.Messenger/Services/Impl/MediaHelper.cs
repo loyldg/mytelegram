@@ -6,9 +6,6 @@ namespace MyTelegram.Messenger.Services.Impl;
 public class MediaHelper(
     IOptionsMonitor<MyTelegramMessengerServerOptions> options,
     ICacheManager<UserCacheItem> cacheManager,
-    IQueryProcessor queryProcessor,
-    IPeerHelper peerHelper,
-    IObjectMapper objectMapper,
     ICommandBus commandBus,
     ILogger<MediaHelper> logger)
     : IMediaHelper, ITransientDependency
@@ -86,40 +83,6 @@ public class MediaHelper(
                 await commandBus.PublishAsync(command);
                 break;
         }
-    }
-
-    private List<PhotoSize>? ToPhotoSize(TVector<IPhotoSize> photoSizes)
-    {
-        List<PhotoSize>? sizes = null;
-        foreach (var photoSize in photoSizes)
-        {
-            switch (photoSize)
-            {
-                case TPhotoSize photoSize1:
-                    sizes ??= [];
-                    sizes.Add(new PhotoSize(photoSize1.W, photoSize1.H, photoSize1.Size, photoSize1.Type));
-                    break;
-            }
-        }
-
-        return sizes;
-    }
-
-    private List<VideoSize>? ToVideoSizes(TVector<IVideoSize>? videoSizes)
-    {
-        List<VideoSize>? sizes = null;
-        foreach (var videoSize in videoSizes ?? [])
-        {
-            switch (videoSize)
-            {
-                case TVideoSize videoSize1:
-                    sizes ??= [];
-                    sizes.Add(new VideoSize(videoSize1.W, videoSize1.H, videoSize1.Size, videoSize1.Type, videoSize1.VideoStartTs ?? 0));
-                    break;
-            }
-        }
-
-        return sizes;
     }
 
     public async Task<SavePhotoResult> SavePhotoAsync(long reqMsgId,

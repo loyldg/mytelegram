@@ -21,13 +21,9 @@ public sealed partial class TRecentMeUrlStickerSet : IRecentMeUrl
     /// </summary>
     public MyTelegram.Schema.IStickerSetCovered Set { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Url);
         writer.Write(Set);

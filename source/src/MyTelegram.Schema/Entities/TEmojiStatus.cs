@@ -25,18 +25,20 @@ public sealed partial class TEmojiStatus : IEmojiStatus
     /// </summary>
     public int? Until { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*Until != 0 && */Until.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*Until != 0 && */Until.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(DocumentId);
-        if (Flags.IsBitSet(0)) { writer.Write(Until.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(Until.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

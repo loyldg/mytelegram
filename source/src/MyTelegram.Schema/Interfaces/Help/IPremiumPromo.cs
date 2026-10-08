@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Help;
 /// <see cref="TPremiumPromo"/> See <a href="https://corefork.telegram.org/constructor/help.premiumPromo" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPremiumPromo), nameof(TPremiumPromo))]
-public interface IPremiumPromo : IObject
+public partial interface IPremiumPromo : IObject
 {
     /// <summary>
     /// Description of the current state of the user's Telegram Premium subscription

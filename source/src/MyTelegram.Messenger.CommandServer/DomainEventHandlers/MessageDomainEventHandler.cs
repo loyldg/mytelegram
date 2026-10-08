@@ -8,11 +8,11 @@ public class MessageDomainEventHandler(ICommandBus commandBus,
     IMessageConverterService messageConverterService,
     IQueuedCommandExecutor<MessageTokenAggregate, MessageTokenId, IExecutionResult> queuedCommandExecutor,
     ITokenizer tokenizer) :
-    ISubscribeSynchronousTo<MessageAggregate, MessageId, OutboxMessageCreatedEvent>,
-    ISubscribeSynchronousTo<MessageAggregate, MessageId, InboxMessageCreatedEvent>,
-    ISubscribeSynchronousTo<MessageAggregate, MessageId, OutboxMessageEditedEventV2>,
-    ISubscribeSynchronousTo<MessageAggregate, MessageId, InboxMessageEditedEventV2>,
-    ISubscribeSynchronousTo<MessageAggregate, MessageId, MessageDeleted4Event>
+    ISubscribeAsynchronousTo<MessageAggregate, MessageId, OutboxMessageCreatedEvent>,
+    ISubscribeAsynchronousTo<MessageAggregate, MessageId, InboxMessageCreatedEvent>,
+    ISubscribeAsynchronousTo<MessageAggregate, MessageId, OutboxMessageEditedEventV2>,
+    ISubscribeAsynchronousTo<MessageAggregate, MessageId, InboxMessageEditedEventV2>,
+    ISubscribeAsynchronousTo<MessageAggregate, MessageId, MessageDeleted4Event>
 {
     public Task HandleAsync(IDomainEvent<MessageAggregate, MessageId, OutboxMessageCreatedEvent> domainEvent, CancellationToken cancellationToken)
     {
@@ -54,15 +54,14 @@ public class MessageDomainEventHandler(ICommandBus commandBus,
         var message = item.Message;
         if (string.IsNullOrEmpty(message) && item.EncryptedData != null)
         {
-            message = messageConverterService.DecryptMessage(item.OwnerPeer.PeerId, item.MessageId,
-                item.EncryptedData);
+            message = messageConverterService.DecryptMessage(item.OwnerPeer.PeerId, item.MessageId, item.EncryptedData);
         }
 
         if (!string.IsNullOrEmpty(message) && message.Length > 3)
         {
             var tokens = tokenizer.BuildSearchTokens(message);
 
-            if (tokens.Count > 0)
+            if (tokens?.Count > 0)
             {
                 var command = new CreateMessageTokenCommand(MessageTokenId.Create(item.OwnerPeer.PeerId, item.MessageId),
                     item.OwnerPeer.PeerId,

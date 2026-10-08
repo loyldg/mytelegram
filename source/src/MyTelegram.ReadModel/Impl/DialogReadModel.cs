@@ -59,7 +59,6 @@ public class DialogReadModel : ReadModelBase, IDialogReadModel,
     public virtual int TopMessage { get; set; }
     public virtual int UnreadCount { get; private set; }
     public virtual long? Version { get; set; }
-    public virtual bool IsDeleted { get; private set; }
     public int? TtlPeriod { get; set; }
     public int UnreadMentionsCount { get; private set; }
     public int UnreadReactionsCount { get; private set; }

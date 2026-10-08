@@ -21,6 +21,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInlineQueryPeerTypeMegagroup), nameof(TInlineQueryPeerTypeMegagroup))]
 [JsonDerivedType(typeof(TInlineQueryPeerTypeBroadcast), nameof(TInlineQueryPeerTypeBroadcast))]
 [JsonDerivedType(typeof(TInlineQueryPeerTypeBotPM), nameof(TInlineQueryPeerTypeBotPM))]
-public interface IInlineQueryPeerType : IObject
+public partial interface IInlineQueryPeerType : IObject
 {
 }

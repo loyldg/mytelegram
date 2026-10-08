@@ -25,13 +25,9 @@ public sealed partial class RequestCreateBusinessChatLink : IRequest<MyTelegram.
     /// </summary>
     public MyTelegram.Schema.IInputBusinessChatLink Link { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Link);
     }

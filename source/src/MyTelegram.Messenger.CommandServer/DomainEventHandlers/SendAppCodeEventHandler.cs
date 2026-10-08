@@ -6,12 +6,12 @@ public class SendAppCodeEventHandler(
     IMessageAppService messageAppService,
     IRandomHelper randomHelper)
     :
-        ISubscribeSynchronousTo<AppCodeAggregate, AppCodeId, AppCodeCreatedEvent>
+        ISubscribeAsynchronousTo<AppCodeAggregate, AppCodeId, AppCodeCreatedEvent>
 {
     public async Task HandleAsync(IDomainEvent<AppCodeAggregate, AppCodeId, AppCodeCreatedEvent> domainEvent,
         CancellationToken cancellationToken)
     {
-        logger.LogInformation("### Send app code: phoneNumber: {PhoneNumber}, code: {Code}",
+        logger.LogInformation("### App code sent successfully: phoneNumber: {PhoneNumber}, code: {Code}",
             domainEvent.AggregateEvent.PhoneNumber,
             domainEvent.AggregateEvent.Code
         );
@@ -20,7 +20,7 @@ public class SendAppCodeEventHandler(
         if (domainEvent.AggregateEvent.UserId != 0)
         {
             var message =
-                $"Login code: {domainEvent.AggregateEvent.Code}. Do not give this code to anyone, even if they say they are from Telegram!\n\nThis code can be used to log in to your Telegram account. We never ask it for anything else.\n\nIf you didn't request this code by trying to log in on another device, simply ignore this message.\n\nPowered by MyTelegram\nhttps://github.com/loyldg/mytelegram";
+                $"Login code: {domainEvent.AggregateEvent.Code}. Do not give this code to anyone, even if they say they are from MyTelegram!\n\nThis code can be used to log in to your MyTelegram account. We never ask it for anything else.\n\nIf you didn't request this code by trying to log in on another device, simply ignore this message.\n\nPowered by MyTelegram\nhttps://github.com/loyldg/mytelegram";
             var entities = new TVector<IMessageEntity>
             {
                 new TMessageEntityBold { Offset = 0, Length = 11 },

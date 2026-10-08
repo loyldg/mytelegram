@@ -9,43 +9,9 @@ namespace MyTelegram.Schema;
 /// <remarks>
 /// <para>Implementations:</para>
 /// <see cref="TKeyboardButton"/> See <a href="https://corefork.telegram.org/constructor/keyboardButton" /><br/>
-/// <see cref="TKeyboardButtonUrl"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonUrl" /><br/>
-/// <see cref="TKeyboardButtonCallback"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonCallback" /><br/>
-/// <see cref="TKeyboardButtonRequestPhone"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPhone" /><br/>
-/// <see cref="TKeyboardButtonRequestGeoLocation"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestGeoLocation" /><br/>
-/// <see cref="TKeyboardButtonSwitchInline"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonSwitchInline" /><br/>
-/// <see cref="TKeyboardButtonGame"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonGame" /><br/>
-/// <see cref="TKeyboardButtonBuy"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonBuy" /><br/>
-/// <see cref="TKeyboardButtonUrlAuth"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonUrlAuth" /><br/>
-/// <see cref="TInputKeyboardButtonUrlAuth"/> See <a href="https://corefork.telegram.org/constructor/inputKeyboardButtonUrlAuth" /><br/>
-/// <see cref="TKeyboardButtonRequestPoll"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPoll" /><br/>
-/// <see cref="TInputKeyboardButtonUserProfile"/> See <a href="https://corefork.telegram.org/constructor/inputKeyboardButtonUserProfile" /><br/>
-/// <see cref="TKeyboardButtonUserProfile"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonUserProfile" /><br/>
-/// <see cref="TKeyboardButtonWebView"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonWebView" /><br/>
-/// <see cref="TKeyboardButtonSimpleWebView"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonSimpleWebView" /><br/>
-/// <see cref="TKeyboardButtonRequestPeer"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonRequestPeer" /><br/>
-/// <see cref="TInputKeyboardButtonRequestPeer"/> See <a href="https://corefork.telegram.org/constructor/inputKeyboardButtonRequestPeer" /><br/>
-/// <see cref="TKeyboardButtonCopy"/> See <a href="https://corefork.telegram.org/constructor/keyboardButtonCopy" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TKeyboardButton), nameof(TKeyboardButton))]
-[JsonDerivedType(typeof(TKeyboardButtonUrl), nameof(TKeyboardButtonUrl))]
-[JsonDerivedType(typeof(TKeyboardButtonCallback), nameof(TKeyboardButtonCallback))]
-[JsonDerivedType(typeof(TKeyboardButtonRequestPhone), nameof(TKeyboardButtonRequestPhone))]
-[JsonDerivedType(typeof(TKeyboardButtonRequestGeoLocation), nameof(TKeyboardButtonRequestGeoLocation))]
-[JsonDerivedType(typeof(TKeyboardButtonSwitchInline), nameof(TKeyboardButtonSwitchInline))]
-[JsonDerivedType(typeof(TKeyboardButtonGame), nameof(TKeyboardButtonGame))]
-[JsonDerivedType(typeof(TKeyboardButtonBuy), nameof(TKeyboardButtonBuy))]
-[JsonDerivedType(typeof(TKeyboardButtonUrlAuth), nameof(TKeyboardButtonUrlAuth))]
-[JsonDerivedType(typeof(TInputKeyboardButtonUrlAuth), nameof(TInputKeyboardButtonUrlAuth))]
-[JsonDerivedType(typeof(TKeyboardButtonRequestPoll), nameof(TKeyboardButtonRequestPoll))]
-[JsonDerivedType(typeof(TInputKeyboardButtonUserProfile), nameof(TInputKeyboardButtonUserProfile))]
-[JsonDerivedType(typeof(TKeyboardButtonUserProfile), nameof(TKeyboardButtonUserProfile))]
-[JsonDerivedType(typeof(TKeyboardButtonWebView), nameof(TKeyboardButtonWebView))]
-[JsonDerivedType(typeof(TKeyboardButtonSimpleWebView), nameof(TKeyboardButtonSimpleWebView))]
-[JsonDerivedType(typeof(TKeyboardButtonRequestPeer), nameof(TKeyboardButtonRequestPeer))]
-[JsonDerivedType(typeof(TInputKeyboardButtonRequestPeer), nameof(TInputKeyboardButtonRequestPeer))]
-[JsonDerivedType(typeof(TKeyboardButtonCopy), nameof(TKeyboardButtonCopy))]
-public interface IKeyboardButton : IObject
+public partial interface IKeyboardButton : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

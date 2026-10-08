@@ -3,7 +3,7 @@
 namespace MyTelegram.Schema.Help.LayerN;
 
 [TlObject(0xc0e202f7)]
-public sealed class RequestTest : IRequest<IBool>
+public sealed partial class RequestTest : IRequest<IBool>
 {
     public uint ConstructorId => 0xc0e202f7;
 
@@ -15,5 +15,10 @@ public sealed class RequestTest : IRequest<IBool>
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         
+    }
+
+    public int GetLength()
+    {
+        return 4;
     }
 }

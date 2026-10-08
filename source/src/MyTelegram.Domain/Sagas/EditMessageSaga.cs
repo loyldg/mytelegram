@@ -81,7 +81,7 @@ ISagaIsStartedBy<MessageAggregate, MessageId, OutboxMessageEditedEventV2>,
         var oldMessageItem = _state.OldInboxMessageItem;
         var newMessageItem = _state.NewInboxMessageItem with { Pts = pts };
 
-        Emit(new InboxMessageEditCompletedSagaEvent(oldMessageItem, newMessageItem));
+        Emit(new InboxMessageEditCompletedSagaEvent(_state.RequestInfo, oldMessageItem, newMessageItem));
     }
     private async Task HandleEditOutboxCompletedAsync(long outboxOwnerPeerId)
     {

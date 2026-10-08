@@ -28,13 +28,9 @@ public sealed partial class RequestInitPasskeyLogin : IRequest<MyTelegram.Schema
     /// </summary>
     public string ApiHash { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ApiId);
         writer.Write(ApiHash);

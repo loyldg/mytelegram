@@ -70,31 +70,33 @@ public sealed partial class TBoost : IBoost
     /// </summary>
     public long? Stars { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Gift) { Flags = Flags.SetBit(1); }
-        if (Giveaway) { Flags = Flags.SetBit(2); }
-        if (Unclaimed) { Flags = Flags.SetBit(3); }
-        if (/*UserId != 0 &&*/ UserId.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*GiveawayMsgId != 0 && */GiveawayMsgId.HasValue) { Flags = Flags.SetBit(2); }
-        if (UsedGiftSlug != null) { Flags = Flags.SetBit(4); }
-        if (/*Multiplier != 0 && */Multiplier.HasValue) { Flags = Flags.SetBit(5); }
-        if (/*Stars != 0 &&*/ Stars.HasValue) { Flags = Flags.SetBit(6); }
+        var flags = 0;
+        if (Gift) { flags = flags.SetBit(1); }
+        if (Giveaway) { flags = flags.SetBit(2); }
+        if (Unclaimed) { flags = flags.SetBit(3); }
+        if (/*UserId != 0 &&*/ UserId.HasValue) { flags = flags.SetBit(0); }
+        if (/*GiveawayMsgId != 0 && */GiveawayMsgId.HasValue) { flags = flags.SetBit(2); }
+        if (UsedGiftSlug != null) { flags = flags.SetBit(4); }
+        if (/*Multiplier != 0 && */Multiplier.HasValue) { flags = flags.SetBit(5); }
+        if (/*Stars != 0 &&*/ Stars.HasValue) { flags = flags.SetBit(6); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
-        if (Flags.IsBitSet(0)) { writer.Write(UserId.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(GiveawayMsgId.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(UserId.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(GiveawayMsgId.Value); }
         writer.Write(Date);
         writer.Write(Expires);
-        if (Flags.IsBitSet(4)) { writer.Write(UsedGiftSlug); }
-        if (Flags.IsBitSet(5)) { writer.Write(Multiplier.Value); }
-        if (Flags.IsBitSet(6)) { writer.Write(Stars.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(UsedGiftSlug); }
+        if (flags.IsBitSet(5)) { writer.Write(Multiplier.Value); }
+        if (flags.IsBitSet(6)) { writer.Write(Stars.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

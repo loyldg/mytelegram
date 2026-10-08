@@ -15,13 +15,9 @@ public sealed partial class TDhConfigNotModified : IDhConfig
     /// </summary>
     public ReadOnlyMemory<byte> Random { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Random);
     }

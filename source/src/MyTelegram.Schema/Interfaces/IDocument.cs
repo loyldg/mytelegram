@@ -13,7 +13,7 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TDocumentEmpty), nameof(TDocumentEmpty))]
 [JsonDerivedType(typeof(TDocument), nameof(TDocument))]
-public interface IDocument : IObject
+public partial interface IDocument : IObject
 {
     /// <summary>
     /// Document ID or <code>0</code>

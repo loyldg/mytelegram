@@ -45,13 +45,9 @@ public sealed partial class RequestEditBanned : IRequest<MyTelegram.Schema.IUpda
     /// </summary>
     public MyTelegram.Schema.IChatBannedRights BannedRights { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Channel);
         writer.Write(Participant);

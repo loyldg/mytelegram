@@ -27,7 +27,7 @@ public class SignInSaga :
             domainEvent.AggregateEvent.LastName,
             domainEvent.AggregateEvent.HasPassword));
 
-        return Task.CompletedTask;
+        return CompleteAsync(cancellationToken);
     }
 
     public async Task HandleAsync(IDomainEvent<AppCodeAggregate, AppCodeId, CheckSignInCodeCompletedEvent> domainEvent,

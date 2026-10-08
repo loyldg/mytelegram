@@ -20,13 +20,9 @@ public sealed partial class RequestGetRequirementsToContact : IRequest<TVector<M
     /// </summary>
     public TVector<MyTelegram.Schema.IInputUser> Id { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
     }

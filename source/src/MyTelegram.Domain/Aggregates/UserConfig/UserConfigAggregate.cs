@@ -14,8 +14,8 @@ public class UserConfigState : AggregateState<UserConfigAggregate, UserConfigId,
     IApply<UserConfigChangedEvent>
 {
     public long UserId { get; private set; }
-    public string Key { get; private set; }
-    public string Value { get; private set; }
+    public string Key { get; private set; } = null!;
+    public string Value { get; private set; } = null!;
 
     public void LoadSnapshot(UserConfigSnapshot snapshot)
     {

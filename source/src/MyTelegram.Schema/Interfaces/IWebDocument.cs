@@ -13,7 +13,7 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TWebDocument), nameof(TWebDocument))]
 [JsonDerivedType(typeof(TWebDocumentNoProxy), nameof(TWebDocumentNoProxy))]
-public interface IWebDocument : IObject
+public partial interface IWebDocument : IObject
 {
     /// <summary>
     /// Document URL

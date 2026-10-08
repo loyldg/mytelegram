@@ -8,6 +8,16 @@ namespace MyTelegram.Core;
 
 public static class Extensions
 {
+    public static string EnsureEndsWith(this string text, string endsWith)
+    {
+        if (!text.EndsWith(endsWith))
+        {
+            text += endsWith;
+        }
+
+        return text;
+    }
+
     public static IEnumerable<T> WhereIf<T>(
         this IEnumerable<T> source,
         bool condition,

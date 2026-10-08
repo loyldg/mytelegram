@@ -35,6 +35,6 @@ internal sealed class GetDialogsHandler(IDialogAppService dialogAppService, IPee
             OwnerId = userId,
             OffsetPeer = offsetPeer
         });
-        return dialogConverterService.ToDialogs(input, getDialogOutput, input.Layer);
+        return await dialogConverterService.ToDialogsAsync(input, getDialogOutput, input.Layer);
     }
 }

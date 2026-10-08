@@ -50,18 +50,20 @@ public sealed partial class RequestGetSearchResultsPositions : IRequest<MyTelegr
     /// </summary>
     public int Limit { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (SavedPeerId != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (SavedPeerId != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
-        if (Flags.IsBitSet(2)) { writer.Write(SavedPeerId); }
+        if (flags.IsBitSet(2)) { writer.Write(SavedPeerId); }
         writer.Write(Filter);
         writer.Write(OffsetId);
         writer.Write(Limit);

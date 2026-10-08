@@ -29,13 +29,9 @@ public sealed partial class RequestSetEncryptedTyping : IRequest<IBool>
     /// </summary>
     public bool Typing { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(Typing);

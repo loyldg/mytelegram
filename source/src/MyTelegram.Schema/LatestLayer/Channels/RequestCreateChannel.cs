@@ -75,27 +75,29 @@ public sealed partial class RequestCreateChannel : IRequest<MyTelegram.Schema.IU
     /// </summary>
     public int? TtlPeriod { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Broadcast) { Flags = Flags.SetBit(0); }
-        if (Megagroup) { Flags = Flags.SetBit(1); }
-        if (ForImport) { Flags = Flags.SetBit(3); }
-        if (Forum) { Flags = Flags.SetBit(5); }
-        if (GeoPoint != null) { Flags = Flags.SetBit(2); }
-        if (Address != null) { Flags = Flags.SetBit(2); }
-        if (/*TtlPeriod != 0 && */TtlPeriod.HasValue) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (Broadcast) { flags = flags.SetBit(0); }
+        if (Megagroup) { flags = flags.SetBit(1); }
+        if (ForImport) { flags = flags.SetBit(3); }
+        if (Forum) { flags = flags.SetBit(5); }
+        if (GeoPoint != null) { flags = flags.SetBit(2); }
+        if (Address != null) { flags = flags.SetBit(2); }
+        if (/*TtlPeriod != 0 && */TtlPeriod.HasValue) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Title);
         writer.Write(About);
-        if (Flags.IsBitSet(2)) { writer.Write(GeoPoint); }
-        if (Flags.IsBitSet(2)) { writer.Write(Address); }
-        if (Flags.IsBitSet(4)) { writer.Write(TtlPeriod.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(GeoPoint); }
+        if (flags.IsBitSet(2)) { writer.Write(Address); }
+        if (flags.IsBitSet(4)) { writer.Write(TtlPeriod.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

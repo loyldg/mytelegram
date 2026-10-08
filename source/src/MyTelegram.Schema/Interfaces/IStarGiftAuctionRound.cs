@@ -12,7 +12,7 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TStarGiftAuctionRound), nameof(TStarGiftAuctionRound))]
 [JsonDerivedType(typeof(TStarGiftAuctionRoundExtendable), nameof(TStarGiftAuctionRoundExtendable))]
-public interface IStarGiftAuctionRound : IObject
+public partial interface IStarGiftAuctionRound : IObject
 {
     /// <summary>
     ///  

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Phone;
 /// <see cref="TGroupCallStreamChannels"/> See <a href="https://corefork.telegram.org/constructor/phone.groupCallStreamChannels" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TGroupCallStreamChannels), nameof(TGroupCallStreamChannels))]
-public interface IGroupCallStreamChannels : IObject
+public partial interface IGroupCallStreamChannels : IObject
 {
     /// <summary>
     /// RTMP streams

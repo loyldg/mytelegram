@@ -28,13 +28,9 @@ public sealed partial class RequestChangeStickerPosition : IRequest<MyTelegram.S
     /// </summary>
     public int Position { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Sticker);
         writer.Write(Position);

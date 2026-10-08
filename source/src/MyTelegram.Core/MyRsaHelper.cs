@@ -11,7 +11,6 @@ public class MyRsaHelper : IMyRsaHelper, ISingletonDependency
     // https://stackoverflow.com/questions/15702718/public-key-encryption-with-rsacryptoserviceprovider
     private MyRsaParameter? _myRsaParameter;
     private readonly BytesSerializer _bytesSerializer = new();
-
     public byte[] Decrypt(ReadOnlySpan<byte> encryptedSpan,
         string privateKey)
     {
@@ -40,6 +39,7 @@ public class MyRsaHelper : IMyRsaHelper, ISingletonDependency
             _myRsaParameter.PublicExponent = new BigInteger(p.Exponent, true, true);
         }
     }
+
     private long GetFingerprint(RSAParameters rsaParameters)
     {
         using var writer = new ArrayPoolBufferWriter<byte>();
@@ -52,12 +52,13 @@ public class MyRsaHelper : IMyRsaHelper, ISingletonDependency
 
         return BinaryPrimitives.ReadInt64LittleEndian(hash.Slice(12, 8));
     }
+
     private byte[] RsaOperation(ReadOnlySpan<byte> data,
         BigInteger exponent,
         BigInteger modulus)
     {
         var bData = new BigInteger(data, true, true);
-
+        
         return BigInteger
             .ModPow(bData, exponent, modulus)
             .ToByteArray(true, true);

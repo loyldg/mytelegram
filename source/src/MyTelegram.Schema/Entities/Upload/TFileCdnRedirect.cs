@@ -36,13 +36,9 @@ public sealed partial class TFileCdnRedirect : IFile
     /// </summary>
     public TVector<MyTelegram.Schema.IFileHash> FileHashes { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(DcId);
         writer.Write(FileToken);

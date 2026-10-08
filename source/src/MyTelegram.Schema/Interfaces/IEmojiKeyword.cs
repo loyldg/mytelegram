@@ -13,7 +13,7 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TEmojiKeyword), nameof(TEmojiKeyword))]
 [JsonDerivedType(typeof(TEmojiKeywordDeleted), nameof(TEmojiKeywordDeleted))]
-public interface IEmojiKeyword : IObject
+public partial interface IEmojiKeyword : IObject
 {
     /// <summary>
     /// Keyword

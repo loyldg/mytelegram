@@ -13,6 +13,6 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TInputCollectibleUsername), nameof(TInputCollectibleUsername))]
 [JsonDerivedType(typeof(TInputCollectiblePhone), nameof(TInputCollectiblePhone))]
-public interface IInputCollectible : IObject
+public partial interface IInputCollectible : IObject
 {
 }

@@ -16,13 +16,9 @@ public sealed partial class TUpdateStoriesStealthMode : IUpdate
     /// </summary>
     public MyTelegram.Schema.IStoriesStealthMode StealthMode { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(StealthMode);
     }

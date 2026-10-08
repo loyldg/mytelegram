@@ -62,27 +62,29 @@ public sealed partial class TMessageActionPaymentSentMe : IMessageAction
     /// </summary>
     public int? SubscriptionUntilDate { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (RecurringInit) { Flags = Flags.SetBit(2); }
-        if (RecurringUsed) { Flags = Flags.SetBit(3); }
-        if (Info != null) { Flags = Flags.SetBit(0); }
-        if (ShippingOptionId != null) { Flags = Flags.SetBit(1); }
-        if (/*SubscriptionUntilDate != 0 && */SubscriptionUntilDate.HasValue) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (RecurringInit) { flags = flags.SetBit(2); }
+        if (RecurringUsed) { flags = flags.SetBit(3); }
+        if (Info != null) { flags = flags.SetBit(0); }
+        if (ShippingOptionId != null) { flags = flags.SetBit(1); }
+        if (/*SubscriptionUntilDate != 0 && */SubscriptionUntilDate.HasValue) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Currency);
         writer.Write(TotalAmount);
         writer.Write(Payload);
-        if (Flags.IsBitSet(0)) { writer.Write(Info); }
-        if (Flags.IsBitSet(1)) { writer.Write(ShippingOptionId); }
+        if (flags.IsBitSet(0)) { writer.Write(Info); }
+        if (flags.IsBitSet(1)) { writer.Write(ShippingOptionId); }
         writer.Write(Charge);
-        if (Flags.IsBitSet(4)) { writer.Write(SubscriptionUntilDate.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(SubscriptionUntilDate.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

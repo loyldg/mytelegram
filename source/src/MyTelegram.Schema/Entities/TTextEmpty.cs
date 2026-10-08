@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TTextEmpty : IRichText
 {
     public uint ConstructorId => 0xdc3d824f;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

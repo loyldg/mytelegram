@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Help;
 /// <see cref="TTermsOfService"/> See <a href="https://corefork.telegram.org/constructor/help.termsOfService" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TTermsOfService), nameof(TTermsOfService))]
-public interface ITermsOfService : IObject
+public partial interface ITermsOfService : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

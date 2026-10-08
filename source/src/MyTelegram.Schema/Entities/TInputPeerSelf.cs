@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TInputPeerSelf : IInputPeer
 {
     public uint ConstructorId => 0x7da07ec9;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

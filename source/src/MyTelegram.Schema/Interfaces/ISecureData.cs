@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TSecureData"/> See <a href="https://corefork.telegram.org/constructor/secureData" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TSecureData), nameof(TSecureData))]
-public interface ISecureData : IObject
+public partial interface ISecureData : IObject
 {
     /// <summary>
     /// Data

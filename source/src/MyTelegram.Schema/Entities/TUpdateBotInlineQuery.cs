@@ -47,22 +47,24 @@ public sealed partial class TUpdateBotInlineQuery : IUpdate
     /// </summary>
     public string Offset { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Geo != null) { Flags = Flags.SetBit(0); }
-        if (PeerType != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Geo != null) { flags = flags.SetBit(0); }
+        if (PeerType != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(QueryId);
         writer.Write(UserId);
         writer.Write(Query);
-        if (Flags.IsBitSet(0)) { writer.Write(Geo); }
-        if (Flags.IsBitSet(1)) { writer.Write(PeerType); }
+        if (flags.IsBitSet(0)) { writer.Write(Geo); }
+        if (flags.IsBitSet(1)) { writer.Write(PeerType); }
         writer.Write(Offset);
     }
 

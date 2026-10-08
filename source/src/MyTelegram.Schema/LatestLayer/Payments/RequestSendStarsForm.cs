@@ -51,13 +51,9 @@ public sealed partial class RequestSendStarsForm : IRequest<MyTelegram.Schema.Pa
     /// </summary>
     public MyTelegram.Schema.IInputInvoice Invoice { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(FormId);
         writer.Write(Invoice);

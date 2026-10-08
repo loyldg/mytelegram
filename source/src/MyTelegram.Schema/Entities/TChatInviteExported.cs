@@ -86,37 +86,39 @@ public sealed partial class TChatInviteExported : IExportedChatInvite, ILayeredE
     /// </summary>
     public MyTelegram.Schema.IStarsSubscriptionPricing? SubscriptionPricing { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Revoked) { Flags = Flags.SetBit(0); }
-        if (Permanent) { Flags = Flags.SetBit(5); }
-        if (RequestNeeded) { Flags = Flags.SetBit(6); }
-        if (/*StartDate != 0 && */StartDate.HasValue) { Flags = Flags.SetBit(4); }
-        if (/*ExpireDate != 0 && */ExpireDate.HasValue) { Flags = Flags.SetBit(1); }
-        if (/*UsageLimit != 0 && */UsageLimit.HasValue) { Flags = Flags.SetBit(2); }
-        if (/*Usage != 0 && */Usage.HasValue) { Flags = Flags.SetBit(3); }
-        if (/*Requested != 0 && */Requested.HasValue) { Flags = Flags.SetBit(7); }
-        if (/*SubscriptionExpired != 0 && */SubscriptionExpired.HasValue) { Flags = Flags.SetBit(10); }
-        if (Title != null) { Flags = Flags.SetBit(8); }
-        if (SubscriptionPricing != null) { Flags = Flags.SetBit(9); }
+        var flags = 0;
+        if (Revoked) { flags = flags.SetBit(0); }
+        if (Permanent) { flags = flags.SetBit(5); }
+        if (RequestNeeded) { flags = flags.SetBit(6); }
+        if (/*StartDate != 0 && */StartDate.HasValue) { flags = flags.SetBit(4); }
+        if (/*ExpireDate != 0 && */ExpireDate.HasValue) { flags = flags.SetBit(1); }
+        if (/*UsageLimit != 0 && */UsageLimit.HasValue) { flags = flags.SetBit(2); }
+        if (/*Usage != 0 && */Usage.HasValue) { flags = flags.SetBit(3); }
+        if (/*Requested != 0 && */Requested.HasValue) { flags = flags.SetBit(7); }
+        if (/*SubscriptionExpired != 0 && */SubscriptionExpired.HasValue) { flags = flags.SetBit(10); }
+        if (Title != null) { flags = flags.SetBit(8); }
+        if (SubscriptionPricing != null) { flags = flags.SetBit(9); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Link);
         writer.Write(AdminId);
         writer.Write(Date);
-        if (Flags.IsBitSet(4)) { writer.Write(StartDate.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(ExpireDate.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(UsageLimit.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(Usage.Value); }
-        if (Flags.IsBitSet(7)) { writer.Write(Requested.Value); }
-        if (Flags.IsBitSet(10)) { writer.Write(SubscriptionExpired.Value); }
-        if (Flags.IsBitSet(8)) { writer.Write(Title); }
-        if (Flags.IsBitSet(9)) { writer.Write(SubscriptionPricing); }
+        if (flags.IsBitSet(4)) { writer.Write(StartDate.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(ExpireDate.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(UsageLimit.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(Usage.Value); }
+        if (flags.IsBitSet(7)) { writer.Write(Requested.Value); }
+        if (flags.IsBitSet(10)) { writer.Write(SubscriptionExpired.Value); }
+        if (flags.IsBitSet(8)) { writer.Write(Title); }
+        if (flags.IsBitSet(9)) { writer.Write(SubscriptionPricing); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

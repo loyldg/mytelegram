@@ -120,46 +120,48 @@ public sealed partial class TPeerSettings : IPeerSettings
     /// </summary>
     public int? PhotoChangeDate { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ReportSpam) { Flags = Flags.SetBit(0); }
-        if (AddContact) { Flags = Flags.SetBit(1); }
-        if (BlockContact) { Flags = Flags.SetBit(2); }
-        if (ShareContact) { Flags = Flags.SetBit(3); }
-        if (NeedContactsException) { Flags = Flags.SetBit(4); }
-        if (ReportGeo) { Flags = Flags.SetBit(5); }
-        if (Autoarchived) { Flags = Flags.SetBit(7); }
-        if (InviteMembers) { Flags = Flags.SetBit(8); }
-        if (RequestChatBroadcast) { Flags = Flags.SetBit(10); }
-        if (BusinessBotPaused) { Flags = Flags.SetBit(11); }
-        if (BusinessBotCanReply) { Flags = Flags.SetBit(12); }
-        if (/*GeoDistance != 0 && */GeoDistance.HasValue) { Flags = Flags.SetBit(6); }
-        if (RequestChatTitle != null) { Flags = Flags.SetBit(9); }
-        if (/*RequestChatDate != 0 && */RequestChatDate.HasValue) { Flags = Flags.SetBit(9); }
-        if (/*BusinessBotId != 0 &&*/ BusinessBotId.HasValue) { Flags = Flags.SetBit(13); }
-        if (BusinessBotManageUrl != null) { Flags = Flags.SetBit(13); }
-        if (/*ChargePaidMessageStars != 0 &&*/ ChargePaidMessageStars.HasValue) { Flags = Flags.SetBit(14); }
-        if (RegistrationMonth != null) { Flags = Flags.SetBit(15); }
-        if (PhoneCountry != null) { Flags = Flags.SetBit(16); }
-        if (/*NameChangeDate != 0 && */NameChangeDate.HasValue) { Flags = Flags.SetBit(17); }
-        if (/*PhotoChangeDate != 0 && */PhotoChangeDate.HasValue) { Flags = Flags.SetBit(18); }
+        var flags = 0;
+        if (ReportSpam) { flags = flags.SetBit(0); }
+        if (AddContact) { flags = flags.SetBit(1); }
+        if (BlockContact) { flags = flags.SetBit(2); }
+        if (ShareContact) { flags = flags.SetBit(3); }
+        if (NeedContactsException) { flags = flags.SetBit(4); }
+        if (ReportGeo) { flags = flags.SetBit(5); }
+        if (Autoarchived) { flags = flags.SetBit(7); }
+        if (InviteMembers) { flags = flags.SetBit(8); }
+        if (RequestChatBroadcast) { flags = flags.SetBit(10); }
+        if (BusinessBotPaused) { flags = flags.SetBit(11); }
+        if (BusinessBotCanReply) { flags = flags.SetBit(12); }
+        if (/*GeoDistance != 0 && */GeoDistance.HasValue) { flags = flags.SetBit(6); }
+        if (RequestChatTitle != null) { flags = flags.SetBit(9); }
+        if (/*RequestChatDate != 0 && */RequestChatDate.HasValue) { flags = flags.SetBit(9); }
+        if (/*BusinessBotId != 0 &&*/ BusinessBotId.HasValue) { flags = flags.SetBit(13); }
+        if (BusinessBotManageUrl != null) { flags = flags.SetBit(13); }
+        if (/*ChargePaidMessageStars != 0 &&*/ ChargePaidMessageStars.HasValue) { flags = flags.SetBit(14); }
+        if (RegistrationMonth != null) { flags = flags.SetBit(15); }
+        if (PhoneCountry != null) { flags = flags.SetBit(16); }
+        if (/*NameChangeDate != 0 && */NameChangeDate.HasValue) { flags = flags.SetBit(17); }
+        if (/*PhotoChangeDate != 0 && */PhotoChangeDate.HasValue) { flags = flags.SetBit(18); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(6)) { writer.Write(GeoDistance.Value); }
-        if (Flags.IsBitSet(9)) { writer.Write(RequestChatTitle); }
-        if (Flags.IsBitSet(9)) { writer.Write(RequestChatDate.Value); }
-        if (Flags.IsBitSet(13)) { writer.Write(BusinessBotId.Value); }
-        if (Flags.IsBitSet(13)) { writer.Write(BusinessBotManageUrl); }
-        if (Flags.IsBitSet(14)) { writer.Write(ChargePaidMessageStars.Value); }
-        if (Flags.IsBitSet(15)) { writer.Write(RegistrationMonth); }
-        if (Flags.IsBitSet(16)) { writer.Write(PhoneCountry); }
-        if (Flags.IsBitSet(17)) { writer.Write(NameChangeDate.Value); }
-        if (Flags.IsBitSet(18)) { writer.Write(PhotoChangeDate.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(6)) { writer.Write(GeoDistance.Value); }
+        if (flags.IsBitSet(9)) { writer.Write(RequestChatTitle); }
+        if (flags.IsBitSet(9)) { writer.Write(RequestChatDate.Value); }
+        if (flags.IsBitSet(13)) { writer.Write(BusinessBotId.Value); }
+        if (flags.IsBitSet(13)) { writer.Write(BusinessBotManageUrl); }
+        if (flags.IsBitSet(14)) { writer.Write(ChargePaidMessageStars.Value); }
+        if (flags.IsBitSet(15)) { writer.Write(RegistrationMonth); }
+        if (flags.IsBitSet(16)) { writer.Write(PhoneCountry); }
+        if (flags.IsBitSet(17)) { writer.Write(NameChangeDate.Value); }
+        if (flags.IsBitSet(18)) { writer.Write(PhotoChangeDate.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

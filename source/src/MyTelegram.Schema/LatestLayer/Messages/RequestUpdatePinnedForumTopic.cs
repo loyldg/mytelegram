@@ -33,13 +33,9 @@ public sealed partial class RequestUpdatePinnedForumTopic : IRequest<MyTelegram.
     /// </summary>
     public bool Pinned { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(TopicId);

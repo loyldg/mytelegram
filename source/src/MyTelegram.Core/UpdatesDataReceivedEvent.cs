@@ -17,7 +17,8 @@ public record UpdatesDataReceivedEvent(
     string ClientIp,
     long SessionId,
     long AccessHashKeyId,
-    long InvokeAfterMsgId
+    long InvokeAfterMsgId,
+    int DcId
 ) : DataReceivedEvent(
     ConnectionId,
     ConnectionType,
@@ -35,13 +36,14 @@ public record UpdatesDataReceivedEvent(
     ClientIp,
     SessionId,
     AccessHashKeyId,
-    InvokeAfterMsgId
+    InvokeAfterMsgId,
+    DcId
 )
 {
     public static UpdatesDataReceivedEvent Create()
     {
         return new UpdatesDataReceivedEvent(string.Empty, ConnectionType.UnKnown, Guid.Empty, 0, 0, 0, 0, 0,
             0, default, 0,
-            0, DeviceType.Unknown, string.Empty, 0, 0, 0);
+            0, DeviceType.Unknown, string.Empty, 0, 0, 0, 0);
     }
 }

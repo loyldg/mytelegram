@@ -39,21 +39,23 @@ public sealed partial class TEmojiGameDiceInfo : IEmojiGameInfo
     /// </summary>
     public int? PlaysLeft { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*PlaysLeft != 0 && */PlaysLeft.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*PlaysLeft != 0 && */PlaysLeft.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(GameHash);
         writer.Write(PrevStake);
         writer.Write(CurrentStreak);
         writer.Write(Params);
-        if (Flags.IsBitSet(0)) { writer.Write(PlaysLeft.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(PlaysLeft.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

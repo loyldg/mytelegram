@@ -35,19 +35,21 @@ public sealed partial class TChatPhoto : IChatPhoto
     /// </summary>
     public int DcId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (HasVideo) { Flags = Flags.SetBit(0); }
-        if (StrippedThumb != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (HasVideo) { flags = flags.SetBit(0); }
+        if (StrippedThumb != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(PhotoId);
-        if (Flags.IsBitSet(1)) { writer.Write(StrippedThumb); }
+        if (flags.IsBitSet(1)) { writer.Write(StrippedThumb); }
         writer.Write(DcId);
     }
 

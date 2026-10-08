@@ -15,13 +15,9 @@ public sealed partial class TPhotoSizeEmpty : IPhotoSize
     /// </summary>
     public string Type { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Type);
     }

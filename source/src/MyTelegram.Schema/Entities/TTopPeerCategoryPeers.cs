@@ -27,13 +27,9 @@ public sealed partial class TTopPeerCategoryPeers : ITopPeerCategoryPeers
     /// </summary>
     public TVector<MyTelegram.Schema.ITopPeer> Peers { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Category);
         writer.Write(Count);

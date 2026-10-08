@@ -29,6 +29,6 @@ namespace MyTelegram.Schema.Storage;
 [JsonDerivedType(typeof(TFileMov), nameof(TFileMov))]
 [JsonDerivedType(typeof(TFileMp4), nameof(TFileMp4))]
 [JsonDerivedType(typeof(TFileWebp), nameof(TFileWebp))]
-public interface IFileType : IObject
+public partial interface IFileType : IObject
 {
 }

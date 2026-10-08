@@ -112,6 +112,8 @@ public sealed partial class RequestForwardMessages : IRequest<MyTelegram.Schema.
     /// </summary>
     public bool AllowPaidFloodskip { get; set; }
 
+    public bool FromEphemeral { get; set; }
+
     /// <summary>
     /// Source of messages
     /// See <a href="https://corefork.telegram.org/type/InputPeer" />
@@ -188,46 +190,49 @@ public sealed partial class RequestForwardMessages : IRequest<MyTelegram.Schema.
     /// </summary>
     public MyTelegram.Schema.ISuggestedPost? SuggestedPost { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Silent) { Flags = Flags.SetBit(5); }
-        if (Background) { Flags = Flags.SetBit(6); }
-        if (WithMyScore) { Flags = Flags.SetBit(8); }
-        if (DropAuthor) { Flags = Flags.SetBit(11); }
-        if (DropMediaCaptions) { Flags = Flags.SetBit(12); }
-        if (Noforwards) { Flags = Flags.SetBit(14); }
-        if (AllowPaidFloodskip) { Flags = Flags.SetBit(19); }
-        if (/*TopMsgId != 0 && */TopMsgId.HasValue) { Flags = Flags.SetBit(9); }
-        if (ReplyTo != null) { Flags = Flags.SetBit(22); }
-        if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { Flags = Flags.SetBit(10); }
-        if (/*ScheduleRepeatPeriod != 0 && */ScheduleRepeatPeriod.HasValue) { Flags = Flags.SetBit(24); }
-        if (SendAs != null) { Flags = Flags.SetBit(13); }
-        if (QuickReplyShortcut != null) { Flags = Flags.SetBit(17); }
-        if (/*Effect != 0 &&*/ Effect.HasValue) { Flags = Flags.SetBit(18); }
-        if (/*VideoTimestamp != 0 && */VideoTimestamp.HasValue) { Flags = Flags.SetBit(20); }
-        if (/*AllowPaidStars != 0 &&*/ AllowPaidStars.HasValue) { Flags = Flags.SetBit(21); }
-        if (SuggestedPost != null) { Flags = Flags.SetBit(23); }
+        var flags = 0;
+        if (Silent) { flags = flags.SetBit(5); }
+        if (Background) { flags = flags.SetBit(6); }
+        if (WithMyScore) { flags = flags.SetBit(8); }
+        if (DropAuthor) { flags = flags.SetBit(11); }
+        if (DropMediaCaptions) { flags = flags.SetBit(12); }
+        if (Noforwards) { flags = flags.SetBit(14); }
+        if (AllowPaidFloodskip) { flags = flags.SetBit(19); }
+        if (FromEphemeral) { flags = flags.SetBit(25); }
+        if (/*TopMsgId != 0 && */TopMsgId.HasValue) { flags = flags.SetBit(9); }
+        if (ReplyTo != null) { flags = flags.SetBit(22); }
+        if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { flags = flags.SetBit(10); }
+        if (/*ScheduleRepeatPeriod != 0 && */ScheduleRepeatPeriod.HasValue) { flags = flags.SetBit(24); }
+        if (SendAs != null) { flags = flags.SetBit(13); }
+        if (QuickReplyShortcut != null) { flags = flags.SetBit(17); }
+        if (/*Effect != 0 &&*/ Effect.HasValue) { flags = flags.SetBit(18); }
+        if (/*VideoTimestamp != 0 && */VideoTimestamp.HasValue) { flags = flags.SetBit(20); }
+        if (/*AllowPaidStars != 0 &&*/ AllowPaidStars.HasValue) { flags = flags.SetBit(21); }
+        if (SuggestedPost != null) { flags = flags.SetBit(23); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(FromPeer);
         writer.Write(Id);
         writer.Write(RandomId);
         writer.Write(ToPeer);
-        if (Flags.IsBitSet(9)) { writer.Write(TopMsgId.Value); }
-        if (Flags.IsBitSet(22)) { writer.Write(ReplyTo); }
-        if (Flags.IsBitSet(10)) { writer.Write(ScheduleDate.Value); }
-        if (Flags.IsBitSet(24)) { writer.Write(ScheduleRepeatPeriod.Value); }
-        if (Flags.IsBitSet(13)) { writer.Write(SendAs); }
-        if (Flags.IsBitSet(17)) { writer.Write(QuickReplyShortcut); }
-        if (Flags.IsBitSet(18)) { writer.Write(Effect.Value); }
-        if (Flags.IsBitSet(20)) { writer.Write(VideoTimestamp.Value); }
-        if (Flags.IsBitSet(21)) { writer.Write(AllowPaidStars.Value); }
-        if (Flags.IsBitSet(23)) { writer.Write(SuggestedPost); }
+        if (flags.IsBitSet(9)) { writer.Write(TopMsgId.Value); }
+        if (flags.IsBitSet(22)) { writer.Write(ReplyTo); }
+        if (flags.IsBitSet(10)) { writer.Write(ScheduleDate.Value); }
+        if (flags.IsBitSet(24)) { writer.Write(ScheduleRepeatPeriod.Value); }
+        if (flags.IsBitSet(13)) { writer.Write(SendAs); }
+        if (flags.IsBitSet(17)) { writer.Write(QuickReplyShortcut); }
+        if (flags.IsBitSet(18)) { writer.Write(Effect.Value); }
+        if (flags.IsBitSet(20)) { writer.Write(VideoTimestamp.Value); }
+        if (flags.IsBitSet(21)) { writer.Write(AllowPaidStars.Value); }
+        if (flags.IsBitSet(23)) { writer.Write(SuggestedPost); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -240,6 +245,7 @@ public sealed partial class RequestForwardMessages : IRequest<MyTelegram.Schema.
         if (Flags.IsBitSet(12)) { DropMediaCaptions = true; }
         if (Flags.IsBitSet(14)) { Noforwards = true; }
         if (Flags.IsBitSet(19)) { AllowPaidFloodskip = true; }
+        if (Flags.IsBitSet(25)) { FromEphemeral = true; }
         FromPeer = buffer.Read<MyTelegram.Schema.IInputPeer>();
         Id = buffer.Read<TVector<int>>();
         RandomId = buffer.Read<TVector<long>>();

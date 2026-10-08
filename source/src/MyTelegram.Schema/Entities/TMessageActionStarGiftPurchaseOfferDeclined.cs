@@ -31,16 +31,18 @@ public sealed partial class TMessageActionStarGiftPurchaseOfferDeclined : IMessa
     /// </summary>
     public MyTelegram.Schema.IStarsAmount Price { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Expired) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Expired) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Gift);
         writer.Write(Price);
     }

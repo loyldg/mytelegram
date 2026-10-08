@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Payments;
 /// <see cref="TConnectedStarRefBots"/> See <a href="https://corefork.telegram.org/constructor/payments.connectedStarRefBots" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TConnectedStarRefBots), nameof(TConnectedStarRefBots))]
-public interface IConnectedStarRefBots : IObject
+public partial interface IConnectedStarRefBots : IObject
 {
     /// <summary>
     /// Total number of active affiliations

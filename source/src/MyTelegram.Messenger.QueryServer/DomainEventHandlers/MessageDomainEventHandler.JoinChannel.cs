@@ -8,8 +8,8 @@ public partial class MessageDomainEventHandler
         {
             case MessageSubType.ChatJoinBySelf:
                 return HandleJoinBySelfAsync(aggregateEvent);
-            case MessageSubType.ChatJoinByLink:
-                return HandleJoinByLinkAsync(aggregateEvent);
+            case MessageSubType.ChatJoinByChatInvite:
+                return HandleJoinByChatInviteAsync(aggregateEvent);
             case MessageSubType.ChatJoinByRequest:
                 return HandleJoinBySelfAsync(aggregateEvent);
         }
@@ -36,7 +36,12 @@ public partial class MessageDomainEventHandler
             tUpdates.Users.Add(user);
         }
 
-        await SendRpcMessageToClientAsync(aggregateEvent.RequestInfo, updates, pts: aggregateEvent.MessageItem.Pts);
+        var joinResult = new TChatInviteJoinResultOk
+        {
+            Updates = updates
+        };
+
+        await SendRpcMessageToClientAsync(aggregateEvent.RequestInfo, joinResult, pts: aggregateEvent.MessageItem.Pts);
         await PushUpdatesToPeerAsync(aggregateEvent.RequestInfo.UserId.ToUserPeer(), updates,
             excludeAuthKeyId: aggregateEvent.RequestInfo.PermAuthKeyId);
 
@@ -59,7 +64,7 @@ public partial class MessageDomainEventHandler
             excludeUserId: aggregateEvent.RequestInfo.UserId);
     }
 
-    private async Task HandleJoinByLinkAsync(SendOutboxMessageCompletedSagaEvent aggregateEvent)
+    private async Task HandleJoinByChatInviteAsync(SendOutboxMessageCompletedSagaEvent aggregateEvent)
     {
         var userId = aggregateEvent.MessageItem.SenderUserId;
         var updates = joinChannelConverterService.ToJoinChannelUpdates(aggregateEvent, aggregateEvent.RequestInfo.Layer);
@@ -67,7 +72,12 @@ public partial class MessageDomainEventHandler
         await UpdateChannelAndUserAsync(aggregateEvent.RequestInfo, updates, aggregateEvent.MessageItem.ToPeer.PeerId,
             [aggregateEvent.RequestInfo.UserId]);
 
-        await SendRpcMessageToClientAsync(aggregateEvent.RequestInfo, updates, aggregateEvent.RequestInfo.UserId);
+        var joinResult = new TChatInviteJoinResultOk
+        {
+            Updates = updates
+        };
+
+        await SendRpcMessageToClientAsync(aggregateEvent.RequestInfo, joinResult, aggregateEvent.RequestInfo.UserId);
 
         var selfOtherDeviceUpdates =
             joinChannelConverterService.ToJoinChannelUpdates(aggregateEvent.RequestInfo.UserId, aggregateEvent, 0);

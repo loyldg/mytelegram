@@ -35,13 +35,9 @@ public sealed partial class RequestSetDiscussionGroup : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IInputChannel Group { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Broadcast);
         writer.Write(Group);

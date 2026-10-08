@@ -41,20 +41,22 @@ public sealed partial class TMessageReactor : IMessageReactor
     /// </summary>
     public int Count { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Top) { Flags = Flags.SetBit(0); }
-        if (My) { Flags = Flags.SetBit(1); }
-        if (Anonymous) { Flags = Flags.SetBit(2); }
-        if (PeerId != null) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (Top) { flags = flags.SetBit(0); }
+        if (My) { flags = flags.SetBit(1); }
+        if (Anonymous) { flags = flags.SetBit(2); }
+        if (PeerId != null) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(3)) { writer.Write(PeerId); }
+        writer.Write(flags);
+        if (flags.IsBitSet(3)) { writer.Write(PeerId); }
         writer.Write(Count);
     }
 

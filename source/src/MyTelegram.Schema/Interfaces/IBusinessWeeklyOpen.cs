@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TBusinessWeeklyOpen"/> See <a href="https://corefork.telegram.org/constructor/businessWeeklyOpen" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TBusinessWeeklyOpen), nameof(TBusinessWeeklyOpen))]
-public interface IBusinessWeeklyOpen : IObject
+public partial interface IBusinessWeeklyOpen : IObject
 {
     /// <summary>
     /// Start minute in minutes of the week, <code>0</code> to <code>7*24*60</code> inclusively.

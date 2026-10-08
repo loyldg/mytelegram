@@ -5,7 +5,7 @@ namespace MyTelegram.Schema;
 
 
 [TlObject(0x83c95aec)]
-public sealed class TPQInnerData : IPQInnerData
+public sealed partial class TPQInnerData : IPQInnerData
 {
     public uint ConstructorId => 0x83c95aec;
     public byte[] Pq { get; set; }

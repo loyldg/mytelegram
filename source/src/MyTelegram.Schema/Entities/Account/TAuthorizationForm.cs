@@ -44,21 +44,23 @@ public sealed partial class TAuthorizationForm : IAuthorizationForm
     /// </summary>
     public string? PrivacyPolicyUrl { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (PrivacyPolicyUrl != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (PrivacyPolicyUrl != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(RequiredTypes);
         writer.Write(Values);
         writer.Write(Errors);
         writer.Write(Users);
-        if (Flags.IsBitSet(0)) { writer.Write(PrivacyPolicyUrl); }
+        if (flags.IsBitSet(0)) { writer.Write(PrivacyPolicyUrl); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -50,17 +50,19 @@ public sealed partial class RequestSetInlineGameScore : IRequest<IBool>
     /// </summary>
     public int Score { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (EditMessage) { Flags = Flags.SetBit(0); }
-        if (Force) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (EditMessage) { flags = flags.SetBit(0); }
+        if (Force) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(UserId);
         writer.Write(Score);

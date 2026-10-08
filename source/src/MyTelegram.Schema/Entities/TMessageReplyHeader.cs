@@ -30,6 +30,8 @@ public sealed partial class TMessageReplyHeader : IMessageReplyHeader
     /// </summary>
     public bool Quote { get; set; }
 
+    public bool ReplyToEphemeral { get; set; }
+
     /// <summary>
     /// ID of message to which this message is replying
     /// </summary>
@@ -81,38 +83,41 @@ public sealed partial class TMessageReplyHeader : IMessageReplyHeader
 
     public ReadOnlyMemory<byte>? PollOption { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ReplyToScheduled) { Flags = Flags.SetBit(2); }
-        if (ForumTopic) { Flags = Flags.SetBit(3); }
-        if (Quote) { Flags = Flags.SetBit(9); }
-        if (/*ReplyToMsgId != 0 && */ReplyToMsgId.HasValue) { Flags = Flags.SetBit(4); }
-        if (ReplyToPeerId != null) { Flags = Flags.SetBit(0); }
-        if (ReplyFrom != null) { Flags = Flags.SetBit(5); }
-        if (ReplyMedia != null) { Flags = Flags.SetBit(8); }
-        if (/*ReplyToTopId != 0 && */ReplyToTopId.HasValue) { Flags = Flags.SetBit(1); }
-        if (QuoteText != null) { Flags = Flags.SetBit(6); }
-        if (QuoteEntities?.Count > 0) { Flags = Flags.SetBit(7); }
-        if (/*QuoteOffset != 0 && */QuoteOffset.HasValue) { Flags = Flags.SetBit(10); }
-        if (/*TodoItemId != 0 && */TodoItemId.HasValue) { Flags = Flags.SetBit(11); }
-        if (PollOption != null) { Flags = Flags.SetBit(12); }
+        var flags = 0;
+        if (ReplyToScheduled) { flags = flags.SetBit(2); }
+        if (ForumTopic) { flags = flags.SetBit(3); }
+        if (Quote) { flags = flags.SetBit(9); }
+        if (ReplyToEphemeral) { flags = flags.SetBit(13); }
+        if (/*ReplyToMsgId != 0 && */ReplyToMsgId.HasValue) { flags = flags.SetBit(4); }
+        if (ReplyToPeerId != null) { flags = flags.SetBit(0); }
+        if (ReplyFrom != null) { flags = flags.SetBit(5); }
+        if (ReplyMedia != null) { flags = flags.SetBit(8); }
+        if (/*ReplyToTopId != 0 && */ReplyToTopId.HasValue) { flags = flags.SetBit(1); }
+        if (QuoteText != null) { flags = flags.SetBit(6); }
+        if (QuoteEntities?.Count > 0) { flags = flags.SetBit(7); }
+        if (/*QuoteOffset != 0 && */QuoteOffset.HasValue) { flags = flags.SetBit(10); }
+        if (/*TodoItemId != 0 && */TodoItemId.HasValue) { flags = flags.SetBit(11); }
+        if (PollOption != null) { flags = flags.SetBit(12); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(4)) { writer.Write(ReplyToMsgId.Value); }
-        if (Flags.IsBitSet(0)) { writer.Write(ReplyToPeerId); }
-        if (Flags.IsBitSet(5)) { writer.Write(ReplyFrom); }
-        if (Flags.IsBitSet(8)) { writer.Write(ReplyMedia); }
-        if (Flags.IsBitSet(1)) { writer.Write(ReplyToTopId.Value); }
-        if (Flags.IsBitSet(6)) { writer.Write(QuoteText); }
-        if (Flags.IsBitSet(7)) { writer.Write(QuoteEntities); }
-        if (Flags.IsBitSet(10)) { writer.Write(QuoteOffset.Value); }
-        if (Flags.IsBitSet(11)) { writer.Write(TodoItemId.Value); }
-        if (Flags.IsBitSet(12)) { writer.Write(PollOption); }
+        writer.Write(flags);
+        if (flags.IsBitSet(4)) { writer.Write(ReplyToMsgId.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(ReplyToPeerId); }
+        if (flags.IsBitSet(5)) { writer.Write(ReplyFrom); }
+        if (flags.IsBitSet(8)) { writer.Write(ReplyMedia); }
+        if (flags.IsBitSet(1)) { writer.Write(ReplyToTopId.Value); }
+        if (flags.IsBitSet(6)) { writer.Write(QuoteText); }
+        if (flags.IsBitSet(7)) { writer.Write(QuoteEntities); }
+        if (flags.IsBitSet(10)) { writer.Write(QuoteOffset.Value); }
+        if (flags.IsBitSet(11)) { writer.Write(TodoItemId.Value); }
+        if (flags.IsBitSet(12)) { writer.Write(PollOption); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -121,6 +126,7 @@ public sealed partial class TMessageReplyHeader : IMessageReplyHeader
         if (Flags.IsBitSet(2)) { ReplyToScheduled = true; }
         if (Flags.IsBitSet(3)) { ForumTopic = true; }
         if (Flags.IsBitSet(9)) { Quote = true; }
+        if (Flags.IsBitSet(13)) { ReplyToEphemeral = true; }
         if (Flags.IsBitSet(4)) { ReplyToMsgId = buffer.ReadInt32(); }
         if (Flags.IsBitSet(0)) { ReplyToPeerId = buffer.Read<MyTelegram.Schema.IPeer>(); }
         if (Flags.IsBitSet(5)) { ReplyFrom = buffer.Read<MyTelegram.Schema.IMessageFwdHeader>(); }

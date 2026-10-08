@@ -41,19 +41,21 @@ public sealed partial class TMessageMediaWebPage : IMessageMedia
     /// </summary>
     public MyTelegram.Schema.IWebPage Webpage { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ForceLargeMedia) { Flags = Flags.SetBit(0); }
-        if (ForceSmallMedia) { Flags = Flags.SetBit(1); }
-        if (Manual) { Flags = Flags.SetBit(3); }
-        if (Safe) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (ForceLargeMedia) { flags = flags.SetBit(0); }
+        if (ForceSmallMedia) { flags = flags.SetBit(1); }
+        if (Manual) { flags = flags.SetBit(3); }
+        if (Safe) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Webpage);
     }
 

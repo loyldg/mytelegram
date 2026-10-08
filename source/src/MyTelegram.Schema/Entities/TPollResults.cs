@@ -22,6 +22,8 @@ public sealed partial class TPollResults : IPollResults
 
     public bool HasUnreadVotes { get; set; }
 
+    public bool CanViewStats { get; set; }
+
     /// <summary>
     /// Poll results
     /// See <a href="https://corefork.telegram.org/type/PollAnswerVoters" />
@@ -55,29 +57,32 @@ public sealed partial class TPollResults : IPollResults
     /// </summary>
     public MyTelegram.Schema.IMessageMedia? SolutionMedia { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Min) { Flags = Flags.SetBit(0); }
-        if (HasUnreadVotes) { Flags = Flags.SetBit(6); }
-        if (Results?.Count > 0) { Flags = Flags.SetBit(1); }
-        if (/*TotalVoters != 0 && */TotalVoters.HasValue) { Flags = Flags.SetBit(2); }
-        if (RecentVoters?.Count > 0) { Flags = Flags.SetBit(3); }
-        if (Solution != null) { Flags = Flags.SetBit(4); }
-        if (SolutionEntities?.Count > 0) { Flags = Flags.SetBit(4); }
-        if (SolutionMedia != null) { Flags = Flags.SetBit(5); }
+        var flags = 0;
+        if (Min) { flags = flags.SetBit(0); }
+        if (HasUnreadVotes) { flags = flags.SetBit(6); }
+        if (CanViewStats) { flags = flags.SetBit(7); }
+        if (Results?.Count > 0) { flags = flags.SetBit(1); }
+        if (/*TotalVoters != 0 && */TotalVoters.HasValue) { flags = flags.SetBit(2); }
+        if (RecentVoters?.Count > 0) { flags = flags.SetBit(3); }
+        if (Solution != null) { flags = flags.SetBit(4); }
+        if (SolutionEntities?.Count > 0) { flags = flags.SetBit(4); }
+        if (SolutionMedia != null) { flags = flags.SetBit(5); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(1)) { writer.Write(Results); }
-        if (Flags.IsBitSet(2)) { writer.Write(TotalVoters.Value); }
-        if (Flags.IsBitSet(3)) { writer.Write(RecentVoters); }
-        if (Flags.IsBitSet(4)) { writer.Write(Solution); }
-        if (Flags.IsBitSet(4)) { writer.Write(SolutionEntities); }
-        if (Flags.IsBitSet(5)) { writer.Write(SolutionMedia); }
+        writer.Write(flags);
+        if (flags.IsBitSet(1)) { writer.Write(Results); }
+        if (flags.IsBitSet(2)) { writer.Write(TotalVoters.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(RecentVoters); }
+        if (flags.IsBitSet(4)) { writer.Write(Solution); }
+        if (flags.IsBitSet(4)) { writer.Write(SolutionEntities); }
+        if (flags.IsBitSet(5)) { writer.Write(SolutionMedia); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -85,6 +90,7 @@ public sealed partial class TPollResults : IPollResults
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(0)) { Min = true; }
         if (Flags.IsBitSet(6)) { HasUnreadVotes = true; }
+        if (Flags.IsBitSet(7)) { CanViewStats = true; }
         if (Flags.IsBitSet(1)) { Results = buffer.Read<TVector<MyTelegram.Schema.IPollAnswerVoters>>(); }
         if (Flags.IsBitSet(2)) { TotalVoters = buffer.ReadInt32(); }
         if (Flags.IsBitSet(3)) { RecentVoters = buffer.Read<TVector<MyTelegram.Schema.IPeer>>(); }

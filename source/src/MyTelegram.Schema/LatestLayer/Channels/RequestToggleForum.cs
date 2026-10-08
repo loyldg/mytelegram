@@ -39,13 +39,9 @@ public sealed partial class RequestToggleForum : IRequest<MyTelegram.Schema.IUpd
     /// </summary>
     public bool Tabs { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Channel);
         writer.Write(Enabled);

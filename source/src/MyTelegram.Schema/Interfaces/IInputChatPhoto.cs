@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputChatPhotoEmpty), nameof(TInputChatPhotoEmpty))]
 [JsonDerivedType(typeof(TInputChatUploadedPhoto), nameof(TInputChatUploadedPhoto))]
 [JsonDerivedType(typeof(TInputChatPhoto), nameof(TInputChatPhoto))]
-public interface IInputChatPhoto : IObject
+public partial interface IInputChatPhoto : IObject
 {
 }

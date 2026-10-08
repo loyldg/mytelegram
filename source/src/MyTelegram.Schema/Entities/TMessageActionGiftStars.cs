@@ -45,24 +45,26 @@ public sealed partial class TMessageActionGiftStars : IMessageAction
     /// </summary>
     public string? TransactionId { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (CryptoCurrency != null) { Flags = Flags.SetBit(0); }
-        if (/*CryptoAmount != 0 &&*/ CryptoAmount.HasValue) { Flags = Flags.SetBit(0); }
-        if (TransactionId != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (CryptoCurrency != null) { flags = flags.SetBit(0); }
+        if (/*CryptoAmount != 0 &&*/ CryptoAmount.HasValue) { flags = flags.SetBit(0); }
+        if (TransactionId != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Currency);
         writer.Write(Amount);
         writer.Write(Stars);
-        if (Flags.IsBitSet(0)) { writer.Write(CryptoCurrency); }
-        if (Flags.IsBitSet(0)) { writer.Write(CryptoAmount.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(TransactionId); }
+        if (flags.IsBitSet(0)) { writer.Write(CryptoCurrency); }
+        if (flags.IsBitSet(0)) { writer.Write(CryptoAmount.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(TransactionId); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

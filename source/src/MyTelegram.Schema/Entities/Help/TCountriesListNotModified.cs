@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Help;
 public sealed partial class TCountriesListNotModified : ICountriesList
 {
     public uint ConstructorId => 0x93cc1f32;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

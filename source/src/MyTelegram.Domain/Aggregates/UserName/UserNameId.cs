@@ -5,6 +5,6 @@ public class UserNameId(string value) : Identity<UserNameId>(value)
 {
     public static UserNameId Create( /*PeerType peerType, long peerId, */ string userName)
     {
-        return NewDeterministic(GuidFactories.Deterministic.Namespaces.Commands, $"username_{userName}");
+        return NewDeterministic(GuidFactories.Deterministic.Namespaces.Commands, $"username_{userName.ToLower()}");
     }
 }

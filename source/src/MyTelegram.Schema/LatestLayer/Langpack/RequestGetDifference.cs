@@ -32,13 +32,9 @@ public sealed partial class RequestGetDifference : IRequest<MyTelegram.Schema.IL
     /// </summary>
     public int FromVersion { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(LangPack);
         writer.Write(LangCode);

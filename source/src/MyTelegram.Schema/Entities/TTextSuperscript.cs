@@ -16,13 +16,9 @@ public sealed partial class TTextSuperscript : IRichText
     /// </summary>
     public MyTelegram.Schema.IRichText Text { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Text);
     }

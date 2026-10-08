@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Payments;
 /// <see cref="TStarsRevenueAdsAccountUrl"/> See <a href="https://corefork.telegram.org/constructor/payments.starsRevenueAdsAccountUrl" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStarsRevenueAdsAccountUrl), nameof(TStarsRevenueAdsAccountUrl))]
-public interface IStarsRevenueAdsAccountUrl : IObject
+public partial interface IStarsRevenueAdsAccountUrl : IObject
 {
     /// <summary>
     /// URL to open.

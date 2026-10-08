@@ -10,7 +10,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputMessageReadMetric"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputMessageReadMetric), nameof(TInputMessageReadMetric))]
-public interface IInputMessageReadMetric : IObject
+public partial interface IInputMessageReadMetric : IObject
 {
     int MsgId { get; set; }
 

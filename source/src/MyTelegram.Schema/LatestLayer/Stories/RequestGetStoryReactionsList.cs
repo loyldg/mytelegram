@@ -54,22 +54,24 @@ public sealed partial class RequestGetStoryReactionsList : IRequest<MyTelegram.S
     /// </summary>
     public int Limit { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (ForwardsFirst) { Flags = Flags.SetBit(2); }
-        if (Reaction != null) { Flags = Flags.SetBit(0); }
-        if (Offset != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (ForwardsFirst) { flags = flags.SetBit(2); }
+        if (Reaction != null) { flags = flags.SetBit(0); }
+        if (Offset != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Id);
-        if (Flags.IsBitSet(0)) { writer.Write(Reaction); }
-        if (Flags.IsBitSet(1)) { writer.Write(Offset); }
+        if (flags.IsBitSet(0)) { writer.Write(Reaction); }
+        if (flags.IsBitSet(1)) { writer.Write(Offset); }
         writer.Write(Limit);
     }
 

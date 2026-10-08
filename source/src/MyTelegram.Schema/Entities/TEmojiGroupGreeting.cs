@@ -25,13 +25,9 @@ public sealed partial class TEmojiGroupGreeting : IEmojiGroup
     /// </summary>
     public TVector<string> Emoticons { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Title);
         writer.Write(IconEmojiId);

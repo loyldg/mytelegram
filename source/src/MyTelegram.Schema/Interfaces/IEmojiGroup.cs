@@ -15,7 +15,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TEmojiGroup), nameof(TEmojiGroup))]
 [JsonDerivedType(typeof(TEmojiGroupGreeting), nameof(TEmojiGroupGreeting))]
 [JsonDerivedType(typeof(TEmojiGroupPremium), nameof(TEmojiGroupPremium))]
-public interface IEmojiGroup : IObject
+public partial interface IEmojiGroup : IObject
 {
     /// <summary>
     /// Category name, i.e. "Animals", "Flags", "Faces" and so on...

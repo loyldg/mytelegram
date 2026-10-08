@@ -16,13 +16,9 @@ public sealed partial class TInputPrivacyValueAllowUsers : IInputPrivacyRule
     /// </summary>
     public TVector<MyTelegram.Schema.IInputUser> Users { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Users);
     }

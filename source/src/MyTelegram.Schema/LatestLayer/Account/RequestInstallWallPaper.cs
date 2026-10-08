@@ -29,13 +29,9 @@ public sealed partial class RequestInstallWallPaper : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IWallPaperSettings Settings { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Wallpaper);
         writer.Write(Settings);

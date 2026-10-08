@@ -14,13 +14,9 @@ public sealed partial class TInputStarGiftAuction : IInputStarGiftAuction
     /// </summary>
     public long GiftId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(GiftId);
     }

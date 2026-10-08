@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TReadParticipantDate"/> See <a href="https://corefork.telegram.org/constructor/readParticipantDate" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TReadParticipantDate), nameof(TReadParticipantDate))]
-public interface IReadParticipantDate : IObject
+public partial interface IReadParticipantDate : IObject
 {
     /// <summary>
     /// User ID

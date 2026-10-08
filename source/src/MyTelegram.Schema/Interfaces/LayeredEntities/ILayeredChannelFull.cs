@@ -1,7 +1,7 @@
 ﻿// ReSharper disable All
 namespace MyTelegram.Schema;
 
-public interface ILayeredChannelFull : IChatFull
+public partial interface ILayeredChannelFull : IChatFull
 {
     bool CanViewParticipants { get; set; }
     bool CanSetUsername { get; set; }
@@ -29,7 +29,7 @@ public interface ILayeredChannelFull : IChatFull
     /////<summary>
     /////See <a href="https://core.telegram.org/type/PeerNotifySettings" />
     /////</summary>
-    //MyTelegram.Schema.IPeerNotifySettings NotifySettings { get; set; }
+    MyTelegram.Schema.IPeerNotifySettings NotifySettings { get; set; }
 
     ///<summary>
     ///See <a href="https://core.telegram.org/type/ExportedChatInvite" />
@@ -85,5 +85,10 @@ public interface ILayeredChannelFull : IChatFull
 
     TVector<MyTelegram.Schema.IBotInfo> BotInfo { get; set; }
     int? StargiftsCount { get; set; }
+    MyTelegram.Schema.IBotVerification? BotVerification { get; set; }
+    bool CanViewStats { get; set; }
+    bool CanViewStarsRevenue { get; set; }
     long? LinkedChatId { get; set; }
+    long? SendPaidMessagesStars { get; set; }
+    bool HasWelcomeMessages { get; set; }
 }

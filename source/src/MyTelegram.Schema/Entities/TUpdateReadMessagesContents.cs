@@ -35,20 +35,22 @@ public sealed partial class TUpdateReadMessagesContents : IUpdate
     /// </summary>
     public int? Date { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*Date != 0 && */Date.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (/*Date != 0 && */Date.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Messages);
         writer.Write(Pts);
         writer.Write(PtsCount);
-        if (Flags.IsBitSet(0)) { writer.Write(Date.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(Date.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TExportedContactToken"/> See <a href="https://corefork.telegram.org/constructor/exportedContactToken" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TExportedContactToken), nameof(TExportedContactToken))]
-public interface IExportedContactToken : IObject
+public partial interface IExportedContactToken : IObject
 {
     /// <summary>
     /// The <a href="https://corefork.telegram.org/api/links#temporary-profile-links">temporary profile link</a>.

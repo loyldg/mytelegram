@@ -52,19 +52,21 @@ public sealed partial class TUpdateServiceNotification : IUpdate
     /// </summary>
     public TVector<MyTelegram.Schema.IMessageEntity> Entities { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Popup) { Flags = Flags.SetBit(0); }
-        if (InvertMedia) { Flags = Flags.SetBit(2); }
-        if (/*InboxDate != 0 && */InboxDate.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Popup) { flags = flags.SetBit(0); }
+        if (InvertMedia) { flags = flags.SetBit(2); }
+        if (/*InboxDate != 0 && */InboxDate.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(1)) { writer.Write(InboxDate.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(1)) { writer.Write(InboxDate.Value); }
         writer.Write(Type);
         writer.Write(Message);
         writer.Write(Media);

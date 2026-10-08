@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Stickers;
 /// <see cref="TSuggestedShortName"/> See <a href="https://corefork.telegram.org/constructor/stickers.suggestedShortName" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TSuggestedShortName), nameof(TSuggestedShortName))]
-public interface ISuggestedShortName : IObject
+public partial interface ISuggestedShortName : IObject
 {
     /// <summary>
     /// Suggested short name

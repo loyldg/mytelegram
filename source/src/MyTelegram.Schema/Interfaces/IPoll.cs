@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TPoll"/> See <a href="https://corefork.telegram.org/constructor/poll" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPoll), nameof(TPoll))]
-public interface IPoll : IObject
+public partial interface IPoll : IObject
 {
     /// <summary>
     /// ID of the poll
@@ -74,6 +74,4 @@ public interface IPoll : IObject
     /// Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future; can't be used together with close_period.
     /// </summary>
     int? CloseDate { get; set; }
-
-    long Hash { get; set; }
 }

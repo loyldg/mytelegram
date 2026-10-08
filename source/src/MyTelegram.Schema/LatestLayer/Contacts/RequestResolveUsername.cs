@@ -35,18 +35,20 @@ public sealed partial class RequestResolveUsername : IRequest<MyTelegram.Schema.
     /// </summary>
     public string? Referer { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Referer != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Referer != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Username);
-        if (Flags.IsBitSet(0)) { writer.Write(Referer); }
+        if (flags.IsBitSet(0)) { writer.Write(Referer); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

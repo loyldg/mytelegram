@@ -60,27 +60,29 @@ public sealed partial class TDocumentAttributeVideo : IDocumentAttribute
     /// </summary>
     public string? VideoCodec { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (RoundMessage) { Flags = Flags.SetBit(0); }
-        if (SupportsStreaming) { Flags = Flags.SetBit(1); }
-        if (Nosound) { Flags = Flags.SetBit(3); }
-        if (/*PreloadPrefixSize != 0 && */PreloadPrefixSize.HasValue) { Flags = Flags.SetBit(2); }
-        if (VideoStartTs>0) { Flags = Flags.SetBit(4); }
-        if (VideoCodec != null) { Flags = Flags.SetBit(5); }
+        var flags = 0;
+        if (RoundMessage) { flags = flags.SetBit(0); }
+        if (SupportsStreaming) { flags = flags.SetBit(1); }
+        if (Nosound) { flags = flags.SetBit(3); }
+        if (/*PreloadPrefixSize != 0 && */PreloadPrefixSize.HasValue) { flags = flags.SetBit(2); }
+        if (VideoStartTs>0) { flags = flags.SetBit(4); }
+        if (VideoCodec != null) { flags = flags.SetBit(5); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Duration);
         writer.Write(W);
         writer.Write(H);
-        if (Flags.IsBitSet(2)) { writer.Write(PreloadPrefixSize.Value); }
-        if (Flags.IsBitSet(4)) { writer.Write(VideoStartTs.Value); }
-        if (Flags.IsBitSet(5)) { writer.Write(VideoCodec); }
+        if (flags.IsBitSet(2)) { writer.Write(PreloadPrefixSize.Value); }
+        if (flags.IsBitSet(4)) { writer.Write(VideoStartTs.Value); }
+        if (flags.IsBitSet(5)) { writer.Write(VideoCodec); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

@@ -10,11 +10,17 @@ public class DomainEventsDataProcessor(
 {
     public async Task ProcessAsync(IReadOnlyCollection<IDomainEvent> domainEvents, CancellationToken cancellationToken = default)
     {
-        await cachedReadModelUpdater.UpdateAsync(domainEvents, cancellationToken);
+        await cachedReadModelUpdater.UpdateAsync(domainEvents, CancellationToken.None);
 
         foreach (var domainEvent in domainEvents)
         {
             var aggregateEvent = domainEvent.GetAggregateEvent();
+            if (domainEvent.AggregateType == typeof(RpcResultAggregate) ||
+                domainEvent.AggregateType == typeof(UpdatesAggregate)
+                )
+            {
+                continue;
+            }
             if (aggregateEvent is IHasRequestInfo requestInfo)
             {
                 var totalMilliseconds = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - requestInfo.RequestInfo.Date;

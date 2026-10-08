@@ -25,13 +25,9 @@ public sealed partial class TSearchResultPosition : ISearchResultsPosition
     /// </summary>
     public int Offset { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(MsgId);
         writer.Write(Date);

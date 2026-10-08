@@ -1,29 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Net.Http" />
-    <PackageReference Include="System.Text.RegularExpressions" />
-    <PackageReference Include="xunit" />
-    <PackageReference Include="AutoFixture.Xunit2" />
-    <PackageReference Include="AutoFixture.AutoMoq" />
-    <PackageReference Include="System.ComponentModel.TypeConverter" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AutoFixture.Xunit3" />
+		<PackageReference Include="AutoFixture.AutoMoq" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="EventFlow" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="EventFlow" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Update="Fody">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Update="Fody">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
 </Project>

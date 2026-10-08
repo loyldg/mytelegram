@@ -15,13 +15,9 @@ public sealed partial class TInputMessageID : IInputMessage
     /// </summary>
     public int Id { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
     }

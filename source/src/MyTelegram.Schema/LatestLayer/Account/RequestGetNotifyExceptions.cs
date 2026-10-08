@@ -35,19 +35,21 @@ public sealed partial class RequestGetNotifyExceptions : IRequest<MyTelegram.Sch
     /// </summary>
     public MyTelegram.Schema.IInputNotifyPeer? Peer { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (CompareSound) { Flags = Flags.SetBit(1); }
-        if (CompareStories) { Flags = Flags.SetBit(2); }
-        if (Peer != null) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (CompareSound) { flags = flags.SetBit(1); }
+        if (CompareStories) { flags = flags.SetBit(2); }
+        if (Peer != null) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(Peer); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(Peer); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

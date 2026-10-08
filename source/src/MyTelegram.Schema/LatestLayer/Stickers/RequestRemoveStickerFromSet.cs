@@ -23,13 +23,9 @@ public sealed partial class RequestRemoveStickerFromSet : IRequest<MyTelegram.Sc
     /// </summary>
     public MyTelegram.Schema.IInputDocument Sticker { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Sticker);
     }

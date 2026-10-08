@@ -29,13 +29,9 @@ public sealed partial class RequestSendWebViewResultMessage : IRequest<MyTelegra
     /// </summary>
     public MyTelegram.Schema.IInputBotInlineResult Result { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(BotQueryId);
         writer.Write(Result);

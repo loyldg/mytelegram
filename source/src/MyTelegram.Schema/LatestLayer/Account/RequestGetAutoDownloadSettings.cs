@@ -14,13 +14,9 @@ public sealed partial class RequestGetAutoDownloadSettings : IRequest<MyTelegram
 {
     public uint ConstructorId => 0x56da0b3f;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

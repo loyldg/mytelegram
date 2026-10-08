@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Phone;
 /// <see cref="TGroupCall"/> See <a href="https://corefork.telegram.org/constructor/phone.groupCall" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TGroupCall), nameof(TGroupCall))]
-public interface IGroupCall : IObject
+public partial interface IGroupCall : IObject
 {
     /// <summary>
     /// Info about the group call

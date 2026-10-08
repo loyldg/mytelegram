@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Smsjobs;
 /// <see cref="TStatus"/> See <a href="https://corefork.telegram.org/constructor/smsjobs.status" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStatus), nameof(TStatus))]
-public interface IStatus : IObject
+public partial interface IStatus : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

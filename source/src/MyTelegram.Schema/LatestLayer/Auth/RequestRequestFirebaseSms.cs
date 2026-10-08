@@ -48,23 +48,25 @@ public sealed partial class RequestRequestFirebaseSms : IRequest<IBool>
     /// </summary>
     public string? IosPushSecret { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (SafetyNetToken != null) { Flags = Flags.SetBit(0); }
-        if (PlayIntegrityToken != null) { Flags = Flags.SetBit(2); }
-        if (IosPushSecret != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (SafetyNetToken != null) { flags = flags.SetBit(0); }
+        if (PlayIntegrityToken != null) { flags = flags.SetBit(2); }
+        if (IosPushSecret != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(PhoneNumber);
         writer.Write(PhoneCodeHash);
-        if (Flags.IsBitSet(0)) { writer.Write(SafetyNetToken); }
-        if (Flags.IsBitSet(2)) { writer.Write(PlayIntegrityToken); }
-        if (Flags.IsBitSet(1)) { writer.Write(IosPushSecret); }
+        if (flags.IsBitSet(0)) { writer.Write(SafetyNetToken); }
+        if (flags.IsBitSet(2)) { writer.Write(PlayIntegrityToken); }
+        if (flags.IsBitSet(1)) { writer.Write(IosPushSecret); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

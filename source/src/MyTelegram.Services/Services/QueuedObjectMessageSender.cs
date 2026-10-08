@@ -58,7 +58,9 @@ public class QueuedObjectMessageSender(
     {
         UpdateAccessHashIfNeeded(requestInfo, data);
 
-        sessionMessageQueueProcessor.Enqueue(new DataResultResponseReceivedEvent(requestInfo.ConnectionId, requestInfo.AuthKeyId, requestInfo.SessionId, requestInfo.ReqMsgId, Array.Empty<byte>())
+        sessionMessageQueueProcessor.Enqueue(new DataResultResponseReceivedEvent(requestInfo.ConnectionId,
+                requestInfo.PermAuthKeyId,
+                requestInfo.AuthKeyId, requestInfo.SessionId, requestInfo.ReqMsgId, Array.Empty<byte>())
         {
             DataObject = data
         },
@@ -72,7 +74,9 @@ public class QueuedObjectMessageSender(
     {
         UpdateAccessHashIfNeeded(requestInfo, data);
 
-        sessionMessageQueueProcessor.Enqueue(new FileDataResultResponseReceivedEvent(requestInfo.ConnectionId, requestInfo.AuthKeyId, requestInfo.SessionId, requestInfo.ReqMsgId, data.ToBytes()),
+        sessionMessageQueueProcessor.Enqueue(new FileDataResultResponseReceivedEvent(requestInfo.ConnectionId,
+                requestInfo.PermAuthKeyId,
+                requestInfo.AuthKeyId, requestInfo.SessionId, requestInfo.ReqMsgId, data.ToBytes()),
             requestInfo.PermAuthKeyId);
 
         return Task.CompletedTask;
@@ -95,7 +99,7 @@ public class QueuedObjectMessageSender(
     {
         var rpcResult = CreateRpcResult(reqMsgId, data);
 
-        sessionMessageQueueProcessor.Enqueue(new DataResultResponseReceivedEvent(connectionId, tempAuthKeyId, sessionId, reqMsgId, Array.Empty<byte>())
+        sessionMessageQueueProcessor.Enqueue(new DataResultResponseReceivedEvent(connectionId, permAuthKeyId, tempAuthKeyId, sessionId, reqMsgId, Array.Empty<byte>())
         {
             DataObject = rpcResult
         },

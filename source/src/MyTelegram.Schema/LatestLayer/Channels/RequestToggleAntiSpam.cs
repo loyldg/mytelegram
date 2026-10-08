@@ -30,13 +30,9 @@ public sealed partial class RequestToggleAntiSpam : IRequest<MyTelegram.Schema.I
     /// </summary>
     public bool Enabled { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Channel);
         writer.Write(Enabled);

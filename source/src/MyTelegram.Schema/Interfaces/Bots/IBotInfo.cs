@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Bots;
 /// <see cref="TBotInfo"/> See <a href="https://corefork.telegram.org/constructor/bots.botInfo" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TBotInfo), nameof(TBotInfo))]
-public interface IBotInfo : IObject
+public partial interface IBotInfo : IObject
 {
     /// <summary>
     /// Bot name

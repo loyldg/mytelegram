@@ -37,7 +37,8 @@ public class ApproveJoinChannelSaga : MyInMemoryAggregateSaga<ApproveJoinChannel
                 false,
                 domainEvent.AggregateEvent.InviteId,
                 domainEvent.AggregateEvent.Broadcast,
-                ChatJoinType.ByRequest
+                ChatJoinType.ByRequest,
+                domainEvent.AggregateEvent.RequestInfo.UserId
             );
             Publish(command);
         }

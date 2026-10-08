@@ -15,13 +15,9 @@ public sealed partial class RequestCheckUsername : IRequest<IBool>
 
     public string Username { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Username);
     }

@@ -13,7 +13,7 @@ namespace MyTelegram.Schema.Contacts;
 /// </remarks>
 [JsonDerivedType(typeof(TBlocked), nameof(TBlocked))]
 [JsonDerivedType(typeof(TBlockedSlice), nameof(TBlockedSlice))]
-public interface IBlocked : IObject
+public partial interface IBlocked : IObject
 {
     /// <summary>
     /// List of blocked users

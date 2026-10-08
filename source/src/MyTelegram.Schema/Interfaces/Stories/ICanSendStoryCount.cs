@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Stories;
 /// <see cref="TCanSendStoryCount"/> See <a href="https://corefork.telegram.org/constructor/stories.canSendStoryCount" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TCanSendStoryCount), nameof(TCanSendStoryCount))]
-public interface ICanSendStoryCount : IObject
+public partial interface ICanSendStoryCount : IObject
 {
     /// <summary>
     /// Remaining active story slots.

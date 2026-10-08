@@ -32,13 +32,9 @@ public sealed partial class RequestReportMissingCode : IRequest<IBool>
     /// </summary>
     public string Mnc { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PhoneNumber);
         writer.Write(PhoneCodeHash);

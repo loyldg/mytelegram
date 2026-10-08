@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TAffectedHistory"/> See <a href="https://corefork.telegram.org/constructor/messages.affectedHistory" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TAffectedHistory), nameof(TAffectedHistory))]
-public interface IAffectedHistory : IObject
+public partial interface IAffectedHistory : IObject
 {
     /// <summary>
     /// Number of events occurred in a text box

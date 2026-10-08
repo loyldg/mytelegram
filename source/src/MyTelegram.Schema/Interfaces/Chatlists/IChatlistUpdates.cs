@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Chatlists;
 /// <see cref="TChatlistUpdates"/> See <a href="https://corefork.telegram.org/constructor/chatlists.chatlistUpdates" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TChatlistUpdates), nameof(TChatlistUpdates))]
-public interface IChatlistUpdates : IObject
+public partial interface IChatlistUpdates : IObject
 {
     /// <summary>
     /// New peers to join

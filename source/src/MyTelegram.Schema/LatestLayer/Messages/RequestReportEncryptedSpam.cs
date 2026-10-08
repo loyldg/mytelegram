@@ -23,13 +23,9 @@ public sealed partial class RequestReportEncryptedSpam : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IInputEncryptedChat Peer { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
     }

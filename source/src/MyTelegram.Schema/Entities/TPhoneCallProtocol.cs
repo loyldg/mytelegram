@@ -40,17 +40,19 @@ public sealed partial class TPhoneCallProtocol : IPhoneCallProtocol
     /// </summary>
     public TVector<string> LibraryVersions { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (UdpP2p) { Flags = Flags.SetBit(0); }
-        if (UdpReflector) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (UdpP2p) { flags = flags.SetBit(0); }
+        if (UdpReflector) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(MinLayer);
         writer.Write(MaxLayer);
         writer.Write(LibraryVersions);

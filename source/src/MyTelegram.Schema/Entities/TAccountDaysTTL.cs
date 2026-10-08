@@ -15,13 +15,9 @@ public sealed partial class TAccountDaysTTL : IAccountDaysTTL
     /// </summary>
     public int Days { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Days);
     }

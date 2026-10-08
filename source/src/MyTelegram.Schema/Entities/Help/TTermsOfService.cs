@@ -42,21 +42,23 @@ public sealed partial class TTermsOfService : ITermsOfService
     /// </summary>
     public int? MinAgeConfirm { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Popup) { Flags = Flags.SetBit(0); }
-        if (/*MinAgeConfirm != 0 && */MinAgeConfirm.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Popup) { flags = flags.SetBit(0); }
+        if (/*MinAgeConfirm != 0 && */MinAgeConfirm.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(Text);
         writer.Write(Entities);
-        if (Flags.IsBitSet(1)) { writer.Write(MinAgeConfirm.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(MinAgeConfirm.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

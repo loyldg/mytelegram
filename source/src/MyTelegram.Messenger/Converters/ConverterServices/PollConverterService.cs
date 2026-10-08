@@ -9,14 +9,14 @@ public class PollConverterService(
         return pollLayeredService.GetConverter(layer).ToPoll(pollReadModel);
     }
 
-    public IPollResults ToPollResults(IPollReadModel pollReadModel, IList<string> chosenOptions, int layer = 0)
+    public IPollResults ToPollResults(long userId, IPollReadModel pollReadModel, IList<string> chosenOptions, int layer = 0)
     {
-        return pollResultsLayeredService.GetConverter(layer).ToPollResults(pollReadModel, chosenOptions);
+        return pollResultsLayeredService.GetConverter(layer).ToPollResults(userId, pollReadModel, chosenOptions);
     }
 
-    public IUpdates ToPollUpdates(IPollReadModel pollReadModel, IList<string> chosenOptions, int layer = 0)
+    public IUpdates ToPollUpdates(long userId, IPollReadModel pollReadModel, IList<string> chosenOptions, int layer = 0)
     {
-        var pollResults = ToPollResults(pollReadModel, chosenOptions);
+        var pollResults = ToPollResults(userId, pollReadModel, chosenOptions);
         pollResults.Min = true;
 
         var updateMessagePoll = new TUpdateMessagePoll

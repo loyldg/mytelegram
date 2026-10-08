@@ -13,6 +13,6 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TReactionNotificationsFromContacts), nameof(TReactionNotificationsFromContacts))]
 [JsonDerivedType(typeof(TReactionNotificationsFromAll), nameof(TReactionNotificationsFromAll))]
-public interface IReactionNotificationsFrom : IObject
+public partial interface IReactionNotificationsFrom : IObject
 {
 }

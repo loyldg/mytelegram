@@ -11,13 +11,9 @@ public sealed partial class TMessageActionManagedBotCreated : IMessageAction
     public uint ConstructorId => 0x16605e3e;
     public long BotId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(BotId);
     }

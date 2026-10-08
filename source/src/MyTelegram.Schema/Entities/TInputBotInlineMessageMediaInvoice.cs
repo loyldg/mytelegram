@@ -59,25 +59,27 @@ public sealed partial class TInputBotInlineMessageMediaInvoice : IInputBotInline
     /// </summary>
     public MyTelegram.Schema.IReplyMarkup? ReplyMarkup { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Photo != null) { Flags = Flags.SetBit(0); }
-        if (ReplyMarkup != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Photo != null) { flags = flags.SetBit(0); }
+        if (ReplyMarkup != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Title);
         writer.Write(Description);
-        if (Flags.IsBitSet(0)) { writer.Write(Photo); }
+        if (flags.IsBitSet(0)) { writer.Write(Photo); }
         writer.Write(Invoice);
         writer.Write(Payload);
         writer.Write(Provider);
         writer.Write(ProviderData);
-        if (Flags.IsBitSet(2)) { writer.Write(ReplyMarkup); }
+        if (flags.IsBitSet(2)) { writer.Write(ReplyMarkup); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

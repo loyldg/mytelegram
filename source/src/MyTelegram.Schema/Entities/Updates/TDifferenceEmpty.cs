@@ -20,13 +20,9 @@ public sealed partial class TDifferenceEmpty : IDifference
     /// </summary>
     public int Seq { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Date);
         writer.Write(Seq);

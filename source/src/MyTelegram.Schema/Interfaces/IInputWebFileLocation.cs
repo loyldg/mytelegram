@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputWebFileLocation), nameof(TInputWebFileLocation))]
 [JsonDerivedType(typeof(TInputWebFileGeoPointLocation), nameof(TInputWebFileGeoPointLocation))]
 [JsonDerivedType(typeof(TInputWebFileAudioAlbumThumbLocation), nameof(TInputWebFileAudioAlbumThumbLocation))]
-public interface IInputWebFileLocation : IObject
+public partial interface IInputWebFileLocation : IObject
 {
 }

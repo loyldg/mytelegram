@@ -4,7 +4,8 @@ public class
     InviteToChannelSagaState : AggregateState<InviteToChannelSaga, InviteToChannelSagaId, InviteToChannelSagaState>,
         //IHasCorrelationId,
         IApply<InviteToChannelSagaStartSagaEvent>,
-        IApply<InviteToChannelSagaMemberCreatedSagaEvent>
+        IApply<InviteToChannelSagaMemberCreatedSagaEvent>,
+        IApply<InviteToChannelCompletedSagaEvent>
 {
     public int ChannelHistoryMinId { get; private set; }
     public long ChannelId { get; private set; }
@@ -41,5 +42,10 @@ public class
         Broadcast = aggregateEvent.Broadcast;
         HasLink = aggregateEvent.HasLink;
         ChatJoinType = aggregateEvent.ChatJoinType;
+    }
+
+    public void Apply(InviteToChannelCompletedSagaEvent aggregateEvent)
+    {
+        
     }
 }

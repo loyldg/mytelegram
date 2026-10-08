@@ -25,13 +25,9 @@ public sealed partial class RequestGetNotifySettings : IRequest<MyTelegram.Schem
     /// </summary>
     public MyTelegram.Schema.IInputNotifyPeer Peer { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
     }

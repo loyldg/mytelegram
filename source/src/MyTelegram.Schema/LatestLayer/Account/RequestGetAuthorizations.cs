@@ -14,13 +14,9 @@ public sealed partial class RequestGetAuthorizations : IRequest<MyTelegram.Schem
 {
     public uint ConstructorId => 0xe320c158;
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

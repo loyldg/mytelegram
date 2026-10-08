@@ -52,6 +52,36 @@ public class PushNotificationTypes
     public static readonly string StoryDeleted = "STORY_DELETED";
 
     /// <summary>
+    /// data.custom.channel_id: For channels and supergroups, Channel/supergroup identifierdata.custom.from_id: For user-sent stories, Author identifierdata.custom.story_id: ID of deleted story
+    /// <para>posted a story</para>
+    /// <code>
+    /// A story was deleted, remove notifications for this story
+    ///  
+    /// </code>
+    /// </summary>
+    public static readonly string StoryNotext = "STORY_NOTEXT";
+
+    /// <summary>
+    /// data.custom.channel_id: For channels and supergroups, Channel/supergroup identifierdata.custom.from_id: For user-sent stories, Author identifierdata.custom.story_id: ID of deleted story
+    /// <para>started a live stream!</para>
+    /// <code>
+    /// A story was deleted, remove notifications for this story
+    ///  
+    /// </code>
+    /// </summary>
+    public static readonly string StoryLive = "STORY_LIVE";
+
+    /// <summary>
+    /// data.custom.channel_id: For channels and supergroups, Channel/supergroup identifierdata.custom.from_id: For user-sent stories, Author identifierdata.custom.story_id: ID of deleted story
+    /// <para>A new story was posted</para>
+    /// <code>
+    /// A story was deleted, remove notifications for this story
+    ///  
+    /// </code>
+    /// </summary>
+    public static readonly string StoryHiddenAuthor = "STORY_HIDDEN_AUTHOR";
+
+    /// <summary>
     ///  
     /// <code>
     /// Any of the live locations currently being shared should be updated
@@ -1116,6 +1146,14 @@ public class PushNotificationTypes
     public static readonly string MessageStargift = "MESSAGE_STARGIFT";
 
     /// <summary>
+    /// {1} unpacked the Gift that you helped upgrade
+    /// <code>
+    /// 1. User name
+    /// </code>
+    /// </summary>
+    public static readonly string MessageStargiftUnpackUpgrade = "MESSAGE_STARGIFT_UNPACK_UPGRADE";
+
+    /// <summary>
     /// {1} upgraded your Gift
     /// <code>
     /// 1. User name
@@ -1146,6 +1184,14 @@ public class PushNotificationTypes
     /// </code>
     /// </summary>
     public static readonly string MessageStoryMention = "MESSAGE_STORY_MENTION";
+
+    /// <summary>
+    /// {1} suggested you your birthday
+    /// <code>
+    /// 1. User name
+    /// </code>
+    /// </summary>
+    public static readonly string MessageSuggestBirthday = "MESSAGE_SUGGEST_BIRTHDAY";
 
     /// <summary>
     /// {1}: {2}
@@ -1586,21 +1632,5 @@ public class PushNotificationTypes
     /// </code>
     /// </summary>
     public static readonly string ReactVideo = "REACT_VIDEO";
-
-    /// <summary>
-    /// A new story was posted
-    /// <code>
-    ///  
-    /// </code>
-    /// </summary>
-    public static readonly string StoryHiddenAuthor = "STORY_HIDDEN_AUTHOR";
-
-    /// <summary>
-    /// {1} posted a story
-    /// <code>
-    /// 1. Peer name
-    /// </code>
-    /// </summary>
-    public static readonly string StoryNotext = "STORY_NOTEXT";
 
 }

@@ -10,7 +10,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TPasskey"/> See <a href="https://corefork.telegram.org/constructor/passkey" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPasskey), nameof(TPasskey))]
-public interface IPasskey : IObject
+public partial interface IPasskey : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

@@ -30,6 +30,8 @@ public sealed partial class TChatFull : IChatFull//, ILayeredChatFull
     /// </summary>
     public bool TranslationsDisabled { get; set; }
 
+    public bool HasWelcomeMessages { get; set; }
+
     /// <summary>
     /// ID of the chat
     /// </summary>
@@ -123,48 +125,51 @@ public sealed partial class TChatFull : IChatFull//, ILayeredChatFull
     /// </summary>
     public int? ReactionsLimit { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (CanSetUsername) { Flags = Flags.SetBit(7); }
-        if (HasScheduled) { Flags = Flags.SetBit(8); }
-        if (TranslationsDisabled) { Flags = Flags.SetBit(19); }
-        if (ChatPhoto != null) { Flags = Flags.SetBit(2); }
-        if (ExportedInvite != null) { Flags = Flags.SetBit(13); }
-        if (BotInfo?.Count > 0) { Flags = Flags.SetBit(3); }
-        if (/*PinnedMsgId != 0 && */PinnedMsgId.HasValue) { Flags = Flags.SetBit(6); }
-        if (/*FolderId != 0 && */FolderId.HasValue) { Flags = Flags.SetBit(11); }
-        if (Call != null) { Flags = Flags.SetBit(12); }
-        if (/*TtlPeriod != 0 && */TtlPeriod.HasValue) { Flags = Flags.SetBit(14); }
-        if (GroupcallDefaultJoinAs != null) { Flags = Flags.SetBit(15); }
-        if (ThemeEmoticon != null) { Flags = Flags.SetBit(16); }
-        if (/*RequestsPending != 0 && */RequestsPending.HasValue) { Flags = Flags.SetBit(17); }
-        if (RecentRequesters?.Count > 0) { Flags = Flags.SetBit(17); }
-        if (AvailableReactions != null) { Flags = Flags.SetBit(18); }
-        if (/*ReactionsLimit != 0 && */ReactionsLimit.HasValue) { Flags = Flags.SetBit(20); }
+        var flags = 0;
+        if (CanSetUsername) { flags = flags.SetBit(7); }
+        if (HasScheduled) { flags = flags.SetBit(8); }
+        if (TranslationsDisabled) { flags = flags.SetBit(19); }
+        if (HasWelcomeMessages) { flags = flags.SetBit(21); }
+        if (ChatPhoto != null) { flags = flags.SetBit(2); }
+        if (ExportedInvite != null) { flags = flags.SetBit(13); }
+        if (BotInfo?.Count > 0) { flags = flags.SetBit(3); }
+        if (/*PinnedMsgId != 0 && */PinnedMsgId.HasValue) { flags = flags.SetBit(6); }
+        if (/*FolderId != 0 && */FolderId.HasValue) { flags = flags.SetBit(11); }
+        if (Call != null) { flags = flags.SetBit(12); }
+        if (/*TtlPeriod != 0 && */TtlPeriod.HasValue) { flags = flags.SetBit(14); }
+        if (GroupcallDefaultJoinAs != null) { flags = flags.SetBit(15); }
+        if (ThemeEmoticon != null) { flags = flags.SetBit(16); }
+        if (/*RequestsPending != 0 && */RequestsPending.HasValue) { flags = flags.SetBit(17); }
+        if (RecentRequesters?.Count > 0) { flags = flags.SetBit(17); }
+        if (AvailableReactions != null) { flags = flags.SetBit(18); }
+        if (/*ReactionsLimit != 0 && */ReactionsLimit.HasValue) { flags = flags.SetBit(20); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(About);
         writer.Write(Participants);
-        if (Flags.IsBitSet(2)) { writer.Write(ChatPhoto); }
+        if (flags.IsBitSet(2)) { writer.Write(ChatPhoto); }
         writer.Write(NotifySettings);
-        if (Flags.IsBitSet(13)) { writer.Write(ExportedInvite); }
-        if (Flags.IsBitSet(3)) { writer.Write(BotInfo); }
-        if (Flags.IsBitSet(6)) { writer.Write(PinnedMsgId.Value); }
-        if (Flags.IsBitSet(11)) { writer.Write(FolderId.Value); }
-        if (Flags.IsBitSet(12)) { writer.Write(Call); }
-        if (Flags.IsBitSet(14)) { writer.Write(TtlPeriod.Value); }
-        if (Flags.IsBitSet(15)) { writer.Write(GroupcallDefaultJoinAs); }
-        if (Flags.IsBitSet(16)) { writer.Write(ThemeEmoticon); }
-        if (Flags.IsBitSet(17)) { writer.Write(RequestsPending.Value); }
-        if (Flags.IsBitSet(17)) { writer.Write(RecentRequesters); }
-        if (Flags.IsBitSet(18)) { writer.Write(AvailableReactions); }
-        if (Flags.IsBitSet(20)) { writer.Write(ReactionsLimit.Value); }
+        if (flags.IsBitSet(13)) { writer.Write(ExportedInvite); }
+        if (flags.IsBitSet(3)) { writer.Write(BotInfo); }
+        if (flags.IsBitSet(6)) { writer.Write(PinnedMsgId.Value); }
+        if (flags.IsBitSet(11)) { writer.Write(FolderId.Value); }
+        if (flags.IsBitSet(12)) { writer.Write(Call); }
+        if (flags.IsBitSet(14)) { writer.Write(TtlPeriod.Value); }
+        if (flags.IsBitSet(15)) { writer.Write(GroupcallDefaultJoinAs); }
+        if (flags.IsBitSet(16)) { writer.Write(ThemeEmoticon); }
+        if (flags.IsBitSet(17)) { writer.Write(RequestsPending.Value); }
+        if (flags.IsBitSet(17)) { writer.Write(RecentRequesters); }
+        if (flags.IsBitSet(18)) { writer.Write(AvailableReactions); }
+        if (flags.IsBitSet(20)) { writer.Write(ReactionsLimit.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -173,6 +178,7 @@ public sealed partial class TChatFull : IChatFull//, ILayeredChatFull
         if (Flags.IsBitSet(7)) { CanSetUsername = true; }
         if (Flags.IsBitSet(8)) { HasScheduled = true; }
         if (Flags.IsBitSet(19)) { TranslationsDisabled = true; }
+        if (Flags.IsBitSet(21)) { HasWelcomeMessages = true; }
         Id = buffer.ReadInt64();
         About = buffer.ReadString();
         Participants = buffer.Read<MyTelegram.Schema.IChatParticipants>();

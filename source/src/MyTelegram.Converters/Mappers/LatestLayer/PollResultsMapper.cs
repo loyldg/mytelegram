@@ -6,7 +6,7 @@ internal sealed class PollResultsMapper
         ITransientDependency
 {
     public int Layer => Layers.LayerLatest;
-    
+
 
     public TPollResults Map(IPollReadModel source)
     {
@@ -27,6 +27,13 @@ internal sealed class PollResultsMapper
         destination.SolutionEntities = source.SolutionEntities2 != null
             ? [.. source.SolutionEntities2]
             : source.SolutionEntities.ToTObject<TVector<IMessageEntity>>();
+        destination.SolutionMedia = source.SolutionMedia;
+
+        if (source.AnswerVoters?.Count > 0)
+        {
+            destination.RecentVoters =
+                [.. source.AnswerVoters.SelectMany(p => p.RecentVoters ?? []).Select(p => p.ToPeer().ToPeer())];
+        }
 
         return destination;
     }

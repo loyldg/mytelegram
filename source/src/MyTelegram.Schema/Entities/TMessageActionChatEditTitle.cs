@@ -15,13 +15,9 @@ public sealed partial class TMessageActionChatEditTitle : IMessageAction
     /// </summary>
     public string Title { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Title);
     }

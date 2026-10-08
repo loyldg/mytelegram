@@ -30,13 +30,9 @@ public sealed partial class TQuickReply : IQuickReply
     /// </summary>
     public int Count { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ShortcutId);
         writer.Write(Shortcut);

@@ -3,7 +3,7 @@
 namespace MyTelegram.Schema;
 
 [TlObject(0x58e4a740)]
-public sealed class RequestRpcDropAnswer : IRequest<MyTelegram.Schema.IRpcDropAnswer>
+public sealed partial class RequestRpcDropAnswer : IRequest<MyTelegram.Schema.IRpcDropAnswer>
 {
     public uint ConstructorId => 0x58e4a740;
     public long ReqMsgId { get; set; }

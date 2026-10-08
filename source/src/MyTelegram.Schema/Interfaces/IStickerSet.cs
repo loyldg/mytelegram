@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TStickerSet"/> See <a href="https://corefork.telegram.org/constructor/stickerSet" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStickerSet), nameof(TStickerSet))]
-public interface IStickerSet : IObject
+public partial interface IStickerSet : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

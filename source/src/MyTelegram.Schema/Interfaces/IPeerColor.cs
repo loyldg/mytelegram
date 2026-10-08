@@ -15,6 +15,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TPeerColor), nameof(TPeerColor))]
 [JsonDerivedType(typeof(TPeerColorCollectible), nameof(TPeerColorCollectible))]
 [JsonDerivedType(typeof(TInputPeerColorCollectible), nameof(TInputPeerColorCollectible))]
-public interface IPeerColor : IObject
+public partial interface IPeerColor : IObject
 {
 }

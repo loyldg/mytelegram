@@ -20,13 +20,9 @@ public sealed partial class TInputPaymentCredentialsSaved : IInputPaymentCredent
     /// </summary>
     public ReadOnlyMemory<byte> TmpPassword { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
         writer.Write(TmpPassword);

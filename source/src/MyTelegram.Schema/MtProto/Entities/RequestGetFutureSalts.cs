@@ -3,7 +3,7 @@
 namespace MyTelegram.Schema;
 
 [TlObject(0xb921bd04)]
-public sealed class RequestGetFutureSalts : IRequest<MyTelegram.Schema.IFutureSalts>
+public sealed partial class RequestGetFutureSalts : IRequest<MyTelegram.Schema.IFutureSalts>
 {
     public uint ConstructorId => 0xb921bd04;
     public int Num { get; set; }

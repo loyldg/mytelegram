@@ -16,13 +16,9 @@ public sealed partial class TMessageMediaGeo : IMessageMedia
     /// </summary>
     public MyTelegram.Schema.IGeoPoint Geo { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Geo);
     }

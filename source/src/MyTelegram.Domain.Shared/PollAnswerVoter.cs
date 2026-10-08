@@ -2,21 +2,9 @@
 
 public record PollAnswerVoter(bool Correct,
     string Option,
-    int Voters)
+    int Voters,
+    List<long> RecentVoters)
 {
-    public int Voters { get; private set; } = Voters;
-
-    public void IncrementVoters()
-    {
-        Voters++;
-    }
-
-    public void DecrementVoters()
-    {
-        Voters--;
-        if (Voters < 0)
-        {
-            Voters = 0;
-        }
-    }
+    public int Voters { get; set; } = Voters;
+    public List<long> RecentVoters { get; init; } = RecentVoters;
 }

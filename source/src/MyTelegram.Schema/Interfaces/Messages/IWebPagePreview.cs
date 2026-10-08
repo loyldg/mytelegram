@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TWebPagePreview"/> See <a href="https://corefork.telegram.org/constructor/messages.webPagePreview" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TWebPagePreview), nameof(TWebPagePreview))]
-public interface IWebPagePreview : IObject
+public partial interface IWebPagePreview : IObject
 {
     /// <summary>
     /// The <a href="https://corefork.telegram.org/constructor/messageMediaWebPage">messageMediaWebPage</a> or a <a href="https://corefork.telegram.org/constructor/messageMediaEmpty">messageMediaEmpty</a> if there is no preview.

@@ -9,13 +9,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TStarGiftAuctionStateNotModified : IStarGiftAuctionState
 {
     public uint ConstructorId => 0xfe333952;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

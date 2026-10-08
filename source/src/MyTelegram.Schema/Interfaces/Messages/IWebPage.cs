@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TWebPage"/> See <a href="https://corefork.telegram.org/constructor/messages.webPage" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TWebPage), nameof(TWebPage))]
-public interface IWebPage : IObject
+public partial interface IWebPage : IObject
 {
     /// <summary>
     /// The instant view webpage.

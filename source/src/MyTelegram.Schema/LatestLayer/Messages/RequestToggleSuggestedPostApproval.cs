@@ -48,22 +48,24 @@ public sealed partial class RequestToggleSuggestedPostApproval : IRequest<MyTele
     /// </summary>
     public string? RejectComment { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Reject) { Flags = Flags.SetBit(1); }
-        if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { Flags = Flags.SetBit(0); }
-        if (RejectComment != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Reject) { flags = flags.SetBit(1); }
+        if (/*ScheduleDate != 0 && */ScheduleDate.HasValue) { flags = flags.SetBit(0); }
+        if (RejectComment != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(MsgId);
-        if (Flags.IsBitSet(0)) { writer.Write(ScheduleDate.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(RejectComment); }
+        if (flags.IsBitSet(0)) { writer.Write(ScheduleDate.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(RejectComment); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

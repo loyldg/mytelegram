@@ -9,13 +9,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TUpdateStarGiftCraftFail : IUpdate
 {
     public uint ConstructorId => 0xac072444;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

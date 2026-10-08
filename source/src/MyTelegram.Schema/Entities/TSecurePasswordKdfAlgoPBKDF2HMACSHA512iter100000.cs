@@ -15,13 +15,9 @@ public sealed partial class TSecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000 : I
     /// </summary>
     public ReadOnlyMemory<byte> Salt { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Salt);
     }

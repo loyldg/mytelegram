@@ -32,13 +32,9 @@ public sealed partial class RequestJoinChatlistInvite : IRequest<MyTelegram.Sche
     /// </summary>
     public TVector<MyTelegram.Schema.IInputPeer> Peers { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Slug);
         writer.Write(Peers);

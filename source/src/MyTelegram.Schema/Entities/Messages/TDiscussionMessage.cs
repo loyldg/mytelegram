@@ -53,22 +53,24 @@ public sealed partial class TDiscussionMessage : IDiscussionMessage
     /// </summary>
     public TVector<MyTelegram.Schema.IUser> Users { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (/*MaxId != 0 && */MaxId.HasValue) { Flags = Flags.SetBit(0); }
-        if (/*ReadInboxMaxId != 0 && */ReadInboxMaxId.HasValue) { Flags = Flags.SetBit(1); }
-        if (/*ReadOutboxMaxId != 0 && */ReadOutboxMaxId.HasValue) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (/*MaxId != 0 && */MaxId.HasValue) { flags = flags.SetBit(0); }
+        if (/*ReadInboxMaxId != 0 && */ReadInboxMaxId.HasValue) { flags = flags.SetBit(1); }
+        if (/*ReadOutboxMaxId != 0 && */ReadOutboxMaxId.HasValue) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Messages);
-        if (Flags.IsBitSet(0)) { writer.Write(MaxId.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(ReadInboxMaxId.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(ReadOutboxMaxId.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(MaxId.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(ReadInboxMaxId.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(ReadOutboxMaxId.Value); }
         writer.Write(UnreadCount);
         writer.Write(Chats);
         writer.Write(Users);

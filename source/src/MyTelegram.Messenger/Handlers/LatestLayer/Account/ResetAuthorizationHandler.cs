@@ -12,7 +12,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Account;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class ResetAuthorizationHandler(ICommandBus commandBus, IQueryProcessor queryProcessor, IObjectMessageSender messageSender, ILogger<ResetAuthorizationHandler> logger, IEventBus eventBus) : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestResetAuthorization, IBool>
+internal sealed class ResetAuthorizationHandler(ICommandBus commandBus, IQueryProcessor queryProcessor, ILogger<ResetAuthorizationHandler> logger, IEventBus eventBus) : RpcResultObjectHandler<MyTelegram.Schema.Account.RequestResetAuthorization, IBool>
 {
     protected override async Task<IBool> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Account.RequestResetAuthorization obj)
     {

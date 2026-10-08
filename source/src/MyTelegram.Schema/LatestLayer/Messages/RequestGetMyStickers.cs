@@ -24,13 +24,9 @@ public sealed partial class RequestGetMyStickers : IRequest<MyTelegram.Schema.Me
     /// </summary>
     public int Limit { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(OffsetId);
         writer.Write(Limit);

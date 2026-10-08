@@ -2,8 +2,13 @@
 
 public interface IUserStatusCacheAppService
 {
-    IUserStatus GetUserStatus(long userId);
+    //IUserStatus GetUserStatus(long userId);
 
-    void UpdateStatus(long userId,
+    Task<IUserStatus> GetUserStatusAsync(long userId);
+
+
+    //void UpdateStatus(long userId, bool online);
+
+    Task UpdateStatusAsync(long userId,
         bool online);
 }

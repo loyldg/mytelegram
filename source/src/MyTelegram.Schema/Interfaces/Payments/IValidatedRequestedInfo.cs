@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Payments;
 /// <see cref="TValidatedRequestedInfo"/> See <a href="https://corefork.telegram.org/constructor/payments.validatedRequestedInfo" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TValidatedRequestedInfo), nameof(TValidatedRequestedInfo))]
-public interface IValidatedRequestedInfo : IObject
+public partial interface IValidatedRequestedInfo : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

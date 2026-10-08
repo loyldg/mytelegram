@@ -22,7 +22,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Auth;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✔]
 /// </remarks>
-internal sealed class SendCodeHandler(ICommandBus commandBus, IPeerHelper peerHelper, IOptionsMonitor<MyTelegramMessengerServerOptions> options, IQueryProcessor queryProcessor, ICacheManager<FutureAuthTokenCacheItem> cacheManager, IHashHelper hashHelper, ICountryHelper countryHelper, ICacheHelper<long, long> cacheHelper, IScheduleAppService scheduleAppService, ILayeredService<IAuthorizationConverter> authorizationLayeredService, IUserConverterService userConverterService, IVerificationCodeGenerator verificationCodeGenerator, IEventBus eventBus) : RpcResultObjectHandler<Schema.Auth.RequestSendCode, Schema.Auth.ISentCode>
+internal sealed class SendCodeHandler(ICommandBus commandBus, IPeerHelper peerHelper, IOptionsMonitor<MyTelegramMessengerServerOptions> options, IQueryProcessor queryProcessor, ICacheManager<FutureAuthTokenCacheItem> cacheManager, ICountryHelper countryHelper, ILayeredService<IAuthorizationConverter> authorizationLayeredService, IUserConverterService userConverterService, IVerificationCodeGenerator verificationCodeGenerator, IEventBus eventBus) : RpcResultObjectHandler<Schema.Auth.RequestSendCode, Schema.Auth.ISentCode>
 {
     private readonly int _maxFutureAuthTokens = 20;
     protected override async Task<ISentCode> HandleCoreAsync(IRequestInput input, RequestSendCode obj)
@@ -45,7 +45,7 @@ internal sealed class SendCodeHandler(ICommandBus commandBus, IPeerHelper peerHe
             }
         }
 
-        var code = verificationCodeGenerator.Generate();
+        //var code = verificationCodeGenerator.Generate();
         var phoneCodeHash = Guid.NewGuid().ToString("N");
         var timeout = options.CurrentValue.VerificationCodeExpirationSeconds;
         return await SendSmsCodeAsync(userReadModel, input, obj.PhoneNumber, phoneCodeHash, timeout);
@@ -93,7 +93,7 @@ internal sealed class SendCodeHandler(ICommandBus commandBus, IPeerHelper peerHe
     {
         var code = verificationCodeGenerator.Generate();
         var appCodeId = AppCodeId.Create(phoneNumber.ToPhoneNumber(), phoneCodeHash);
-        var sendAppCodeCommand = new CreateAppCodeCommand(appCodeId, input.ToRequestInfo()with { UserId = userReadModel?.UserId ?? 0 }, userReadModel?.UserId ?? 0, phoneNumber.ToPhoneNumber(), code, phoneCodeHash, DateTime.UtcNow.ToTimestamp());
+        var sendAppCodeCommand = new CreateAppCodeCommand(appCodeId, input.ToRequestInfo() with { UserId = userReadModel?.UserId ?? 0 }, userReadModel?.UserId ?? 0, phoneNumber.ToPhoneNumber(), code, phoneCodeHash, DateTime.UtcNow.ToTimestamp());
         await commandBus.PublishAsync(sendAppCodeCommand);
         return new TSentCode
         {
@@ -121,12 +121,10 @@ internal sealed class SendCodeHandler(ICommandBus commandBus, IPeerHelper peerHe
                         await eventBus.PublishAsync(new UserSignInSuccessEvent(input.ReqMsgId, input.AuthKeyId, input.PermAuthKeyId, userReadModel.UserId, PasswordState.WaitingForVerify, true));
                         return (null, true);
                     }
-                    else
-                    {
-                        var user = userConverterService.ToUser(input, userReadModel, null, layer: input.Layer);
-                        await eventBus.PublishAsync(new UserSignInSuccessEvent(input.ReqMsgId, input.AuthKeyId, input.PermAuthKeyId, user.Id, PasswordState.None));
-                        return (new TSentCodeSuccess { Authorization = authorizationLayeredService.GetConverter(input.Layer).CreateAuthorization(user) }, true);
-                    }
+
+                    var user = await userConverterService.ToUserAsync(input, userReadModel, layer: input.Layer);
+                    await eventBus.PublishAsync(new UserSignInSuccessEvent(input.ReqMsgId, input.AuthKeyId, input.PermAuthKeyId, user.Id, PasswordState.None));
+                    return (new TSentCodeSuccess { Authorization = authorizationLayeredService.GetConverter(input.Layer).CreateAuthorization(user) }, true);
                 }
             }
         }

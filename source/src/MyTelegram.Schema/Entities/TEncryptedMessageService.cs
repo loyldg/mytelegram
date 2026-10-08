@@ -30,13 +30,9 @@ public sealed partial class TEncryptedMessageService : IEncryptedMessage
     /// </summary>
     public ReadOnlyMemory<byte> Bytes { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(RandomId);
         writer.Write(ChatId);

@@ -30,13 +30,9 @@ public sealed partial class TStatsGroupTopAdmin : IStatsGroupTopAdmin
     /// </summary>
     public int Banned { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(UserId);
         writer.Write(Deleted);

@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TChatReactionsNone : IChatReactions
 {
     public uint ConstructorId => 0xeafc32bc;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

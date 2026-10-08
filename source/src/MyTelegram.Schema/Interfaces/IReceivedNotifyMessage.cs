@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TReceivedNotifyMessage"/> See <a href="https://corefork.telegram.org/constructor/receivedNotifyMessage" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TReceivedNotifyMessage), nameof(TReceivedNotifyMessage))]
-public interface IReceivedNotifyMessage : IObject
+public partial interface IReceivedNotifyMessage : IObject
 {
     /// <summary>
     /// Message ID, for which PUSH-notifications were canceled

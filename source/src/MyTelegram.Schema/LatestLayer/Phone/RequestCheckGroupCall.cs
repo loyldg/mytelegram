@@ -30,13 +30,9 @@ public sealed partial class RequestCheckGroupCall : IRequest<TVector<int>>
     /// </summary>
     public TVector<int> Sources { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Call);
         writer.Write(Sources);

@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Messages;
 /// </remarks>
 [JsonDerivedType(typeof(TSponsoredMessages), nameof(TSponsoredMessages))]
 [JsonDerivedType(typeof(TSponsoredMessagesEmpty), nameof(TSponsoredMessagesEmpty))]
-public interface ISponsoredMessages : IObject
+public partial interface ISponsoredMessages : IObject
 {
 }

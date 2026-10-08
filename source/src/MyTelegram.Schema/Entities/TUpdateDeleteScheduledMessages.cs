@@ -31,19 +31,21 @@ public sealed partial class TUpdateDeleteScheduledMessages : IUpdate
     /// </summary>
     public TVector<int>? SentMessages { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (SentMessages?.Count > 0) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (SentMessages?.Count > 0) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(Messages);
-        if (Flags.IsBitSet(0)) { writer.Write(SentMessages); }
+        if (flags.IsBitSet(0)) { writer.Write(SentMessages); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

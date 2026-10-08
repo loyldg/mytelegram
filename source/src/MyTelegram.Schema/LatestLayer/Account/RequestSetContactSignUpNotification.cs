@@ -20,13 +20,9 @@ public sealed partial class RequestSetContactSignUpNotification : IRequest<IBool
     /// </summary>
     public bool Silent { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Silent);
     }

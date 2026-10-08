@@ -22,49 +22,56 @@ public class ExceptionProcessor(
 
     private async Task ProcessExceptionCoreAsync(Exception ex, long userId, IRequestInput input)
     {
-        string errorMessage;
-        int errorCode;
-        switch (ex)
+        try
         {
-            case DuplicateOperationException:
-                var eventData = new DuplicateCommandEvent(input.PermAuthKeyId, userId, input.ReqMsgId);
-                await eventBus.PublishAsync(eventData);
-                return;
-            case NotImplementedException:
-                errorCode = MyTelegramConsts.InternalErrorCode;
-                errorMessage = "API NotImplemented";
-                break;
+            string errorMessage;
+            int errorCode;
+            switch (ex)
+            {
+                case DuplicateOperationException:
+                    var eventData = new DuplicateCommandEvent(input.PermAuthKeyId, userId, input.ReqMsgId);
+                    await eventBus.PublishAsync(eventData);
+                    return;
+                case NotImplementedException:
+                    errorCode = MyTelegramConsts.InternalErrorCode;
+                    errorMessage = "API NotImplemented";
+                    break;
 
-            case RpcException rpcException:
-                errorCode = rpcException.RpcError.ErrorCode;
-                errorMessage = rpcException.RpcError.Message;
-                break;
+                case RpcException rpcException:
+                    errorCode = rpcException.RpcError.ErrorCode;
+                    errorMessage = rpcException.RpcError.Message;
+                    break;
 
-            case DomainError domainError:
-                errorCode = MyTelegramConsts.InternalErrorCode;
-                errorMessage = domainError.Message;
-                break;
+                case DomainError domainError:
+                    errorCode = MyTelegramConsts.InternalErrorCode;
+                    errorMessage = domainError.Message;
+                    break;
 
-            case SagaPublishException sagaPublishException:
-                var innerException = sagaPublishException.InnerException;
-                errorMessage = innerException switch
-                {
-                    CommandException { InnerException: RpcException subInnerException } => subInnerException
-                        .Message,
-                    _ => MyTelegramConsts.InternalErrorMessage
-                };
-                errorCode = MyTelegramConsts.BadRequestErrorCode;
-                break;
+                case SagaPublishException sagaPublishException:
+                    var innerException = sagaPublishException.InnerException;
+                    errorMessage = innerException switch
+                    {
+                        CommandException { InnerException: RpcException subInnerException } => subInnerException
+                            .Message,
+                        _ => MyTelegramConsts.InternalErrorMessage
+                    };
+                    errorCode = MyTelegramConsts.BadRequestErrorCode;
+                    break;
 
-            default:
-                errorCode = MyTelegramConsts.InternalErrorCode;
-                errorMessage = MyTelegramConsts.InternalErrorMessage;
-                break;
+                default:
+                    errorCode = MyTelegramConsts.InternalErrorCode;
+                    errorMessage = MyTelegramConsts.InternalErrorMessage;
+                    break;
+            }
+
+            var rpcError = new TRpcError { ErrorCode = errorCode, ErrorMessage = errorMessage };
+            var rpcResult = new TRpcResult { ReqMsgId = input.ReqMsgId, Result = rpcError };
+
+            await objectMessageSender.SendMessageToPeerAsync(input.ToRequestInfo(), rpcResult);
         }
-
-        var rpcError = new TRpcError { ErrorCode = errorCode, ErrorMessage = errorMessage };
-        var rpcResult = new TRpcResult { ReqMsgId = input.ReqMsgId, Result = rpcError };
-
-        await objectMessageSender.SendMessageToPeerAsync(input.ToRequestInfo(), rpcResult);
+        catch (Exception ex2)
+        {
+            logger.LogError(ex2,"Handle exception failed.");
+        }
     }
 }

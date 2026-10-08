@@ -57,26 +57,28 @@ public sealed partial class TUpdateShortSentMessage : IUpdates
     /// </summary>
     public int? TtlPeriod { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Out) { Flags = Flags.SetBit(1); }
-        if (Media != null) { Flags = Flags.SetBit(9); }
-        if (Entities?.Count > 0) { Flags = Flags.SetBit(7); }
-        if (/*TtlPeriod != 0 && */TtlPeriod.HasValue) { Flags = Flags.SetBit(25); }
+        var flags = 0;
+        if (Out) { flags = flags.SetBit(1); }
+        if (Media != null) { flags = flags.SetBit(9); }
+        if (Entities?.Count > 0) { flags = flags.SetBit(7); }
+        if (/*TtlPeriod != 0 && */TtlPeriod.HasValue) { flags = flags.SetBit(25); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(Pts);
         writer.Write(PtsCount);
         writer.Write(Date);
-        if (Flags.IsBitSet(9)) { writer.Write(Media); }
-        if (Flags.IsBitSet(7)) { writer.Write(Entities); }
-        if (Flags.IsBitSet(25)) { writer.Write(TtlPeriod.Value); }
+        if (flags.IsBitSet(9)) { writer.Write(Media); }
+        if (flags.IsBitSet(7)) { writer.Write(Entities); }
+        if (flags.IsBitSet(25)) { writer.Write(TtlPeriod.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

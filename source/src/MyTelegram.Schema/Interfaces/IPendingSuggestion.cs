@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TPendingSuggestion"/> See <a href="https://corefork.telegram.org/constructor/pendingSuggestion" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPendingSuggestion), nameof(TPendingSuggestion))]
-public interface IPendingSuggestion : IObject
+public partial interface IPendingSuggestion : IObject
 {
     /// <summary>
     /// The suggestion ID, can be passed to <a href="https://corefork.telegram.org/method/help.dismissSuggestion">help.dismissSuggestion</a>.

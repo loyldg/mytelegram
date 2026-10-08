@@ -77,25 +77,27 @@ public sealed partial class TInputStorePaymentStarsGiveaway : IInputStorePayment
     /// </summary>
     public int Users { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (OnlyNewSubscribers) { Flags = Flags.SetBit(0); }
-        if (WinnersAreVisible) { Flags = Flags.SetBit(3); }
-        if (AdditionalPeers?.Count > 0) { Flags = Flags.SetBit(1); }
-        if (CountriesIso2?.Count > 0) { Flags = Flags.SetBit(2); }
-        if (PrizeDescription != null) { Flags = Flags.SetBit(4); }
+        var flags = 0;
+        if (OnlyNewSubscribers) { flags = flags.SetBit(0); }
+        if (WinnersAreVisible) { flags = flags.SetBit(3); }
+        if (AdditionalPeers?.Count > 0) { flags = flags.SetBit(1); }
+        if (CountriesIso2?.Count > 0) { flags = flags.SetBit(2); }
+        if (PrizeDescription != null) { flags = flags.SetBit(4); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Stars);
         writer.Write(BoostPeer);
-        if (Flags.IsBitSet(1)) { writer.Write(AdditionalPeers); }
-        if (Flags.IsBitSet(2)) { writer.Write(CountriesIso2); }
-        if (Flags.IsBitSet(4)) { writer.Write(PrizeDescription); }
+        if (flags.IsBitSet(1)) { writer.Write(AdditionalPeers); }
+        if (flags.IsBitSet(2)) { writer.Write(CountriesIso2); }
+        if (flags.IsBitSet(4)) { writer.Write(PrizeDescription); }
         writer.Write(RandomId);
         writer.Write(UntilDate);
         writer.Write(Currency);

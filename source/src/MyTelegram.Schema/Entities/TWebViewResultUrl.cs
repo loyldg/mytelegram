@@ -25,6 +25,8 @@ public sealed partial class TWebViewResultUrl : IWebViewResult
     /// </summary>
     public bool Fullscreen { get; set; }
 
+    public bool SameOrigin { get; set; }
+
     /// <summary>
     /// Webview session ID (only returned by <a href="https://corefork.telegram.org/api/bots/webapps#inline-button-mini-apps">inline button mini apps</a>, <a href="https://corefork.telegram.org/api/bots/webapps#menu-button-mini-apps">menu button mini apps</a>, <a href="https://corefork.telegram.org/api/bots/webapps#attachment-menu-mini-apps">attachment menu mini apps</a>).
     /// </summary>
@@ -35,19 +37,22 @@ public sealed partial class TWebViewResultUrl : IWebViewResult
     /// </summary>
     public string Url { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Fullsize) { Flags = Flags.SetBit(1); }
-        if (Fullscreen) { Flags = Flags.SetBit(2); }
-        if (/*QueryId != 0 &&*/ QueryId.HasValue) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Fullsize) { flags = flags.SetBit(1); }
+        if (Fullscreen) { flags = flags.SetBit(2); }
+        if (SameOrigin) { flags = flags.SetBit(3); }
+        if (/*QueryId != 0 &&*/ QueryId.HasValue) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(QueryId.Value); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(QueryId.Value); }
         writer.Write(Url);
     }
 
@@ -56,6 +61,7 @@ public sealed partial class TWebViewResultUrl : IWebViewResult
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(1)) { Fullsize = true; }
         if (Flags.IsBitSet(2)) { Fullscreen = true; }
+        if (Flags.IsBitSet(3)) { SameOrigin = true; }
         if (Flags.IsBitSet(0)) { QueryId = buffer.ReadInt64(); }
         Url = buffer.ReadString();
     }

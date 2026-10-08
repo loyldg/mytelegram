@@ -15,13 +15,9 @@ public sealed partial class TReactionEmoji : IReaction
     /// </summary>
     public string Emoticon { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Emoticon);
     }

@@ -30,13 +30,9 @@ public sealed partial class RequestUpdateStarGiftPrice : IRequest<MyTelegram.Sch
     /// </summary>
     public MyTelegram.Schema.IStarsAmount ResellAmount { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Stargift);
         writer.Write(ResellAmount);

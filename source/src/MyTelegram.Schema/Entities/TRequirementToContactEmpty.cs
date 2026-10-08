@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TRequirementToContactEmpty : IRequirementToContact
 {
     public uint ConstructorId => 0x50a9839;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

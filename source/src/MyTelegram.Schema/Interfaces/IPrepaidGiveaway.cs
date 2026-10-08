@@ -13,7 +13,7 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TPrepaidGiveaway), nameof(TPrepaidGiveaway))]
 [JsonDerivedType(typeof(TPrepaidStarsGiveaway), nameof(TPrepaidStarsGiveaway))]
-public interface IPrepaidGiveaway : IObject
+public partial interface IPrepaidGiveaway : IObject
 {
     /// <summary>
     /// Prepaid giveaway ID.

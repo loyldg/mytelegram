@@ -41,22 +41,24 @@ public sealed partial class TAuthorization : IAuthorization
     /// </summary>
     public MyTelegram.Schema.IUser User { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (SetupPasswordRequired) { Flags = Flags.SetBit(1); }
-        if (/*OtherwiseReloginDays != 0 && */OtherwiseReloginDays.HasValue) { Flags = Flags.SetBit(1); }
-        if (/*TmpSessions != 0 && */TmpSessions.HasValue) { Flags = Flags.SetBit(0); }
-        if (FutureAuthToken != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (SetupPasswordRequired) { flags = flags.SetBit(1); }
+        if (/*OtherwiseReloginDays != 0 && */OtherwiseReloginDays.HasValue) { flags = flags.SetBit(1); }
+        if (/*TmpSessions != 0 && */TmpSessions.HasValue) { flags = flags.SetBit(0); }
+        if (FutureAuthToken != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(1)) { writer.Write(OtherwiseReloginDays.Value); }
-        if (Flags.IsBitSet(0)) { writer.Write(TmpSessions.Value); }
-        if (Flags.IsBitSet(2)) { writer.Write(FutureAuthToken); }
+        writer.Write(flags);
+        if (flags.IsBitSet(1)) { writer.Write(OtherwiseReloginDays.Value); }
+        if (flags.IsBitSet(0)) { writer.Write(TmpSessions.Value); }
+        if (flags.IsBitSet(2)) { writer.Write(FutureAuthToken); }
         writer.Write(User);
     }
 

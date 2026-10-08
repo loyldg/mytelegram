@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Help;
 /// <see cref="TSupport"/> See <a href="https://corefork.telegram.org/constructor/help.support" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TSupport), nameof(TSupport))]
-public interface ISupport : IObject
+public partial interface ISupport : IObject
 {
     /// <summary>
     /// Phone number

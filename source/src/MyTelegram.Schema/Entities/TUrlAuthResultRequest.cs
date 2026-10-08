@@ -75,35 +75,37 @@ public sealed partial class TUrlAuthResultRequest : IUrlAuthResult
 
     public string? VerifiedAppName { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (RequestWriteAccess) { Flags = Flags.SetBit(0); }
-        if (RequestPhoneNumber) { Flags = Flags.SetBit(1); }
-        if (MatchCodesFirst) { Flags = Flags.SetBit(5); }
-        if (IsApp) { Flags = Flags.SetBit(6); }
-        if (Browser != null) { Flags = Flags.SetBit(2); }
-        if (Platform != null) { Flags = Flags.SetBit(2); }
-        if (Ip != null) { Flags = Flags.SetBit(2); }
-        if (Region != null) { Flags = Flags.SetBit(2); }
-        if (MatchCodes?.Count > 0) { Flags = Flags.SetBit(3); }
-        if (/*UserIdHint != 0 &&*/ UserIdHint.HasValue) { Flags = Flags.SetBit(4); }
-        if (VerifiedAppName != null) { Flags = Flags.SetBit(7); }
+        var flags = 0;
+        if (RequestWriteAccess) { flags = flags.SetBit(0); }
+        if (RequestPhoneNumber) { flags = flags.SetBit(1); }
+        if (MatchCodesFirst) { flags = flags.SetBit(5); }
+        if (IsApp) { flags = flags.SetBit(6); }
+        if (Browser != null) { flags = flags.SetBit(2); }
+        if (Platform != null) { flags = flags.SetBit(2); }
+        if (Ip != null) { flags = flags.SetBit(2); }
+        if (Region != null) { flags = flags.SetBit(2); }
+        if (MatchCodes?.Count > 0) { flags = flags.SetBit(3); }
+        if (/*UserIdHint != 0 &&*/ UserIdHint.HasValue) { flags = flags.SetBit(4); }
+        if (VerifiedAppName != null) { flags = flags.SetBit(7); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Bot);
         writer.Write(Domain);
-        if (Flags.IsBitSet(2)) { writer.Write(Browser); }
-        if (Flags.IsBitSet(2)) { writer.Write(Platform); }
-        if (Flags.IsBitSet(2)) { writer.Write(Ip); }
-        if (Flags.IsBitSet(2)) { writer.Write(Region); }
-        if (Flags.IsBitSet(3)) { writer.Write(MatchCodes); }
-        if (Flags.IsBitSet(4)) { writer.Write(UserIdHint.Value); }
-        if (Flags.IsBitSet(7)) { writer.Write(VerifiedAppName); }
+        if (flags.IsBitSet(2)) { writer.Write(Browser); }
+        if (flags.IsBitSet(2)) { writer.Write(Platform); }
+        if (flags.IsBitSet(2)) { writer.Write(Ip); }
+        if (flags.IsBitSet(2)) { writer.Write(Region); }
+        if (flags.IsBitSet(3)) { writer.Write(MatchCodes); }
+        if (flags.IsBitSet(4)) { writer.Write(UserIdHint.Value); }
+        if (flags.IsBitSet(7)) { writer.Write(VerifiedAppName); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

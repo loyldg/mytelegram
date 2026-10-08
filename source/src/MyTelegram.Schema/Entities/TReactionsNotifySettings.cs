@@ -44,21 +44,23 @@ public sealed partial class TReactionsNotifySettings : IReactionsNotifySettings
     /// </summary>
     public bool ShowPreviews { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (MessagesNotifyFrom != null) { Flags = Flags.SetBit(0); }
-        if (StoriesNotifyFrom != null) { Flags = Flags.SetBit(1); }
-        if (PollVotesNotifyFrom != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (MessagesNotifyFrom != null) { flags = flags.SetBit(0); }
+        if (StoriesNotifyFrom != null) { flags = flags.SetBit(1); }
+        if (PollVotesNotifyFrom != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(MessagesNotifyFrom); }
-        if (Flags.IsBitSet(1)) { writer.Write(StoriesNotifyFrom); }
-        if (Flags.IsBitSet(2)) { writer.Write(PollVotesNotifyFrom); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(MessagesNotifyFrom); }
+        if (flags.IsBitSet(1)) { writer.Write(StoriesNotifyFrom); }
+        if (flags.IsBitSet(2)) { writer.Write(PollVotesNotifyFrom); }
         writer.Write(Sound);
         writer.Write(ShowPreviews);
     }

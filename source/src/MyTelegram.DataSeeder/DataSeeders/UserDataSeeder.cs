@@ -26,7 +26,7 @@ public class UserDataSeeder(
 
         if (options.CurrentValue.CreateTestUsers)
         {
-            var initUserId = MyTelegramConsts.UserIdInitId;
+            var initUserId = MyTelegramConsts.UserIdBase;
             var testUserCount = 30;
             for (var i = 1; i < testUserCount; i++)
             {

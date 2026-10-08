@@ -41,14 +41,11 @@ public sealed partial class TStarGiftAttributeBackdrop : IStarGiftAttribute
     public int TextColor { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGiftAttributeRarity" />
     /// </summary>
     public MyTelegram.Schema.IStarGiftAttributeRarity Rarity { get; set; }
     public int RarityPermille { get; set; }
-
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
@@ -57,7 +54,6 @@ public sealed partial class TStarGiftAttributeBackdrop : IStarGiftAttribute
             Rarity = new TStarGiftAttributeRarity { Permille = RarityPermille };
         }
 
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Name);
         writer.Write(BackdropId);

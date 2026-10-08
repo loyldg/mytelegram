@@ -29,13 +29,9 @@ public sealed partial class RequestUploadEncryptedFile : IRequest<MyTelegram.Sch
     /// </summary>
     public MyTelegram.Schema.IInputEncryptedFile File { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(File);

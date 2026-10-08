@@ -10,15 +10,15 @@ public interface IUserConverterService
 
     Task<IUserFull> GetUserFullAsync(IRequestWithAccessHashKeyId request, long userId, int layer = 0);
 
-    IUserFull ToUserFull(IRequestWithAccessHashKeyId request,
+    Task<IUserFull> ToUserFullAsync(IRequestWithAccessHashKeyId request,
         IUserReadModel userReadModel,
         IReadOnlyCollection<IPhotoReadModel>? photoReadModels,
         IReadOnlyCollection<IContactReadModel>? contactReadModels,
         IReadOnlyCollection<IPrivacyReadModel>? privacyReadModels, int layer = 0);
-    ILayeredUser ToUser(IRequestWithAccessHashKeyId request, IUserReadModel userReadModel, IReadOnlyCollection<IPhotoReadModel>? photoReadModels = null,
+    Task<ILayeredUser> ToUserAsync(IRequestWithAccessHashKeyId request, IUserReadModel userReadModel, IReadOnlyCollection<IPhotoReadModel>? photoReadModels = null,
         IContactReadModel? contactReadModel = null, IContactReadModel? targetUserContactReadModel = null, IReadOnlyCollection<IPrivacyReadModel>? privacyReadModels = null, int layer = 0);
 
-    List<ILayeredUser> ToUserList(IRequestWithAccessHashKeyId request, IReadOnlyCollection<IUserReadModel> userReadModels,
+    Task<List<ILayeredUser>> ToUserListAsync(IRequestWithAccessHashKeyId request, IReadOnlyCollection<IUserReadModel> userReadModels,
         IReadOnlyCollection<IPhotoReadModel> photoReadModels,
         IReadOnlyCollection<IContactReadModel> contactReadModels,
         IReadOnlyCollection<IPrivacyReadModel> privacyReadModels, int layer = 0);

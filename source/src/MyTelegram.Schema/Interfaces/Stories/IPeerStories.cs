@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Stories;
 /// <see cref="TPeerStories"/> See <a href="https://corefork.telegram.org/constructor/stories.peerStories" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TPeerStories), nameof(TPeerStories))]
-public interface IPeerStories : IObject
+public partial interface IPeerStories : IObject
 {
     /// <summary>
     /// Stories

@@ -42,25 +42,27 @@ public sealed partial class TPasswordInputSettings : IPasswordInputSettings
     /// </summary>
     public MyTelegram.Schema.ISecureSecretSettings? NewSecureSettings { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (NewAlgo != null) { Flags = Flags.SetBit(0); }
-        if (NewPasswordHash != null) { Flags = Flags.SetBit(0); }
-        if (Hint != null) { Flags = Flags.SetBit(0); }
-        if (Email != null) { Flags = Flags.SetBit(1); }
-        if (NewSecureSettings != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (NewAlgo != null) { flags = flags.SetBit(0); }
+        if (NewPasswordHash != null) { flags = flags.SetBit(0); }
+        if (Hint != null) { flags = flags.SetBit(0); }
+        if (Email != null) { flags = flags.SetBit(1); }
+        if (NewSecureSettings != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(0)) { writer.Write(NewAlgo); }
-        if (Flags.IsBitSet(0)) { writer.Write(NewPasswordHash); }
-        if (Flags.IsBitSet(0)) { writer.Write(Hint); }
-        if (Flags.IsBitSet(1)) { writer.Write(Email); }
-        if (Flags.IsBitSet(2)) { writer.Write(NewSecureSettings); }
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(NewAlgo); }
+        if (flags.IsBitSet(0)) { writer.Write(NewPasswordHash); }
+        if (flags.IsBitSet(0)) { writer.Write(Hint); }
+        if (flags.IsBitSet(1)) { writer.Write(Email); }
+        if (flags.IsBitSet(2)) { writer.Write(NewSecureSettings); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

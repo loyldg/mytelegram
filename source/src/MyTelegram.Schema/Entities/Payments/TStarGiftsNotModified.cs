@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Payments;
 public sealed partial class TStarGiftsNotModified : IStarGifts
 {
     public uint ConstructorId => 0xa388a368;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

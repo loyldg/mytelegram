@@ -40,13 +40,9 @@ public sealed partial class RequestEditPreviewMedia : IRequest<MyTelegram.Schema
     /// </summary>
     public MyTelegram.Schema.IInputMedia NewMedia { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Bot);
         writer.Write(LangCode);

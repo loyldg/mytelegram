@@ -40,22 +40,24 @@ public sealed partial class TTranscribedAudio : ITranscribedAudio
     /// </summary>
     public int? TrialRemainsUntilDate { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Pending) { Flags = Flags.SetBit(0); }
-        if (/*TrialRemainsNum != 0 && */TrialRemainsNum.HasValue) { Flags = Flags.SetBit(1); }
-        if (/*TrialRemainsUntilDate != 0 && */TrialRemainsUntilDate.HasValue) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Pending) { flags = flags.SetBit(0); }
+        if (/*TrialRemainsNum != 0 && */TrialRemainsNum.HasValue) { flags = flags.SetBit(1); }
+        if (/*TrialRemainsUntilDate != 0 && */TrialRemainsUntilDate.HasValue) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(TranscriptionId);
         writer.Write(Text);
-        if (Flags.IsBitSet(1)) { writer.Write(TrialRemainsNum.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(TrialRemainsUntilDate.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(TrialRemainsNum.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(TrialRemainsUntilDate.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

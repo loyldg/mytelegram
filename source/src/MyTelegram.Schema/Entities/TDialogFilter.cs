@@ -99,30 +99,32 @@ public sealed partial class TDialogFilter : IDialogFilter
     /// </summary>
     public TVector<MyTelegram.Schema.IInputPeer> ExcludePeers { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Contacts) { Flags = Flags.SetBit(0); }
-        if (NonContacts) { Flags = Flags.SetBit(1); }
-        if (Groups) { Flags = Flags.SetBit(2); }
-        if (Broadcasts) { Flags = Flags.SetBit(3); }
-        if (Bots) { Flags = Flags.SetBit(4); }
-        if (ExcludeMuted) { Flags = Flags.SetBit(11); }
-        if (ExcludeRead) { Flags = Flags.SetBit(12); }
-        if (ExcludeArchived) { Flags = Flags.SetBit(13); }
-        if (TitleNoanimate) { Flags = Flags.SetBit(28); }
-        if (Emoticon != null) { Flags = Flags.SetBit(25); }
-        if (/*Color != 0 && */Color.HasValue) { Flags = Flags.SetBit(27); }
+        var flags = 0;
+        if (Contacts) { flags = flags.SetBit(0); }
+        if (NonContacts) { flags = flags.SetBit(1); }
+        if (Groups) { flags = flags.SetBit(2); }
+        if (Broadcasts) { flags = flags.SetBit(3); }
+        if (Bots) { flags = flags.SetBit(4); }
+        if (ExcludeMuted) { flags = flags.SetBit(11); }
+        if (ExcludeRead) { flags = flags.SetBit(12); }
+        if (ExcludeArchived) { flags = flags.SetBit(13); }
+        if (TitleNoanimate) { flags = flags.SetBit(28); }
+        if (Emoticon != null) { flags = flags.SetBit(25); }
+        if (/*Color != 0 && */Color.HasValue) { flags = flags.SetBit(27); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(Title);
-        if (Flags.IsBitSet(25)) { writer.Write(Emoticon); }
-        if (Flags.IsBitSet(27)) { writer.Write(Color.Value); }
+        if (flags.IsBitSet(25)) { writer.Write(Emoticon); }
+        if (flags.IsBitSet(27)) { writer.Write(Color.Value); }
         writer.Write(PinnedPeers);
         writer.Write(IncludePeers);
         writer.Write(ExcludePeers);

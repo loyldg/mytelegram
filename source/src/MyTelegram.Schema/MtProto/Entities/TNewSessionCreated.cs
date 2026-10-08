@@ -4,7 +4,7 @@ namespace MyTelegram.Schema;
 
 
 [TlObject(0x9ec20908)]
-public sealed class TNewSessionCreated : IObject
+public sealed partial class TNewSessionCreated : IObject
 {
     public uint ConstructorId => 0x9ec20908;
     public long FirstMsgId { get; set; }

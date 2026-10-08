@@ -23,13 +23,9 @@ public sealed partial class RequestReportReadMetrics : IRequest<IBool>
     /// </summary>
     public TVector<MyTelegram.Schema.IInputMessageReadMetric> Metrics { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Peer);
         writer.Write(Metrics);

@@ -16,13 +16,9 @@ public sealed partial class TPaymentResult : IPaymentResult
     /// </summary>
     public MyTelegram.Schema.IUpdates Updates { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Updates);
     }

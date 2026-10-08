@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TDocumentAttributeHasStickers : IDocumentAttribute
 {
     public uint ConstructorId => 0x9801d2f7;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

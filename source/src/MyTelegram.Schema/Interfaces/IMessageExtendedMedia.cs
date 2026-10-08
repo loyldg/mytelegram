@@ -13,6 +13,6 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TMessageExtendedMediaPreview), nameof(TMessageExtendedMediaPreview))]
 [JsonDerivedType(typeof(TMessageExtendedMedia), nameof(TMessageExtendedMedia))]
-public interface IMessageExtendedMedia : IObject
+public partial interface IMessageExtendedMedia : IObject
 {
 }

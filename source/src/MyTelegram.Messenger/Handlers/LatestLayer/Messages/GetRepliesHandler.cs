@@ -19,6 +19,6 @@ internal sealed class GetRepliesHandler(IPeerHelper peerHelper, IMessageAppServi
     {
         var peer = peerHelper.GetPeer(obj.Peer);
         var getMessageOutput = await messageAppService.GetRepliesAsync(new GetRepliesInput { ReplyToMsgId = obj.MsgId, OwnerPeerId = peer.PeerId, AddOffset = obj.AddOffset, Limit = obj.Limit, OffsetId = obj.OffsetId, MinDate = obj.OffsetDate, SelfUserId = input.UserId });
-        return getHistoryConverterService.ToMessages(input, getMessageOutput, input.Layer);
+        return await getHistoryConverterService.ToMessagesAsync(input, getMessageOutput, input.Layer);
     }
 }

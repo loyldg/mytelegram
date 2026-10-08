@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Account;
 /// </remarks>
 [JsonDerivedType(typeof(TSavedMusicIdsNotModified), nameof(TSavedMusicIdsNotModified))]
 [JsonDerivedType(typeof(TSavedMusicIds), nameof(TSavedMusicIds))]
-public interface ISavedMusicIds : IObject
+public partial interface ISavedMusicIds : IObject
 {
 }

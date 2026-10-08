@@ -26,7 +26,8 @@ public record RequestInfo(
     DeviceType DeviceType = DeviceType.Desktop,
     bool AddRequestIdToCache = true,
     bool IsSubRequest = false,
-    long InvokeAfterMsgId = 0
+    long InvokeAfterMsgId = 0,
+    string? RegisterIp = null
     ) : IRequestWithAccessHashKeyId
 {
     public static RequestInfo Empty { get; } = new(string.Empty, 0, 0, 0, 0, 0, 0, Guid.Empty, 0, 0);

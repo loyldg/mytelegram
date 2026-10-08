@@ -17,6 +17,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TReactionEmoji), nameof(TReactionEmoji))]
 [JsonDerivedType(typeof(TReactionCustomEmoji), nameof(TReactionCustomEmoji))]
 [JsonDerivedType(typeof(TReactionPaid), nameof(TReactionPaid))]
-public interface IReaction : IObject
+public partial interface IReaction : IObject
 {
 }

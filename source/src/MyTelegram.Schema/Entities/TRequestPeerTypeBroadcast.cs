@@ -38,22 +38,24 @@ public sealed partial class TRequestPeerTypeBroadcast : IRequestPeerType
     /// </summary>
     public MyTelegram.Schema.IChatAdminRights? BotAdminRights { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Creator) { Flags = Flags.SetBit(0); }
-        if (HasUsername != null) { Flags = Flags.SetBit(3); }
-        if (UserAdminRights != null) { Flags = Flags.SetBit(1); }
-        if (BotAdminRights != null) { Flags = Flags.SetBit(2); }
+        var flags = 0;
+        if (Creator) { flags = flags.SetBit(0); }
+        if (HasUsername != null) { flags = flags.SetBit(3); }
+        if (UserAdminRights != null) { flags = flags.SetBit(1); }
+        if (BotAdminRights != null) { flags = flags.SetBit(2); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(3)) { writer.Write(HasUsername.Value); }
-        if (Flags.IsBitSet(1)) { writer.Write(UserAdminRights); }
-        if (Flags.IsBitSet(2)) { writer.Write(BotAdminRights); }
+        writer.Write(flags);
+        if (flags.IsBitSet(3)) { writer.Write(HasUsername.Value); }
+        if (flags.IsBitSet(1)) { writer.Write(UserAdminRights); }
+        if (flags.IsBitSet(2)) { writer.Write(BotAdminRights); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

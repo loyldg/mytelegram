@@ -13,7 +13,7 @@ namespace MyTelegram.Schema.Chatlists;
 /// </remarks>
 [JsonDerivedType(typeof(TChatlistInviteAlready), nameof(TChatlistInviteAlready))]
 [JsonDerivedType(typeof(TChatlistInvite), nameof(TChatlistInvite))]
-public interface IChatlistInvite : IObject
+public partial interface IChatlistInvite : IObject
 {
     /// <summary>
     /// Related chat information

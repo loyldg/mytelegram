@@ -23,13 +23,9 @@ public sealed partial class RequestToggleDialogFilterTags : IRequest<IBool>
     /// </summary>
     public bool Enabled { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Enabled);
     }

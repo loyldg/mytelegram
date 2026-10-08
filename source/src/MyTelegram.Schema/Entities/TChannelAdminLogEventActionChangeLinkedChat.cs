@@ -20,13 +20,9 @@ public sealed partial class TChannelAdminLogEventActionChangeLinkedChat : IChann
     /// </summary>
     public long NewValue { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PrevValue);
         writer.Write(NewValue);

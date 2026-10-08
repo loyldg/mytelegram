@@ -113,6 +113,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TChannelAdminLogEventActionParticipantSubExtend), nameof(TChannelAdminLogEventActionParticipantSubExtend))]
 [JsonDerivedType(typeof(TChannelAdminLogEventActionToggleAutotranslation), nameof(TChannelAdminLogEventActionToggleAutotranslation))]
 [JsonDerivedType(typeof(TChannelAdminLogEventActionParticipantEditRank), nameof(TChannelAdminLogEventActionParticipantEditRank))]
-public interface IChannelAdminLogEventAction : IObject
+public partial interface IChannelAdminLogEventAction : IObject
 {
 }

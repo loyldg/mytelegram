@@ -13,7 +13,7 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TStarGift), nameof(TStarGift))]
 [JsonDerivedType(typeof(TStarGiftUnique), nameof(TStarGiftUnique))]
-public interface IStarGift : IObject
+public partial interface IStarGift : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

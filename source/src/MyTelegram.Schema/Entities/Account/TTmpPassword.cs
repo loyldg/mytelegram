@@ -20,13 +20,9 @@ public sealed partial class TTmpPassword : ITmpPassword
     /// </summary>
     public int ValidUntil { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(TmpPassword);
         writer.Write(ValidUntil);

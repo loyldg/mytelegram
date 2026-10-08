@@ -8,13 +8,15 @@ namespace MyTelegram.Schema;
 /// </summary>
 /// <remarks>
 /// <para>Implementations:</para>
-/// <see cref="TInputReplyToMessage"/> See <a href="https://corefork.telegram.org/constructor/inputReplyToMessage" /><br/>
 /// <see cref="TInputReplyToStory"/> See <a href="https://corefork.telegram.org/constructor/inputReplyToStory" /><br/>
 /// <see cref="TInputReplyToMonoForum"/> See <a href="https://corefork.telegram.org/constructor/inputReplyToMonoForum" /><br/>
+/// <see cref="TInputReplyToMessage"/> See <a href="https://corefork.telegram.org/constructor/inputReplyToMessage" /><br/>
+/// <see cref="TInputReplyToEphemeralMessage"/> See <a href="" /><br/>
 /// </remarks>
-[JsonDerivedType(typeof(TInputReplyToMessage), nameof(TInputReplyToMessage))]
 [JsonDerivedType(typeof(TInputReplyToStory), nameof(TInputReplyToStory))]
 [JsonDerivedType(typeof(TInputReplyToMonoForum), nameof(TInputReplyToMonoForum))]
-public interface IInputReplyTo : IObject
+[JsonDerivedType(typeof(TInputReplyToMessage), nameof(TInputReplyToMessage))]
+[JsonDerivedType(typeof(TInputReplyToEphemeralMessage), nameof(TInputReplyToEphemeralMessage))]
+public partial interface IInputReplyTo : IObject
 {
 }

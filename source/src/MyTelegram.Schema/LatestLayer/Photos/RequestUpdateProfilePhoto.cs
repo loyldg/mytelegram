@@ -46,18 +46,20 @@ public sealed partial class RequestUpdateProfilePhoto : IRequest<MyTelegram.Sche
     /// </summary>
     public MyTelegram.Schema.IInputPhoto Id { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Fallback) { Flags = Flags.SetBit(0); }
-        if (Bot != null) { Flags = Flags.SetBit(1); }
+        var flags = 0;
+        if (Fallback) { flags = flags.SetBit(0); }
+        if (Bot != null) { flags = flags.SetBit(1); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
-        if (Flags.IsBitSet(1)) { writer.Write(Bot); }
+        writer.Write(flags);
+        if (flags.IsBitSet(1)) { writer.Write(Bot); }
         writer.Write(Id);
     }
 

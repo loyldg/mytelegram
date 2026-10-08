@@ -26,13 +26,9 @@ public sealed partial class TInputBusinessGreetingMessage : IInputBusinessGreeti
     /// </summary>
     public int NoActivityDays { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ShortcutId);
         writer.Write(Recipients);

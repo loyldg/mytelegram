@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputClientProxy"/> See <a href="https://corefork.telegram.org/constructor/inputClientProxy" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputClientProxy), nameof(TInputClientProxy))]
-public interface IInputClientProxy : IObject
+public partial interface IInputClientProxy : IObject
 {
     /// <summary>
     /// Proxy address

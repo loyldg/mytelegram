@@ -30,13 +30,9 @@ public sealed partial class RequestAnswerWebhookJSONQuery : IRequest<IBool>
     /// </summary>
     public MyTelegram.Schema.IDataJSON Data { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(QueryId);
         writer.Write(Data);

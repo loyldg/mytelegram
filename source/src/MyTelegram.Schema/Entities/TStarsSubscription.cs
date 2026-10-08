@@ -78,31 +78,33 @@ public sealed partial class TStarsSubscription : IStarsSubscription
     /// </summary>
     public string? InvoiceSlug { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Canceled) { Flags = Flags.SetBit(0); }
-        if (CanRefulfill) { Flags = Flags.SetBit(1); }
-        if (MissingBalance) { Flags = Flags.SetBit(2); }
-        if (BotCanceled) { Flags = Flags.SetBit(7); }
-        if (ChatInviteHash != null) { Flags = Flags.SetBit(3); }
-        if (Title != null) { Flags = Flags.SetBit(4); }
-        if (Photo != null) { Flags = Flags.SetBit(5); }
-        if (InvoiceSlug != null) { Flags = Flags.SetBit(6); }
+        var flags = 0;
+        if (Canceled) { flags = flags.SetBit(0); }
+        if (CanRefulfill) { flags = flags.SetBit(1); }
+        if (MissingBalance) { flags = flags.SetBit(2); }
+        if (BotCanceled) { flags = flags.SetBit(7); }
+        if (ChatInviteHash != null) { flags = flags.SetBit(3); }
+        if (Title != null) { flags = flags.SetBit(4); }
+        if (Photo != null) { flags = flags.SetBit(5); }
+        if (InvoiceSlug != null) { flags = flags.SetBit(6); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(Peer);
         writer.Write(UntilDate);
         writer.Write(Pricing);
-        if (Flags.IsBitSet(3)) { writer.Write(ChatInviteHash); }
-        if (Flags.IsBitSet(4)) { writer.Write(Title); }
-        if (Flags.IsBitSet(5)) { writer.Write(Photo); }
-        if (Flags.IsBitSet(6)) { writer.Write(InvoiceSlug); }
+        if (flags.IsBitSet(3)) { writer.Write(ChatInviteHash); }
+        if (flags.IsBitSet(4)) { writer.Write(Title); }
+        if (flags.IsBitSet(5)) { writer.Write(Photo); }
+        if (flags.IsBitSet(6)) { writer.Write(InvoiceSlug); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

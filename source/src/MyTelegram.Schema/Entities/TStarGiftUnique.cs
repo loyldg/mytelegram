@@ -157,56 +157,58 @@ public sealed partial class TStarGiftUnique : ILayeredStarGiftUnique
     /// </summary>
     public int? CraftChancePermille { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (RequirePremium) { Flags = Flags.SetBit(6); }
-        if (ResaleTonOnly) { Flags = Flags.SetBit(7); }
-        if (ThemeAvailable) { Flags = Flags.SetBit(9); }
-        if (Burned) { Flags = Flags.SetBit(14); }
-        if (Crafted) { Flags = Flags.SetBit(15); }
-        if (OwnerId != null) { Flags = Flags.SetBit(0); }
-        if (OwnerName != null) { Flags = Flags.SetBit(1); }
-        if (OwnerAddress != null) { Flags = Flags.SetBit(2); }
-        if (GiftAddress != null) { Flags = Flags.SetBit(3); }
-        if (ResellAmount?.Count > 0) { Flags = Flags.SetBit(4); }
-        if (ReleasedBy != null) { Flags = Flags.SetBit(5); }
-        if (/*ValueAmount != 0 &&*/ ValueAmount.HasValue) { Flags = Flags.SetBit(8); }
-        if (ValueCurrency != null) { Flags = Flags.SetBit(8); }
-        if (/*ValueUsdAmount != 0 &&*/ ValueUsdAmount.HasValue) { Flags = Flags.SetBit(8); }
-        if (ThemePeer != null) { Flags = Flags.SetBit(10); }
-        if (PeerColor != null) { Flags = Flags.SetBit(11); }
-        if (HostId != null) { Flags = Flags.SetBit(12); }
-        if (/*OfferMinStars != 0 && */OfferMinStars.HasValue) { Flags = Flags.SetBit(13); }
-        if (/*CraftChancePermille != 0 && */CraftChancePermille.HasValue) { Flags = Flags.SetBit(16); }
+        var flags = 0;
+        if (RequirePremium) { flags = flags.SetBit(6); }
+        if (ResaleTonOnly) { flags = flags.SetBit(7); }
+        if (ThemeAvailable) { flags = flags.SetBit(9); }
+        if (Burned) { flags = flags.SetBit(14); }
+        if (Crafted) { flags = flags.SetBit(15); }
+        if (OwnerId != null) { flags = flags.SetBit(0); }
+        if (OwnerName != null) { flags = flags.SetBit(1); }
+        if (OwnerAddress != null) { flags = flags.SetBit(2); }
+        if (GiftAddress != null) { flags = flags.SetBit(3); }
+        if (ResellAmount?.Count > 0) { flags = flags.SetBit(4); }
+        if (ReleasedBy != null) { flags = flags.SetBit(5); }
+        if (/*ValueAmount != 0 &&*/ ValueAmount.HasValue) { flags = flags.SetBit(8); }
+        if (ValueCurrency != null) { flags = flags.SetBit(8); }
+        if (/*ValueUsdAmount != 0 &&*/ ValueUsdAmount.HasValue) { flags = flags.SetBit(8); }
+        if (ThemePeer != null) { flags = flags.SetBit(10); }
+        if (PeerColor != null) { flags = flags.SetBit(11); }
+        if (HostId != null) { flags = flags.SetBit(12); }
+        if (/*OfferMinStars != 0 && */OfferMinStars.HasValue) { flags = flags.SetBit(13); }
+        if (/*CraftChancePermille != 0 && */CraftChancePermille.HasValue) { flags = flags.SetBit(16); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(GiftId);
         writer.Write(Title);
         writer.Write(Slug);
         writer.Write(Num);
-        if (Flags.IsBitSet(0)) { writer.Write(OwnerId); }
-        if (Flags.IsBitSet(1)) { writer.Write(OwnerName); }
-        if (Flags.IsBitSet(2)) { writer.Write(OwnerAddress); }
+        if (flags.IsBitSet(0)) { writer.Write(OwnerId); }
+        if (flags.IsBitSet(1)) { writer.Write(OwnerName); }
+        if (flags.IsBitSet(2)) { writer.Write(OwnerAddress); }
         writer.Write(Attributes);
         writer.Write(AvailabilityIssued);
         writer.Write(AvailabilityTotal);
-        if (Flags.IsBitSet(3)) { writer.Write(GiftAddress); }
-        if (Flags.IsBitSet(4)) { writer.Write(ResellAmount); }
-        if (Flags.IsBitSet(5)) { writer.Write(ReleasedBy); }
-        if (Flags.IsBitSet(8)) { writer.Write(ValueAmount.Value); }
-        if (Flags.IsBitSet(8)) { writer.Write(ValueCurrency); }
-        if (Flags.IsBitSet(8)) { writer.Write(ValueUsdAmount.Value); }
-        if (Flags.IsBitSet(10)) { writer.Write(ThemePeer); }
-        if (Flags.IsBitSet(11)) { writer.Write(PeerColor); }
-        if (Flags.IsBitSet(12)) { writer.Write(HostId); }
-        if (Flags.IsBitSet(13)) { writer.Write(OfferMinStars.Value); }
-        if (Flags.IsBitSet(16)) { writer.Write(CraftChancePermille.Value); }
+        if (flags.IsBitSet(3)) { writer.Write(GiftAddress); }
+        if (flags.IsBitSet(4)) { writer.Write(ResellAmount); }
+        if (flags.IsBitSet(5)) { writer.Write(ReleasedBy); }
+        if (flags.IsBitSet(8)) { writer.Write(ValueAmount.Value); }
+        if (flags.IsBitSet(8)) { writer.Write(ValueCurrency); }
+        if (flags.IsBitSet(8)) { writer.Write(ValueUsdAmount.Value); }
+        if (flags.IsBitSet(10)) { writer.Write(ThemePeer); }
+        if (flags.IsBitSet(11)) { writer.Write(PeerColor); }
+        if (flags.IsBitSet(12)) { writer.Write(HostId); }
+        if (flags.IsBitSet(13)) { writer.Write(OfferMinStars.Value); }
+        if (flags.IsBitSet(16)) { writer.Write(CraftChancePermille.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

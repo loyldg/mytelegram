@@ -10,7 +10,7 @@ namespace MyTelegram.Schema.Messages;
 /// <see cref="TEmojiGameOutcome"/> See <a href="https://corefork.telegram.org/constructor/messages.emojiGameOutcome" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TEmojiGameOutcome), nameof(TEmojiGameOutcome))]
-public interface IEmojiGameOutcome : IObject
+public partial interface IEmojiGameOutcome : IObject
 {
     /// <summary>
     ///  

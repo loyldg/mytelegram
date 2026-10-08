@@ -22,14 +22,12 @@ public sealed partial class TStarGiftAttributePattern : IStarGiftAttribute
     public MyTelegram.Schema.IDocument Document { get; set; }
 
     /// <summary>
+    ///  
     /// See <a href="https://corefork.telegram.org/type/StarGiftAttributeRarity" />
     /// </summary>
     public MyTelegram.Schema.IStarGiftAttributeRarity Rarity { get; set; }
-    public int RarityPermille { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
+    public int RarityPermille { get; set; }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
@@ -37,7 +35,7 @@ public sealed partial class TStarGiftAttributePattern : IStarGiftAttribute
         {
             Rarity = new TStarGiftAttributeRarity { Permille = RarityPermille };
         }
-        ComputeFlag();
+
         writer.Write(ConstructorId);
         writer.Write(Name);
         writer.Write(Document);

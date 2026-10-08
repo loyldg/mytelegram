@@ -76,7 +76,6 @@ public class ChannelReadModel : ReadModelBase, IChannelReadModel,
     public long? BackgroundEmojiId { get; private set; }
     public int? Level { get; private set; }
     public bool HasLink { get; private set; }
-    public bool IsDeleted { get; private set; }
     public EmojiStatus? EmojiStatus { get; private set; }
     public bool SignatureProfiles { get; private set; }
     public int? SubscriptionUntilDate { get; private set; }

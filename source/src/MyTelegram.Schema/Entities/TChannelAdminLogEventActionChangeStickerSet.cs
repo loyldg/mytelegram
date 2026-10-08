@@ -22,13 +22,9 @@ public sealed partial class TChannelAdminLogEventActionChangeStickerSet : IChann
     /// </summary>
     public MyTelegram.Schema.IInputStickerSet NewStickerset { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(PrevStickerset);
         writer.Write(NewStickerset);

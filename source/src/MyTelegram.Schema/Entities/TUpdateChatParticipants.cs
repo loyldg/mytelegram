@@ -16,13 +16,9 @@ public sealed partial class TUpdateChatParticipants : IUpdate
     /// </summary>
     public MyTelegram.Schema.IChatParticipants Participants { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Participants);
     }

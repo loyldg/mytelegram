@@ -22,13 +22,9 @@ public sealed partial class TStoryStats : IStoryStats
     /// </summary>
     public MyTelegram.Schema.IStatsGraph ReactionsByEmotionGraph { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(ViewsGraph);
         writer.Write(ReactionsByEmotionGraph);

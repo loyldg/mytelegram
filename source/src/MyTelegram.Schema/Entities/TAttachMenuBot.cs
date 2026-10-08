@@ -67,25 +67,27 @@ public sealed partial class TAttachMenuBot : IAttachMenuBot
     /// </summary>
     public TVector<MyTelegram.Schema.IAttachMenuBotIcon> Icons { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Inactive) { Flags = Flags.SetBit(0); }
-        if (HasSettings) { Flags = Flags.SetBit(1); }
-        if (RequestWriteAccess) { Flags = Flags.SetBit(2); }
-        if (ShowInAttachMenu) { Flags = Flags.SetBit(3); }
-        if (ShowInSideMenu) { Flags = Flags.SetBit(4); }
-        if (SideMenuDisclaimerNeeded) { Flags = Flags.SetBit(5); }
-        if (PeerTypes?.Count > 0) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (Inactive) { flags = flags.SetBit(0); }
+        if (HasSettings) { flags = flags.SetBit(1); }
+        if (RequestWriteAccess) { flags = flags.SetBit(2); }
+        if (ShowInAttachMenu) { flags = flags.SetBit(3); }
+        if (ShowInSideMenu) { flags = flags.SetBit(4); }
+        if (SideMenuDisclaimerNeeded) { flags = flags.SetBit(5); }
+        if (PeerTypes?.Count > 0) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(BotId);
         writer.Write(ShortName);
-        if (Flags.IsBitSet(3)) { writer.Write(PeerTypes); }
+        if (flags.IsBitSet(3)) { writer.Write(PeerTypes); }
         writer.Write(Icons);
     }
 

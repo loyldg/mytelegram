@@ -13,7 +13,7 @@ namespace MyTelegram.Schema.Help;
 /// </remarks>
 [JsonDerivedType(typeof(TTermsOfServiceUpdateEmpty), nameof(TTermsOfServiceUpdateEmpty))]
 [JsonDerivedType(typeof(TTermsOfServiceUpdate), nameof(TTermsOfServiceUpdate))]
-public interface ITermsOfServiceUpdate : IObject
+public partial interface ITermsOfServiceUpdate : IObject
 {
     /// <summary>
     /// New TOS updates will have to be queried using <a href="https://corefork.telegram.org/method/help.getTermsOfServiceUpdate">help.getTermsOfServiceUpdate</a> in <code>expires</code> seconds

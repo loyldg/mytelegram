@@ -15,13 +15,9 @@ public sealed partial class TPageBlockAnchor : IPageBlock
     /// </summary>
     public string Name { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Name);
     }

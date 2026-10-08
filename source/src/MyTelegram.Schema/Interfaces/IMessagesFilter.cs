@@ -45,6 +45,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputMessagesFilterContacts), nameof(TInputMessagesFilterContacts))]
 [JsonDerivedType(typeof(TInputMessagesFilterPinned), nameof(TInputMessagesFilterPinned))]
 [JsonDerivedType(typeof(TInputMessagesFilterPoll), nameof(TInputMessagesFilterPoll))]
-public interface IMessagesFilter : IObject
+public partial interface IMessagesFilter : IObject
 {
 }

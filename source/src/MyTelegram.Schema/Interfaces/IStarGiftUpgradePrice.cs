@@ -10,7 +10,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TStarGiftUpgradePrice"/> See <a href="https://corefork.telegram.org/constructor/starGiftUpgradePrice" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TStarGiftUpgradePrice), nameof(TStarGiftUpgradePrice))]
-public interface IStarGiftUpgradePrice : IObject
+public partial interface IStarGiftUpgradePrice : IObject
 {
     /// <summary>
     ///  

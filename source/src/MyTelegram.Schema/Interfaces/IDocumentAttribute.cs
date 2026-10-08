@@ -25,6 +25,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TDocumentAttributeFilename), nameof(TDocumentAttributeFilename))]
 [JsonDerivedType(typeof(TDocumentAttributeHasStickers), nameof(TDocumentAttributeHasStickers))]
 [JsonDerivedType(typeof(TDocumentAttributeCustomEmoji), nameof(TDocumentAttributeCustomEmoji))]
-public interface IDocumentAttribute : IObject
+public partial interface IDocumentAttribute : IObject
 {
 }

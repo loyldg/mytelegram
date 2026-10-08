@@ -9,7 +9,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Auth;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class ExportAuthorizationHandler(IOptions<MyTelegramMessengerServerOptions> options, IRandomHelper randomHelper, IHashHelper hashHelper, ILogger<ExportAuthorizationHandler> logger, ICacheManager<AuthorizationCacheItem> cacheManager) : RpcResultObjectHandler<MyTelegram.Schema.Auth.RequestExportAuthorization, MyTelegram.Schema.Auth.IExportedAuthorization>
+internal sealed class ExportAuthorizationHandler(IOptions<MyTelegramMessengerServerOptions> options, IRandomHelper randomHelper, IHashHelper hashHelper, ICacheManager<AuthorizationCacheItem> cacheManager) : RpcResultObjectHandler<MyTelegram.Schema.Auth.RequestExportAuthorization, MyTelegram.Schema.Auth.IExportedAuthorization>
 {
     //private readonly IDistributedCache<string> _distributedCache;
     protected override async Task<IExportedAuthorization> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Auth.RequestExportAuthorization obj)

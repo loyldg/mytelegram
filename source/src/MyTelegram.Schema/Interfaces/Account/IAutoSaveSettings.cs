@@ -11,7 +11,7 @@ namespace MyTelegram.Schema.Account;
 /// <see cref="TAutoSaveSettings"/> See <a href="https://corefork.telegram.org/constructor/account.autoSaveSettings" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TAutoSaveSettings), nameof(TAutoSaveSettings))]
-public interface IAutoSaveSettings : IObject
+public partial interface IAutoSaveSettings : IObject
 {
     /// <summary>
     /// Default media autosave settings for private chats

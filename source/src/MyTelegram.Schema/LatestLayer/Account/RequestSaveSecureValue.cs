@@ -29,13 +29,9 @@ public sealed partial class RequestSaveSecureValue : IRequest<MyTelegram.Schema.
     /// </summary>
     public long SecureSecretId { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Value);
         writer.Write(SecureSecretId);

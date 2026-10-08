@@ -10,6 +10,23 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
         Register(_state);
     }
 
+    public void ToggleParticipantBanned(RequestInfo requestInfo, long communityId, long userId, bool banned)
+    {
+        Emit(new ParticipantBannedToggledEvent(requestInfo,communityId,userId,banned));
+    }
+
+    public void EditRank(RequestInfo requestInfo, long channelId, long userId, string? rank)
+    {
+        Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+        var version = _state.Version + 1;
+        var oldRank = _state.Rank;
+        if (string.IsNullOrEmpty(rank))
+        {
+            rank = _state.Rank;
+        }
+        Emit(new ParticipantRankEditedEvent(requestInfo, channelId, userId, oldRank, rank, version));
+    }
+
     public void EditChannelAdmin2(RequestInfo requestInfo, long channelId, long userId, int adminRights, string rank)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
@@ -26,7 +43,9 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
         bool isBot,
         long? chatInviteId,
         bool isBroadcast,
-        ChatJoinType chatJoinType = ChatJoinType.InvitedByAdmin
+        ChatJoinType chatJoinType = ChatJoinType.InvitedByAdmin,
+        long? approvedBy = null,
+        bool viaChatlist = false
         )
     {
         // Kicked user can not join channel by invite link
@@ -59,7 +78,9 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
             isBroadcast,
             untilDate,
             kicked,
-            kickedBy
+            kickedBy,
+            approvedBy,
+            viaChatlist
             ));
     }
 
@@ -118,6 +139,7 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
             }
         }
 
+        var oldBannedRights = _state.BannedRights;
         var banned = bannedRights.ToIntValue() != ChatBannedRights.CreateDefaultBannedRights().ToIntValue();
         Emit(new ChannelMemberBannedRightsChangedEvent(requestInfo,
             adminId,
@@ -130,6 +152,7 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
             banned,
             removedFromKicked,
             removedFromBanned,
+            oldBannedRights,
             bannedRights,
             _state.IsAdmin
             ));
@@ -156,7 +179,7 @@ public class ChannelMemberAggregate : SnapshotAggregateRoot<ChannelMemberAggrega
     protected override Task<ChannelMemberSnapshot> CreateSnapshotAsync(CancellationToken cancellationToken)
     {
         return Task.FromResult(new ChannelMemberSnapshot(_state.Banned, _state.BannedRights, _state.Kicked,
-            _state.KickedBy, _state.Left, _state.IsBot, _state.Broadcast, _state.UntilDate));
+            _state.KickedBy, _state.Left, _state.IsBot, _state.Broadcast, _state.UntilDate, _state.Rank));
     }
 
     protected override Task LoadSnapshotAsync(ChannelMemberSnapshot snapshot, ISnapshotMetadata metadata, CancellationToken cancellationToken)

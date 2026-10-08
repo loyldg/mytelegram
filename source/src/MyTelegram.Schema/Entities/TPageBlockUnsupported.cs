@@ -10,13 +10,9 @@ namespace MyTelegram.Schema;
 public sealed partial class TPageBlockUnsupported : IPageBlock
 {
     public uint ConstructorId => 0x13567e8a;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

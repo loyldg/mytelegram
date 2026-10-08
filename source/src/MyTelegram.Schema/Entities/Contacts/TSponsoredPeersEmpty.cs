@@ -10,13 +10,9 @@ namespace MyTelegram.Schema.Contacts;
 public sealed partial class TSponsoredPeersEmpty : ISponsoredPeers
 {
     public uint ConstructorId => 0xea32b4b1;
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
     }
 

@@ -72,25 +72,27 @@ public sealed partial class RequestJoinGroupCall : IRequest<MyTelegram.Schema.IU
     /// </summary>
     public MyTelegram.Schema.IDataJSON Params { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Muted) { Flags = Flags.SetBit(0); }
-        if (VideoStopped) { Flags = Flags.SetBit(2); }
-        if (InviteHash != null) { Flags = Flags.SetBit(1); }
-        if (PublicKey != null) { Flags = Flags.SetBit(3); }
-        if (Block != null) { Flags = Flags.SetBit(3); }
+        var flags = 0;
+        if (Muted) { flags = flags.SetBit(0); }
+        if (VideoStopped) { flags = flags.SetBit(2); }
+        if (InviteHash != null) { flags = flags.SetBit(1); }
+        if (PublicKey != null) { flags = flags.SetBit(3); }
+        if (Block != null) { flags = flags.SetBit(3); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Call);
         writer.Write(JoinAs);
-        if (Flags.IsBitSet(1)) { writer.Write(InviteHash); }
-        if (Flags.IsBitSet(3)) { writer.WriteRawBytes(PublicKey); }
-        if (Flags.IsBitSet(3)) { writer.Write(Block); }
+        if (flags.IsBitSet(1)) { writer.Write(InviteHash); }
+        if (flags.IsBitSet(3)) { writer.WriteRawBytes(PublicKey); }
+        if (flags.IsBitSet(3)) { writer.Write(Block); }
         writer.Write(Params);
     }
 

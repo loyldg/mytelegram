@@ -17,6 +17,6 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TInputUserSelf), nameof(TInputUserSelf))]
 [JsonDerivedType(typeof(TInputUser), nameof(TInputUser))]
 [JsonDerivedType(typeof(TInputUserFromMessage), nameof(TInputUserFromMessage))]
-public interface IInputUser : IObject
+public partial interface IInputUser : IObject
 {
 }

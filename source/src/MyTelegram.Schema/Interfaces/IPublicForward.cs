@@ -13,6 +13,6 @@ namespace MyTelegram.Schema;
 /// </remarks>
 [JsonDerivedType(typeof(TPublicForwardMessage), nameof(TPublicForwardMessage))]
 [JsonDerivedType(typeof(TPublicForwardStory), nameof(TPublicForwardStory))]
-public interface IPublicForward : IObject
+public partial interface IPublicForward : IObject
 {
 }

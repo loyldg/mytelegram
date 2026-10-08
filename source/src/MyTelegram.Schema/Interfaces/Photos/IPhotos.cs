@@ -13,7 +13,7 @@ namespace MyTelegram.Schema.Photos;
 /// </remarks>
 [JsonDerivedType(typeof(TPhotos), nameof(TPhotos))]
 [JsonDerivedType(typeof(TPhotosSlice), nameof(TPhotosSlice))]
-public interface IPhotos : IObject
+public partial interface IPhotos : IObject
 {
     /// <summary>
     /// List of photos

@@ -13,6 +13,6 @@ namespace MyTelegram.Schema.Contacts;
 /// </remarks>
 [JsonDerivedType(typeof(TSponsoredPeersEmpty), nameof(TSponsoredPeersEmpty))]
 [JsonDerivedType(typeof(TSponsoredPeers), nameof(TSponsoredPeers))]
-public interface ISponsoredPeers : IObject
+public partial interface ISponsoredPeers : IObject
 {
 }

@@ -21,13 +21,9 @@ public sealed partial class TChannelLocation : IChannelLocation
     /// </summary>
     public string Address { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(GeoPoint);
         writer.Write(Address);

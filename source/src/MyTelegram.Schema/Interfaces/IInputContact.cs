@@ -11,7 +11,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TInputPhoneContact"/> See <a href="https://corefork.telegram.org/constructor/inputPhoneContact" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TInputPhoneContact), nameof(TInputPhoneContact))]
-public interface IInputContact : IObject
+public partial interface IInputContact : IObject
 {
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>

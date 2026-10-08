@@ -63,21 +63,23 @@ public sealed partial class RequestSendReaction : IRequest<MyTelegram.Schema.IUp
     /// </summary>
     public TVector<MyTelegram.Schema.IReaction>? Reaction { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Big) { Flags = Flags.SetBit(1); }
-        if (AddToRecent) { Flags = Flags.SetBit(2); }
-        if (Reaction?.Count > 0) { Flags = Flags.SetBit(0); }
+        var flags = 0;
+        if (Big) { flags = flags.SetBit(1); }
+        if (AddToRecent) { flags = flags.SetBit(2); }
+        if (Reaction?.Count > 0) { flags = flags.SetBit(0); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Peer);
         writer.Write(MsgId);
-        if (Flags.IsBitSet(0)) { writer.Write(Reaction); }
+        if (flags.IsBitSet(0)) { writer.Write(Reaction); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)

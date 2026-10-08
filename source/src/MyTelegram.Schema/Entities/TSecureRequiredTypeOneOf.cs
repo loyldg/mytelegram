@@ -16,13 +16,9 @@ public sealed partial class TSecureRequiredTypeOneOf : ISecureRequiredType
     /// </summary>
     public TVector<MyTelegram.Schema.ISecureRequiredType> Types { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Types);
     }

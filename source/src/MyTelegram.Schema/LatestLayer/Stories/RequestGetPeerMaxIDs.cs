@@ -20,13 +20,9 @@ public sealed partial class RequestGetPeerMaxIDs : IRequest<TVector<MyTelegram.S
     /// </summary>
     public TVector<MyTelegram.Schema.IInputPeer> Id { get; set; }
 
-    public void ComputeFlag()
-    {
-    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
         writer.Write(ConstructorId);
         writer.Write(Id);
     }

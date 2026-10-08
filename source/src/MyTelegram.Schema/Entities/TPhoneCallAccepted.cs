@@ -56,16 +56,18 @@ public sealed partial class TPhoneCallAccepted : IPhoneCall
     /// </summary>
     public MyTelegram.Schema.IPhoneCallProtocol Protocol { get; set; }
 
-    public void ComputeFlag()
+    public int CalculateFlags()
     {
-        if (Video) { Flags = Flags.SetBit(6); }
+        var flags = 0;
+        if (Video) { flags = flags.SetBit(6); }
+        return flags;
     }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
-        ComputeFlag();
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
-        writer.Write(Flags);
+        writer.Write(flags);
         writer.Write(Id);
         writer.Write(AccessHash);
         writer.Write(Date);
