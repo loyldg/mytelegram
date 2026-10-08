@@ -33,7 +33,7 @@ COPY ["src/MyTelegram.EventBus/MyTelegram.EventBus.csproj", "src/MyTelegram.Even
 COPY ["src/MyTelegram.Services/MyTelegram.Services.csproj", "src/MyTelegram.Services/"]
 COPY ["src/MyTelegram.EventFlow/MyTelegram.EventFlow.csproj", "src/MyTelegram.EventFlow/"]
 
-RUN --mount=type=cache,target=/root/.nuget/packages \
+RUN --mount=type=cache,id=nuget-$TARGETARCH,target=/root/.nuget/packages,sharing=locked \
     dotnet restore \
         -a $TARGETARCH \
         "./src/MyTelegram.AuthServer/MyTelegram.AuthServer.csproj"
@@ -51,7 +51,7 @@ COPY . .
 
 WORKDIR /src/src/MyTelegram.AuthServer
 
-RUN --mount=type=cache,target=/root/.nuget/packages \
+RUN --mount=type=cache,id=nuget-$TARGETARCH,target=/root/.nuget/packages,sharing=locked \
     dotnet publish \
         "./MyTelegram.AuthServer.csproj" \
         -a $TARGETARCH \

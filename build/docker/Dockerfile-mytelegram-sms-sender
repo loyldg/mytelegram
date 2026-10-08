@@ -34,7 +34,7 @@ COPY ["src/MyTelegram.EventFlow/MyTelegram.EventFlow.csproj", "src/MyTelegram.Ev
 
 COPY ["src/MyTelegram.Caching.Redis/MyTelegram.Caching.Redis.csproj", "src/MyTelegram.Caching.Redis/"]
 
-RUN --mount=type=cache,target=/root/.nuget/packages \
+RUN --mount=type=cache,id=nuget-$TARGETARCH,target=/root/.nuget/packages,sharing=locked \
     dotnet restore \
         -a $TARGETARCH \
         "./src/MyTelegram.SmsSender/MyTelegram.SmsSender.csproj"
@@ -52,7 +52,7 @@ COPY . .
 
 WORKDIR /src/src/MyTelegram.SmsSender
 
-RUN --mount=type=cache,target=/root/.nuget/packages \
+RUN --mount=type=cache,id=nuget-$TARGETARCH,target=/root/.nuget/packages,sharing=locked \
     dotnet publish \
         "./MyTelegram.SmsSender.csproj" \
         -a $TARGETARCH \

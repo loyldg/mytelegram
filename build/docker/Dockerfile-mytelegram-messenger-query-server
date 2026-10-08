@@ -45,7 +45,7 @@ COPY ["src/MyTelegram.EventFlow.MongoDB/MyTelegram.EventFlow.MongoDB.csproj", "s
 COPY ["src/MyTelegram.ReadModel/MyTelegram.ReadModel.csproj", "src/MyTelegram.ReadModel/"]
 COPY ["src/MyTelegram.ReadModel.InMemory/MyTelegram.ReadModel.InMemory.csproj", "src/MyTelegram.ReadModel.InMemory/"]
 
-RUN --mount=type=cache,target=/root/.nuget/packages \
+RUN --mount=type=cache,id=nuget-$TARGETARCH,target=/root/.nuget/packages,sharing=locked \
     dotnet restore \
         -a $TARGETARCH \
         "./src/MyTelegram.Messenger.QueryServer/MyTelegram.Messenger.QueryServer.csproj"
@@ -63,7 +63,7 @@ COPY . .
 
 WORKDIR /src/src/MyTelegram.Messenger.QueryServer
 
-RUN --mount=type=cache,target=/root/.nuget/packages \
+RUN --mount=type=cache,id=nuget-$TARGETARCH,target=/root/.nuget/packages,sharing=locked \
     dotnet publish \
         "./MyTelegram.Messenger.QueryServer.csproj" \
         -a $TARGETARCH \

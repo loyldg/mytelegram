@@ -41,7 +41,7 @@ COPY ["src/MyTelegram.EventBus.RabbitMQ/MyTelegram.EventBus.RabbitMQ.csproj", "s
 COPY ["src/MyTelegram.EventBus.Redis/MyTelegram.EventBus.Redis.csproj", "src/MyTelegram.EventBus.Redis/"]
 COPY ["src/MyTelegram.EventBus/MyTelegram.EventBus.csproj", "src/MyTelegram.EventBus/"]
 
-RUN --mount=type=cache,target=/root/.nuget/packages \
+RUN --mount=type=cache,id=nuget-$TARGETARCH,target=/root/.nuget/packages,sharing=locked \
     dotnet restore \
         -a $TARGETARCH \
         "./src/MyTelegram.DataSeeder/MyTelegram.DataSeeder.csproj"
@@ -58,7 +58,7 @@ COPY . .
 
 WORKDIR /src/src/MyTelegram.DataSeeder
 
-RUN --mount=type=cache,target=/root/.nuget/packages \
+RUN --mount=type=cache,id=nuget-$TARGETARCH,target=/root/.nuget/packages,sharing=locked \
     dotnet publish \
         "./MyTelegram.DataSeeder.csproj" \
         -a $TARGETARCH \
