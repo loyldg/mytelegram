@@ -58,7 +58,8 @@ ISagaIsStartedBy<MessageAggregate, MessageId, OutboxMessageEditedEventV2>,
                     newItem.Media,
                     newItem.ReplyMarkup,
                     newItem.InvertMedia,
-                    newItem.Hashtags
+                    newItem.Hashtags,
+                    newItem.InboxMessageEncryptedData
                 );
                 Publish(command);
             }
