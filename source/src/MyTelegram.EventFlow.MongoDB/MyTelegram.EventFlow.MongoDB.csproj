@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <PackageReference Include="EventFlow.MongoDB" />
+    <PackageReference Include="Snappier" />
+    <PackageReference Include="SharpCompress" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" />
     <ProjectReference Include="..\MyTelegram.EventFlow\MyTelegram.EventFlow.csproj" />
   </ItemGroup>
