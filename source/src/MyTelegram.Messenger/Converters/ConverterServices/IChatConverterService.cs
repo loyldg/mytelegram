@@ -8,20 +8,17 @@ public interface IChatConverterService
         long channelId,
         bool checkChannelMember,
         bool? channelMemberIsLeft,
-        int layer = 0,
         bool throwIfNotFound = true
     );
 
     Task<List<IChat>> GetChannelListAsync(IRequestWithAccessHashKeyId request,
         List<long> channelIds,
-        IReadOnlyCollection<IChannelMemberReadModel>? channelMemberReadModels = null,
-        int layer = 0);
+        IReadOnlyCollection<IChannelMemberReadModel>? channelMemberReadModels = null);
 
     Task<IChatFull> GetChannelFullAsync(IRequestWithAccessHashKeyId request,
         long channelId,
         IPeerNotifySettingsReadModel? peerNotifySettingsReadModel = null,
-        IChatInviteReadModel? chatInviteReadModel = null,
-        int layer = 0);
+        IChatInviteReadModel? chatInviteReadModel = null);
 
     Schema.Channels.IChannelParticipant ToChannelParticipant(
         IRequestWithAccessHashKeyId request,
@@ -29,21 +26,18 @@ public interface IChatConverterService
         IPhotoReadModel? photoReadModel,
         IChannelMemberReadModel channelMemberReadModel,
         //IChatPhoto chatPhoto,
-        IUser user,
-        int layer = 0
+        IUser user
     );
 
     IChat ToChannel(IRequestWithAccessHashKeyId request, IChannelReadModel channelReadModel,
         IPhotoReadModel? photoReadModel,
         IChannelMemberReadModel? channelMemberReadModel,
-        bool? channelMemberIsLeft,
-        int layer);
+        bool? channelMemberIsLeft);
 
     List<IChat> ToChannelList(IRequestWithAccessHashKeyId request, IReadOnlyCollection<IChannelReadModel> channelReadModels,
         IReadOnlyCollection<IPhotoReadModel> photoReadModels,
         IReadOnlyCollection<IChannelMemberReadModel>? channelMemberReadModels,
-        IReadOnlyCollection<long>? joinedChannelIds = null,
-        int layer = 0);
+        IReadOnlyCollection<long>? joinedChannelIds = null);
 
     IChannelParticipants ToChannelParticipants(
         IRequestWithAccessHashKeyId request,
@@ -54,8 +48,7 @@ public interface IChatConverterService
         IReadOnlyCollection<IChannelMemberReadModel> channelMemberReadModels,
         IEnumerable<IUser> users,
         DeviceType deviceType,
-        bool forceNotLeft,
-        int layer
+        bool forceNotLeft
     );
 
     Schema.Messages.IChatFull ToChannelFull(
@@ -65,7 +58,6 @@ public interface IChatConverterService
         IChannelFullReadModel channelFullReadModel,
         IChannelMemberReadModel? channelMemberReadModel,
         IPeerNotifySettingsReadModel peerNotifySettingsReadModel,
-        IChatInviteReadModel? chatInviteReadModel = null,
-        int layer = 0
+        IChatInviteReadModel? chatInviteReadModel = null
     );
 }

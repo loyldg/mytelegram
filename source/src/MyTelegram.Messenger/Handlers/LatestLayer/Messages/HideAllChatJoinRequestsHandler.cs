@@ -57,7 +57,7 @@ internal sealed class HideAllChatJoinRequestsHandler(IQueryProcessor queryProces
         }
 
         await HideAllChatJoinRequestsAsync(input.ToRequestInfo(), channelId, inviteId, obj.Approved, topMessageId, channelHistoryMinId, broadcast);
-        var channel = await chatConverterService.GetChannelAsync(input, channelId, false, false, input.Layer);
+        var channel = await chatConverterService.GetChannelAsync(input, channelId, false, false);
         return new TUpdates
         {
             Chats = [channel],

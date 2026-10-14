@@ -10,20 +10,20 @@ public class ChatConverterService(
     IPhotoAppService photoAppService,
     IChannelAppService channelAppService,
     IAccessHashHelper2 accessHashHelper2,
-    ILayeredService<IChannelConverter> channelLayeredService,
-    ILayeredService<IPhotoConverter> photoLayeredService,
-    ILayeredService<IChannelFullConverter> channelFullLayeredService,
-    ILayeredService<IChannelParticipantConverter> channelParticipantLayeredService,
-    ILayeredService<IChannelParticipantSelfConverter> channelParticipantSelfLayeredService,
-    ILayeredService<IPeerNotifySettingsConverter> peerNotifySettingsLayeredService,
-    ILayeredService<IChatAdminRightsConverter> chatAdminRightsLayeredService,
+    IChannelConverter channelConverter,
+    IPhotoConverter photoConverter,
+    IChannelFullConverter channelFullConverter,
+    IChannelParticipantConverter channelParticipantConverter,
+    IChannelParticipantSelfConverter channelParticipantSelfConverter,
+    IPeerNotifySettingsConverter peerNotifySettingsConverter,
+    IChatAdminRightsConverter chatAdminRightsConverter,
     IChatInviteExportedConverterService chatInviteExportedConverterService,
-    ILayeredService<IEmojiStatusConverter> emojiStatusLayeredService,
-    ILayeredService<IChatBannedRightsConverter> chatBannedRightsLayeredService)
+    IChatBannedRightsConverter chatBannedRightsConverter
+    )
     : IChatConverterService, ITransientDependency
 {
     public async Task<IChat> GetChannelAsync(IRequestWithAccessHashKeyId request, long channelId,
-        bool checkChannelMember, bool? channelMemberIsLeft, int layer = 0, bool throwIfNotFound = true)
+        bool checkChannelMember, bool? channelMemberIsLeft, bool throwIfNotFound = true)
     {
         var channelReadModel = await channelAppService.GetAsync(channelId, throwIfNotFound);
         if (channelReadModel == null!)
@@ -45,14 +45,12 @@ public class ChatConverterService(
 
         var photoReadModel = await photoAppService.GetAsync(channelReadModel.PhotoId);
 
-        return ToChannelCore(request, channelReadModel, photoReadModel, channelMemberReadModel, channelMemberIsLeft,
-            layer);
+        return ToChannelCore(request, channelReadModel, photoReadModel, channelMemberReadModel, channelMemberIsLeft);
     }
 
     public async Task<List<IChat>> GetChannelListAsync(IRequestWithAccessHashKeyId request,
         List<long> channelIds,
-        IReadOnlyCollection<IChannelMemberReadModel>? channelMemberReadModels = null,
-        int layer = 0)
+        IReadOnlyCollection<IChannelMemberReadModel>? channelMemberReadModels = null)
     {
         var channels = new List<IChat>();
         var channelReadModels = await channelAppService.GetListAsync(channelIds);
@@ -65,8 +63,7 @@ public class ChatConverterService(
             photos.TryGetValue(channelReadModel.PhotoId ?? 0, out var photoReadModel);
             channelMembers.TryGetValue(channelReadModel.ChannelId, out var channelMemberReadModel);
 
-            var channel = ToChannelCore(request, channelReadModel, photoReadModel, channelMemberReadModel, null,
-                layer);
+            var channel = ToChannelCore(request, channelReadModel, photoReadModel, channelMemberReadModel, null);
 
             channels.Add(channel);
         }
@@ -76,8 +73,7 @@ public class ChatConverterService(
 
     public async Task<IChatFull> GetChannelFullAsync(IRequestWithAccessHashKeyId request, long channelId,
         IPeerNotifySettingsReadModel? peerNotifySettingsReadModel = null,
-        IChatInviteReadModel? chatInviteReadModel = null,
-        int layer = 0)
+        IChatInviteReadModel? chatInviteReadModel = null)
     {
         var channelReadModel = await channelAppService.GetAsync(channelId);
         var channelFullReadModel = await channelAppService.GetChannelFullAsync(channelId);
@@ -88,7 +84,7 @@ public class ChatConverterService(
 
         var photoReadModel = await photoAppService.GetAsync(channelReadModel.PhotoId);
         return ToChannelFull(request, channelReadModel, photoReadModel, channelFullReadModel,
-            peerNotifySettingsReadModel, chatInviteReadModel, layer);
+            peerNotifySettingsReadModel, chatInviteReadModel);
     }
 
     public Schema.Channels.IChannelParticipant ToChannelParticipant(
@@ -96,12 +92,11 @@ public class ChatConverterService(
         IChannelReadModel channelReadModel,
         IPhotoReadModel? photoReadModel,
         IChannelMemberReadModel channelMemberReadModel,
-        IUser user,
-        int layer = 0
+        IUser user
     )
     {
-        var participant = ToChannelParticipantCore(request, channelReadModel, channelMemberReadModel, layer);
-        var channel = ToChannel(request, channelReadModel, photoReadModel, channelMemberReadModel, null, layer);
+        var participant = ToChannelParticipantCore(request, channelReadModel, channelMemberReadModel);
+        var channel = ToChannel(request, channelReadModel, photoReadModel, channelMemberReadModel, null);
         return new TChannelParticipant
         {
             Chats = new TVector<IChat>(channel),
@@ -111,16 +106,15 @@ public class ChatConverterService(
     }
 
     public IChat ToChannel(IRequestWithAccessHashKeyId request, IChannelReadModel channelReadModel, IPhotoReadModel? photoReadModel,
-        IChannelMemberReadModel? channelMemberReadModel, bool? channelMemberIsLeft, int layer)
+        IChannelMemberReadModel? channelMemberReadModel, bool? channelMemberIsLeft)
     {
-        return ToChannelCore(request, channelReadModel, photoReadModel, channelMemberReadModel, channelMemberIsLeft,
-            layer);
+        return ToChannelCore(request, channelReadModel, photoReadModel, channelMemberReadModel, channelMemberIsLeft);
     }
 
     public List<IChat> ToChannelList(IRequestWithAccessHashKeyId request, IReadOnlyCollection<IChannelReadModel> channelReadModels,
         IReadOnlyCollection<IPhotoReadModel> photoReadModels,
         IReadOnlyCollection<IChannelMemberReadModel>? channelMemberReadModels,
-        IReadOnlyCollection<long>? joinedChannelIds = null, int layer = 0)
+        IReadOnlyCollection<long>? joinedChannelIds = null)
     {
         var channels = new List<IChat>();
         var channelMembers = channelMemberReadModels?.ToDictionary(k => k.ChannelId) ?? [];
@@ -131,8 +125,7 @@ public class ChatConverterService(
             photos.TryGetValue(channelReadModel.PhotoId ?? 0, out var photoReadModel);
             channelMembers.TryGetValue(channelReadModel.ChannelId, out var channelMemberReadModel);
 
-            var channel = ToChannelCore(request, channelReadModel, photoReadModel, channelMemberReadModel, null,
-                layer);
+            var channel = ToChannelCore(request, channelReadModel, photoReadModel, channelMemberReadModel, null);
             if (channel is ILayeredChannel chat)
             {
                 if (shouldCheckJoinedChannelList)
@@ -152,7 +145,7 @@ public class ChatConverterService(
         //IReadOnlyCollection<IChatAdminReadModel>? chatAdminReadModels,
         int participantCount,
         IReadOnlyCollection<IChannelMemberReadModel> channelMemberReadModels, IEnumerable<IUser> users,
-        DeviceType deviceType, bool forceNotLeft, int layer)
+        DeviceType deviceType, bool forceNotLeft)
     {
         var channelMemberReadModel = channelMemberReadModels.FirstOrDefault(p => p.UserId == request.UserId);
         var channelMemberIsLeft = true;
@@ -173,7 +166,7 @@ public class ChatConverterService(
             channelReadModel,
             photoReadModel,
             channelMemberReadModel,
-            channelMemberIsLeft, layer);
+            channelMemberIsLeft);
 
         //if (channelReadModel.Broadcast)
         //{
@@ -184,8 +177,7 @@ public class ChatConverterService(
         //}
 
         var participants =
-            ToChannelParticipantsCore(request, channelReadModel, [], channelMemberReadModels,
-                layer);
+            ToChannelParticipantsCore(request, channelReadModel, [], channelMemberReadModels);
 
         return new TChannelParticipants
         {
@@ -203,11 +195,10 @@ public class ChatConverterService(
         IChannelFullReadModel channelFullReadModel,
         IChannelMemberReadModel? channelMemberReadModel,
         IPeerNotifySettingsReadModel peerNotifySettingsReadModel,
-        IChatInviteReadModel? chatInviteReadModel = null,
-        int layer = 0
+        IChatInviteReadModel? chatInviteReadModel = null
     )
     {
-        var channel = ToChannel(request, channelReadModel, photoReadModel, channelMemberReadModel, null, layer);
+        var channel = ToChannel(request, channelReadModel, photoReadModel, channelMemberReadModel, null);
         if (channel is ILayeredChannel layeredChannel)
         {
             layeredChannel.ParticipantsCount = null;
@@ -219,8 +210,7 @@ public class ChatConverterService(
             photoReadModel,
             channelFullReadModel,
             peerNotifySettingsReadModel,
-            chatInviteReadModel,
-            layer
+            chatInviteReadModel
         );
 
         var chatFull = new TChatFull
@@ -236,8 +226,7 @@ public class ChatConverterService(
     private IChat ToChannelCore(IRequestWithAccessHashKeyId request, IChannelReadModel channelReadModel,
         IPhotoReadModel? photoReadModel,
         IChannelMemberReadModel? channelMemberReadModel,
-        bool? channelMemberIsLeft,
-        int layer
+        bool? channelMemberIsLeft
     )
     {
         var accessHash = 0L;
@@ -259,10 +248,9 @@ public class ChatConverterService(
             };
         }
 
-        var channel = channelLayeredService.GetConverter(layer).ToChannel(channelReadModel);
+        var channel = channelConverter.ToChannel(channelReadModel);
         channel.Creator = channelReadModel.CreatorId == request.UserId;
-        channel.Photo = photoLayeredService.GetConverter(layer).ToChatPhoto(photoReadModel);
-        channel.EmojiStatus = emojiStatusLayeredService.GetConverter(layer).ToEmojiStatus(channelReadModel.EmojiStatus);
+        channel.Photo = photoConverter.ToChatPhoto(photoReadModel);
         channel.Left = false;
         channel.AccessHash = accessHash;
 
@@ -280,7 +268,7 @@ public class ChatConverterService(
 
         if (channelMemberReadModel != null && channelMemberReadModel.BannedRights != 0)
         {
-            var bannedRights = chatBannedRightsLayeredService.GetConverter(layer)
+            var bannedRights = chatBannedRightsConverter
                 .ToChatBannedRights(ChatBannedRights.FromValue(channelMemberReadModel.BannedRights,
                     channelMemberReadModel.UntilDate));
             channel.BannedRights = bannedRights;
@@ -288,7 +276,7 @@ public class ChatConverterService(
 
         if (channel.Creator)
         {
-            channel.AdminRights = chatAdminRightsLayeredService.GetConverter(layer)
+            channel.AdminRights = chatAdminRightsConverter
                 .ToChatAdminRights(ChatAdminRights.GetCreatorRights());
             channel.Left = false;
         }
@@ -298,7 +286,7 @@ public class ChatConverterService(
             {
                 var admin = channelReadModel.AdminList.FirstOrDefault(p => p.UserId == request.UserId);
                 channel.AdminRights = admin != null
-                    ? chatAdminRightsLayeredService.GetConverter(layer)
+                    ? chatAdminRightsConverter
                         .ToChatAdminRights(admin.AdminRights)
                     : null;
             }
@@ -313,8 +301,7 @@ public class ChatConverterService(
         IChannelFullReadModel channelFullReadModel,
         //IChannelMemberReadModel? channelMemberReadModel,
         IPeerNotifySettingsReadModel? peerNotifySettingsReadModel = null,
-        IChatInviteReadModel? chatInviteReadModel = null,
-        int layer = 0
+        IChatInviteReadModel? chatInviteReadModel = null
     )
     {
         if (channelReadModel == null || channelFullReadModel == null)
@@ -322,11 +309,11 @@ public class ChatConverterService(
             throw new RpcException(RpcErrors.RpcErrors400.ChannelInvalid);
         }
 
-        var channelFull = channelFullLayeredService.GetConverter(layer)
+        var channelFull = channelFullConverter
             .ToChannelFull(channelFullReadModel);
-        channelFull.ChatPhoto = photoLayeredService.GetConverter(layer)
+        channelFull.ChatPhoto = photoConverter
             .ToPhoto(photoReadModel);
-        channelFull.NotifySettings = peerNotifySettingsLayeredService.GetConverter(layer)
+        channelFull.NotifySettings = peerNotifySettingsConverter
             .ToPeerNotifySettings(peerNotifySettingsReadModel);
         channelFull.Pts = channelReadModel.Pts;
         channelFull.ParticipantsCount = channelReadModel.ParticipantsCount;
@@ -375,7 +362,7 @@ public class ChatConverterService(
 
         if (chatInviteReadModel != null && channelReadModel.AdminList.Any(p => p.UserId == request.UserId))
         {
-            channelFull.ExportedInvite = chatInviteExportedConverterService.ToExportedChatInvite(chatInviteReadModel, layer);
+            channelFull.ExportedInvite = chatInviteExportedConverterService.ToExportedChatInvite(chatInviteReadModel);
         }
 
         if (channelFull.Call != null)
@@ -414,8 +401,7 @@ public class ChatConverterService(
         IChannelReadModel channelReadModel,
         //IPhotoReadModel? photoReadModel,
         IReadOnlyCollection<IChatAdminReadModel>? chatAdminReadModels,
-        IReadOnlyCollection<IChannelMemberReadModel> channelMemberReadModels,
-        int layer
+        IReadOnlyCollection<IChannelMemberReadModel> channelMemberReadModels
     )
     {
         var participants = new List<IChannelParticipant>();
@@ -435,7 +421,7 @@ public class ChatConverterService(
                 continue;
             }
 
-            participants.Add(ToChannelParticipantCore(request, channelReadModel, channelMemberReadModel, layer));
+            participants.Add(ToChannelParticipantCore(request, channelReadModel, channelMemberReadModel));
         }
 
         return participants;
@@ -471,8 +457,7 @@ public class ChatConverterService(
         IRequestWithAccessHashKeyId request,
         IChannelReadModel channelReadModel,
         //IPhotoReadModel? photoReadModel,
-        IChannelMemberReadModel channelMemberReadModel,
-        int layer
+        IChannelMemberReadModel channelMemberReadModel
     )
     {
         var bannedRights = ChatBannedRights.FromValue(channelMemberReadModel.BannedRights,
@@ -529,10 +514,10 @@ public class ChatConverterService(
 
         if (channelMemberReadModel.UserId == request.UserId)
         {
-            return channelParticipantSelfLayeredService.GetConverter(layer)
+            return channelParticipantSelfConverter
                 .ToChannelParticipantSelf(channelMemberReadModel);
         }
 
-        return channelParticipantLayeredService.GetConverter(layer).ToChatParticipant(channelMemberReadModel);
+        return channelParticipantConverter.ToChatParticipant(channelMemberReadModel);
     }
 }

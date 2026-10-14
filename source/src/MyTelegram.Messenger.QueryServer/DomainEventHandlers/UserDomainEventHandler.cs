@@ -40,7 +40,7 @@ public class UserDomainEventHandler(
             domainEvent.AggregateEvent.RequestInfo.AuthKeyId,
             domainEvent.AggregateEvent.RequestInfo.PermAuthKeyId,
             userId));
-        var user = await userConverterService.GetUserAsync(domainEvent.AggregateEvent.RequestInfo, userId, layer: domainEvent.AggregateEvent.RequestInfo.Layer);
+        var user = await userConverterService.GetUserAsync(domainEvent.AggregateEvent.RequestInfo, userId);
         user.Self = true;
         var r = layeredAuthorizationService.GetConverter(domainEvent.AggregateEvent.RequestInfo.Layer)
             .CreateAuthorization(user);
@@ -57,7 +57,7 @@ public class UserDomainEventHandler(
         {
             return;
         }
-        var user = await userConverterService.GetUserAsync(domainEvent.AggregateEvent.RequestInfo, userId, layer: domainEvent.AggregateEvent.RequestInfo.Layer);
+        var user = await userConverterService.GetUserAsync(domainEvent.AggregateEvent.RequestInfo, userId);
 
         await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo, user);
     }
@@ -66,7 +66,7 @@ public class UserDomainEventHandler(
         CancellationToken cancellationToken)
     {
         var userId = domainEvent.AggregateEvent.RequestInfo.UserId;
-        var user = await userConverterService.GetUserAsync(domainEvent.AggregateEvent.RequestInfo, userId, layer: domainEvent.AggregateEvent.RequestInfo.Layer);
+        var user = await userConverterService.GetUserAsync(domainEvent.AggregateEvent.RequestInfo, userId);
         var photoReadModel = await photoAppService.GetAsync(domainEvent.AggregateEvent.PhotoId);
 
         var photo = new MyTelegram.Schema.Photos.TPhoto
@@ -82,7 +82,7 @@ public class UserDomainEventHandler(
         CancellationToken cancellationToken)
     {
         var userId = domainEvent.AggregateEvent.RequestInfo.UserId;
-        var user = await userConverterService.GetUserAsync(domainEvent.AggregateEvent.RequestInfo, userId, layer: domainEvent.AggregateEvent.RequestInfo.Layer);
+        var user = await userConverterService.GetUserAsync(domainEvent.AggregateEvent.RequestInfo, userId);
         var photoReadModel = await photoAppService.GetAsync(domainEvent.AggregateEvent.PhotoId);
 
         var photo = new MyTelegram.Schema.Photos.TPhoto
@@ -98,7 +98,7 @@ public class UserDomainEventHandler(
         CancellationToken cancellationToken)
     {
         var userId = domainEvent.AggregateEvent.RequestInfo.UserId;
-        var user = await userConverterService.GetUserAsync(domainEvent.AggregateEvent.RequestInfo, userId, layer: domainEvent.AggregateEvent.RequestInfo.Layer);
+        var user = await userConverterService.GetUserAsync(domainEvent.AggregateEvent.RequestInfo, userId);
         await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo, user, domainEvent.AggregateEvent.UserId);
     }
 }

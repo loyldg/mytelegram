@@ -1,28 +1,29 @@
 ﻿namespace MyTelegram.Messenger.Converters.ConverterServices;
 
-public class ChatInviteExportedConverterService(ILayeredService<IChatInviteExportedConverter> chatInviteExportedLayeredService,
+public class ChatInviteExportedConverterService(
+    IChatInviteExportedConverter chatInviteExportedConverter,
     IChatInviteLinkHelper chatInviteLinkHelper,
     IOptionsMonitor<MyTelegramMessengerServerOptions> options) : IChatInviteExportedConverterService, ITransientDependency
 {
-    public ILayeredExportedChatInvite ToExportedChatInvite(IChatInviteReadModel readModel, int layer)
+    public ILayeredExportedChatInvite ToExportedChatInvite(IChatInviteReadModel readModel)
     {
-        var exportedChatInvite = chatInviteExportedLayeredService.GetConverter(layer).ToExportedChatInvite(readModel);
+        var exportedChatInvite = chatInviteExportedConverter.ToExportedChatInvite(readModel);
         exportedChatInvite.Link = chatInviteLinkHelper.GetFullLink(options.CurrentValue.JoinChatDomain, readModel.Link);
 
         return exportedChatInvite;
     }
 
-    public ILayeredExportedChatInvite ToExportedChatInvite(ChatInviteCreatedEvent source, int layer)
+    public ILayeredExportedChatInvite ToExportedChatInvite(ChatInviteCreatedEvent source)
     {
-        var exportedChatInvite = chatInviteExportedLayeredService.GetConverter(layer).ToExportedChatInvite(source);
+        var exportedChatInvite = chatInviteExportedConverter.ToExportedChatInvite(source);
         exportedChatInvite.Link = chatInviteLinkHelper.GetFullLink(options.CurrentValue.JoinChatDomain, source.Hash);
 
         return exportedChatInvite;
     }
 
-    public ILayeredExportedChatInvite ToExportedChatInvite(ChatInviteEditedEvent source, string link, int layer)
+    public ILayeredExportedChatInvite ToExportedChatInvite(ChatInviteEditedEvent source, string link)
     {
-        var exportedChatInvite = chatInviteExportedLayeredService.GetConverter(layer).ToExportedChatInvite(source);
+        var exportedChatInvite = chatInviteExportedConverter.ToExportedChatInvite(source);
         exportedChatInvite.Link = chatInviteLinkHelper.GetFullLink(options.CurrentValue.JoinChatDomain, link);
 
         return exportedChatInvite;

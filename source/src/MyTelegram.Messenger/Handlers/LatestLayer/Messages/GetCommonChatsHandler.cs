@@ -26,7 +26,7 @@ internal sealed class GetCommonChatsHandler(IQueryProcessor queryProcessor, ICha
         {
             var channelReadModels = await channelAppService.GetListAsync(commonChannelIds.ToList());
             var photoReadModels = await photoAppService.GetPhotosAsync(channelReadModels);
-            var chats = chatConverterService.ToChannelList(input, channelReadModels, photoReadModels, [], commonChannelIds, layer: input.Layer);
+            var chats = chatConverterService.ToChannelList(input, channelReadModels, photoReadModels, [], commonChannelIds);
             return new TChats
             {
                 Chats = [.. chats]

@@ -38,7 +38,7 @@ internal sealed class GetChatInviteImportersHandler(IQueryProcessor queryProcess
             var inviteImporterReadModels = await queryProcessor.ProcessAsync(new GetChatInviteImportersQuery(inputPeerChannel.ChannelId, obj.Requested ? ChatInviteRequestState.WaitingForApproval : null, inviteId, obj.OffsetDate, userPeer.PeerId, obj.Q, obj.Limit));
             var importers = new List<TChatInviteImporter>();
             var userIds = new List<long>();
-            var users = await userConverterService.GetUserListAsync(input, userIds, false, false, input.Layer);
+            var users = await userConverterService.GetUserListAsync(input, userIds, false, false);
             //var userDict = users.ToDictionary(k => k.Id);
             foreach (var readModel in inviteImporterReadModels)
             {

@@ -37,10 +37,10 @@ internal sealed class GetExportedChatInvitesHandler(IPeerHelper peerHelper, IQue
         var admin = peerHelper.GetPeer(obj.AdminId, input.UserId);
         var invites = await queryProcessor.ProcessAsync(new GetChatInvitesQuery(obj.Revoked, peer.PeerId, admin.PeerId, obj.OffsetDate, obj.OffsetLink ?? string.Empty, obj.Limit));
         var userIds = invites.Select(p => p.AdminId).ToList();
-        var users = await userConverterService.GetUserListAsync(input, userIds, false, false, input.Layer);
+        var users = await userConverterService.GetUserListAsync(input, userIds, false, false);
         //var tInvites = invites.Select(p => objectMapper.Map<IChatInviteReadModel, TChatInviteExported>(p)).ToList();
         //tInvites.ForEach(p => p.Link = chatInviteLinkHelper.GetFullLink(options.Value.JoinChatDomain, p.Link));
-        var tInvites = invites.Select(p => chatInviteExportedConverterService.ToExportedChatInvite(p, input.Layer));
+        var tInvites = invites.Select(p => chatInviteExportedConverterService.ToExportedChatInvite(p));
         var r = new TExportedChatInvites
         {
             Count = invites.Count,

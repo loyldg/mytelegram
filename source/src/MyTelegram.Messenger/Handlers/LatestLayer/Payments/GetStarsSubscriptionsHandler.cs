@@ -1,4 +1,3 @@
-using MyTelegram.Converters.Responses.Interfaces.Payments;
 using MyTelegram.Schema.Payments;
 
 namespace MyTelegram.Messenger.Handlers.LatestLayer.Payments;
@@ -12,10 +11,10 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Payments;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetStarsSubscriptionsHandler(ILayeredService<IStarsStatusResponseConverter> starsStatusLayeredService) : RpcResultObjectHandler<MyTelegram.Schema.Payments.RequestGetStarsSubscriptions, MyTelegram.Schema.Payments.IStarsStatus>
+internal sealed class GetStarsSubscriptionsHandler : RpcResultObjectHandler<MyTelegram.Schema.Payments.RequestGetStarsSubscriptions, MyTelegram.Schema.Payments.IStarsStatus>
 {
-    protected override Task<MyTelegram.Schema.Payments.IStarsStatus> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Payments.RequestGetStarsSubscriptions obj)
+    protected override async Task<MyTelegram.Schema.Payments.IStarsStatus> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Payments.RequestGetStarsSubscriptions obj)
     {
-        return Task.FromResult<MyTelegram.Schema.Payments.IStarsStatus>(starsStatusLayeredService.GetConverter(input.Layer).ToLayeredData(new TStarsStatus { Balance = new TStarsAmount(), Chats = [], Users = [] }));
+        return new TStarsStatus { Balance = new TStarsAmount(), Chats = [], Users = [] };
     }
 }

@@ -28,7 +28,7 @@ internal sealed class GetChannelsHandler(IChatConverterService chatConverterServ
         if (channelIds.Count > 0)
         {
             var channelMemberReadModels = await queryProcessor.ProcessAsync(new GetChannelMemberListByChannelIdListQuery(input.UserId, channelIds));
-            var channels = await chatConverterService.GetChannelListAsync(input, channelIds, channelMemberReadModels, layer: input.Layer);
+            var channels = await chatConverterService.GetChannelListAsync(input, channelIds, channelMemberReadModels);
             return new TChats
             {
                 Chats = [.. channels]

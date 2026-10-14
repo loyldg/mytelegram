@@ -47,10 +47,10 @@ internal sealed class GetDiscussionMessageHandler(IPeerHelper peerHelper, IQuery
             readMaxId = Math.Max(dialogReadModel.ReadInboxMaxId, dialogReadModel.ReadOutboxMaxId);
         }
 
-        var message = messageConverterService.ToMessage(input.UserId, messageReadModel, layer: input.Layer);
+        var message = messageConverterService.ToMessage(input.UserId, messageReadModel);
         var photoReadModels = await photoAppService.GetPhotosAsync(channelReadModels);
         var channelMemberReadModels = await queryProcessor.ProcessAsync(new GetChannelMemberListByChannelIdListQuery(input.UserId, channelIds));
-        var chats = chatConverterService.ToChannelList(input, channelReadModels, photoReadModels, channelMemberReadModels, layer: input.Layer);
+        var chats = chatConverterService.ToChannelList(input, channelReadModels, photoReadModels, channelMemberReadModels);
         return new TDiscussionMessage
         {
             Chats = [.. chats],

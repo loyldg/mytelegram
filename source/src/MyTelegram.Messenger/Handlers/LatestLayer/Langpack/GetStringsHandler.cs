@@ -15,7 +15,7 @@ internal sealed class GetStringsHandler(ILanguageCacheService languageCacheServi
     protected override async Task<TVector<ILangPackString>> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Langpack.RequestGetStrings obj)
     {
         var foundLanguageItems = await languageCacheService.GetLanguageTextsAsync(obj.LangCode, obj.LangPack, obj.Keys);
-        var langPackStrings = langPackStringConverterService.ToLangPackStrings(foundLanguageItems, input.Layer);
+        var langPackStrings = langPackStringConverterService.ToLangPackStrings(foundLanguageItems);
         // 3. Identify which keys were NOT found and add them as "Deleted".
         if (foundLanguageItems.Count != obj.Keys.Count)
         {

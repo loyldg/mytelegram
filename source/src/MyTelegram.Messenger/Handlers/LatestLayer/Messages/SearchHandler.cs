@@ -30,7 +30,7 @@ internal sealed class SearchHandler(IMessageAppService messageAppService, IToken
         var ownerPeerId = peer.PeerType == PeerType.Channel ? peer.PeerId : userId;
         var tokens = tokenizer.BuildSearchTokens(obj.Q);
         var getMessageOutput = await messageAppService.SearchAsync(new SearchInput { OwnerPeerId = ownerPeerId, SelfUserId = userId, Limit = obj.Limit, Q = obj.Q, OffsetId = obj.OffsetId, AddOffset = obj.AddOffset, Peer = peer, MaxDate = obj.MaxDate, MaxId = obj.MaxId, MinDate = obj.MinDate, MinId = obj.MinId, MessageType = GetMessageType(obj.Filter), Tokens = tokens });
-        return await getHistoryConverterService.ToMessagesAsync(input, getMessageOutput, input.Layer);
+        return await getHistoryConverterService.ToMessagesAsync(input, getMessageOutput);
     }
 
     private static MessageType GetMessageType(IMessagesFilter? filter)

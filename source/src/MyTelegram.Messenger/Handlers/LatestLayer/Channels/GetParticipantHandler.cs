@@ -31,9 +31,9 @@ internal sealed class GetParticipantHandler(IQueryProcessor queryProcessor, IPee
             var userId = channelMemberReadModel?.UserId ?? input.UserId;
             var channelReadModel = await channelAppService.GetAsync(inputChannel.ChannelId);
             channelReadModel.ThrowExceptionIfChannelDeleted();
-            var user = await userConverterService.GetUserAsync(input, userId, false, false, input.Layer);
+            var user = await userConverterService.GetUserAsync(input, userId, false, false);
             var photoReadModel = await photoAppService.GetAsync(channelReadModel!.PhotoId);
-            var r = chatConverterService.ToChannelParticipant(input, channelReadModel, photoReadModel, channelMemberReadModel!, user, input.Layer);
+            var r = chatConverterService.ToChannelParticipant(input, channelReadModel, photoReadModel, channelMemberReadModel!, user);
             return r;
         }
 

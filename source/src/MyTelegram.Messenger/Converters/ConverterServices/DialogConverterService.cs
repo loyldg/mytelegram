@@ -6,11 +6,12 @@ public class DialogConverterService(
     IUserConverterService userConverterService,
     IChatConverterService chatConverterService,
     IMessageConverterService messageConverterService,
-    ILayeredService<IDraftMessageConverter> draftMessageLayeredService,
-    ILayeredService<IPeerNotifySettingsConverter> peerNotifySettingsLayeredService,
-    ILayeredService<IDialogConverter> dialogLayeredService) : IDialogConverterService, ITransientDependency
+    IDraftMessageConverter draftMessageConverter,
+    IPeerNotifySettingsConverter peerNotifySettingsConverter,
+    IDialogConverter dialogConverter
+    ) : IDialogConverterService, ITransientDependency
 {
-    public async Task<IDialogs> ToDialogsAsync(IRequestWithAccessHashKeyId request, GetDialogOutput output, int layer = 0)
+    public async Task<IDialogs> ToDialogsAsync(IRequestWithAccessHashKeyId request, GetDialogOutput output)
     {
         var dialogs = new List<IDialog>();
         var channels = output.ChannelList.ToDictionary(k => k.ChannelId);
@@ -22,17 +23,16 @@ public class DialogConverterService(
                 channels.TryGetValue(dialogReadModel.ToPeerId, out channelReadModel);
             }
 
-            var dialog = ToDialog(dialogReadModel, channelReadModel, layer);
+            var dialog = ToDialog(dialogReadModel, channelReadModel);
             dialogs.Add(dialog);
         }
 
         var users = await userConverterService.ToUserListAsync(request, output.UserList, output.PhotoList, output.ContactList,
-            output.PrivacyList, layer);
+            output.PrivacyList);
         var channelList = chatConverterService.ToChannelList(request,
             output.ChannelList,
             output.PhotoList,
-            output.ChannelMemberList,
-            layer: layer
+            output.ChannelMemberList
         );
         var allMessages = output.MessageList.ToList();
         foreach (var channel in channelList)
@@ -44,7 +44,7 @@ public class DialogConverterService(
         }
 
         var messages = messageConverterService
-            .ToMessageList(output.SelfUserId, allMessages, output.PollList, output.ChosenPollOptions, output.UserReactionList, layer);
+            .ToMessageList(output.SelfUserId, allMessages, output.PollList, output.ChosenPollOptions, output.UserReactionList);
 
         if (dialogs.Count == output.Limit)
         {
@@ -66,9 +66,9 @@ public class DialogConverterService(
         };
     }
 
-    public async Task<IPeerDialogs> ToPeerDialogsAsync(IRequestWithAccessHashKeyId request, GetDialogOutput output, int layer = 0)
+    public async Task<IPeerDialogs> ToPeerDialogsAsync(IRequestWithAccessHashKeyId request, GetDialogOutput output)
     {
-        var dialogs = await ToDialogsAsync(request, output, layer);
+        var dialogs = await ToDialogsAsync(request, output);
         var pts = output.PtsReadModel?.Pts ?? 0;
         if (output.CachedPts > pts)
         {
@@ -109,18 +109,17 @@ public class DialogConverterService(
     }
 
     private IDialog ToDialog(IDialogReadModel dialogReadModel,
-        IChannelReadModel? channelReadModel,
-        int layer)
+        IChannelReadModel? channelReadModel)
     {
-        var peerNotifySettings = peerNotifySettingsLayeredService.GetConverter(layer)
+        var peerNotifySettings = peerNotifySettingsConverter
             .ToPeerNotifySettings(dialogReadModel.NotifySettings ?? PeerNotifySettings.DefaultSettings);
-        var dialog = dialogLayeredService.GetConverter(layer).ToDialog(dialogReadModel, channelReadModel, peerNotifySettings);
+        var dialog = dialogConverter.ToDialog(dialogReadModel, channelReadModel, peerNotifySettings);
 
         if (dialogReadModel.Draft != null)
         {
             if (dialog is ILayeredDialog layeredDialog)
             {
-                var draftMessage = draftMessageLayeredService.GetConverter(layer).ToDraftMessage(dialogReadModel.Draft);
+                var draftMessage = draftMessageConverter.ToDraftMessage(dialogReadModel.Draft);
                 layeredDialog.Draft = draftMessage;
             }
         }

@@ -20,7 +20,7 @@ public class VoteDomainEventHandler(
         if (pollReadModel != null)
         {
             var selfUpdates = sendVoteConverterService.ToSelfUpdates(domainEvent.AggregateEvent.RequestInfo.UserId, pollReadModel,
-                domainEvent.AggregateEvent.ChosenOptions.ToList(), domainEvent.AggregateEvent.RequestInfo.Layer);
+                domainEvent.AggregateEvent.ChosenOptions.ToList());
             await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo, selfUpdates)
          ;
 

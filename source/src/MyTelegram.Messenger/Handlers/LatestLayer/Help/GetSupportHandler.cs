@@ -25,7 +25,7 @@ internal sealed class GetSupportHandler(IUserAppService userAppService, IUserCon
             supportUserId = MyTelegramConsts.DefaultSupportUserId;
         }
 
-        var user = await userConverterService.GetUserAsync(input, supportUserId, layer: input.Layer);
+        var user = await userConverterService.GetUserAsync(input, supportUserId);
         return new TSupport
         {
             PhoneNumber = user.Phone ?? string.Empty,

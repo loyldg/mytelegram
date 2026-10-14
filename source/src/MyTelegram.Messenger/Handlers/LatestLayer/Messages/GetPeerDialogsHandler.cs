@@ -56,7 +56,7 @@ internal sealed class GetPeerDialogsHandler(IDialogAppService dialogAppService, 
         var cachedPts = ptsHelper.GetCachedPts(input.UserId);
         output.PtsReadModel = pts;
         output.CachedPts = cachedPts;
-        var peerDialogs = await dialogConverterService.ToPeerDialogsAsync(input, output, input.Layer);
+        var peerDialogs = await dialogConverterService.ToPeerDialogsAsync(input, output);
         foreach (var dialog in peerDialogs.Dialogs)
         {
             switch (dialog)
@@ -74,7 +74,7 @@ internal sealed class GetPeerDialogsHandler(IDialogAppService dialogAppService, 
         if (peerDialogs.Dialogs.Count == 0)
         {
             var userIds = peerList.Where(p => p.PeerType == PeerType.User).Select(p => p.PeerId).Distinct().ToList();
-            var users = await userConverterService.GetUserListAsync(input, userIds, false, false, input.Layer);
+            var users = await userConverterService.GetUserListAsync(input, userIds, false, false);
             var channels = output.ChannelList.ToDictionary(k => k.ChannelId, v => v);
             peerDialogs.Dialogs = [..peerList.Select(p =>
             {

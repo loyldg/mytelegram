@@ -9,8 +9,6 @@ global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Options;
 global using MyTelegram.Abstractions;
-global using MyTelegram.Converters.Responses;
-global using MyTelegram.Converters.Responses.Interfaces;
 global using MyTelegram.Converters.TLObjects.Interfaces;
 global using MyTelegram.Core;
 global using MyTelegram.Domain;

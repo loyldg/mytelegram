@@ -55,8 +55,8 @@ public partial class MessageDomainEventHandler(
             return;
         }
 
-        var updates = editMessageConverterService.ToEditMessageUpdates(domainEvent.AggregateEvent.RequestInfo.UserId, domainEvent.AggregateEvent, domainEvent.AggregateEvent.RequestInfo.Layer);
-        var updatesForOtherParticipant = editMessageConverterService.ToEditMessageUpdates(-1, domainEvent.AggregateEvent, 0);
+        var updates = editMessageConverterService.ToEditMessageUpdates(domainEvent.AggregateEvent.RequestInfo.UserId, domainEvent.AggregateEvent);
+        var updatesForOtherParticipant = editMessageConverterService.ToEditMessageUpdates(-1, domainEvent.AggregateEvent);
 
         await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo,
             updates,
@@ -74,7 +74,7 @@ public partial class MessageDomainEventHandler(
         // Channel message shares the same message,edit out message should notify channel member
         if (domainEvent.AggregateEvent.NewMessageItem.ToPeer.PeerType == PeerType.Channel)
         {
-            var channelEditUpdates = editMessageConverterService.ToEditMessageUpdates(-1, domainEvent.AggregateEvent, 0);
+            var channelEditUpdates = editMessageConverterService.ToEditMessageUpdates(-1, domainEvent.AggregateEvent);
 
             await PushUpdatesToPeerAsync(domainEvent.AggregateEvent.NewMessageItem.ToPeer,
                 channelEditUpdates,
@@ -138,8 +138,8 @@ public partial class MessageDomainEventHandler(
             var channelId = eventData.ChannelId;
             //var updates = updatesLayeredService.GetConverter(aggregateEvent.RequestInfo.Layer)
             //    .ToCreateChannelUpdates(eventData, aggregateEvent);
-            var updates = await updatesConverterService.ToCreateChannelUpdatesAsync(eventData, aggregateEvent, true, aggregateEvent.RequestInfo.Layer);
-            var updatesForSelfOtherDevices = await updatesConverterService.ToCreateChannelUpdatesAsync(eventData, aggregateEvent, true, 0);
+            var updates = await updatesConverterService.ToCreateChannelUpdatesAsync(eventData, aggregateEvent, true);
+            var updatesForSelfOtherDevices = await updatesConverterService.ToCreateChannelUpdatesAsync(eventData, aggregateEvent, true);
             IObject rpcData = updates;
 
             if (item.MessageSubType == MessageSubType.AutoCreateChannelFromChat)
@@ -173,8 +173,8 @@ public partial class MessageDomainEventHandler(
 
     private async Task HandleEditQuickReplyMessageAsync(OutboxMessageEditCompletedSagaEvent aggregateEvent)
     {
-        var updates = editMessageConverterService.ToEditQuickReplyMessageUpdates(aggregateEvent, aggregateEvent.RequestInfo.Layer);
-        var updatesForSelfOtherDevices = editMessageConverterService.ToEditQuickReplyMessageUpdates(aggregateEvent, 0);
+        var updates = editMessageConverterService.ToEditQuickReplyMessageUpdates(aggregateEvent);
+        var updatesForSelfOtherDevices = editMessageConverterService.ToEditQuickReplyMessageUpdates(aggregateEvent);
         await SendRpcMessageToClientAsync(aggregateEvent.RequestInfo, updates);
         await PushUpdatesToPeerAsync(aggregateEvent.RequestInfo.UserId.ToUserPeer(), updatesForSelfOtherDevices,
             aggregateEvent.RequestInfo.PermAuthKeyId);
@@ -199,7 +199,7 @@ public partial class MessageDomainEventHandler(
             case PeerType.User:
                 if (updates is TUpdates tUpdates2)
                 {
-                    var user = await userConverterService.GetUserAsync(RequestInfo.Empty, fromId.PeerId, false, false, 0);
+                    var user = await userConverterService.GetUserAsync(RequestInfo.Empty, fromId.PeerId, false, false);
                     tUpdates2.Users.Add(user);
                 }
                 break;
@@ -225,13 +225,13 @@ public partial class MessageDomainEventHandler(
         await SendRpcMessageToClientAsync(aggregateEvent.RequestInfo,
             invitedUsers,
             item.SenderPeer.PeerId);
-        var updatesForSelfOtherDevices = inviteToChannelConverterService.ToInviteToChannelUpdates(aggregateEvent, 0);
+        var updatesForSelfOtherDevices = inviteToChannelConverterService.ToInviteToChannelUpdates(aggregateEvent);
         await UpdateChannelAndUserAsync(aggregateEvent.RequestInfo, updatesForSelfOtherDevices, item.ToPeer.PeerId, invitedUserIds, layer: aggregateEvent.RequestInfo.Layer);
 
         await PushMessageToPeerAsync(item.ToPeer, updatesForSelfOtherDevices, excludeAuthKeyId: aggregateEvent.RequestInfo.PermAuthKeyId);
 
 
-        var updatesForChannelMember = inviteToChannelConverterService.ToInviteToChannelUpdates(aggregateEvent, 0);
+        var updatesForChannelMember = inviteToChannelConverterService.ToInviteToChannelUpdates(aggregateEvent);
         await UpdateChannelAndUserAsync(RequestInfo.Empty with { UserId = -1 }, updatesForChannelMember, item.ToPeer.PeerId, invitedUserIds);
 
         foreach (var userId in invitedUserIds)
@@ -288,8 +288,8 @@ public partial class MessageDomainEventHandler(
             layer = 0;
         }
 
-        var selfUpdates = sendMessageConverterService.ToUpdates(aggregateEvent, layer);
-        var selfOtherDeviceUpdates = sendMessageConverterService.ToSelfOtherDeviceUpdates(aggregateEvent, 0);
+        var selfUpdates = sendMessageConverterService.ToUpdates(aggregateEvent);
+        var selfOtherDeviceUpdates = sendMessageConverterService.ToSelfOtherDeviceUpdates(aggregateEvent);
 
         var updatesType = UpdatesType.Updates;
         if (item.MessageSubType == MessageSubType.Normal ||
@@ -336,8 +336,7 @@ public partial class MessageDomainEventHandler(
     private void SetChannelInfo(IRequestWithAccessHashKeyId request,
         IUpdates updates,
         IChannelReadModel? channelReadModel,
-        IPhotoReadModel? photoReadModel,
-        int layer)
+        IPhotoReadModel? photoReadModel)
     {
         if (channelReadModel == null)
         {
@@ -349,7 +348,7 @@ public partial class MessageDomainEventHandler(
             if (tUpdates.Chats.All(p => p.Id != channelReadModel.ChannelId))
             {
                 var channel =
-                    chatConverterService.ToChannel(request, channelReadModel, photoReadModel, null, false, layer);
+                    chatConverterService.ToChannel(request, channelReadModel, photoReadModel, null, false);
                 tUpdates.Chats.Add(channel);
             }
         }
@@ -358,11 +357,11 @@ public partial class MessageDomainEventHandler(
     private async Task HandleSendMessageToChannelAsync(SendOutboxMessageCompletedSagaEvent aggregateEvent)
     {
         var item = aggregateEvent.MessageItem;
-        var selfUpdates = sendMessageConverterService.ToUpdates(aggregateEvent, aggregateEvent.RequestInfo.Layer);
-        var selfOtherDeviceUpdates = sendMessageConverterService.ToSelfOtherDeviceUpdates(aggregateEvent, 0);
+        var selfUpdates = sendMessageConverterService.ToUpdates(aggregateEvent);
+        var selfOtherDeviceUpdates = sendMessageConverterService.ToSelfOtherDeviceUpdates(aggregateEvent);
         //var channelUpdates = updatesConverterService.ToChannelMessageUpdates(aggregateEvent.RequestInfo.UserId, aggregateEvent, aggregateEvent.RequestInfo.Layer);
-        var channelAdminUpdates = updatesConverterService.ToChannelMessageUpdates(-1, aggregateEvent, 0);
-        var channelMemberUpdates = updatesConverterService.ToChannelMessageUpdates(-1, aggregateEvent, 0);
+        var channelAdminUpdates = updatesConverterService.ToChannelMessageUpdates(-1, aggregateEvent);
+        var channelMemberUpdates = updatesConverterService.ToChannelMessageUpdates(-1, aggregateEvent);
         var channelReadModel = await channelAppService.GetAsync(item.ToPeer.PeerId);
         IChannelReadModel? sendAsReadModel = null;
         IChannelReadModel? forwardFromChannelReadModel = null;
@@ -385,24 +384,23 @@ public partial class MessageDomainEventHandler(
         var photoReadModel = await photoAppService.GetAsync(channelReadModel.PhotoId);
         var layer = aggregateEvent.RequestInfo.Layer;
 
-        SetChannelInfo(aggregateEvent.RequestInfo, selfUpdates, channelReadModel, photoReadModel, layer);
-        SetChannelInfo(aggregateEvent.RequestInfo, selfUpdates, sendAsReadModel, sendAsPhotoReadModel, layer);
-        SetChannelInfo(aggregateEvent.RequestInfo, selfUpdates, forwardFromChannelReadModel, forwardFromChannelPhotoReadModel, layer);
+        SetChannelInfo(aggregateEvent.RequestInfo, selfUpdates, channelReadModel, photoReadModel);
+        SetChannelInfo(aggregateEvent.RequestInfo, selfUpdates, sendAsReadModel, sendAsPhotoReadModel);
+        SetChannelInfo(aggregateEvent.RequestInfo, selfUpdates, forwardFromChannelReadModel, forwardFromChannelPhotoReadModel);
 
-        SetChannelInfo(aggregateEvent.RequestInfo, selfOtherDeviceUpdates, channelReadModel, photoReadModel, 0);
-        SetChannelInfo(aggregateEvent.RequestInfo, selfOtherDeviceUpdates, sendAsReadModel, sendAsPhotoReadModel, 0);
-        SetChannelInfo(aggregateEvent.RequestInfo, selfOtherDeviceUpdates, forwardFromChannelReadModel, forwardFromChannelPhotoReadModel, 0);
+        SetChannelInfo(aggregateEvent.RequestInfo, selfOtherDeviceUpdates, channelReadModel, photoReadModel);
+        SetChannelInfo(aggregateEvent.RequestInfo, selfOtherDeviceUpdates, sendAsReadModel, sendAsPhotoReadModel);
+        SetChannelInfo(aggregateEvent.RequestInfo, selfOtherDeviceUpdates, forwardFromChannelReadModel, forwardFromChannelPhotoReadModel);
 
-        SetChannelInfo(RequestInfo.Empty with { UserId = -1 }, channelMemberUpdates, channelReadModel, photoReadModel, 0);
-        SetChannelInfo(RequestInfo.Empty with { UserId = -1 }, channelMemberUpdates, sendAsReadModel, sendAsPhotoReadModel, 0);
-        SetChannelInfo(RequestInfo.Empty with { UserId = -1 }, channelMemberUpdates, forwardFromChannelReadModel, forwardFromChannelPhotoReadModel, 0);
+        SetChannelInfo(RequestInfo.Empty with { UserId = -1 }, channelMemberUpdates, channelReadModel, photoReadModel);
+        SetChannelInfo(RequestInfo.Empty with { UserId = -1 }, channelMemberUpdates, sendAsReadModel, sendAsPhotoReadModel);
+        SetChannelInfo(RequestInfo.Empty with { UserId = -1 }, channelMemberUpdates, forwardFromChannelReadModel, forwardFromChannelPhotoReadModel);
 
         ILayeredUser? user = null;
         if (item.FwdHeader?.FromId?.PeerType == PeerType.User)
         {
             var userId = item.FwdHeader.FromId.PeerId;
-            user = await userConverterService.GetUserAsync(aggregateEvent.RequestInfo, userId, false, false,
-                aggregateEvent.RequestInfo.Layer);
+            user = await userConverterService.GetUserAsync(aggregateEvent.RequestInfo, userId, false, false);
 
             if (selfUpdates is TUpdates tUpdates)
             {
@@ -467,10 +465,10 @@ public partial class MessageDomainEventHandler(
         {
             foreach (var mentionedUserId in aggregateEvent.MentionedUserIds)
             {
-                var mentionedUpdates = updatesConverterService.ToChannelMessageUpdates(mentionedUserId, aggregateEvent, 0, true);
-                SetChannelInfo(RequestInfo.Empty with { UserId = mentionedUserId }, mentionedUpdates, channelReadModel, photoReadModel, 0);
-                SetChannelInfo(RequestInfo.Empty with { UserId = mentionedUserId }, mentionedUpdates, sendAsReadModel, sendAsPhotoReadModel, 0);
-                SetChannelInfo(RequestInfo.Empty with { UserId = mentionedUserId }, mentionedUpdates, forwardFromChannelReadModel, forwardFromChannelPhotoReadModel, 0);
+                var mentionedUpdates = updatesConverterService.ToChannelMessageUpdates(mentionedUserId, aggregateEvent, true);
+                SetChannelInfo(RequestInfo.Empty with { UserId = mentionedUserId }, mentionedUpdates, channelReadModel, photoReadModel);
+                SetChannelInfo(RequestInfo.Empty with { UserId = mentionedUserId }, mentionedUpdates, sendAsReadModel, sendAsPhotoReadModel);
+                SetChannelInfo(RequestInfo.Empty with { UserId = mentionedUserId }, mentionedUpdates, forwardFromChannelReadModel, forwardFromChannelPhotoReadModel);
 
                 if (user != null)
                 {
@@ -499,7 +497,7 @@ public partial class MessageDomainEventHandler(
                 continue;
             }
 
-            SetChannelInfo(RequestInfo.Empty with { UserId = adminUserId }, channelAdminUpdates, channelReadModel, photoReadModel, 0);
+            SetChannelInfo(RequestInfo.Empty with { UserId = adminUserId }, channelAdminUpdates, channelReadModel, photoReadModel);
             await PushUpdatesToPeerAsync(item.ToPeer,
                 channelAdminUpdates,
                 aggregateEvent.RequestInfo.AuthKeyId,
@@ -516,7 +514,7 @@ public partial class MessageDomainEventHandler(
 
         await PushUpdatesToPeerAsync(item.ToPeer,
                 channelMemberUpdates,
-                excludeUserId:aggregateEvent.RequestInfo.UserId,
+                excludeUserId: aggregateEvent.RequestInfo.UserId,
                 updatesType: updatesType,
                 skipSaveUpdates: true,
                 excludeUserIds: aggregateEvent.MentionedUserIds
@@ -552,7 +550,7 @@ public partial class MessageDomainEventHandler(
     private async Task HandleUpdatePinnedMessageAsync(SendOutboxMessageCompletedSagaEvent aggregateEvent)
     {
         var item = aggregateEvent.MessageItem;
-        var updates = updatesConverterService.ToUpdatePinnedMessageUpdates(aggregateEvent, 0);
+        var updates = updatesConverterService.ToUpdatePinnedMessageUpdates(aggregateEvent);
 
         await PushUpdatesToPeerAsync(item.SenderPeer,
             updates,
@@ -560,7 +558,7 @@ public partial class MessageDomainEventHandler(
 
         if (item.ToPeer.PeerType == PeerType.Channel)
         {
-            var channelUpdates = updatesConverterService.ToUpdatePinnedMessageServiceUpdates(0, aggregateEvent, 0);
+            var channelUpdates = updatesConverterService.ToUpdatePinnedMessageServiceUpdates(0, aggregateEvent);
             if (channelUpdates is TUpdates tUpdates)
             {
                 var user = await GetUserAsync(aggregateEvent.RequestInfo, aggregateEvent.RequestInfo.UserId);
@@ -595,13 +593,13 @@ public partial class MessageDomainEventHandler(
         {
             if (tUpdates.Chats.Count == 0)
             {
-                var channel = await chatConverterService.GetChannelAsync(requestInfo, channelId, false, false, layer);
+                var channel = await chatConverterService.GetChannelAsync(requestInfo, channelId, false, false);
                 tUpdates.Chats = [channel];
             }
 
             if (userIds?.Count > 0)
             {
-                var users = await userConverterService.GetUserListAsync(requestInfo, userIds, layer: layer);
+                var users = await userConverterService.GetUserListAsync(requestInfo, userIds);
                 foreach (var layeredUser in users)
                 {
                     tUpdates.Users.Add(layeredUser);

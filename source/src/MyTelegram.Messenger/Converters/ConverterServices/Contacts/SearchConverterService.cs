@@ -4,27 +4,23 @@ internal sealed class SearchConverterService(IUserConverterService userConverter
     IChatConverterService chatConverterService
     ) : ISearchConverterService, ITransientDependency
 {
-    public async Task<IFound> ToFoundAsync(IRequestWithAccessHashKeyId request, SearchContactOutput output, int layer)
+    public async Task<IFound> ToFoundAsync(IRequestWithAccessHashKeyId request, SearchContactOutput output)
     {
         var users = await userConverterService.ToUserListAsync(request,
             output.UserList,
             output.PhotoList,
             output.ContactList,
-            output.PrivacyList,
-            layer);
+            output.PrivacyList);
 
         var myChannels = chatConverterService.ToChannelList(request,
             output.MyChannelList,
             output.PhotoList,
-            output.ChannelMemberList,
-            layer: layer);
+            output.ChannelMemberList);
 
         var otherChannels = chatConverterService.ToChannelList(request,
             output.ChannelList,
             output.PhotoList,
-            [],
-            null,
-            layer);
+            []);
 
         otherChannels.AddRange(myChannels);
 

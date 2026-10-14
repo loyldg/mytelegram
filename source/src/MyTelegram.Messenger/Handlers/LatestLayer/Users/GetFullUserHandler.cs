@@ -42,11 +42,11 @@ internal sealed class GetFullUserHandler(IPeerHelper peerHelper, IQueryProcessor
         var contactType = contactHelper.GetContactType(myContactReadModel, targetUserContactReadModel); // await contactAppService.GetContactTypeAsync(input.UserId, targetPeer.PeerId);
         var peerSettings = peerSettingsLayeredService.GetConverter(input.Layer).ToPeerSettings(input.UserId, targetPeer.PeerId, peerSettingReadModel, contactType);
         var peerNotifySettings = peerNotifySettingsLayeredService.GetConverter(input.Layer).ToPeerNotifySettings(peerNotifySettingReadModel?.NotifySettings ?? PeerNotifySettings.DefaultSettings);
-        var userFull = await userConverterService.ToUserFullAsync(input, userReadModel, photoReadModels, contactReadModels, privacyReadModels, input.Layer);
+        var userFull = await userConverterService.ToUserFullAsync(input, userReadModel, photoReadModels, contactReadModels, privacyReadModels);
         userFull.Settings = peerSettings;
         userFull.NotifySettings = peerNotifySettings;
         userFull.Blocked = await blockCacheAppService.IsBlockedAsync(input.UserId, targetPeer.PeerId);
-        var user = await userConverterService.ToUserAsync(input, userReadModel, photoReadModels, myContactReadModel, targetUserContactReadModel, privacyReadModels, input.Layer);
+        var user = await userConverterService.ToUserAsync(input, userReadModel, photoReadModels, myContactReadModel, targetUserContactReadModel, privacyReadModels);
         await SetPersonalChannelAsync(input, userReadModel, userFull);
         await SetCommonChatCountAsync(input, userReadModel, userFull);
         var result = new TUserFull
@@ -58,7 +58,7 @@ internal sealed class GetFullUserHandler(IPeerHelper peerHelper, IQueryProcessor
         if (userReadModel.PersonalChannelId != null)
         {
             var channel = await chatConverterService.GetChannelAsync(input, userReadModel.PersonalChannelId.Value,
-                false, null, input.Layer, false);
+                false, null, false);
             if (channel != null!)
             {
                 result.Chats.Add(channel);

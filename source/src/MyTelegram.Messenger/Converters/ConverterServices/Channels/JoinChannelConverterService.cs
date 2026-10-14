@@ -2,8 +2,7 @@
 
 internal sealed class JoinChannelConverterService(IMessageConverterService messageConverterService) : IJoinChannelConverterService, ITransientDependency
 {
-    public MyTelegram.Schema.IUpdates ToJoinChannelUpdates(SendOutboxMessageCompletedSagaEvent data,
-        int layer)
+    public MyTelegram.Schema.IUpdates ToJoinChannelUpdates(SendOutboxMessageCompletedSagaEvent data)
     {
         var item = data.MessageItem;
         var channelId = item.ToPeer.PeerId;
@@ -27,7 +26,7 @@ internal sealed class JoinChannelConverterService(IMessageConverterService messa
 
         var updateNewChannelMessage = new TUpdateNewChannelMessage
         {
-            Message = messageConverterService.ToMessage(data.RequestInfo.UserId, item, layer: layer),
+            Message = messageConverterService.ToMessage(data.RequestInfo.UserId, item),
             Pts = item.Pts,
             PtsCount = 1
         };
@@ -43,11 +42,11 @@ internal sealed class JoinChannelConverterService(IMessageConverterService messa
         return updates;
     }
 
-    public MyTelegram.Schema.IUpdates ToJoinChannelUpdates(long selfUserId, SendOutboxMessageCompletedSagaEvent data, int layer)
+    public MyTelegram.Schema.IUpdates ToJoinChannelUpdates(long selfUserId, SendOutboxMessageCompletedSagaEvent data)
     {
         var updateNewChannelMessage = new TUpdateNewChannelMessage
         {
-            Message = messageConverterService.ToMessage(selfUserId, data.MessageItem, layer: layer),
+            Message = messageConverterService.ToMessage(selfUserId, data.MessageItem),
             Pts = data.MessageItem.Pts,
             PtsCount = 1
         };

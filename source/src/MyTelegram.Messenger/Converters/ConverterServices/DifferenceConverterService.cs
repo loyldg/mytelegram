@@ -6,15 +6,13 @@ public class DifferenceConverterService(
     IObjectMapper objectMapper,
     IChatConverterService chatConverterService,
     IUserConverterService userConverterService,
-    IMessageConverterService messageConverterService,
-    IUpdatesResponseService updatesResponseService) : IDifferenceConverterService, ITransientDependency
+    IMessageConverterService messageConverterService) : IDifferenceConverterService, ITransientDependency
 {
     public async Task<IChannelDifference> ToChannelDifferenceAsync(IRequestWithAccessHashKeyId request,
         GetMessageOutput output, bool isChannelMember, IList<IUpdate> updatesList,
         int updatesMaxPts = 0,
         bool resetLeftToFalse = false,
-        int timeoutSeconds = 30,
-        int layer = 0)
+        int timeoutSeconds = 30)
     {
         var timeout = timeoutSeconds;
         if (output.MessageList.Count == 0 && updatesList.Count == 0)
@@ -29,21 +27,19 @@ public class DifferenceConverterService(
             maxPts = Math.Max(updatesMaxPts, boxMaxPts);
         }
 
-        var messageList = messageConverterService.ToMessageList(output.SelfUserId, output.MessageList, output.PollList, output.ChosenPollOptions, output.UserReactionList, layer);
+        var messageList = messageConverterService.ToMessageList(output.SelfUserId, output.MessageList, output.PollList, output.ChosenPollOptions, output.UserReactionList);
 
         var channelList = chatConverterService.ToChannelList(request, output.ChannelList, output.PhotoList,
-            output.ChannelMemberList, output.JoinedChannelIdList, layer);
+            output.ChannelMemberList, output.JoinedChannelIdList);
         var userList = await userConverterService.ToUserListAsync(request, output.UserList, output.PhotoList,
-            output.ContactList, output.PrivacyList, layer);
-
-        var layeredUpdates = updatesList.Select(p => updatesResponseService.ToLayeredData(output.SelfUserId, request.AccessHashKeyId, p, layer));
+            output.ContactList, output.PrivacyList);
 
         return new TChannelDifference
         {
             Final = output.Pts == maxPts,
             Pts = maxPts,
             Users = [.. userList],
-            OtherUpdates = [.. layeredUpdates],
+            OtherUpdates = [.. updatesList],
             Timeout = timeout,
             Chats = [.. channelList],
             NewMessages = [.. messageList]
@@ -52,15 +48,14 @@ public class DifferenceConverterService(
 
     public async Task<IDifference> ToDifferenceAsync(IRequestWithAccessHashKeyId request,
         GetMessageOutput output, IPtsReadModel? pts, int cachedPts, int limit, IList<IUpdate> updateList,
-        IList<IChat> chatListFromUpdates, IReadOnlyCollection<IEncryptedMessageReadModel>? encryptedMessageReadModels,
-        int layer = 0)
+        IList<IChat> chatListFromUpdates, IReadOnlyCollection<IEncryptedMessageReadModel>? encryptedMessageReadModels)
     {
         var messageList = messageConverterService.ToMessageList(output.SelfUserId, output.MessageList, output.PollList,
-            output.ChosenPollOptions, output.UserReactionList, layer);
+            output.ChosenPollOptions, output.UserReactionList);
         var userList = await userConverterService.ToUserListAsync(request, output.UserList, output.PhotoList,
-            output.ContactList, output.PrivacyList, layer);
+            output.ContactList, output.PrivacyList);
         var channelList = chatConverterService.ToChannelList(request, output.ChannelList, output.PhotoList,
-            output.ChannelMemberList, output.JoinedChannelIdList, layer);
+            output.ChannelMemberList, output.JoinedChannelIdList);
 
         var qts = pts?.Qts ?? 0;
         var unreadCount = pts?.UnreadCount ?? 0;
@@ -69,8 +64,6 @@ public class DifferenceConverterService(
             unreadCount = 0;
         }
 
-        var layeredUpdates = updateList.Select(p => updatesResponseService.ToLayeredData(output.SelfUserId, request.AccessHashKeyId, p, layer));
-
         if (updateList.Count == limit)
         {
             var differenceSlice = new TDifferenceSlice
@@ -78,7 +71,7 @@ public class DifferenceConverterService(
                 Chats = [.. channelList],
                 NewEncryptedMessages = [],
                 NewMessages = [.. messageList],
-                OtherUpdates = [.. layeredUpdates],
+                OtherUpdates = [.. updateList],
                 Users = [.. userList],
                 IntermediateState = pts == null
                     ? new TState
@@ -102,7 +95,7 @@ public class DifferenceConverterService(
             Chats = [.. channelList],
             NewEncryptedMessages = [.. newEncryptedMessages],
             NewMessages = [.. messageList],
-            OtherUpdates = [.. layeredUpdates],
+            OtherUpdates = [.. updateList],
             Users = [.. userList],
             State = pts == null
                 ? new TState

@@ -19,7 +19,7 @@ internal sealed class GetDifferenceHandler(ILanguageCacheService languageCacheSe
         {
             FromVersion = obj.FromVersion,
             LangCode = obj.LangCode,
-            Strings = langPackStringConverterService.ToLangPackStrings(texts, input.Layer),
+            Strings = langPackStringConverterService.ToLangPackStrings(texts),
             Version = version
         };
         return langPackDifference;

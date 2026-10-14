@@ -22,12 +22,12 @@ internal sealed class EditMessageConverterService(IMessageConverterService messa
         };
     }
 
-    public IUpdates ToEditMessageUpdates(long selfUserId, OutboxMessageEditCompletedSagaEvent data, int layer)
+    public IUpdates ToEditMessageUpdates(long selfUserId, OutboxMessageEditCompletedSagaEvent data)
     {
-        return ToEditMessageUpdatesCore(selfUserId, data, layer);
+        return ToEditMessageUpdatesCore(selfUserId, data);
     }
 
-    private IUpdates ToEditMessageUpdatesCore(long selfUserId, OutboxMessageEditCompletedSagaEvent data, int layer)
+    private IUpdates ToEditMessageUpdatesCore(long selfUserId, OutboxMessageEditCompletedSagaEvent data)
     {
         IUpdate update = data.NewMessageItem.ToPeer.PeerType switch
         {
@@ -35,11 +35,11 @@ internal sealed class EditMessageConverterService(IMessageConverterService messa
             {
                 Pts = data.NewMessageItem.Pts,
                 PtsCount = 1,
-                Message = messageConverterService.ToMessage(selfUserId, data.NewMessageItem, layer: layer)
+                Message = messageConverterService.ToMessage(selfUserId, data.NewMessageItem)
             },
             _ => new TUpdateEditMessage
             {
-                Message = messageConverterService.ToMessage(data.NewMessageItem.SenderPeer.PeerId, data.NewMessageItem, layer: layer),
+                Message = messageConverterService.ToMessage(data.NewMessageItem.SenderPeer.PeerId, data.NewMessageItem),
                 Pts = data.NewMessageItem.Pts,
                 PtsCount = 1
             }
@@ -55,13 +55,13 @@ internal sealed class EditMessageConverterService(IMessageConverterService messa
         };
     }
 
-    public IUpdates ToEditQuickReplyMessageUpdates(OutboxMessageEditCompletedSagaEvent data, int layer)
+    public IUpdates ToEditQuickReplyMessageUpdates(OutboxMessageEditCompletedSagaEvent data)
     {
         var updates = new TUpdates
         {
             Updates = new TVector<IUpdate>(new TUpdateQuickReplyMessage
             {
-                Message = messageConverterService.ToMessage(data.RequestInfo.UserId, data.NewMessageItem, layer: layer)
+                Message = messageConverterService.ToMessage(data.RequestInfo.UserId, data.NewMessageItem)
             }),
             Users = [],
             Chats = [],

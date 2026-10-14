@@ -18,7 +18,7 @@ internal sealed class GetLeftChannelsHandler(IQueryProcessor queryProcessor, ICh
         var leftChannelIds = await queryProcessor.ProcessAsync(new GetLeftChannelIdsQuery(input.UserId, OffsetChannelId: obj.Offset, Limit: pageSize));
         if (leftChannelIds?.Count > 0)
         {
-            var channels = await chatConverterService.GetChannelListAsync(input, [..leftChannelIds], layer: input.Layer);
+            var channels = await chatConverterService.GetChannelListAsync(input, [..leftChannelIds]);
             if (leftChannelIds.Count == pageSize)
             {
                 var totalCount = await queryProcessor.ProcessAsync(new GetLeftChannelCountQuery(input.UserId));

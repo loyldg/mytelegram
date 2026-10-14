@@ -65,7 +65,7 @@ internal sealed class GetFullChannelHandler(IQueryProcessor queryProcessor, //IL
                 chatInviteReadModel = await queryProcessor.ProcessAsync(new GetPermanentChatInviteQuery(channelId, input.UserId));
             }
 
-            var chatFull = chatConverterService.ToChannelFull(input, channelReadModel, photoReadModel, channelFullReadModel!, channelMemberReadModel, peerNotifySettings, chatInviteReadModel, input.Layer);
+            var chatFull = chatConverterService.ToChannelFull(input, channelReadModel, photoReadModel, channelFullReadModel!, channelMemberReadModel, peerNotifySettings, chatInviteReadModel);
             var fullChat = chatFull.FullChat;
             IChat? linkedChannel = null;
 
@@ -88,7 +88,7 @@ internal sealed class GetFullChannelHandler(IQueryProcessor queryProcessor, //IL
                     {
                         var linkedChannelPhotoReadModel = await photoAppService.GetAsync(linkedChannelReadModel.PhotoId);
                         var linkedChannelMemberReadModel = await queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(linkedChannelReadModel.ChannelId, input.UserId));
-                        linkedChannel = chatConverterService.ToChannel(input, linkedChannelReadModel, linkedChannelPhotoReadModel, linkedChannelMemberReadModel, linkedChannelMemberReadModel == null || linkedChannelMemberReadModel.Left, input.Layer);
+                        linkedChannel = chatConverterService.ToChannel(input, linkedChannelReadModel, linkedChannelPhotoReadModel, linkedChannelMemberReadModel, linkedChannelMemberReadModel == null || linkedChannelMemberReadModel.Left);
                         //r.Chats.Add(linkedChannel);
                     }
                     else
@@ -120,7 +120,7 @@ internal sealed class GetFullChannelHandler(IQueryProcessor queryProcessor, //IL
                 layeredChannelFull.RequestsPending = pendingRequestsCount;
                 var recentRequesters = await queryProcessor.ProcessAsync(new GetRecentRequestUserIdListQuery(channelId, 5));
                 layeredChannelFull.RecentRequesters = [.. recentRequesters];
-                var users = await userConverterService.GetUserListAsync(input, [.. recentRequesters], false, false, input.Layer);
+                var users = await userConverterService.GetUserListAsync(input, [.. recentRequesters], false, false);
                 chatFull.Users = [.. users];
             }
         }

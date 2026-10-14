@@ -53,7 +53,7 @@ internal sealed class CheckChatInviteHandler(IQueryProcessor queryProcessor, IPh
         {
             if (channelMemberReadModel != null)
             {
-                var channel = chatConverterService.ToChannel(input, channelReadModel, chatPhoto, channelMemberReadModel, null, input.Layer);
+                var channel = chatConverterService.ToChannel(input, channelReadModel, chatPhoto, channelMemberReadModel, null);
                 return new TChatInviteAlready
                 {
                     Chat = channel

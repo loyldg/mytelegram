@@ -21,12 +21,12 @@ internal sealed class SearchPostsHandler(IQueryProcessor queryProcessor, ITokeni
         var peer = peerHelper.GetPeer(obj.OffsetPeer);
         var tokens = tokenizer.BuildSearchTokens(obj.Query);
         var messageReadModels = await queryProcessor.ProcessAsync(new SearchPostsQuery(obj.Hashtag ?? string.Empty, obj.Query, tokens, obj.OffsetRate, peer.PeerId, obj.OffsetId, obj.Limit));
-        var messages = messageConverterService.ToMessageList(input.UserId, messageReadModels, [], [], [], input.Layer);
+        var messages = messageConverterService.ToMessageList(input.UserId, messageReadModels, [], [], []);
         var (userIds, channelIds) = messageAppService.GetExtraPeerIds(messageReadModels);
         var channelIdList = channelIds.ToList();
         var channelMemberReadModels = await queryProcessor.ProcessAsync(new GetChannelMemberListByChannelIdListQuery(input.UserId, channelIdList));
-        var channels = await chatConverterService.GetChannelListAsync(input, channelIdList, channelMemberReadModels, input.Layer);
-        var users = await userConverterService.GetUserListAsync(input, userIds.ToList(), false, false, input.Layer);
+        var channels = await chatConverterService.GetChannelListAsync(input, channelIdList, channelMemberReadModels);
+        var users = await userConverterService.GetUserListAsync(input, userIds.ToList(), false, false);
         if (messageReadModels.Count == obj.Limit && messageReadModels.Count > 0)
         {
             var nextRate = messageReadModels.Max(p => p.Date);

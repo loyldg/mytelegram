@@ -16,7 +16,7 @@ internal sealed class GetGroupsForDiscussionHandler(IQueryProcessor queryProcess
         var channelReadModels = await queryProcessor.ProcessAsync(new GetMegaGroupByUserIdQuery(input.UserId));
         var photoReadModels = await photoAppService.GetPhotosAsync(channelReadModels);
         var channelMemberReadModel = await queryProcessor.ProcessAsync(new GetChannelMemberListByChannelIdListQuery(input.UserId, [..channelReadModels.Select(p => p.ChannelId)]));
-        var channelList = chatConverterService.ToChannelList(input, channelReadModels, photoReadModels, channelMemberReadModel, layer: input.Layer);
+        var channelList = chatConverterService.ToChannelList(input, channelReadModels, photoReadModels, channelMemberReadModel);
         return new TChats
         {
             Chats = [..channelList]

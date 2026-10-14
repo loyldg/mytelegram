@@ -47,7 +47,7 @@ internal sealed class GetUsersHandler(IUserConverterService userConverterService
             }
         }
 
-        var users = (await userConverterService.GetUserListAsync(input, userIds, false, false, input.Layer)).ToDictionary(k => k.Id);
+        var users = (await userConverterService.GetUserListAsync(input, userIds, false, false)).ToDictionary(k => k.Id);
         for (int i = 0; i < result.Count; i++)
         {
             if (users.TryGetValue(result[i].Id, out var user))

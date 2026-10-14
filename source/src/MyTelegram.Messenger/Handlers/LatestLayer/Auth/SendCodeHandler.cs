@@ -122,7 +122,7 @@ internal sealed class SendCodeHandler(ICommandBus commandBus, IPeerHelper peerHe
                         return (null, true);
                     }
 
-                    var user = await userConverterService.ToUserAsync(input, userReadModel, layer: input.Layer);
+                    var user = await userConverterService.ToUserAsync(input, userReadModel);
                     await eventBus.PublishAsync(new UserSignInSuccessEvent(input.ReqMsgId, input.AuthKeyId, input.PermAuthKeyId, user.Id, PasswordState.None));
                     return (new TSentCodeSuccess { Authorization = authorizationLayeredService.GetConverter(input.Layer).CreateAuthorization(user) }, true);
                 }

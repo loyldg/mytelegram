@@ -136,9 +136,9 @@ internal sealed class GetParticipantsHandler(IQueryProcessor queryProcessor, ICh
                 }
             }
 
-            var users = await userConverterService.GetUserListAsync(input, userIds, false, false, input.Layer);
+            var users = await userConverterService.GetUserListAsync(input, userIds, false, false);
             var photoReadModel = await photoAppService.GetAsync(channelReadModel.PhotoId);
-            return chatConverterService.ToChannelParticipants(input, channelReadModel, photoReadModel, participantCount, channelMemberReadModels, users, input.DeviceType, forceNotLeft, input.Layer);
+            return chatConverterService.ToChannelParticipants(input, channelReadModel, photoReadModel, participantCount, channelMemberReadModels, users, input.DeviceType, forceNotLeft);
         }
 
         throw new NotImplementedException();

@@ -2,5 +2,5 @@
 
 public interface IDraftConverterService
 {
-    IDraftMessage ToDraftMessage(IDraftReadModel draftReadModel, int layer);
+    IDraftMessage ToDraftMessage(IDraftReadModel draftReadModel);
 }

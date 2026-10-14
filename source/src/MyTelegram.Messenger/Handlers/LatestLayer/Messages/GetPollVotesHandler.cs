@@ -77,11 +77,11 @@ internal sealed class GetPollVotesHandler(IQueryProcessor queryProcessor, IChatC
 
         if (peer.PeerType == PeerType.Channel)
         {
-            var channel = await chatConverterService.GetChannelAsync(input, peer.PeerId, true, null, layer: input.Layer);
+            var channel = await chatConverterService.GetChannelAsync(input, peer.PeerId, true, null);
             result.Chats.Add(channel);
         }
 
-        var users = await userConverterService.GetUserListAsync(input, userIds, false, false, input.Layer);
+        var users = await userConverterService.GetUserListAsync(input, userIds, false, false);
         result.Users.AddRange(users);
         return result;
     }

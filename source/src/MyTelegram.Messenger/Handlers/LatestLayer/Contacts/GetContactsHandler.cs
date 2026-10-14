@@ -16,7 +16,7 @@ internal sealed class GetContactsHandler(IQueryProcessor queryProcessor, IUserCo
         var userReadModels = await userAppService.GetListAsync(userIdList);
         var privacyReadModels = await privacyAppService.GetPrivacyListAsync(userIdList);
         var photos = await photoAppService.GetPhotosAsync(userReadModels, contactReadModels);
-        var userList = await userConverterService.ToUserListAsync(input, userReadModels, photos, contactReadModels, privacyReadModels, input.Layer);
+        var userList = await userConverterService.ToUserListAsync(input, userReadModels, photos, contactReadModels, privacyReadModels);
         var validUserIds = new List<long>();
         foreach (var user in userList)
         {

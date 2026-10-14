@@ -2,6 +2,6 @@
 
 public interface ISendVoteConverterService
 {
-    IUpdates ToSelfUpdates(long userId, IPollReadModel pollReadModel, List<string> chosenOptions, int layer);
+    IUpdates ToSelfUpdates(long userId, IPollReadModel pollReadModel, List<string> chosenOptions);
     IUpdates ToUpdates(long userId, IPollReadModel pollReadModel, List<string> chosenOptions);
 }

@@ -22,7 +22,7 @@ internal sealed class InviteToChannelConverterService(IMessageConverterService m
         {
             Pts = item.Pts,
             PtsCount = 1,
-            Message = messageConverterService.ToMessage(0, item, layer: data.RequestInfo.Layer)
+            Message = messageConverterService.ToMessage(0, item)
         };
 
         return new TInvitedUsers
@@ -39,8 +39,7 @@ internal sealed class InviteToChannelConverterService(IMessageConverterService m
     }
 
     public IUpdates ToInviteToChannelUpdates(
-        SendOutboxMessageCompletedSagaEvent data,
-        int layer
+        SendOutboxMessageCompletedSagaEvent data
         )
     {
         var item = data.MessageItem;
@@ -48,7 +47,7 @@ internal sealed class InviteToChannelConverterService(IMessageConverterService m
         {
             Pts = item.Pts,
             PtsCount = 1,
-            Message = messageConverterService.ToMessage(-1, item, layer: layer)
+            Message = messageConverterService.ToMessage(-1, item)
         };
 
         return new TUpdates

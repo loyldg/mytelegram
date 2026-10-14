@@ -1,14 +1,14 @@
 namespace MyTelegram.Messenger.Converters.ConverterServices;
 
-public class LangPackStringConverterService(ILayeredService<ILangPackStringConverter> langPackStringLayeredService) : ILangPackStringConverterService, ITransientDependency
+public class LangPackStringConverterService(ILangPackStringConverter langPackStringConverter) : ILangPackStringConverterService, ITransientDependency
 {
-    public ILangPackString ToLangPackString(LanguageTextItem item, int layer)
+    public ILangPackString ToLangPackString(LanguageTextItem item)
     {
-        return langPackStringLayeredService.GetConverter(layer).ToLangPackString(item);
+        return langPackStringConverter.ToLangPackString(item);
     }
 
-    public TVector<ILangPackString> ToLangPackStrings(IReadOnlyCollection<LanguageTextItem> items, int layer)
+    public TVector<ILangPackString> ToLangPackStrings(IReadOnlyCollection<LanguageTextItem> items)
     {
-        return langPackStringLayeredService.GetConverter(layer).ToLangPackStrings(items);
+        return langPackStringConverter.ToLangPackStrings(items);
     }
 }

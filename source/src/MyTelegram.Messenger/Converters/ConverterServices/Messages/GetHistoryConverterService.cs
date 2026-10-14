@@ -4,28 +4,25 @@ internal sealed class GetHistoryConverterService(IUserConverterService userConve
     IMessageConverterService messageConverterService
     ) : IGetHistoryConverterService, ITransientDependency
 {
-    public async Task<IMessages> ToMessagesAsync(IRequestWithAccessHashKeyId request, GetMessageOutput output, int layer)
+    public async Task<IMessages> ToMessagesAsync(IRequestWithAccessHashKeyId request, GetMessageOutput output)
     {
         var messages = messageConverterService.ToMessageList(output.SelfUserId,
             output.MessageList,
             output.PollList,
             output.ChosenPollOptions,
-            output.UserReactionList,
-            layer);
+            output.UserReactionList);
 
         var users = await userConverterService.ToUserListAsync(request,
             output.UserList,
             output.PhotoList,
             output.ContactList,
-            output.PrivacyList,
-            layer);
+            output.PrivacyList);
 
         var channels = chatConverterService.ToChannelList(request,
             output.ChannelList,
             output.PhotoList,
             output.ChannelMemberList,
-            output.JoinedChannelIdList,
-            layer);
+            output.JoinedChannelIdList);
 
         var hasMessages = messages.Count > 0;
 

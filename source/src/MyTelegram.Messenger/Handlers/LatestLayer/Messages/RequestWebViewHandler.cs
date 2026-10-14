@@ -19,15 +19,15 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class RequestWebViewHandler(ILayeredService<IWebViewResultUrlResponseConverter> webViewResultsLayeredService) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestRequestWebView, MyTelegram.Schema.IWebViewResult>
+internal sealed class RequestWebViewHandler : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestRequestWebView, MyTelegram.Schema.IWebViewResult>
 {
-    protected override Task<MyTelegram.Schema.IWebViewResult> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestRequestWebView obj)
+    protected override async Task<MyTelegram.Schema.IWebViewResult> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestRequestWebView obj)
     {
         var r = new TWebViewResultUrl
         {
             Url = obj.Url,
             QueryId = input.ReqMsgId
         };
-        return Task.FromResult<MyTelegram.Schema.IWebViewResult>(webViewResultsLayeredService.GetConverter(input.Layer).ToLayeredData(r));
+        return r;
     }
 }

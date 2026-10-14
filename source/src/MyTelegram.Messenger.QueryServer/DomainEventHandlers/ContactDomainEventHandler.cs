@@ -28,8 +28,7 @@ public class ContactDomainEventHandler(
         var user = await userConverterService.GetUserAsync(domainEvent.AggregateEvent.RequestInfo,
             domainEvent.AggregateEvent.TargetUserId,
             true,
-            false,
-            domainEvent.AggregateEvent.RequestInfo.Layer
+            false
         );
         user.Contact = true;
         user.FirstName = domainEvent.AggregateEvent.FirstName;
@@ -54,8 +53,7 @@ public class ContactDomainEventHandler(
     {
         var user = await userConverterService.GetUserAsync(domainEvent.AggregateEvent.RequestInfo,
             domainEvent.AggregateEvent.TargetUserId,
-            true, false,
-            domainEvent.AggregateEvent.RequestInfo.Layer
+            true, false
         );
 
         var r = new TUpdates
@@ -80,8 +78,7 @@ public class ContactDomainEventHandler(
         var user = await userConverterService.GetUserAsync(domainEvent.AggregateEvent.RequestInfo,
             domainEvent.AggregateEvent.TargetUserId,
             false,
-            false,
-            domainEvent.AggregateEvent.RequestInfo.Layer
+            false
         );
         var newPhotoId = domainEvent.AggregateEvent.PhotoId;
         if (newPhotoId == 0)
@@ -119,8 +116,7 @@ public class ContactDomainEventHandler(
             .Select(p => new TImportedContact { ClientId = p.ClientId, UserId = p.UserId }).ToList();
         var userIds = importedContacts.Select(p => p.UserId).ToList();
         var users = await userConverterService.GetUserListAsync(domainEvent.AggregateEvent.RequestInfo,
-            userIds, true, false, domainEvent.AggregateEvent.RequestInfo.Layer
-        );
+            userIds, true, false);
 
         foreach (var layeredUser in users)
         {

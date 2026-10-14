@@ -36,7 +36,7 @@ internal sealed class GetSendAsHandler(IQueryProcessor queryProcessor, IChatConv
 
                 var channelMemberReadModels = await queryProcessor.ProcessAsync(new GetChannelMemberListByChannelIdListQuery(input.UserId, channelIds));
                 var photoReadModels = await photoAppService.GetPhotosAsync(myPublicChannelReadModels);
-                var channels = chatConverterService.ToChannelList(input, myPublicChannelReadModels, photoReadModels, channelMemberReadModels, layer: input.Layer);
+                var channels = chatConverterService.ToChannelList(input, myPublicChannelReadModels, photoReadModels, channelMemberReadModels);
                 var layeredResult = layeredSendAsPeerService.GetConverter(input.Layer).ToSendAsPeers(channels);
                 if (channelReadModel.Broadcast || admin is { AdminRights.Anonymous: false } || (!channelReadModel.Broadcast && admin is null))
                 {

@@ -100,31 +100,31 @@ internal sealed class SendMessageConverterService(
         }
     }
 
-    public IUpdates ToUpdates(SendOutboxMessageCompletedSagaEvent aggregateEvent, int layer = 0)
+    public IUpdates ToUpdates(SendOutboxMessageCompletedSagaEvent aggregateEvent)
     {
         if (aggregateEvent.MessageItem.ToPeer.PeerType == PeerType.Channel)
         {
             if (aggregateEvent.IsSendGroupedMessages)
             {
-                return CreateSendGroupedChannelMessageUpdates(aggregateEvent, layer);
+                return CreateSendGroupedChannelMessageUpdates(aggregateEvent);
             }
             else
             {
-                return CreateSendChannelMessageUpdates(aggregateEvent, layer);
+                return CreateSendChannelMessageUpdates(aggregateEvent);
             }
         }
         else
         {
             if (ShouldCreateFullMessageUpdates(aggregateEvent))
             {
-                return CreateFullMessageUpdates(aggregateEvent, layer);
+                return CreateFullMessageUpdates(aggregateEvent);
             }
             else
             {
                 var item = aggregateEvent.MessageItem;
                 if (item.MessageSubType == MessageSubType.ClearHistory)
                 {
-                    return CreateClearHistoryUpdates(aggregateEvent, layer);
+                    return CreateClearHistoryUpdates(aggregateEvent);
                 }
 
                 return CreateUpdateShortSentMessageUpdates(aggregateEvent);
@@ -132,7 +132,7 @@ internal sealed class SendMessageConverterService(
         }
     }
 
-    public IUpdates ToSelfOtherDeviceUpdates(SendOutboxMessageCompletedSagaEvent aggregateEvent, int layer)
+    public IUpdates ToSelfOtherDeviceUpdates(SendOutboxMessageCompletedSagaEvent aggregateEvent)
     {
         var item = aggregateEvent.MessageItem;
 
@@ -142,12 +142,12 @@ internal sealed class SendMessageConverterService(
             case PeerType.User:
                 if (ShouldCreateFullMessageUpdates(aggregateEvent))
                 {
-                    return CreateFullMessageUpdates(aggregateEvent, layer);
+                    return CreateFullMessageUpdates(aggregateEvent);
                 }
 
                 if (item.MessageSubType == MessageSubType.ClearHistory)
                 {
-                    return CreateClearHistoryUpdates(aggregateEvent, layer);
+                    return CreateClearHistoryUpdates(aggregateEvent);
                 }
 
                 return new TUpdateShortMessage
@@ -205,7 +205,7 @@ internal sealed class SendMessageConverterService(
                         Pts = item.Pts,
                         PtsCount = 1,
                         Message = messageConverterService
-                            .ToMessage(aggregateEvent.RequestInfo.UserId, item, layer: layer)
+                            .ToMessage(aggregateEvent.RequestInfo.UserId, aggregateEvent.MessageItem)
                     };
                     if (item.MessageSubType == MessageSubType.ClearHistory)
                     {
@@ -213,7 +213,7 @@ internal sealed class SendMessageConverterService(
                         {
                             Pts = item.Pts,
                             PtsCount = 1,
-                            Message = messageConverterService.ToMessage(aggregateEvent.RequestInfo.UserId, item, layer: layer)
+                            Message = messageConverterService.ToMessage(aggregateEvent.RequestInfo.UserId, aggregateEvent.MessageItem)
                         };
                     }
 
@@ -233,7 +233,7 @@ internal sealed class SendMessageConverterService(
         throw new NotImplementedException();
     }
 
-    private IUpdates CreateClearHistoryUpdates(SendOutboxMessageCompletedSagaEvent aggregateEvent, int layer)
+    private IUpdates CreateClearHistoryUpdates(SendOutboxMessageCompletedSagaEvent aggregateEvent)
     {
         var item = aggregateEvent.MessageItem;
         return new TUpdates
@@ -249,7 +249,7 @@ internal sealed class SendMessageConverterService(
                 new TUpdateEditMessage
                 {
                     Message = messageConverterService
-                        .ToMessage(aggregateEvent.RequestInfo.UserId, item, layer: layer),
+                        .ToMessage(aggregateEvent.RequestInfo.UserId, aggregateEvent.MessageItem),
                     Pts = item.Pts,
                     PtsCount = 1
                 }
@@ -257,7 +257,7 @@ internal sealed class SendMessageConverterService(
         };
     }
 
-    private IUpdates CreateFullMessageUpdates(SendOutboxMessageCompletedSagaEvent aggregateEvent, int layer)
+    private IUpdates CreateFullMessageUpdates(SendOutboxMessageCompletedSagaEvent aggregateEvent)
     {
         List<IUpdate> updateList = aggregateEvent.MessageItems.Select(p => (IUpdate)new TUpdateMessageID
         {
@@ -270,7 +270,7 @@ internal sealed class SendMessageConverterService(
         List<IUpdate> updateNewMessages = aggregateEvent.MessageItems.Select(p => (IUpdate)new TUpdateNewMessage
         {
             Message = messageConverterService
-                .ToMessage(aggregateEvent.RequestInfo.UserId, p, layer: layer),
+                .ToMessage(aggregateEvent.RequestInfo.UserId, p),
             Pts = p.Pts,
             PtsCount = 1
         }).ToList();
@@ -288,7 +288,7 @@ internal sealed class SendMessageConverterService(
         return updates;
     }
 
-    private IUpdates CreateSendChannelMessageUpdates(SendOutboxMessageCompletedSagaEvent aggregateEvent, int layer)
+    private IUpdates CreateSendChannelMessageUpdates(SendOutboxMessageCompletedSagaEvent aggregateEvent)
     {
         var item = aggregateEvent.MessageItem;
         var updateMessageId = new TUpdateMessageID { Id = item.MessageId, RandomId = item.RandomId };
@@ -305,7 +305,7 @@ internal sealed class SendMessageConverterService(
             Pts = item.Pts,
             PtsCount = 1,
             Message = messageConverterService
-                .ToMessage(aggregateEvent.RequestInfo.UserId, item, layer: layer)
+                .ToMessage(aggregateEvent.RequestInfo.UserId, aggregateEvent.MessageItem)
         };
 
         if (item.MessageSubType == MessageSubType.ClearHistory)
@@ -314,7 +314,7 @@ internal sealed class SendMessageConverterService(
             {
                 Pts = item.Pts,
                 PtsCount = 1,
-                Message = messageConverterService.ToMessage(0, item, layer: layer)
+                Message = messageConverterService.ToMessage(aggregateEvent.RequestInfo.UserId, aggregateEvent.MessageItem)
             };
         }
 
@@ -330,7 +330,7 @@ internal sealed class SendMessageConverterService(
         return updates;
     }
 
-    private IUpdates CreateSendGroupedChannelMessageUpdates(SendOutboxMessageCompletedSagaEvent aggregateEvent, int layer)
+    private IUpdates CreateSendGroupedChannelMessageUpdates(SendOutboxMessageCompletedSagaEvent aggregateEvent)
     {
         List<IUpdate> updateList = aggregateEvent.MessageItems.Select(p => (IUpdate)new TUpdateMessageID
         {
@@ -351,7 +351,7 @@ internal sealed class SendMessageConverterService(
             var updateNewChannelMessage = new TUpdateNewChannelMessage
             {
                 Message = messageConverterService
-                    .ToMessage(selfUserId, m, layer: layer),
+                    .ToMessage(selfUserId, m),
                 Pts = m.Pts,
                 PtsCount = 1
             };

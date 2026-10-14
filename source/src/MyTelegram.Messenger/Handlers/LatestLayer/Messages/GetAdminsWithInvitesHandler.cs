@@ -19,7 +19,7 @@ internal sealed class GetAdminsWithInvitesHandler(IQueryProcessor queryProcessor
         {
             var adminWithInvitesList = await queryProcessor.ProcessAsync(new GetAdminInvitesQuery(inputPeerChannel.ChannelId));
             var userIds = adminWithInvitesList.Select(p => p.AdminId).ToList();
-            var users = await userConverterService.GetUserListAsync(input, userIds, false, false, input.Layer);
+            var users = await userConverterService.GetUserListAsync(input, userIds, false, false);
             return new TChatAdminsWithInvites
             {
                 Admins = [.. adminWithInvitesList.Select(p => new TChatAdminWithInvites { AdminId = p.AdminId, InvitesCount = p.InvitesCount, RevokedInvitesCount = p.RevokedInvitesCount })],

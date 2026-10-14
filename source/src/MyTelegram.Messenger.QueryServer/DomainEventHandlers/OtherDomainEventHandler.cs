@@ -114,7 +114,7 @@ public class OtherDomainEventHandler(
             return;
         }
 
-        var user = await userConverterService.GetUserAsync(domainEvent.AggregateEvent.RequestInfo, userId, layer: domainEvent.AggregateEvent.RequestInfo.Layer);
+        var user = await userConverterService.GetUserAsync(domainEvent.AggregateEvent.RequestInfo, userId);
         var r = layeredAuthorizationService.GetConverter(domainEvent.AggregateEvent.RequestInfo.Layer)
             .CreateAuthorization(user);
 
@@ -341,7 +341,7 @@ public class OtherDomainEventHandler(
         {
             var user = await userConverterService.GetUserAsync(
                 domainEvent.AggregateEvent.RequestInfo,
-                domainEvent.AggregateEvent.Peer.PeerId, layer: domainEvent.AggregateEvent.RequestInfo.Layer);
+                domainEvent.AggregateEvent.Peer.PeerId);
 
             await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo, user);
         }

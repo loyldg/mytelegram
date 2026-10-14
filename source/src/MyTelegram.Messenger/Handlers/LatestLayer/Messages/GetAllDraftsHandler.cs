@@ -12,6 +12,6 @@ internal sealed class GetAllDraftsHandler(IQueryProcessor queryProcessor, IUpdat
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestGetAllDrafts obj)
     {
         var draftReadModels = await queryProcessor.ProcessAsync(new GetAllDraftQuery(input.UserId));
-        return updatesConverterService.ToDraftsUpdates(draftReadModels, input.Layer);
+        return updatesConverterService.ToDraftsUpdates(draftReadModels);
     }
 }

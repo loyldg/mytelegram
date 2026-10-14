@@ -2,8 +2,8 @@
 
 public interface ISendMessageConverterService
 {
-    IUpdates ToSelfOtherDeviceUpdates(SendOutboxMessageCompletedSagaEvent aggregateEvent, int layer);
+    IUpdates ToSelfOtherDeviceUpdates(SendOutboxMessageCompletedSagaEvent aggregateEvent);
 
-    IUpdates ToUpdates(SendOutboxMessageCompletedSagaEvent aggregateEvent, int layer = 0);
+    IUpdates ToUpdates(SendOutboxMessageCompletedSagaEvent aggregateEvent);
     IUpdates ToUpdates(ReceiveInboxMessageCompletedSagaEvent data);
 }

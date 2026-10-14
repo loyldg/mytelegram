@@ -2,7 +2,7 @@
 
 public interface IEditMessageConverterService
 {
-    IUpdates ToEditQuickReplyMessageUpdates(OutboxMessageEditCompletedSagaEvent data, int layer);
+    IUpdates ToEditQuickReplyMessageUpdates(OutboxMessageEditCompletedSagaEvent data);
     IUpdates ToEditMessageUpdates(InboxMessageEditCompletedSagaEvent data);
-    IUpdates ToEditMessageUpdates(long selfUserId, OutboxMessageEditCompletedSagaEvent data, int layer);
+    IUpdates ToEditMessageUpdates(long selfUserId, OutboxMessageEditCompletedSagaEvent data);
 }

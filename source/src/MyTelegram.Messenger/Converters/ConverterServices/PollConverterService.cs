@@ -1,20 +1,21 @@
 ﻿namespace MyTelegram.Messenger.Converters.ConverterServices;
 
 public class PollConverterService(
-    ILayeredService<IPollConverter> pollLayeredService,
-    ILayeredService<IPollResultsConverter> pollResultsLayeredService) : IPollConverterService, ITransientDependency
+    IPollConverter pollConverter,
+    IPollResultsConverter pollResultsConverter
+    ) : IPollConverterService, ITransientDependency
 {
-    public IPoll ToPoll(IPollReadModel pollReadModel, int layer = 0)
+    public IPoll ToPoll(IPollReadModel pollReadModel)
     {
-        return pollLayeredService.GetConverter(layer).ToPoll(pollReadModel);
+        return pollConverter.ToPoll(pollReadModel);
     }
 
-    public IPollResults ToPollResults(long userId, IPollReadModel pollReadModel, IList<string> chosenOptions, int layer = 0)
+    public IPollResults ToPollResults(long userId, IPollReadModel pollReadModel, IList<string> chosenOptions)
     {
-        return pollResultsLayeredService.GetConverter(layer).ToPollResults(userId, pollReadModel, chosenOptions);
+        return pollResultsConverter.ToPollResults(userId, pollReadModel, chosenOptions);
     }
 
-    public IUpdates ToPollUpdates(long userId, IPollReadModel pollReadModel, IList<string> chosenOptions, int layer = 0)
+    public IUpdates ToPollUpdates(long userId, IPollReadModel pollReadModel, IList<string> chosenOptions)
     {
         var pollResults = ToPollResults(userId, pollReadModel, chosenOptions);
         pollResults.Min = true;

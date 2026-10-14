@@ -4,11 +4,10 @@ using System.Text;
 namespace MyTelegram.Messenger.Converters.ConverterServices;
 
 public class MessageConverterService(
-    IMessageMediaResponseService messageMediaResponseService,
-    ILayeredService<IMessageConverter> messageLayeredService,
-    ILayeredService<IMessageServiceConverter> messageServiceLayeredService,
-    ILayeredService<IMessageFwdHeaderConverter> messageFwdHeaderLayeredService,
-    ILayeredService<IPollConverter> pollLayeredService,
+    IMessageConverter messageConverter,
+    IMessageServiceConverter messageServiceConverter,
+    IMessageFwdHeaderConverter messageFwdHeaderConverter,
+    IPollConverter pollConverter,
     IDataEncryptionHelper2 dataEncryptionHelper2,
     IOptionsMonitor<MyTelegramMessengerServerOptions> options
 ) : IMessageConverterService, ITransientDependency
@@ -19,8 +18,7 @@ public class MessageConverterService(
         IMessageReadModel readModel,
         IPollReadModel? pollReadModel = null,
         List<string>? chosenOptions = null,
-        List<IUserReactionReadModel>? userReactionReadModels = null,
-        int layer = 0
+        List<IUserReactionReadModel>? userReactionReadModels = null
     )
     {
         IMessageMedia? media = null;
@@ -28,22 +26,19 @@ public class MessageConverterService(
         {
             media = new TMessageMediaPoll
             {
-                Poll = pollLayeredService.GetConverter(layer).ToPoll(pollReadModel),
-                Results = pollLayeredService
-                    .GetConverter(layer)
-                    .ToPollResults(pollReadModel, chosenOptions),
+                Poll = pollConverter.ToPoll(pollReadModel),
+                Results = pollConverter.ToPollResults(pollReadModel, chosenOptions),
             };
         }
 
-        return ToMessage(selfUserId, readModel, media, userReactionReadModels, layer);
+        return ToMessage(selfUserId, readModel, media, userReactionReadModels);
     }
 
     private IMessage ToMessage(
         long selfUserId,
         IMessageReadModel readModel,
         IMessageMedia? pollMedia = null,
-        IReadOnlyCollection<IUserReactionReadModel>? userReactionReadModels = null,
-        int layer = 0
+        IReadOnlyCollection<IUserReactionReadModel>? userReactionReadModels = null
     )
     {
         var fromId = new Peer(PeerType.User, readModel.SenderPeerId).ToPeer();
@@ -51,7 +46,7 @@ public class MessageConverterService(
         {
             case SendMessageType.MessageService:
                 {
-                    var m = messageServiceLayeredService.GetConverter(layer).ToMessage(readModel);
+                    var m = messageServiceConverter.ToMessage(readModel);
                     if (readModel.ToPeerType == PeerType.Channel)
                     {
                         if (
@@ -82,16 +77,14 @@ public class MessageConverterService(
 
             default:
                 {
-                    var m = messageLayeredService.GetConverter(layer).ToMessage(readModel);
+                    var m = messageConverter.ToMessage(readModel);
                     var media = readModel.Media2 ?? readModel.Media.ToTObject<IMessageMedia>();
-                    m.Media = messageMediaResponseService.ToLayeredData(media, layer);
+                    m.Media = media;
                     m.Out = readModel.SenderPeerId == selfUserId;
                     m.FromId = fromId;
                     if (readModel.FwdHeader != null)
                     {
-                        m.FwdFrom = messageFwdHeaderLayeredService
-                            .GetConverter(layer)
-                            .ToMessageFwdHeader(readModel.FwdHeader);
+                        m.FwdFrom = messageFwdHeaderConverter.ToMessageFwdHeader(readModel.FwdHeader);
                     }
 
                     if (readModel.ToPeerType == PeerType.Channel)
@@ -155,8 +148,7 @@ public class MessageConverterService(
         IReadOnlyCollection<IMessageReadModel> messageReadModels,
         IReadOnlyCollection<IPollReadModel>? pollReadModels,
         IReadOnlyCollection<IPollAnswerVoterReadModel>? pollAnswerVoterReadModels,
-        IReadOnlyCollection<IUserReactionReadModel>? userReactionReadModels,
-        int layer = 0
+        IReadOnlyCollection<IUserReactionReadModel>? userReactionReadModels
     )
     {
         var messages = new List<IMessage>();
@@ -165,8 +157,6 @@ public class MessageConverterService(
             pollAnswerVoterReadModels
                 ?.GroupBy(p => p.PollId)
                 .ToDictionary(k => k.Key, v => v.Select(x => x.Option).ToList()) ?? [];
-
-        var pollConverter = pollLayeredService.GetConverter(layer);
 
         foreach (var readModel in messageReadModels)
         {
@@ -189,7 +179,7 @@ public class MessageConverterService(
                 }
             }
 
-            messages.Add(ToMessage(selfUserId, readModel, media, null, layer));
+            messages.Add(ToMessage(selfUserId, readModel, media));
         }
 
         return messages;
@@ -199,8 +189,7 @@ public class MessageConverterService(
         long selfUserId,
         MessageItem item,
         List<long>? userReactionIds = null,
-        bool mentioned = false,
-        int layer = 0
+        bool mentioned = false
     )
     {
         var isOut = item.IsOut;
@@ -227,7 +216,7 @@ public class MessageConverterService(
                         }
                     }
 
-                    var m = messageServiceLayeredService.GetConverter(layer).ToMessage(item);
+                    var m = messageServiceConverter.ToMessage(item);
 
                     m.Out = isOut;
                     m.Mentioned = mentioned;
@@ -243,8 +232,8 @@ public class MessageConverterService(
 
             default:
                 {
-                    var media = messageMediaResponseService.ToLayeredData(item.Media, layer);
-                    var m = messageLayeredService.GetConverter(layer).ToMessage(item);
+                    var media = item.Media;
+                    var m = messageConverter.ToMessage(item);
 
                     m.Media = media;
                     m.Out = isOut;
@@ -254,9 +243,7 @@ public class MessageConverterService(
 
                     if (item.FwdHeader != null)
                     {
-                        m.FwdFrom = messageFwdHeaderLayeredService
-                            .GetConverter(layer)
-                            .ToMessageFwdHeader(item.FwdHeader);
+                        m.FwdFrom = messageFwdHeaderConverter.ToMessageFwdHeader(item.FwdHeader);
                     }
 
                     if (item.Post)

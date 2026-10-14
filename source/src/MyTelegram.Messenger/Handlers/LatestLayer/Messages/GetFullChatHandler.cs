@@ -24,7 +24,7 @@ internal sealed class GetFullChatHandler(IQueryProcessor queryProcessor, IPeerHe
                 var channelMember = await queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(obj.ChatId, input.UserId));
                 var peerNotifySettings = await queryProcessor.ProcessAsync(new GetPeerNotifySettingsByIdQuery(PeerNotifySettingsId.Create(input.UserId, PeerType.Channel, obj.ChatId).Value), CancellationToken.None);
                 var photoReadModel = await photoAppService.GetAsync(channel.PhotoId);
-                return chatConverterService.ToChannelFull(input, channel, photoReadModel, channelFull!, channelMember, peerNotifySettings, null, input.Layer);
+                return chatConverterService.ToChannelFull(input, channel, photoReadModel, channelFull!, channelMember, peerNotifySettings, null);
             }
         }
 

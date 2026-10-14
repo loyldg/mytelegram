@@ -17,11 +17,11 @@ internal sealed class GetAdminedPublicChannelsHandler(IQueryProcessor queryProce
         var channelReadModels = await queryProcessor.ProcessAsync(new GetAdminedPublicChannelsQuery(input.UserId));
         var photoReadModels = await photoAppService.GetPhotosAsync(channelReadModels);
         var channelMemberReadModels = await queryProcessor.ProcessAsync(new GetChannelMemberListByChannelIdListQuery(input.UserId, channelReadModels.Select(p => p.ChannelId).ToList()));
-        var channels = chatConverterService.ToChannelList(input, channelReadModels, photoReadModels, channelMemberReadModels, layer: input.Layer);
+        var channels = chatConverterService.ToChannelList(input, channelReadModels, photoReadModels, channelMemberReadModels);
         var myChannels = channels.Where(p => p is ILayeredChannel);
         return new TChats
         {
-            Chats = [..myChannels]
+            Chats = [.. myChannels]
         };
     }
 }

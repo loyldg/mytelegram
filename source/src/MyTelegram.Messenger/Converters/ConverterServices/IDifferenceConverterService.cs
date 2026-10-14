@@ -11,8 +11,7 @@ public interface IDifferenceConverterService
         IList<IUpdate> updatesList,
         int updatesMaxPts = 0,
         bool resetLeftToFalse = false,
-        int timeoutSeconds = 30,
-        int layer = 0
+        int timeoutSeconds = 30
     );
 
     Task<IDifference> ToDifferenceAsync(
@@ -23,6 +22,6 @@ public interface IDifferenceConverterService
         int limit,
         IList<IUpdate> updateList,
         IList<IChat> chatListFromUpdates,
-        IReadOnlyCollection<IEncryptedMessageReadModel>? encryptedMessageReadModels,
-        int layer = 0);
+        IReadOnlyCollection<IEncryptedMessageReadModel>? encryptedMessageReadModels
+        );
 }

@@ -41,7 +41,7 @@ internal sealed class ImportAuthorizationHandler(ICacheManager<AuthorizationCach
         await eventBus.PublishAsync(new BindUserIdToSessionEvent(userReadModel!.UserId, input.AuthKeyId, input.PermAuthKeyId, cachedAuthItem.AccessHashKeyId));
         await cacheManager.RemoveAsync(key);
         var photos = await photoAppService.GetPhotosAsync(userReadModel);
-        ILayeredUser user = await userConverterService.ToUserAsync(input, userReadModel, photos, layer: input.Layer);
+        ILayeredUser user = await userConverterService.ToUserAsync(input, userReadModel, photos);
         user.Self = true;
         //logger.LogInformation("ImportAuthorizationHandler[{UserId}][{@Input}]:{@data}", userId,input, obj);
         return layeredService.GetConverter(input.Layer).CreateAuthorization(user);

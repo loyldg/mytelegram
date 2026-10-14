@@ -26,7 +26,7 @@ IChatConverterService chatConverterService, IUserConverterService userConverterS
                 switch (userNameReadModel.PeerType)
                 {
                     case PeerType.User:
-                        var user = await userConverterService.GetUserAsync(input, userNameReadModel.PeerId, false, false, input.Layer);
+                        var user = await userConverterService.GetUserAsync(input, userNameReadModel.PeerId, false, false);
                         return new TResolvedPeer
                         {
                             Chats = [],
@@ -45,7 +45,7 @@ IChatConverterService chatConverterService, IUserConverterService userConverterS
                             var channelMemberReadModel = await queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(channelReadModel.ChannelId, input.UserId));
                             return new TResolvedPeer
                             {
-                                Chats = new TVector<IChat>(chatConverterService.ToChannel(input, channelReadModel, photoReadModel, channelMemberReadModel, channelMemberReadModel?.Left ?? true, input.Layer)),
+                                Chats = new TVector<IChat>(chatConverterService.ToChannel(input, channelReadModel, photoReadModel, channelMemberReadModel, channelMemberReadModel?.Left ?? true)),
                                 Peer = new TPeerChannel
                                 {
                                     ChannelId = userNameReadModel.PeerId
