@@ -3253,6 +3253,25 @@ namespace MyTelegram.Schema
                     yield return a;
                 }
             }
+
+            if (Result is IEnumerable<IObject> enumerable)
+            {
+                foreach (var item in enumerable)
+                {
+                    if (item is IHasAccessHash a2)
+                    {
+                        yield return a2;
+                    }
+
+                    if (item is IAccessHashOwner o2)
+                    {
+                        foreach (var a in o2.GetAccessHashes())
+                        {
+                            yield return a;
+                        }
+                    }
+                }
+            }
         }
     }
     public partial class TSavedStarGift : IAccessHashOwner
