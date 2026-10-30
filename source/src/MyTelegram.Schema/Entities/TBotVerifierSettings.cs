@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Info about the current <a href="https://corefork.telegram.org/api/bots/verification">verifier bot »</a>.
 /// <para>See <a href="https://corefork.telegram.org/constructor/botVerifierSettings" /></para>
 /// </summary>
-[TlObject(0xb0cd6617)]
+[TlObject(0xa12aefff)]
 public sealed partial class TBotVerifierSettings : IBotVerifierSettings
 {
-    public uint ConstructorId => 0xb0cd6617;
+    public uint ConstructorId => 0xa12aefff;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -32,8 +32,9 @@ public sealed partial class TBotVerifierSettings : IBotVerifierSettings
 
     /// <summary>
     /// An optional default description for the verification
+    /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
     /// </summary>
-    public string? CustomDescription { get; set; }
+    public MyTelegram.Schema.ITextWithEntities? CustomDescription { get; set; }
 
     public int CalculateFlags()
     {
@@ -59,6 +60,6 @@ public sealed partial class TBotVerifierSettings : IBotVerifierSettings
         if (Flags.IsBitSet(1)) { CanModifyCustomDescription = true; }
         Icon = buffer.ReadInt64();
         Company = buffer.ReadString();
-        if (Flags.IsBitSet(0)) { CustomDescription = buffer.ReadString(); }
+        if (Flags.IsBitSet(0)) { CustomDescription = buffer.Read<MyTelegram.Schema.ITextWithEntities>(); }
     }
 }

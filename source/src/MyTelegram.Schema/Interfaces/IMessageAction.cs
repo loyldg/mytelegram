@@ -77,6 +77,9 @@ namespace MyTelegram.Schema;
 /// <see cref="TMessageActionChangeCommunity"/> See <a href="" /><br/>
 /// <see cref="TMessageActionStarGiftUnique"/> See <a href="https://corefork.telegram.org/constructor/messageActionStarGiftUnique" /><br/>
 /// <see cref="TMessageActionChatJoinedViaCommunity"/> See <a href="" /><br/>
+/// <see cref="TMessageActionGramTransfer"/> See <a href="" /><br/>
+/// <see cref="TMessageActionWalletTonConnectRequest"/> See <a href="" /><br/>
+/// <see cref="TMessageActionNoPaidMessagesTokenUsed"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TMessageActionEmpty), nameof(TMessageActionEmpty))]
 [JsonDerivedType(typeof(TMessageActionChatCreate), nameof(TMessageActionChatCreate))]
@@ -147,6 +150,9 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TMessageActionChangeCommunity), nameof(TMessageActionChangeCommunity))]
 [JsonDerivedType(typeof(TMessageActionStarGiftUnique), nameof(TMessageActionStarGiftUnique))]
 [JsonDerivedType(typeof(TMessageActionChatJoinedViaCommunity), nameof(TMessageActionChatJoinedViaCommunity))]
+[JsonDerivedType(typeof(TMessageActionGramTransfer), nameof(TMessageActionGramTransfer))]
+[JsonDerivedType(typeof(TMessageActionWalletTonConnectRequest), nameof(TMessageActionWalletTonConnectRequest))]
+[JsonDerivedType(typeof(TMessageActionNoPaidMessagesTokenUsed), nameof(TMessageActionNoPaidMessagesTokenUsed))]
 public partial interface IMessageAction : IObject
 {
 }

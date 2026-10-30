@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Extended user infoWhen updating the <a href="https://corefork.telegram.org/api/peers">local peer database »</a>, all fields from the newly received constructor take priority over the old constructor cached locally (including by removing fields that aren't set in the new constructor).
 /// <para>See <a href="https://corefork.telegram.org/constructor/userFull" /></para>
 /// </summary>
-[TlObject(0x6cbe645)]
+[TlObject(0xb90c2afd)]
 public sealed partial class TUserFull : IUserFull
 {
-    public uint ConstructorId => 0x6cbe645;
+    public uint ConstructorId => 0xb90c2afd;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -329,6 +329,16 @@ public sealed partial class TUserFull : IUserFull
 
     public long? BotManagerId { get; set; }
 
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/wallet.Card" />
+    /// </summary>
+    public MyTelegram.Schema.Wallet.ICard? WalletCard { get; set; }
+
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/ShareTheme" />
+    /// </summary>
+    public MyTelegram.Schema.IShareTheme? ShareTheme { get; set; }
+
     public int CalculateFlags()
     {
         var flags = 0;
@@ -391,6 +401,8 @@ public sealed partial class TUserFull : IUserFull
         if (SavedMusic != null) { flags2 = flags2.SetBit(21); }
         if (Note != null) { flags2 = flags2.SetBit(22); }
         if (/*BotManagerId != 0 &&*/ BotManagerId.HasValue) { flags2 = flags2.SetBit(25); }
+        if (WalletCard != null) { flags2 = flags2.SetBit(19); }
+        if (ShareTheme != null) { flags2 = flags2.SetBit(27); }
         return flags2;
     }
 
@@ -439,6 +451,8 @@ public sealed partial class TUserFull : IUserFull
         if (flags2.IsBitSet(21)) { writer.Write(SavedMusic); }
         if (flags2.IsBitSet(22)) { writer.Write(Note); }
         if (flags2.IsBitSet(25)) { writer.Write(BotManagerId.Value); }
+        if (flags2.IsBitSet(19)) { writer.Write(WalletCard); }
+        if (flags2.IsBitSet(27)) { writer.Write(ShareTheme); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -503,5 +517,7 @@ public sealed partial class TUserFull : IUserFull
         if (Flags2.IsBitSet(21)) { SavedMusic = buffer.Read<MyTelegram.Schema.IDocument>(); }
         if (Flags2.IsBitSet(22)) { Note = buffer.Read<MyTelegram.Schema.ITextWithEntities>(); }
         if (Flags2.IsBitSet(25)) { BotManagerId = buffer.ReadInt64(); }
+        if (Flags2.IsBitSet(19)) { WalletCard = buffer.Read<MyTelegram.Schema.Wallet.ICard>(); }
+        if (Flags2.IsBitSet(27)) { ShareTheme = buffer.Read<MyTelegram.Schema.IShareTheme>(); }
     }
 }

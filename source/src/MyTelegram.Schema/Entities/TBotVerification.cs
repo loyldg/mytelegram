@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Describes a <a href="https://corefork.telegram.org/api/bots/verification">bot verification icon »</a>.
 /// <para>See <a href="https://corefork.telegram.org/constructor/botVerification" /></para>
 /// </summary>
-[TlObject(0xf93cd45c)]
+[TlObject(0xf72e0ed9)]
 public sealed partial class TBotVerification : IBotVerification
 {
-    public uint ConstructorId => 0xf93cd45c;
+    public uint ConstructorId => 0xf72e0ed9;
     /// <summary>
     /// ID of the bot that verified this peer
     /// </summary>
@@ -22,8 +22,9 @@ public sealed partial class TBotVerification : IBotVerification
 
     /// <summary>
     /// Verification description
+    /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
     /// </summary>
-    public string Description { get; set; }
+    public MyTelegram.Schema.ITextWithEntities Description { get; set; }
 
 
     public void Serialize(IBufferWriter<byte> writer)
@@ -38,6 +39,6 @@ public sealed partial class TBotVerification : IBotVerification
     {
         BotId = buffer.ReadInt64();
         Icon = buffer.ReadInt64();
-        Description = buffer.ReadString();
+        Description = buffer.Read<MyTelegram.Schema.ITextWithEntities>();
     }
 }

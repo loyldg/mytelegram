@@ -4,7 +4,5 @@ public interface IInviteToChannelConverterService
 {
     IInvitedUsers ToInvitedUsers(SendOutboxMessageCompletedSagaEvent data);
 
-    IUpdates ToInviteToChannelUpdates(
-        SendOutboxMessageCompletedSagaEvent data
-    );
+    IUpdates ToInviteToChannelUpdates(SendOutboxMessageCompletedSagaEvent data);
 }

@@ -39,6 +39,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TTextDate"/> See <a href="" /><br/>
 /// <see cref="TTextDiff"/> See <a href="" /><br/>
 /// <see cref="TTextButton"/> See <a href="" /><br/>
+/// <see cref="TTextTonAddress"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TTextEmpty), nameof(TTextEmpty))]
 [JsonDerivedType(typeof(TTextPlain), nameof(TTextPlain))]
@@ -71,6 +72,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TTextDate), nameof(TTextDate))]
 [JsonDerivedType(typeof(TTextDiff), nameof(TTextDiff))]
 [JsonDerivedType(typeof(TTextButton), nameof(TTextButton))]
+[JsonDerivedType(typeof(TTextTonAddress), nameof(TTextTonAddress))]
 public partial interface IRichText : IObject
 {
 }

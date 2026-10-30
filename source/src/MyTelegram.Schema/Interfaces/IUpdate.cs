@@ -173,6 +173,11 @@ namespace MyTelegram.Schema;
 /// <see cref="TUpdateEditEphemeralMessage"/> See <a href="" /><br/>
 /// <see cref="TUpdateBotStarsSubscription"/> See <a href="" /><br/>
 /// <see cref="TUpdateEphemeralBotCallbackQuery"/> See <a href="" /><br/>
+/// <see cref="TUpdateWalletState"/> See <a href="" /><br/>
+/// <see cref="TUpdateSentWalletTransaction"/> See <a href="" /><br/>
+/// <see cref="TUpdateWalletGaslessInfo"/> See <a href="" /><br/>
+/// <see cref="TUpdateWalletTonConnectSession"/> See <a href="" /><br/>
+/// <see cref="TUpdateWalletTonConnectPendingDisconnect"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TUpdateNewMessage), nameof(TUpdateNewMessage))]
 [JsonDerivedType(typeof(TUpdateMessageID), nameof(TUpdateMessageID))]
@@ -339,6 +344,11 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TUpdateEditEphemeralMessage), nameof(TUpdateEditEphemeralMessage))]
 [JsonDerivedType(typeof(TUpdateBotStarsSubscription), nameof(TUpdateBotStarsSubscription))]
 [JsonDerivedType(typeof(TUpdateEphemeralBotCallbackQuery), nameof(TUpdateEphemeralBotCallbackQuery))]
+[JsonDerivedType(typeof(TUpdateWalletState), nameof(TUpdateWalletState))]
+[JsonDerivedType(typeof(TUpdateSentWalletTransaction), nameof(TUpdateSentWalletTransaction))]
+[JsonDerivedType(typeof(TUpdateWalletGaslessInfo), nameof(TUpdateWalletGaslessInfo))]
+[JsonDerivedType(typeof(TUpdateWalletTonConnectSession), nameof(TUpdateWalletTonConnectSession))]
+[JsonDerivedType(typeof(TUpdateWalletTonConnectPendingDisconnect), nameof(TUpdateWalletTonConnectPendingDisconnect))]
 public partial interface IUpdate : IObject
 {
 }

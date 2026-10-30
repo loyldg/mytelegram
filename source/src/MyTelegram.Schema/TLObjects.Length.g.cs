@@ -857,7 +857,7 @@
             var length = 4;
             length += 8; // BotId
             length += 8; // Icon
-            length += Description.GetTLLength(); // Description
+            length += Description.GetLength(); // Description
 
             return length;
         }
@@ -872,7 +872,7 @@
             length += 4; // Flags
             length += 8; // Icon
             length += Company.GetTLLength(); // Company
-            if (flags.IsBitSet(0)) { length += CustomDescription.GetTLLength(); } // CustomDescription
+            if (flags.IsBitSet(0)) { length += CustomDescription.GetLength(); } // CustomDescription
 
             return length;
         }
@@ -1171,6 +1171,7 @@
             if (flags2.IsBitSet(14)) { length += 8; } // SendPaidMessagesStars
             if (flags2.IsBitSet(18)) { length += 8; } // LinkedMonoforumId
             if (flags2.IsBitSet(20)) { length += 8; } // LinkedCommunityId
+            if (flags2.IsBitSet(22)) { length += 4; } // PinnedMsgId
 
             return length;
         }
@@ -1874,6 +1875,7 @@
             if (flags2.IsBitSet(21)) { length += 8; } // SendPaidMessagesStars
             if (flags2.IsBitSet(22)) { length += MainTab.GetLength(); } // MainTab
             if (flags2.IsBitSet(23)) { length += 8; } // GuardBotId
+            if (flags2.IsBitSet(25)) { length += ShareTheme.GetLength(); } // ShareTheme
 
             return length;
         }
@@ -2710,6 +2712,18 @@
             var length = 4;
             length += 8; // UserId
             length += Status.GetLength(); // Status
+
+            return length;
+        }
+    }
+    public partial class TCurrencyRate
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Currency.GetTLLength(); // Currency
+            length += 8; // Rate
 
             return length;
         }
@@ -3609,6 +3623,21 @@
             var length = 4;
             length += Link.GetTLLength(); // Link
             length += Html.GetTLLength(); // Html
+
+            return length;
+        }
+    }
+    public partial class TExportedNoPaidMessagesToken
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += Token.GetTLLength(); // Token
+            length += Url.GetTLLength(); // Url
+            if (flags.IsBitSet(0)) { length += 4; } // Expires
 
             return length;
         }
@@ -5977,17 +6006,6 @@
             return length;
         }
     }
-    public partial class TInputPasskeyCredentialFirebasePNV
-    {
-        public int GetLength()
-        {
-            // ConstructorId length = 4 
-            var length = 4;
-            length += PnvToken.GetTLLength(); // PnvToken
-
-            return length;
-        }
-    }
     public partial class TInputPasskeyCredentialPublicKey
     {
         public int GetLength()
@@ -6609,6 +6627,7 @@
             if (flags.IsBitSet(5)) { length += MonoforumPeerId.GetLength(); } // MonoforumPeerId
             if (flags.IsBitSet(6)) { length += 4; } // TodoItemId
             if (flags.IsBitSet(7)) { length += PollOption.GetTLLength(); } // PollOption
+            if (flags.IsBitSet(8)) { length += QuoteRich.GetLength(); } // QuoteRich
 
             return length;
         }
@@ -6907,6 +6926,17 @@
             length += 4; // Flags
             length += 8; // RandomId
             length += RichMessage.GetLength(); // RichMessage
+
+            return length;
+        }
+    }
+    public partial class TInputShareThemeGift
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Stargift.GetLength(); // Stargift
 
             return length;
         }
@@ -7318,6 +7348,20 @@
             return length;
         }
     }
+    public partial class TInputTonConnectOauthSession
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += 8; // SessionId
+            length += ChallengeAnswer.GetTLLength(); // ChallengeAnswer
+            length += Body.GetTLLength(); // Body
+            length += Proof.GetLength(); // Proof
+
+            return length;
+        }
+    }
     public partial class TInputUser
     {
         public int GetLength()
@@ -7354,6 +7398,43 @@
         }
     }
     public partial class TInputUserSelf
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+
+            return length;
+        }
+    }
+    public partial class TInputWalletCardSticker
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Coordinates.GetLength(); // Coordinates
+            length += NftAddress.GetTLLength(); // NftAddress
+
+            return length;
+        }
+    }
+    public partial class TInputWalletImported
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += PublicKey.GetTLLength(); // PublicKey
+            if (flags.IsBitSet(0)) { length += AnchorPublicKey.GetTLLength(); } // AnchorPublicKey
+            length += Proof.GetLength(); // Proof
+
+            return length;
+        }
+    }
+    public partial class TInputWalletNew
     {
         public int GetLength()
         {
@@ -8272,6 +8353,22 @@
             return length;
         }
     }
+    public partial class TMessageActionGramTransfer
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += 8; // Amount
+            length += PeerAddress.GetTLLength(); // PeerAddress
+            length += TransactionId.GetTLLength(); // TransactionId
+            if (flags.IsBitSet(0)) { length += Comment.GetTLLength(); } // Comment
+
+            return length;
+        }
+    }
     public partial class TMessageActionGroupCall
     {
         public int GetLength()
@@ -8364,6 +8461,16 @@
             var length = 4;
             length += 4; // PrevValue
             length += 4; // NewValue
+
+            return length;
+        }
+    }
+    public partial class TMessageActionNoPaidMessagesTokenUsed
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
 
             return length;
         }
@@ -8794,6 +8901,23 @@
             return length;
         }
     }
+    public partial class TMessageActionWalletTonConnectRequest
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += 8; // SessionId
+            length += 4; // Expires
+            if (flags.IsBitSet(0)) { length += Topic.GetTLLength(); } // Topic
+            if (flags.IsBitSet(1)) { length += TraceId.GetTLLength(); } // TraceId
+            if (flags.IsBitSet(4)) { length += DappName.GetTLLength(); } // DappName
+
+            return length;
+        }
+    }
     public partial class TMessageActionWebViewDataSent
     {
         public int GetLength()
@@ -9089,6 +9213,18 @@
             length += 4; // Offset
             length += 4; // Length
             length += Url.GetTLLength(); // Url
+
+            return length;
+        }
+    }
+    public partial class TMessageEntityTonAddress
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += 4; // Offset
+            length += 4; // Length
 
             return length;
         }
@@ -9588,6 +9724,7 @@
             if (flags.IsBitSet(10)) { length += 4; } // QuoteOffset
             if (flags.IsBitSet(11)) { length += 4; } // TodoItemId
             if (flags.IsBitSet(12)) { length += PollOption.GetTLLength(); } // PollOption
+            if (flags.IsBitSet(14)) { length += QuoteRich.GetLength(); } // QuoteRich
 
             return length;
         }
@@ -9946,6 +10083,100 @@
         {
             // ConstructorId length = 4 
             var length = 4;
+
+            return length;
+        }
+    }
+    public partial class TOnrampAvailability
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += CountryCode.GetTLLength(); // CountryCode
+            if (flags.IsBitSet(2)) { length += State.GetTLLength(); } // State
+            length += Methods.GetLength(); // Methods
+
+            return length;
+        }
+    }
+    public partial class TOnrampLimits
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += BaseCurrency.GetTLLength(); // BaseCurrency
+            length += BaseMinAmount.GetTLLength(); // BaseMinAmount
+            length += BaseMaxAmount.GetTLLength(); // BaseMaxAmount
+            length += CryptoMinAmount.GetTLLength(); // CryptoMinAmount
+            length += CryptoMaxAmount.GetTLLength(); // CryptoMaxAmount
+            length += PaymentMethod.GetTLLength(); // PaymentMethod
+
+            return length;
+        }
+    }
+    public partial class TOnrampMethodAvailability
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += PaymentMethod.GetTLLength(); // PaymentMethod
+
+            return length;
+        }
+    }
+    public partial class TOnrampProviderInfo
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += Id.GetTLLength(); // Id
+            length += Name.GetTLLength(); // Name
+            length += CryptoCurrencies.GetLength(); // CryptoCurrencies
+
+            return length;
+        }
+    }
+    public partial class TOnrampQuote
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += BaseCurrency.GetTLLength(); // BaseCurrency
+            length += BaseAmount.GetTLLength(); // BaseAmount
+            length += CryptoCurrency.GetTLLength(); // CryptoCurrency
+            length += CryptoAmount.GetTLLength(); // CryptoAmount
+            length += CryptoPrice.GetTLLength(); // CryptoPrice
+            length += FeeAmount.GetTLLength(); // FeeAmount
+            length += ExtraFeeAmount.GetTLLength(); // ExtraFeeAmount
+            length += NetworkFeeAmount.GetTLLength(); // NetworkFeeAmount
+            length += TotalAmount.GetTLLength(); // TotalAmount
+            length += PaymentMethod.GetTLLength(); // PaymentMethod
+            length += 4; // ExpiresDate
+
+            return length;
+        }
+    }
+    public partial class TOnrampSession
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Provider.GetTLLength(); // Provider
+            length += SessionId.GetTLLength(); // SessionId
+            length += Url.GetTLLength(); // Url
+            length += 4; // ExpiresDate
 
             return length;
         }
@@ -13187,6 +13418,79 @@
             return length;
         }
     }
+    public partial class TShareThemeBackdropOption
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += 4; // BackdropId
+            length += Name.GetTLLength(); // Name
+            length += 4; // CenterColor
+            length += 4; // EdgeColor
+            length += 4; // PatternColor
+            length += 4; // TextColor
+
+            return length;
+        }
+    }
+    public partial class TShareThemeBackdrops
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += 4; // Hash
+            length += Backdrops.GetLength(); // Backdrops
+
+            return length;
+        }
+    }
+    public partial class TShareThemeBackdropsNotModified
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+
+            return length;
+        }
+    }
+    public partial class TShareThemeDefault
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+
+            return length;
+        }
+    }
+    public partial class TShareThemeEmojiBackdrop
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            if (flags.IsBitSet(0)) { length += 4; } // BackdropId
+            if (flags.IsBitSet(1)) { length += Emojis.GetLength(); } // Emojis
+
+            return length;
+        }
+    }
+    public partial class TShareThemeGift
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Stargift.GetLength(); // Stargift
+
+            return length;
+        }
+    }
     public partial class TShippingOption
     {
         public int GetLength()
@@ -14708,6 +15012,17 @@
             return length;
         }
     }
+    public partial class TTextTonAddress
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Text.GetLength(); // Text
+
+            return length;
+        }
+    }
     public partial class TTextUnderline
     {
         public int GetLength()
@@ -14829,6 +15144,69 @@
             length += 4; // Flags
             length += Title.GetLength(); // Title
             length += List.GetLength(); // List
+
+            return length;
+        }
+    }
+    public partial class TTonConnectManifest
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += Url.GetTLLength(); // Url
+            length += Name.GetTLLength(); // Name
+            if (flags.IsBitSet(0)) { length += Icon.GetLength(); } // Icon
+
+            return length;
+        }
+    }
+    public partial class TTonConnectNextEventId
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += 8; // EventId
+
+            return length;
+        }
+    }
+    public partial class TTonConnectRequest
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += 8; // SessionId
+            length += 4; // MsgId
+            length += Body.GetTLLength(); // Body
+            length += 4; // Expires
+            if (flags.IsBitSet(0)) { length += Topic.GetTLLength(); } // Topic
+            if (flags.IsBitSet(1)) { length += TraceId.GetTLLength(); } // TraceId
+
+            return length;
+        }
+    }
+    public partial class TTonConnectSession
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += 8; // Id
+            length += DappClientId.GetTLLength(); // DappClientId
+            if (flags.IsBitSet(3)) { length += ClientId.GetTLLength(); } // ClientId
+            length += Nonce.GetTLLength(); // Nonce
+            if (flags.IsBitSet(4)) { length += Manifest.GetLength(); } // Manifest
+            if (flags.IsBitSet(5)) { length += 4; } // ManifestError
+            length += 4; // Date
 
             return length;
         }
@@ -16867,6 +17245,20 @@
             return length;
         }
     }
+    public partial class TUpdateSentWalletTransaction
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += MsgHash.GetTLLength(); // MsgHash
+            if (flags.IsBitSet(1)) { length += Transaction.GetLength(); } // Transaction
+
+            return length;
+        }
+    }
     public partial class TUpdateServiceNotification
     {
         public int GetLength()
@@ -17203,6 +17595,55 @@
             return length;
         }
     }
+    public partial class TUpdateWalletGaslessInfo
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += 4; // Left
+            length += 4; // ResetAt
+            length += 8; // MinAmount
+            length += RelayerAddress.GetTLLength(); // RelayerAddress
+
+            return length;
+        }
+    }
+    public partial class TUpdateWalletState
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += State.GetLength(); // State
+
+            return length;
+        }
+    }
+    public partial class TUpdateWalletTonConnectPendingDisconnect
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += SessionIds.GetLength(); // SessionIds
+
+            return length;
+        }
+    }
+    public partial class TUpdateWalletTonConnectSession
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Session.GetLength(); // Session
+
+            return length;
+        }
+    }
     public partial class TUpdateWebBrowserException
     {
         public int GetLength()
@@ -17293,6 +17734,8 @@
             if (flags.IsBitSet(3)) { length += MatchCodes.GetLength(); } // MatchCodes
             if (flags.IsBitSet(4)) { length += 8; } // UserIdHint
             if (flags.IsBitSet(7)) { length += VerifiedAppName.GetTLLength(); } // VerifiedAppName
+            if (flags.IsBitSet(9)) { length += 8; } // TcSessionId
+            if (flags.IsBitSet(10)) { length += TcClientId.GetTLLength(); } // TcClientId
 
             return length;
         }
@@ -17391,6 +17834,8 @@
             if (flags2.IsBitSet(21)) { length += SavedMusic.GetLength(); } // SavedMusic
             if (flags2.IsBitSet(22)) { length += Note.GetLength(); } // Note
             if (flags2.IsBitSet(25)) { length += 8; } // BotManagerId
+            if (flags2.IsBitSet(19)) { length += WalletCard.GetLength(); } // WalletCard
+            if (flags2.IsBitSet(27)) { length += ShareTheme.GetLength(); } // ShareTheme
 
             return length;
         }
@@ -17539,6 +17984,161 @@
             length += Stickerset.GetLength(); // Stickerset
             length += 8; // StickerId
             length += BackgroundColors.GetLength(); // BackgroundColors
+
+            return length;
+        }
+    }
+    public partial class TWalletOwnershipProof
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += 4; // Timestamp
+            length += Signature.GetTLLength(); // Signature
+
+            return length;
+        }
+    }
+    public partial class TWalletState
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += Address.GetTLLength(); // Address
+            length += PublicKey.GetTLLength(); // PublicKey
+            length += 8; // Balance
+
+            return length;
+        }
+    }
+    public partial class TWalletStateEmpty
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+
+            return length;
+        }
+    }
+    public partial class TWalletTransaction
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += Id.GetTLLength(); // Id
+            length += 8; // Amount
+            length += 8; // Fee
+            length += 4; // Date
+            length += Peer.GetLength(); // Peer
+            if (flags.IsBitSet(3)) { length += Comment.GetTLLength(); } // Comment
+            if (flags.IsBitSet(4)) { length += TxHash.GetTLLength(); } // TxHash
+            if (flags.IsBitSet(7)) { length += Nft.GetLength(); } // Nft
+
+            return length;
+        }
+    }
+    public partial class TWalletTransactionPeerAddress
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += Address.GetTLLength(); // Address
+            if (flags.IsBitSet(0)) { length += Domain.GetTLLength(); } // Domain
+
+            return length;
+        }
+    }
+    public partial class TWalletTransactionPeerChannel
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += 8; // ChannelId
+            length += Address.GetTLLength(); // Address
+            if (flags.IsBitSet(0)) { length += Domain.GetTLLength(); } // Domain
+
+            return length;
+        }
+    }
+    public partial class TWalletTransactionPeerOnramp
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += Address.GetTLLength(); // Address
+            if (flags.IsBitSet(0)) { length += Domain.GetTLLength(); } // Domain
+            length += ProviderName.GetTLLength(); // ProviderName
+
+            return length;
+        }
+    }
+    public partial class TWalletTransactionPeerTelegramGift
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+
+            return length;
+        }
+    }
+    public partial class TWalletTransactionPeerUnsupported
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+
+            return length;
+        }
+    }
+    public partial class TWalletTransactionPeerUser
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += 8; // UserId
+            length += Address.GetTLLength(); // Address
+            if (flags.IsBitSet(0)) { length += Domain.GetTLLength(); } // Domain
+
+            return length;
+        }
+    }
+    public partial class TWalletUserAddress
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            if (flags.IsBitSet(0)) { length += 8; } // UserId
+            length += Address.GetTLLength(); // Address
+            length += PublicKey.GetTLLength(); // PublicKey
 
             return length;
         }
@@ -18728,7 +19328,6 @@ namespace MyTelegram.Schema.Auth
         }
     }
 }
-
 namespace MyTelegram.Schema.Auth.LayerN
 {
 }
@@ -20024,7 +20623,6 @@ namespace MyTelegram.Schema.Help
         }
     }
 }
-
 namespace MyTelegram.Schema.LayerN
 {
     public partial class RequestInitConnection
@@ -21315,7 +21913,6 @@ namespace MyTelegram.Schema.Messages
         }
     }
 }
-
 namespace MyTelegram.Schema.Payments
 {
     public partial class TBankCardData
@@ -21380,6 +21977,17 @@ namespace MyTelegram.Schema.Payments
             length += 4; // Count
             length += ConnectedBots.GetLength(); // ConnectedBots
             length += Users.GetLength(); // Users
+
+            return length;
+        }
+    }
+    public partial class TCurrencyRates
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Rates.GetLength(); // Rates
 
             return length;
         }
@@ -21676,6 +22284,19 @@ namespace MyTelegram.Schema.Payments
         {
             // ConstructorId length = 4 
             var length = 4;
+
+            return length;
+        }
+    }
+    public partial class TStarGiftDepositPayload
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += NftAddress.GetTLLength(); // NftAddress
+            length += Payload.GetTLLength(); // Payload
+            length += 8; // Amount
 
             return length;
         }
@@ -22493,6 +23114,32 @@ namespace MyTelegram.Schema.Stories
         }
     }
 }
+namespace MyTelegram.Schema.Toncenter
+{
+    public partial class TApiResponse
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Response.GetLength(); // Response
+
+            return length;
+        }
+    }
+    public partial class TStreamingUrl
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Url.GetTLLength(); // Url
+            length += 4; // Expires
+
+            return length;
+        }
+    }
+}
 namespace MyTelegram.Schema.Updates
 {
     public partial class TChannelDifference
@@ -22742,6 +23389,213 @@ namespace MyTelegram.Schema.Users
             // ConstructorId length = 4 
             var length = 4;
             length += 4; // Count
+            length += Users.GetLength(); // Users
+
+            return length;
+        }
+    }
+}
+namespace MyTelegram.Schema.Wallet
+{
+    public partial class TCard
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            if (flags.IsBitSet(0)) { length += Stickers.GetLength(); } // Stickers
+            if (flags.IsBitSet(1)) { length += BgNftItem.GetLength(); } // BgNftItem
+            length += Address.GetTLLength(); // Address
+            length += 8; // Balance
+
+            return length;
+        }
+    }
+    public partial class TCardSticker
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Coordinates.GetLength(); // Coordinates
+            length += Nft.GetLength(); // Nft
+
+            return length;
+        }
+    }
+    public partial class TEncryptedSecretPhrasePart
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Data.GetTLLength(); // Data
+
+            return length;
+        }
+    }
+    public partial class TExistingBalance
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += Url.GetTLLength(); // Url
+
+            return length;
+        }
+    }
+    public partial class THolderDc
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += 4; // Dc
+            length += PublicKey.GetTLLength(); // PublicKey
+
+            return length;
+        }
+    }
+    public partial class TNftAttribute
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += TraitType.GetTLLength(); // TraitType
+            length += Value.GetTLLength(); // Value
+
+            return length;
+        }
+    }
+    public partial class TNftItem
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            if (flags.IsBitSet(0)) { length += CollectionAddress.GetTLLength(); } // CollectionAddress
+            length += Address.GetTLLength(); // Address
+            length += OwnerAddress.GetTLLength(); // OwnerAddress
+            length += Index.GetTLLength(); // Index
+            if (flags.IsBitSet(1)) { length += Name.GetTLLength(); } // Name
+            if (flags.IsBitSet(2)) { length += Description.GetTLLength(); } // Description
+            if (flags.IsBitSet(3)) { length += Image.GetLength(); } // Image
+            if (flags.IsBitSet(4)) { length += ImageSmall.GetLength(); } // ImageSmall
+            if (flags.IsBitSet(5)) { length += ContentUrl.GetLength(); } // ContentUrl
+            if (flags.IsBitSet(6)) { length += Lottie.GetLength(); } // Lottie
+            if (flags.IsBitSet(7)) { length += Attributes.GetLength(); } // Attributes
+            if (flags.IsBitSet(8)) { length += Extra.GetLength(); } // Extra
+            if (flags.IsBitSet(9)) { length += Gift.GetLength(); } // Gift
+
+            return length;
+        }
+    }
+    public partial class TNftItems
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += Items.GetLength(); // Items
+            if (flags.IsBitSet(0)) { length += NextOffset.GetTLLength(); } // NextOffset
+
+            return length;
+        }
+    }
+    public partial class TProofChallenge
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Payload.GetTLLength(); // Payload
+            length += 4; // Expires
+            length += Domain.GetTLLength(); // Domain
+
+            return length;
+        }
+    }
+    public partial class TSecretPhraseParts
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Token.GetTLLength(); // Token
+            length += Dcs.GetLength(); // Dcs
+
+            return length;
+        }
+    }
+    public partial class TTonConnectChallenge
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Challenge.GetTLLength(); // Challenge
+            length += 8; // EventId
+
+            return length;
+        }
+    }
+    public partial class TTonConnectPending
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Session.GetLength(); // Session
+            length += Requests.GetLength(); // Requests
+
+            return length;
+        }
+    }
+    public partial class TTonConnectSessions
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Sessions.GetLength(); // Sessions
+
+            return length;
+        }
+    }
+    public partial class TTransactions
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += 8; // Balance
+            length += Transactions.GetLength(); // Transactions
+            if (flags.IsBitSet(0)) { length += NextOffset.GetTLLength(); } // NextOffset
+            length += Chats.GetLength(); // Chats
+            length += Users.GetLength(); // Users
+
+            return length;
+        }
+    }
+    public partial class TUserAddresses
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Addresses.GetLength(); // Addresses
             length += Users.GetLength(); // Users
 
             return length;
@@ -24726,6 +25580,17 @@ namespace MyTelegram.Schema.Auth
             return length;
         }
     }
+    public partial class RequestCancelWebTokenAuthorization
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += WebAuthToken.GetTLLength(); // WebAuthToken
+
+            return length;
+        }
+    }
     public partial class RequestCheckPaidAuth
     {
         public int GetLength()
@@ -24892,6 +25757,9 @@ namespace MyTelegram.Schema.Auth
         {
             // ConstructorId length = 4 
             var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            if (flags.IsBitSet(0)) { length += ExceptIds.GetLength(); } // ExceptIds
             length += 4; // ApiId
             length += ApiHash.GetTLLength(); // ApiHash
 
@@ -25106,6 +25974,18 @@ namespace MyTelegram.Schema.Bots
             return length;
         }
     }
+    public partial class RequestAddUsername
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Bot.GetLength(); // Bot
+            length += Username.GetTLLength(); // Username
+
+            return length;
+        }
+    }
     public partial class RequestAllowSendMessage
     {
         public int GetLength()
@@ -25159,6 +26039,8 @@ namespace MyTelegram.Schema.Bots
         {
             // ConstructorId length = 4 
             var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
             length += Username.GetTLLength(); // Username
 
             return length;
@@ -25361,6 +26243,18 @@ namespace MyTelegram.Schema.Bots
             return length;
         }
     }
+    public partial class RequestRemoveUsername
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Bot.GetLength(); // Bot
+            length += Username.GetTLLength(); // Username
+
+            return length;
+        }
+    }
     public partial class RequestReorderPreviewMedias
     {
         public int GetLength()
@@ -25496,7 +26390,7 @@ namespace MyTelegram.Schema.Bots
             length += 4; // Flags
             if (flags.IsBitSet(0)) { length += Bot.GetLength(); } // Bot
             length += Peer.GetLength(); // Peer
-            if (flags.IsBitSet(2)) { length += CustomDescription.GetTLLength(); } // CustomDescription
+            if (flags.IsBitSet(2)) { length += CustomDescription.GetLength(); } // CustomDescription
 
             return length;
         }
@@ -26300,7 +27194,6 @@ namespace MyTelegram.Schema.Channels
         }
     }
 }
-
 namespace MyTelegram.Schema.Channels.LayerN
 {
     public partial class RequestExportMessageLink
@@ -26717,6 +27610,18 @@ namespace MyTelegram.Schema.Contacts
             return length;
         }
     }
+    public partial class RequestExportNoPaidMessagesToken
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+
+            return length;
+        }
+    }
     public partial class RequestGetBirthdays
     {
         public int GetLength()
@@ -26840,6 +27745,18 @@ namespace MyTelegram.Schema.Contacts
         {
             // ConstructorId length = 4 
             var length = 4;
+            length += Token.GetTLLength(); // Token
+
+            return length;
+        }
+    }
+    public partial class RequestImportNoPaidMessagesToken
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += UserId.GetLength(); // UserId
             length += Token.GetTLLength(); // Token
 
             return length;
@@ -27081,7 +27998,6 @@ namespace MyTelegram.Schema.Ephemeral
         }
     }
 }
-
 namespace MyTelegram.Schema.Folders
 {
     public partial class RequestEditPeerFolders
@@ -27512,6 +28428,7 @@ namespace MyTelegram.Schema.Messages
             if (flags.IsBitSet(1)) { length += 4; } // ButtonId
             if (flags.IsBitSet(2)) { length += Url.GetTLLength(); } // Url
             if (flags.IsBitSet(4)) { length += MatchCode.GetTLLength(); } // MatchCode
+            if (flags.IsBitSet(5)) { length += TonconnectSession.GetLength(); } // TonconnectSession
 
             return length;
         }
@@ -29272,6 +30189,17 @@ namespace MyTelegram.Schema.Messages
             return length;
         }
     }
+    public partial class RequestGetShareThemeBackdrops
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += 4; // Hash
+
+            return length;
+        }
+    }
     public partial class RequestGetSplitRanges
     {
         public int GetLength()
@@ -30627,6 +31555,18 @@ namespace MyTelegram.Schema.Messages
             return length;
         }
     }
+    public partial class RequestSetShareTheme
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Peer.GetLength(); // Peer
+            length += Theme.GetLength(); // Theme
+
+            return length;
+        }
+    }
     public partial class RequestSetTyping
     {
         public int GetLength()
@@ -31245,6 +32185,29 @@ namespace MyTelegram.Schema.Payments
             return length;
         }
     }
+    public partial class RequestCreateOnrampSession
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += Provider.GetTLLength(); // Provider
+            length += CryptoCurrency.GetTLLength(); // CryptoCurrency
+            length += Address.GetTLLength(); // Address
+            if (flags.IsBitSet(0)) { length += PaymentMethod.GetTLLength(); } // PaymentMethod
+            if (flags.IsBitSet(1)) { length += BaseCurrency.GetTLLength(); } // BaseCurrency
+            if (flags.IsBitSet(2)) { length += BaseAmount.GetTLLength(); } // BaseAmount
+            if (flags.IsBitSet(3)) { length += Memo.GetTLLength(); } // Memo
+            if (flags.IsBitSet(4)) { length += Theme.GetTLLength(); } // Theme
+            if (flags.IsBitSet(5)) { length += SuccessReturnUrl.GetTLLength(); } // SuccessReturnUrl
+            if (flags.IsBitSet(6)) { length += FailReturnUrl.GetTLLength(); } // FailReturnUrl
+            if (flags.IsBitSet(7)) { length += CryptoAmount.GetTLLength(); } // CryptoAmount
+
+            return length;
+        }
+    }
     public partial class RequestCreateStarGiftCollection
     {
         public int GetLength()
@@ -31258,6 +32221,17 @@ namespace MyTelegram.Schema.Payments
             return length;
         }
     }
+    public partial class RequestDeleteStarGift
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Stargift.GetLength(); // Stargift
+
+            return length;
+        }
+    }
     public partial class RequestDeleteStarGiftCollection
     {
         public int GetLength()
@@ -31266,6 +32240,34 @@ namespace MyTelegram.Schema.Payments
             var length = 4;
             length += Peer.GetLength(); // Peer
             length += 4; // CollectionId
+
+            return length;
+        }
+    }
+    public partial class RequestDepositStarGift
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += Peer.GetLength(); // Peer
+            length += Slug.GetTLLength(); // Slug
+
+            return length;
+        }
+    }
+    public partial class RequestDisplayStarGift
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            if (flags.IsBitSet(0)) { length += Peer.GetLength(); } // Peer
+            length += Slug.GetTLLength(); // Slug
 
             return length;
         }
@@ -31359,6 +32361,16 @@ namespace MyTelegram.Schema.Payments
             return length;
         }
     }
+    public partial class RequestGetCurrencyRates
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+
+            return length;
+        }
+    }
     public partial class RequestGetGiveawayInfo
     {
         public int GetLength()
@@ -31367,6 +32379,80 @@ namespace MyTelegram.Schema.Payments
             var length = 4;
             length += Peer.GetLength(); // Peer
             length += 4; // MsgId
+
+            return length;
+        }
+    }
+    public partial class RequestGetOnrampAvailability
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += Provider.GetTLLength(); // Provider
+            length += CryptoCurrency.GetTLLength(); // CryptoCurrency
+            if (flags.IsBitSet(0)) { length += BaseCurrency.GetTLLength(); } // BaseCurrency
+
+            return length;
+        }
+    }
+    public partial class RequestGetOnrampBaseCurrencies
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Provider.GetTLLength(); // Provider
+            length += CryptoCurrency.GetTLLength(); // CryptoCurrency
+
+            return length;
+        }
+    }
+    public partial class RequestGetOnrampLimits
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += Provider.GetTLLength(); // Provider
+            length += CryptoCurrency.GetTLLength(); // CryptoCurrency
+            length += BaseCurrency.GetTLLength(); // BaseCurrency
+            if (flags.IsBitSet(0)) { length += PaymentMethod.GetTLLength(); } // PaymentMethod
+
+            return length;
+        }
+    }
+    public partial class RequestGetOnrampProviders
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            if (flags.IsBitSet(0)) { length += CryptoCurrency.GetTLLength(); } // CryptoCurrency
+
+            return length;
+        }
+    }
+    public partial class RequestGetOnrampQuote
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += Provider.GetTLLength(); // Provider
+            length += CryptoCurrency.GetTLLength(); // CryptoCurrency
+            length += BaseCurrency.GetTLLength(); // BaseCurrency
+            if (flags.IsBitSet(0)) { length += BaseAmount.GetTLLength(); } // BaseAmount
+            if (flags.IsBitSet(1)) { length += CryptoAmount.GetTLLength(); } // CryptoAmount
+            if (flags.IsBitSet(2)) { length += PaymentMethod.GetTLLength(); } // PaymentMethod
 
             return length;
         }
@@ -31549,8 +32635,9 @@ namespace MyTelegram.Schema.Payments
         {
             // ConstructorId length = 4 
             var length = 4;
+            length += 4; // Flags
             length += Stargift.GetLength(); // Stargift
-            length += Password.GetLength(); // Password
+            length += TmpPassword.GetTLLength(); // TmpPassword
 
             return length;
         }
@@ -31922,6 +33009,20 @@ namespace MyTelegram.Schema.Payments
             length += 4; // Flags
             length += Invoice.GetLength(); // Invoice
             length += Info.GetLength(); // Info
+
+            return length;
+        }
+    }
+    public partial class RequestWithdrawStarGift
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += Stargift.GetLength(); // Stargift
+            length += TmpPassword.GetTLLength(); // TmpPassword
 
             return length;
         }
@@ -33430,7 +34531,34 @@ namespace MyTelegram.Schema.Stories
         }
     }
 }
+namespace MyTelegram.Schema.Toncenter
+{
+    public partial class RequestGetStreamingUrl
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
 
+            return length;
+        }
+    }
+    public partial class RequestPerformApiRequest
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += Endpoint.GetTLLength(); // Endpoint
+            if (flags.IsBitSet(1)) { length += Query.GetTLLength(); } // Query
+            if (flags.IsBitSet(2)) { length += Payload.GetTLLength(); } // Payload
+
+            return length;
+        }
+    }
+}
 namespace MyTelegram.Schema.Updates
 {
     public partial class RequestGetChannelDifference
@@ -33685,6 +34813,341 @@ namespace MyTelegram.Schema.Users
             var length = 4;
             length += Id.GetLength(); // Id
             length += Birthday.GetLength(); // Birthday
+
+            return length;
+        }
+    }
+}
+namespace MyTelegram.Schema.Wallet
+{
+    public partial class RequestDisableBackup
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            if (flags.IsBitSet(0)) { length += Password.GetLength(); } // Password
+            if (flags.IsBitSet(1)) { length += NewPublicKey.GetTLLength(); } // NewPublicKey
+            if (flags.IsBitSet(2)) { length += Proof.GetLength(); } // Proof
+
+            return length;
+        }
+    }
+    public partial class RequestEnableBackup
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += Parts.GetLength(); // Parts
+            if (flags.IsBitSet(1)) { length += NewPublicKey.GetTLLength(); } // NewPublicKey
+            if (flags.IsBitSet(2)) { length += Proof.GetLength(); } // Proof
+
+            return length;
+        }
+    }
+    public partial class RequestExportSecretPhrase
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            if (flags.IsBitSet(0)) { length += Password.GetLength(); } // Password
+
+            return length;
+        }
+    }
+    public partial class RequestFetchEncryptedSecretPhrasePart
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Token.GetTLLength(); // Token
+            length += PublicKey.GetTLLength(); // PublicKey
+
+            return length;
+        }
+    }
+    public partial class RequestGetBackupHolderDcs
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+
+            return length;
+        }
+    }
+    public partial class RequestGetExistingWaltBalance
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+
+            return length;
+        }
+    }
+    public partial class RequestGetGaslessInfo
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+
+            return length;
+        }
+    }
+    public partial class RequestGetNfts
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Offset.GetTLLength(); // Offset
+            length += 4; // Limit
+
+            return length;
+        }
+    }
+    public partial class RequestGetProofChallenge
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+
+            return length;
+        }
+    }
+    public partial class RequestGetState
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+
+            return length;
+        }
+    }
+    public partial class RequestGetTransactions
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += Offset.GetTLLength(); // Offset
+            length += 4; // Limit
+
+            return length;
+        }
+    }
+    public partial class RequestGetTransactionsByIDs
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += Id.GetLength(); // Id
+
+            return length;
+        }
+    }
+    public partial class RequestGetTransactionsByMsgHash
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += MsgHash.GetLength(); // MsgHash
+
+            return length;
+        }
+    }
+    public partial class RequestGetUserAddresses
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += Id.GetLength(); // Id
+            length += Addresses.GetLength(); // Addresses
+
+            return length;
+        }
+    }
+    public partial class RequestReplaceWallet
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += Wallet.GetLength(); // Wallet
+            if (flags.IsBitSet(0)) { length += Password.GetLength(); } // Password
+
+            return length;
+        }
+    }
+    public partial class RequestSendTransfer
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += DataNormal.GetTLLength(); // DataNormal
+            if (flags.IsBitSet(0)) { length += DataGasless.GetTLLength(); } // DataGasless
+            length += UserId.GetLength(); // UserId
+            length += 8; // RandomId
+
+            return length;
+        }
+    }
+    public partial class RequestSetCardStickers
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += Stickers.GetLength(); // Stickers
+            if (flags.IsBitSet(0)) { length += BgNftAddress.GetTLLength(); } // BgNftAddress
+
+            return length;
+        }
+    }
+    public partial class RequestTonConnectClaimRequest
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += 8; // SessionId
+            length += 4; // MsgId
+            length += AppRequestId.GetTLLength(); // AppRequestId
+            if (flags.IsBitSet(0)) { length += ChallengeAnswer.GetTLLength(); } // ChallengeAnswer
+
+            return length;
+        }
+    }
+    public partial class RequestTonConnectCloseSession
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += 8; // SessionId
+            if (flags.IsBitSet(0)) { length += Body.GetTLLength(); } // Body
+
+            return length;
+        }
+    }
+    public partial class RequestTonConnectCreateSession
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += DappClientId.GetTLLength(); // DappClientId
+            length += ManifestUrl.GetTLLength(); // ManifestUrl
+
+            return length;
+        }
+    }
+    public partial class RequestTonConnectGetPending
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            if (flags.IsBitSet(0)) { length += DappClientId.GetTLLength(); } // DappClientId
+            if (flags.IsBitSet(1)) { length += 8; } // SessionId
+
+            return length;
+        }
+    }
+    public partial class RequestTonConnectGetSessions
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+
+            return length;
+        }
+    }
+    public partial class RequestTonConnectNextEventId
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += 8; // SessionId
+
+            return length;
+        }
+    }
+    public partial class RequestTonConnectRegisterKey
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            length += 8; // SessionId
+            length += ClientId.GetTLLength(); // ClientId
+
+            return length;
+        }
+    }
+    public partial class RequestTonConnectSubmitConnectResult
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += 8; // SessionId
+            length += ChallengeAnswer.GetTLLength(); // ChallengeAnswer
+            length += Body.GetTLLength(); // Body
+            if (flags.IsBitSet(1)) { length += TraceId.GetTLLength(); } // TraceId
+
+            return length;
+        }
+    }
+    public partial class RequestTonConnectSubmitResponse
+    {
+        public int GetLength()
+        {
+            // ConstructorId length = 4 
+            var length = 4;
+            var flags = CalculateFlags();
+            length += 4; // Flags
+            length += 8; // SessionId
+            length += 4; // MsgId
+            length += Body.GetTLLength(); // Body
+            if (flags.IsBitSet(0)) { length += TraceId.GetTLLength(); } // TraceId
 
             return length;
         }

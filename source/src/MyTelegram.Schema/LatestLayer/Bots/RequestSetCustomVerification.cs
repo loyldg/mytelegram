@@ -14,10 +14,10 @@ namespace MyTelegram.Schema.Bots;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-[TlObject(0x8b89dfbd)]
+[TlObject(0xf4946757)]
 public sealed partial class RequestSetCustomVerification : IRequest<IBool>
 {
-    public uint ConstructorId => 0x8b89dfbd;
+    public uint ConstructorId => 0xf4946757;
 
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
@@ -43,8 +43,9 @@ public sealed partial class RequestSetCustomVerification : IRequest<IBool>
 
     /// <summary>
     /// Custom description for the verification, the UTF-8 length limit for this field is contained in <a href="https://corefork.telegram.org/api/config#bot-verification-description-length-limit">bot_verification_description_length_limit »</a>. <br/>If not set, <code>Was verified by organization "organization_name"</code> will be used as description.
+    /// See <a href="https://corefork.telegram.org/type/TextWithEntities" />
     /// </summary>
-    public string? CustomDescription { get; set; }
+    public MyTelegram.Schema.ITextWithEntities? CustomDescription { get; set; }
 
     public int CalculateFlags()
     {
@@ -71,6 +72,6 @@ public sealed partial class RequestSetCustomVerification : IRequest<IBool>
         if (Flags.IsBitSet(1)) { Enabled = true; }
         if (Flags.IsBitSet(0)) { Bot = buffer.Read<MyTelegram.Schema.IInputUser>(); }
         Peer = buffer.Read<MyTelegram.Schema.IInputPeer>();
-        if (Flags.IsBitSet(2)) { CustomDescription = buffer.ReadString(); }
+        if (Flags.IsBitSet(2)) { CustomDescription = buffer.Read<MyTelegram.Schema.ITextWithEntities>(); }
     }
 }

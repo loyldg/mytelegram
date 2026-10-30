@@ -33,6 +33,7 @@ namespace MyTelegram.Schema;
 /// <see cref="TMessageEntityDiffInsert"/> See <a href="" /><br/>
 /// <see cref="TMessageEntityDiffReplace"/> See <a href="" /><br/>
 /// <see cref="TMessageEntityDiffDelete"/> See <a href="" /><br/>
+/// <see cref="TMessageEntityTonAddress"/> See <a href="" /><br/>
 /// </remarks>
 [JsonDerivedType(typeof(TMessageEntityUnknown), nameof(TMessageEntityUnknown))]
 [JsonDerivedType(typeof(TMessageEntityMention), nameof(TMessageEntityMention))]
@@ -59,6 +60,7 @@ namespace MyTelegram.Schema;
 [JsonDerivedType(typeof(TMessageEntityDiffInsert), nameof(TMessageEntityDiffInsert))]
 [JsonDerivedType(typeof(TMessageEntityDiffReplace), nameof(TMessageEntityDiffReplace))]
 [JsonDerivedType(typeof(TMessageEntityDiffDelete), nameof(TMessageEntityDiffDelete))]
+[JsonDerivedType(typeof(TMessageEntityTonAddress), nameof(TMessageEntityTonAddress))]
 public partial interface IMessageEntity : IObject
 {
     /// <summary>

@@ -1,5 +1,7 @@
-﻿using EventFlow.Exceptions;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
+using System.Diagnostics;
+using System.Globalization;
+using EventFlow.Exceptions;
 
 namespace MyTelegram.EventFlow;
 
@@ -7,12 +9,16 @@ public sealed class MyInMemoryEventPersistence : IInMemoryEventPersistence
 {
     private readonly ConcurrentDictionary<string, EventStream> _eventStore = new();
     private readonly ILogger<MyInMemoryEventPersistence> _logger;
+    private readonly IEventDefinitionService _eventDefinitionService;
     private readonly IDomainEventFactory _domainEventFactory;
+    private long _globalSequenceNumber;
 
     public MyInMemoryEventPersistence(ILogger<MyInMemoryEventPersistence> logger,
+        IEventDefinitionService eventDefinitionService,
         IDomainEventFactory domainEventFactory)
     {
         _logger = logger;
+        _eventDefinitionService = eventDefinitionService;
         _domainEventFactory = domainEventFactory;
 
 #if DEBUG

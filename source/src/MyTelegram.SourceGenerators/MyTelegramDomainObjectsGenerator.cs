@@ -63,9 +63,7 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
         {
             return;
         }
-
         var methodSyntax = model.MethodSyntax;
-        //var methodSymbol = model.MethodSymbol;
 
         var methodName = methodSyntax.Identifier.Text;
         var parameters = model.EventParameters; // methodSyntax.ParameterList.Parameters;
@@ -372,7 +370,7 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
             ns,
             aggregateName,
             idType,
-            extractedEventName ?? string.Empty,
+            extractedEventName,
             eventParameters,
             commandParameters,
             methodSyntax,
@@ -457,6 +455,7 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
                 //    typeSymbol.NullableAnnotation == NullableAnnotation.Annotated
                 //    || typeSymbol.OriginalDefinition.SpecialType == SpecialType.System_Nullable_T;
 
+
                 var parameterType = typeSymbol.ToDisplayString();
                 if (arg.ToFullString().Contains("?") && !parameterType.Contains("?"))
                 {
@@ -534,7 +533,7 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
         string ns,
         string aggregateName,
         string idType,
-        string eventName,
+        string? eventName,
         List<ParameterModel> eventParameters,
         List<ParameterModel> commandParameters,
         MethodDeclarationSyntax syntax,
@@ -543,7 +542,7 @@ public sealed class MyTelegramDomainObjectsGenerator : IIncrementalGenerator
     )
     {
         public string AggregateName { get; } = aggregateName;
-        public string EventName { get; } = eventName;
+        public string? EventName { get; } = eventName;
         public string IdType { get; } = idType;
         //public IMethodSymbol MethodSymbol { get; } = symbol;
         public bool DoNotInheritRequestCommand { get; } = doNotInheritRequestCommand;

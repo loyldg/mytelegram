@@ -8,22 +8,36 @@ namespace MyTelegram.Schema.Bots;
 /// <remarks>
 /// Access: [User ] [Bot ] [Anonymous ]
 /// </remarks>
-[TlObject(0x87f2219b)]
+[TlObject(0xe3ac4c61)]
 public sealed partial class RequestCheckUsername : IRequest<IBool>
 {
-    public uint ConstructorId => 0x87f2219b;
+    public uint ConstructorId => 0xe3ac4c61;
+
+    public int Flags { get; set; }
+
+    public bool Additional { get; set; }
 
     public string Username { get; set; }
 
+    public int CalculateFlags()
+    {
+        var flags = 0;
+        if (Additional) { flags = flags.SetBit(0); }
+        return flags;
+    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
+        writer.Write(flags);
         writer.Write(Username);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(0)) { Additional = true; }
         Username = buffer.ReadString();
     }
 }

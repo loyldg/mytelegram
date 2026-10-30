@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Details about the authorization request, for more info <a href="https://corefork.telegram.org/api/url-authorization">click here »</a>
 /// <para>See <a href="https://corefork.telegram.org/constructor/urlAuthResultRequest" /></para>
 /// </summary>
-[TlObject(0x3cd623ec)]
+[TlObject(0xbdca6167)]
 public sealed partial class TUrlAuthResultRequest : IUrlAuthResult
 {
-    public uint ConstructorId => 0x3cd623ec;
+    public uint ConstructorId => 0xbdca6167;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -31,6 +31,8 @@ public sealed partial class TUrlAuthResultRequest : IUrlAuthResult
     public bool MatchCodesFirst { get; set; }
 
     public bool IsApp { get; set; }
+
+    public bool RequestWallet { get; set; }
 
     /// <summary>
     /// Username of a bot, which will be used for user authorization. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See <a href="https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot">Linking your domain to the bot</a> for more details.
@@ -75,6 +77,10 @@ public sealed partial class TUrlAuthResultRequest : IUrlAuthResult
 
     public string? VerifiedAppName { get; set; }
 
+    public long? TcSessionId { get; set; }
+
+    public string? TcClientId { get; set; }
+
     public int CalculateFlags()
     {
         var flags = 0;
@@ -82,6 +88,7 @@ public sealed partial class TUrlAuthResultRequest : IUrlAuthResult
         if (RequestPhoneNumber) { flags = flags.SetBit(1); }
         if (MatchCodesFirst) { flags = flags.SetBit(5); }
         if (IsApp) { flags = flags.SetBit(6); }
+        if (RequestWallet) { flags = flags.SetBit(8); }
         if (Browser != null) { flags = flags.SetBit(2); }
         if (Platform != null) { flags = flags.SetBit(2); }
         if (Ip != null) { flags = flags.SetBit(2); }
@@ -89,6 +96,8 @@ public sealed partial class TUrlAuthResultRequest : IUrlAuthResult
         if (MatchCodes?.Count > 0) { flags = flags.SetBit(3); }
         if (/*UserIdHint != 0 &&*/ UserIdHint.HasValue) { flags = flags.SetBit(4); }
         if (VerifiedAppName != null) { flags = flags.SetBit(7); }
+        if (/*TcSessionId != 0 &&*/ TcSessionId.HasValue) { flags = flags.SetBit(9); }
+        if (TcClientId != null) { flags = flags.SetBit(10); }
         return flags;
     }
 
@@ -106,6 +115,8 @@ public sealed partial class TUrlAuthResultRequest : IUrlAuthResult
         if (flags.IsBitSet(3)) { writer.Write(MatchCodes); }
         if (flags.IsBitSet(4)) { writer.Write(UserIdHint.Value); }
         if (flags.IsBitSet(7)) { writer.Write(VerifiedAppName); }
+        if (flags.IsBitSet(9)) { writer.Write(TcSessionId.Value); }
+        if (flags.IsBitSet(10)) { writer.Write(TcClientId); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -115,6 +126,7 @@ public sealed partial class TUrlAuthResultRequest : IUrlAuthResult
         if (Flags.IsBitSet(1)) { RequestPhoneNumber = true; }
         if (Flags.IsBitSet(5)) { MatchCodesFirst = true; }
         if (Flags.IsBitSet(6)) { IsApp = true; }
+        if (Flags.IsBitSet(8)) { RequestWallet = true; }
         Bot = buffer.Read<MyTelegram.Schema.IUser>();
         Domain = buffer.ReadString();
         if (Flags.IsBitSet(2)) { Browser = buffer.ReadString(); }
@@ -124,5 +136,7 @@ public sealed partial class TUrlAuthResultRequest : IUrlAuthResult
         if (Flags.IsBitSet(3)) { MatchCodes = buffer.Read<TVector<string>>(); }
         if (Flags.IsBitSet(4)) { UserIdHint = buffer.ReadInt64(); }
         if (Flags.IsBitSet(7)) { VerifiedAppName = buffer.ReadString(); }
+        if (Flags.IsBitSet(9)) { TcSessionId = buffer.ReadInt64(); }
+        if (Flags.IsBitSet(10)) { TcClientId = buffer.ReadString(); }
     }
 }

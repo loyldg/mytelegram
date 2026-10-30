@@ -33,8 +33,5 @@ public partial interface IBotVerifierSettings : IObject
     /// </summary>
     string Company { get; set; }
 
-    /// <summary>
-    /// An optional default description for the verification
-    /// </summary>
-    string? CustomDescription { get; set; }
+    ITextWithEntities? CustomDescription { get; set; }
 }

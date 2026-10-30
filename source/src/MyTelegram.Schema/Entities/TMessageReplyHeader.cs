@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Message replies and <a href="https://corefork.telegram.org/api/threads">thread</a> information
 /// <para>See <a href="https://corefork.telegram.org/constructor/messageReplyHeader" /></para>
 /// </summary>
-[TlObject(0x1b97dd66)]
+[TlObject(0xddb5ab75)]
 public sealed partial class TMessageReplyHeader : IMessageReplyHeader
 {
-    public uint ConstructorId => 0x1b97dd66;
+    public uint ConstructorId => 0xddb5ab75;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -83,6 +83,11 @@ public sealed partial class TMessageReplyHeader : IMessageReplyHeader
 
     public ReadOnlyMemory<byte>? PollOption { get; set; }
 
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/RichText" />
+    /// </summary>
+    public TVector<MyTelegram.Schema.IRichText>? QuoteRich { get; set; }
+
     public int CalculateFlags()
     {
         var flags = 0;
@@ -100,6 +105,7 @@ public sealed partial class TMessageReplyHeader : IMessageReplyHeader
         if (/*QuoteOffset != 0 && */QuoteOffset.HasValue) { flags = flags.SetBit(10); }
         if (/*TodoItemId != 0 && */TodoItemId.HasValue) { flags = flags.SetBit(11); }
         if (PollOption != null) { flags = flags.SetBit(12); }
+        if (QuoteRich?.Count > 0) { flags = flags.SetBit(14); }
         return flags;
     }
 
@@ -118,6 +124,7 @@ public sealed partial class TMessageReplyHeader : IMessageReplyHeader
         if (flags.IsBitSet(10)) { writer.Write(QuoteOffset.Value); }
         if (flags.IsBitSet(11)) { writer.Write(TodoItemId.Value); }
         if (flags.IsBitSet(12)) { writer.Write(PollOption); }
+        if (flags.IsBitSet(14)) { writer.Write(QuoteRich); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -137,5 +144,6 @@ public sealed partial class TMessageReplyHeader : IMessageReplyHeader
         if (Flags.IsBitSet(10)) { QuoteOffset = buffer.ReadInt32(); }
         if (Flags.IsBitSet(11)) { TodoItemId = buffer.ReadInt32(); }
         if (Flags.IsBitSet(12)) { PollOption = buffer.ReadBytes(); }
+        if (Flags.IsBitSet(14)) { QuoteRich = buffer.Read<TVector<MyTelegram.Schema.IRichText>>(); }
     }
 }

@@ -6,10 +6,10 @@ namespace MyTelegram.Schema;
 /// Channel/supergroup infoWhen updating the <a href="https://corefork.telegram.org/api/peers">local peer database</a>, all fields from the newly received constructor take priority over the old constructor cached locally (including by removing fields that aren't set in the new constructor).The only exception to the above rule is when the <code>min</code> flag is set, in which case <strong>only</strong> the following fields must be applied over any locally stored version:See <a href="https://github.com/tdlib/td/blob/a24af0992245f838f2b4b418a0a2d5fa9caa27b5/td/telegram/ChatManager.cpp#L8329">here »</a> for an implementation of the logic to use when updating the <a href="https://corefork.telegram.org/api/peers">local user peer database</a>.
 /// <para>See <a href="https://corefork.telegram.org/constructor/channel" /></para>
 /// </summary>
-[TlObject(0xd49f34c6)]
+[TlObject(0x7ad15240)]
 public sealed partial class TChannel : IChat, ILayeredChannel
 {
-    public uint ConstructorId => 0xd49f34c6;
+    public uint ConstructorId => 0x7ad15240;
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
     /// </summary>
@@ -160,6 +160,8 @@ public sealed partial class TChannel : IChat, ILayeredChannel
     /// </summary>
     public bool ForumTabs { get; set; }
 
+    public bool InNews { get; set; }
+
     /// <summary>
     /// ID of the channel, see <a href="https://corefork.telegram.org/api/peers#peer-id">here »</a> for more info and the available ID range.
     /// </summary>
@@ -277,6 +279,8 @@ public sealed partial class TChannel : IChat, ILayeredChannel
 
     public long? LinkedCommunityId { get; set; }
 
+    public int? PinnedMsgId { get; set; }
+
     public int CalculateFlags()
     {
         var flags = 0;
@@ -320,6 +324,7 @@ public sealed partial class TChannel : IChat, ILayeredChannel
         if (BroadcastMessagesAllowed) { flags2 = flags2.SetBit(16); }
         if (Monoforum) { flags2 = flags2.SetBit(17); }
         if (ForumTabs) { flags2 = flags2.SetBit(19); }
+        if (InNews) { flags2 = flags2.SetBit(21); }
         if (Usernames?.Count > 0) { flags2 = flags2.SetBit(0); }
         if (StoriesMaxId != null) { flags2 = flags2.SetBit(4); }
         if (Color != null) { flags2 = flags2.SetBit(7); }
@@ -331,6 +336,7 @@ public sealed partial class TChannel : IChat, ILayeredChannel
         if (/*SendPaidMessagesStars != 0 &&*/ SendPaidMessagesStars.HasValue) { flags2 = flags2.SetBit(14); }
         if (/*LinkedMonoforumId != 0 &&*/ LinkedMonoforumId.HasValue) { flags2 = flags2.SetBit(18); }
         if (/*LinkedCommunityId != 0 &&*/ LinkedCommunityId.HasValue) { flags2 = flags2.SetBit(20); }
+        if (/*PinnedMsgId != 0 && */PinnedMsgId.HasValue) { flags2 = flags2.SetBit(22); }
         return flags2;
     }
 
@@ -363,6 +369,7 @@ public sealed partial class TChannel : IChat, ILayeredChannel
         if (flags2.IsBitSet(14)) { writer.Write(SendPaidMessagesStars.Value); }
         if (flags2.IsBitSet(18)) { writer.Write(LinkedMonoforumId.Value); }
         if (flags2.IsBitSet(20)) { writer.Write(LinkedCommunityId.Value); }
+        if (flags2.IsBitSet(22)) { writer.Write(PinnedMsgId.Value); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -397,6 +404,7 @@ public sealed partial class TChannel : IChat, ILayeredChannel
         if (Flags2.IsBitSet(16)) { BroadcastMessagesAllowed = true; }
         if (Flags2.IsBitSet(17)) { Monoforum = true; }
         if (Flags2.IsBitSet(19)) { ForumTabs = true; }
+        if (Flags2.IsBitSet(21)) { InNews = true; }
         Id = buffer.ReadInt64();
         if (Flags.IsBitSet(13)) { AccessHash = buffer.ReadInt64(); }
         Title = buffer.ReadString();
@@ -419,5 +427,6 @@ public sealed partial class TChannel : IChat, ILayeredChannel
         if (Flags2.IsBitSet(14)) { SendPaidMessagesStars = buffer.ReadInt64(); }
         if (Flags2.IsBitSet(18)) { LinkedMonoforumId = buffer.ReadInt64(); }
         if (Flags2.IsBitSet(20)) { LinkedCommunityId = buffer.ReadInt64(); }
+        if (Flags2.IsBitSet(22)) { PinnedMsgId = buffer.ReadInt32(); }
     }
 }

@@ -8,25 +8,40 @@ namespace MyTelegram.Schema.Auth;
 /// <remarks>
 /// Access: [User ] [Bot ] [Anonymous ]
 /// </remarks>
-[TlObject(0x777df37a)]
+[TlObject(0x644f15c0)]
 public sealed partial class RequestInitFirebasePnvLogin : IRequest<MyTelegram.Schema.Auth.IFirebasePnvIntent>
 {
-    public uint ConstructorId => 0x777df37a;
+    public uint ConstructorId => 0x644f15c0;
+
+    public int Flags { get; set; }
+
+    public TVector<long>? ExceptIds { get; set; }
 
     public int ApiId { get; set; }
 
     public string ApiHash { get; set; }
 
+    public int CalculateFlags()
+    {
+        var flags = 0;
+        if (ExceptIds?.Count > 0) { flags = flags.SetBit(0); }
+        return flags;
+    }
 
     public void Serialize(IBufferWriter<byte> writer)
     {
+        var flags = CalculateFlags();
         writer.Write(ConstructorId);
+        writer.Write(flags);
+        if (flags.IsBitSet(0)) { writer.Write(ExceptIds); }
         writer.Write(ApiId);
         writer.Write(ApiHash);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
+        if (Flags.IsBitSet(0)) { ExceptIds = buffer.Read<TVector<long>>(); }
         ApiId = buffer.ReadInt32();
         ApiHash = buffer.ReadString();
     }

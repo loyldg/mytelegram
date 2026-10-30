@@ -25,6 +25,10 @@ public sealed partial class TUsername : IUsername
     /// </summary>
     public bool Active { get; set; }
 
+    public bool Deletable { get; set; }
+
+    public bool Expired { get; set; }
+
     /// <summary>
     /// The username.
     /// </summary>
@@ -35,6 +39,8 @@ public sealed partial class TUsername : IUsername
         var flags = 0;
         if (Editable) { flags = flags.SetBit(0); }
         if (Active) { flags = flags.SetBit(1); }
+        if (Deletable) { flags = flags.SetBit(2); }
+        if (Expired) { flags = flags.SetBit(3); }
         return flags;
     }
 
@@ -51,6 +57,8 @@ public sealed partial class TUsername : IUsername
         Flags = buffer.ReadInt32();
         if (Flags.IsBitSet(0)) { Editable = true; }
         if (Flags.IsBitSet(1)) { Active = true; }
+        if (Flags.IsBitSet(2)) { Deletable = true; }
+        if (Flags.IsBitSet(3)) { Expired = true; }
         Username = buffer.ReadString();
     }
 }

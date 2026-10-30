@@ -2,6 +2,10 @@
 
 namespace MyTelegram.Schema
 {
+    public partial class TAiComposeTone : IHasAccessHash
+    {
+        public AccessHashType2 AccessHashType2 => AccessHashType2.AiComposeTone;
+    }
     public partial class TBotApp : IHasAccessHash
     {
         public AccessHashType2 AccessHashType2 => AccessHashType2.BotApp;
@@ -14,6 +18,16 @@ namespace MyTelegram.Schema
     public partial class TChannelForbidden : IHasAccessHash
     {
         public AccessHashType2 AccessHashType2 => AccessHashType2.Channel;
+    }
+    public partial class TCommunity : IHasAccessHash
+    {
+        public AccessHashType2 AccessHashType2 => AccessHashType2.Community;
+        long IHasAccessHash.AccessHash { get => AccessHash ?? 0; set => AccessHash = value; }
+    }
+    public partial class TCommunityForbidden : IHasAccessHash
+    {
+        public AccessHashType2 AccessHashType2 => AccessHashType2.Community;
+        long IHasAccessHash.AccessHash { get => AccessHash ?? 0; set => AccessHash = value; }
     }
     public partial class TDocument : IHasAccessHash
     {
@@ -34,6 +48,10 @@ namespace MyTelegram.Schema
     public partial class TGroupCallDiscarded : IHasAccessHash
     {
         public AccessHashType2 AccessHashType2 => AccessHashType2.GroupCall;
+    }
+    public partial class TInputAiComposeToneID : IHasAccessHash
+    {
+        public AccessHashType2 AccessHashType2 => AccessHashType2.AiComposeTone;
     }
     public partial class TInputBotAppID : IHasAccessHash
     {
@@ -663,6 +681,24 @@ namespace MyTelegram.Schema
             }
         }
     }
+    public partial class TBotInlineMessageRichMessage : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (RichMessage is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (RichMessage is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
     public partial class TBotInlineResult : IAccessHashOwner
     {
         public IEnumerable<IHasAccessHash> GetAccessHashes()
@@ -1204,6 +1240,18 @@ namespace MyTelegram.Schema
                     yield return a;
                 }
             }
+            if (ShareTheme is IHasAccessHash a8)
+            {
+                yield return a8;
+            }
+
+            if (ShareTheme is IAccessHashOwner o8)
+            {
+                foreach (var a in o8.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
         }
     }
     public partial class TChatFull : IAccessHashOwner
@@ -1353,6 +1401,24 @@ namespace MyTelegram.Schema
             }
         }
     }
+    public partial class TCommunityFull : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (ChatPhoto is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (ChatPhoto is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
     public partial class TDialog : IAccessHashOwner
     {
         public IEnumerable<IHasAccessHash> GetAccessHashes()
@@ -1459,6 +1525,18 @@ namespace MyTelegram.Schema
                     yield return a;
                 }
             }
+            if (RichMessage is IHasAccessHash a2)
+            {
+                yield return a2;
+            }
+
+            if (RichMessage is IAccessHashOwner o2)
+            {
+                foreach (var a in o2.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
         }
     }
     public partial class TEncryptedMessage : IAccessHashOwner
@@ -1473,6 +1551,48 @@ namespace MyTelegram.Schema
             if (File is IAccessHashOwner o1)
             {
                 foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TEphemeralMessage : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Media is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Media is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+            if (ReplyTo is IHasAccessHash a2)
+            {
+                yield return a2;
+            }
+
+            if (ReplyTo is IAccessHashOwner o2)
+            {
+                foreach (var a in o2.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+            if (RichMessage is IHasAccessHash a3)
+            {
+                yield return a3;
+            }
+
+            if (RichMessage is IAccessHashOwner o3)
+            {
+                foreach (var a in o3.GetAccessHashes())
                 {
                     yield return a;
                 }
@@ -1555,6 +1675,24 @@ namespace MyTelegram.Schema
             }
 
             if (Photo is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TInputBotInlineMessageRichMessage : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (RichMessage is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (RichMessage is IAccessHashOwner o1)
             {
                 foreach (var a in o1.GetAccessHashes())
                 {
@@ -1930,6 +2068,60 @@ namespace MyTelegram.Schema
                     yield return a;
                 }
             }
+            if (Video is IHasAccessHash a2)
+            {
+                yield return a2;
+            }
+
+            if (Video is IAccessHashOwner o2)
+            {
+                foreach (var a in o2.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TInputMediaPoll : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Poll is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Poll is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+            if (AttachedMedia is IHasAccessHash a2)
+            {
+                yield return a2;
+            }
+
+            if (AttachedMedia is IAccessHashOwner o2)
+            {
+                foreach (var a in o2.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+            if (SolutionMedia is IHasAccessHash a3)
+            {
+                yield return a3;
+            }
+
+            if (SolutionMedia is IAccessHashOwner o3)
+            {
+                foreach (var a in o3.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
         }
     }
     public partial class TInputMediaUploadedDocument : IAccessHashOwner
@@ -2035,6 +2227,165 @@ namespace MyTelegram.Schema
                     }
                 }
             }
+            if (Video is IHasAccessHash a3)
+            {
+                yield return a3;
+            }
+
+            if (Video is IAccessHashOwner o3)
+            {
+                foreach (var a in o3.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TInputPollAnswer : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Media is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Media is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TInputRichFileDocument : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Document is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Document is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TInputRichFilePhoto : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Photo is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Photo is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TInputRichMessage : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            foreach (var item in Blocks ?? [])
+            {
+                if (item is IHasAccessHash a1)
+                {
+                    yield return a1;
+                }
+
+                if (item is IAccessHashOwner o1)
+                {
+                    foreach (var a in o1.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+            foreach (var item in Photos ?? [])
+            {
+                if (item is IHasAccessHash a2)
+                {
+                    yield return a2;
+                }
+
+                if (item is IAccessHashOwner o2)
+                {
+                    foreach (var a in o2.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+            foreach (var item in Documents ?? [])
+            {
+                if (item is IHasAccessHash a3)
+                {
+                    yield return a3;
+                }
+
+                if (item is IAccessHashOwner o3)
+                {
+                    foreach (var a in o3.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+        }
+    }
+    public partial class TInputRichMessageHTML : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            foreach (var item in Files ?? [])
+            {
+                if (item is IHasAccessHash a1)
+                {
+                    yield return a1;
+                }
+
+                if (item is IAccessHashOwner o1)
+                {
+                    foreach (var a in o1.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+        }
+    }
+    public partial class TInputRichMessageMarkdown : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            foreach (var item in Files ?? [])
+            {
+                if (item is IHasAccessHash a1)
+                {
+                    yield return a1;
+                }
+
+                if (item is IAccessHashOwner o1)
+                {
+                    foreach (var a in o1.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
         }
     }
     public partial class TInputSecureValue : IAccessHashOwner
@@ -2105,6 +2456,24 @@ namespace MyTelegram.Schema
                     {
                         yield return a;
                     }
+                }
+            }
+        }
+    }
+    public partial class TInputSendMessageRichMessageDraftAction : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (RichMessage is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (RichMessage is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
                 }
             }
         }
@@ -2284,6 +2653,18 @@ namespace MyTelegram.Schema
                     yield return a;
                 }
             }
+            if (RichMessage is IHasAccessHash a3)
+            {
+                yield return a3;
+            }
+
+            if (RichMessage is IAccessHashOwner o3)
+            {
+                foreach (var a in o3.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
         }
     }
     public partial class TMessageActionBotAllowed : IAccessHashOwner
@@ -2368,6 +2749,42 @@ namespace MyTelegram.Schema
             }
 
             if (Call is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TMessageActionPollAppendAnswer : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Answer is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Answer is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TMessageActionPollDeleteAnswer : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Answer is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Answer is IAccessHashOwner o1)
             {
                 foreach (var a in o1.GetAccessHashes())
                 {
@@ -2692,6 +3109,60 @@ namespace MyTelegram.Schema
                     yield return a;
                 }
             }
+            if (Video is IHasAccessHash a2)
+            {
+                yield return a2;
+            }
+
+            if (Video is IAccessHashOwner o2)
+            {
+                foreach (var a in o2.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TMessageMediaPoll : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Poll is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Poll is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+            if (Results is IHasAccessHash a2)
+            {
+                yield return a2;
+            }
+
+            if (Results is IAccessHashOwner o2)
+            {
+                foreach (var a in o2.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+            if (AttachedMedia is IHasAccessHash a3)
+            {
+                yield return a3;
+            }
+
+            if (AttachedMedia is IAccessHashOwner o3)
+            {
+                foreach (var a in o3.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
         }
     }
     public partial class TMessageMediaStory : IAccessHashOwner
@@ -2814,6 +3285,24 @@ namespace MyTelegram.Schema
             }
         }
     }
+    public partial class TMsgCopy : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (OrigMessage is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (OrigMessage is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
     public partial class TPage : IAccessHashOwner
     {
         public IEnumerable<IHasAccessHash> GetAccessHashes()
@@ -2858,6 +3347,27 @@ namespace MyTelegram.Schema
                 if (item is IAccessHashOwner o3)
                 {
                     foreach (var a in o3.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+        }
+    }
+    public partial class TPageBlockBlockquoteBlocks : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            foreach (var item in Blocks ?? [])
+            {
+                if (item is IHasAccessHash a1)
+                {
+                    yield return a1;
+                }
+
+                if (item is IAccessHashOwner o1)
+                {
+                    foreach (var a in o1.GetAccessHashes())
                     {
                         yield return a;
                     }
@@ -3111,6 +3621,63 @@ namespace MyTelegram.Schema
             }
         }
     }
+    public partial class TPoll : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            foreach (var item in Answers ?? [])
+            {
+                if (item is IHasAccessHash a1)
+                {
+                    yield return a1;
+                }
+
+                if (item is IAccessHashOwner o1)
+                {
+                    foreach (var a in o1.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+        }
+    }
+    public partial class TPollAnswer : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Media is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Media is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TPollResults : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (SolutionMedia is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (SolutionMedia is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
     public partial class TPublicForwardMessage : IAccessHashOwner
     {
         public IEnumerable<IHasAccessHash> GetAccessHashes()
@@ -3237,6 +3804,57 @@ namespace MyTelegram.Schema
             }
         }
     }
+    public partial class TRichMessage : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            foreach (var item in Blocks ?? [])
+            {
+                if (item is IHasAccessHash a1)
+                {
+                    yield return a1;
+                }
+
+                if (item is IAccessHashOwner o1)
+                {
+                    foreach (var a in o1.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+            foreach (var item in Photos ?? [])
+            {
+                if (item is IHasAccessHash a2)
+                {
+                    yield return a2;
+                }
+
+                if (item is IAccessHashOwner o2)
+                {
+                    foreach (var a in o2.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+            foreach (var item in Documents ?? [])
+            {
+                if (item is IHasAccessHash a3)
+                {
+                    yield return a3;
+                }
+
+                if (item is IAccessHashOwner o3)
+                {
+                    foreach (var a in o3.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+        }
+    }
     public partial class TRpcResult : IAccessHashOwner
     {
         public IEnumerable<IHasAccessHash> GetAccessHashes()
@@ -3254,7 +3872,7 @@ namespace MyTelegram.Schema
                 }
             }
 
-            if (Result is IEnumerable<IObject> enumerable)
+            if(Result is IEnumerable<IObject> enumerable)
             {
                 foreach (var item in enumerable)
                 {
@@ -3360,6 +3978,42 @@ namespace MyTelegram.Schema
                     {
                         yield return a;
                     }
+                }
+            }
+        }
+    }
+    public partial class TSendMessageRichMessageDraftAction : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (RichMessage is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (RichMessage is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TShareThemeGift : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Stargift is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Stargift is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
                 }
             }
         }
@@ -3728,6 +4382,18 @@ namespace MyTelegram.Schema
                     yield return a;
                 }
             }
+            if (Music is IHasAccessHash a2)
+            {
+                yield return a2;
+            }
+
+            if (Music is IAccessHashOwner o2)
+            {
+                foreach (var a in o2.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
         }
     }
     public partial class TStoryReactionPublicForward : IAccessHashOwner
@@ -3853,6 +4519,42 @@ namespace MyTelegram.Schema
             }
         }
     }
+    public partial class TTonConnectManifest : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Icon is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Icon is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TTonConnectSession : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Manifest is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Manifest is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
     public partial class TUpdateBotEditBusinessMessage : IAccessHashOwner
     {
         public IEnumerable<IHasAccessHash> GetAccessHashes()
@@ -3879,6 +4581,39 @@ namespace MyTelegram.Schema
                 foreach (var a in o2.GetAccessHashes())
                 {
                     yield return a;
+                }
+            }
+        }
+    }
+    public partial class TUpdateBotGuestChatQuery : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Message is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Message is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+            foreach (var item in ReferenceMessages ?? [])
+            {
+                if (item is IHasAccessHash a2)
+                {
+                    yield return a2;
+                }
+
+                if (item is IAccessHashOwner o2)
+                {
+                    foreach (var a in o2.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
                 }
             }
         }
@@ -3961,6 +4696,24 @@ namespace MyTelegram.Schema
             }
         }
     }
+    public partial class TUpdateChannelUserTyping : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Action is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Action is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
     public partial class TUpdateChannelWebPage : IAccessHashOwner
     {
         public IEnumerable<IHasAccessHash> GetAccessHashes()
@@ -3971,6 +4724,24 @@ namespace MyTelegram.Schema
             }
 
             if (Webpage is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TUpdateChatUserTyping : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Action is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Action is IAccessHashOwner o1)
             {
                 foreach (var a in o1.GetAccessHashes())
                 {
@@ -4033,6 +4804,24 @@ namespace MyTelegram.Schema
             }
         }
     }
+    public partial class TUpdateEditEphemeralMessage : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Message is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Message is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
     public partial class TUpdateEditMessage : IAccessHashOwner
     {
         public IEnumerable<IHasAccessHash> GetAccessHashes()
@@ -4061,6 +4850,24 @@ namespace MyTelegram.Schema
             }
 
             if (Chat is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TUpdateEphemeralBotCallbackQuery : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Message is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Message is IAccessHashOwner o1)
             {
                 foreach (var a in o1.GetAccessHashes())
                 {
@@ -4198,6 +5005,36 @@ namespace MyTelegram.Schema
             }
         }
     }
+    public partial class TUpdateMessagePoll : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Poll is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Poll is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+            if (Results is IHasAccessHash a2)
+            {
+                yield return a2;
+            }
+
+            if (Results is IAccessHashOwner o2)
+            {
+                foreach (var a in o2.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
     public partial class TUpdateNewChannelMessage : IAccessHashOwner
     {
         public IEnumerable<IHasAccessHash> GetAccessHashes()
@@ -4217,6 +5054,24 @@ namespace MyTelegram.Schema
         }
     }
     public partial class TUpdateNewEncryptedMessage : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Message is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Message is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TUpdateNewEphemeralMessage : IAccessHashOwner
     {
         public IEnumerable<IHasAccessHash> GetAccessHashes()
         {
@@ -4360,6 +5215,24 @@ namespace MyTelegram.Schema
             }
         }
     }
+    public partial class TUpdateSentWalletTransaction : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Transaction is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Transaction is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
     public partial class TUpdateServiceNotification : IAccessHashOwner
     {
         public IEnumerable<IHasAccessHash> GetAccessHashes()
@@ -4478,6 +5351,42 @@ namespace MyTelegram.Schema
             }
 
             if (Theme is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TUpdateUserTyping : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Action is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Action is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TUpdateWalletTonConnectSession : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Session is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Session is IAccessHashOwner o1)
             {
                 foreach (var a in o1.GetAccessHashes())
                 {
@@ -4736,6 +5645,30 @@ namespace MyTelegram.Schema
                     yield return a;
                 }
             }
+            if (WalletCard is IHasAccessHash a10)
+            {
+                yield return a10;
+            }
+
+            if (WalletCard is IAccessHashOwner o10)
+            {
+                foreach (var a in o10.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+            if (ShareTheme is IHasAccessHash a11)
+            {
+                yield return a11;
+            }
+
+            if (ShareTheme is IAccessHashOwner o11)
+            {
+                foreach (var a in o11.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
         }
     }
     public partial class TVideoSizeStickerMarkup : IAccessHashOwner
@@ -4766,6 +5699,24 @@ namespace MyTelegram.Schema
             }
 
             if (Document is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TWalletTransaction : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Nft is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Nft is IAccessHashOwner o1)
             {
                 foreach (var a in o1.GetAccessHashes())
                 {
@@ -5840,6 +6791,135 @@ namespace MyTelegram.Schema.Account.LayerN
         }
     }
 }
+namespace MyTelegram.Schema.AiCompose
+{
+    public partial class RequestDeleteTone : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Tone is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Tone is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class RequestGetTone : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Tone is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Tone is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class RequestGetToneExample : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Tone is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Tone is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class RequestSaveTone : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Tone is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Tone is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class RequestUpdateTone : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Tone is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Tone is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TTones : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            foreach (var item in Tones ?? [])
+            {
+                if (item is IHasAccessHash a1)
+                {
+                    yield return a1;
+                }
+
+                if (item is IAccessHashOwner o1)
+                {
+                    foreach (var a in o1.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+            foreach (var item in Users ?? [])
+            {
+                if (item is IHasAccessHash a2)
+                {
+                    yield return a2;
+                }
+
+                if (item is IAccessHashOwner o2)
+                {
+                    foreach (var a in o2.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+        }
+    }
+}
 namespace MyTelegram.Schema.Auth
 {
     public partial class TAuthorization : IAccessHashOwner
@@ -5973,6 +7053,27 @@ namespace MyTelegram.Schema.Bots
         public IEnumerable<IHasAccessHash> GetAccessHashes()
         {
             foreach (var item in Order ?? [])
+            {
+                if (item is IHasAccessHash a1)
+                {
+                    yield return a1;
+                }
+
+                if (item is IAccessHashOwner o1)
+                {
+                    foreach (var a in o1.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+        }
+    }
+    public partial class TAccessSettings : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            foreach (var item in AddUsers ?? [])
             {
                 if (item is IHasAccessHash a1)
                 {
@@ -6455,6 +7556,81 @@ namespace MyTelegram.Schema.Chatlists
         }
     }
 }
+namespace MyTelegram.Schema.Communities
+{
+    public partial class TParticipantJoinedChats : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            foreach (var item in Chats ?? [])
+            {
+                if (item is IHasAccessHash a1)
+                {
+                    yield return a1;
+                }
+
+                if (item is IAccessHashOwner o1)
+                {
+                    foreach (var a in o1.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+            foreach (var item in Users ?? [])
+            {
+                if (item is IHasAccessHash a2)
+                {
+                    yield return a2;
+                }
+
+                if (item is IAccessHashOwner o2)
+                {
+                    foreach (var a in o2.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+        }
+    }
+    public partial class TPeerLinkRequests : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            foreach (var item in Chats ?? [])
+            {
+                if (item is IHasAccessHash a1)
+                {
+                    yield return a1;
+                }
+
+                if (item is IAccessHashOwner o1)
+                {
+                    foreach (var a in o1.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+            foreach (var item in Users ?? [])
+            {
+                if (item is IHasAccessHash a2)
+                {
+                    yield return a2;
+                }
+
+                if (item is IAccessHashOwner o2)
+                {
+                    foreach (var a in o2.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+        }
+    }
+}
 namespace MyTelegram.Schema.Contacts
 {
     public partial class TBlocked : IAccessHashOwner
@@ -6737,6 +7913,90 @@ namespace MyTelegram.Schema.Contacts
         }
     }
 }
+namespace MyTelegram.Schema.Ephemeral
+{
+    public partial class RequestEditMessage : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Media is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Media is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+            if (RichMessage is IHasAccessHash a2)
+            {
+                yield return a2;
+            }
+
+            if (RichMessage is IAccessHashOwner o2)
+            {
+                foreach (var a in o2.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class RequestSendMessage : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Media is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Media is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+            if (RichMessage is IHasAccessHash a2)
+            {
+                yield return a2;
+            }
+
+            if (RichMessage is IAccessHashOwner o2)
+            {
+                foreach (var a in o2.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TWelcomeMessages : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            foreach (var item in Messages ?? [])
+            {
+                if (item is IHasAccessHash a1)
+                {
+                    yield return a1;
+                }
+
+                if (item is IAccessHashOwner o1)
+                {
+                    foreach (var a in o1.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+        }
+    }
+}
 namespace MyTelegram.Schema.Help
 {
     public partial class TAppUpdate : IAccessHashOwner
@@ -6931,9 +8191,105 @@ namespace MyTelegram.Schema.LayerN
             }
         }
     }
+    public partial class TMessageMediaDocument : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Document is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Document is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+            if (AltDocument is IHasAccessHash a2)
+            {
+                yield return a2;
+            }
+
+            if (AltDocument is IAccessHashOwner o2)
+            {
+                foreach (var a in o2.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
 }
 namespace MyTelegram.Schema.Messages
 {
+    public partial class RequestAddPollAnswer : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Answer is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Answer is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class RequestComposeMessageWithAI : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Tone is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Tone is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class RequestComposeRichMessageWithAI : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Text is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Text is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+            if (Tone is IHasAccessHash a2)
+            {
+                yield return a2;
+            }
+
+            if (Tone is IAccessHashOwner o2)
+            {
+                foreach (var a in o2.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
     public partial class RequestEditChatPhoto : IAccessHashOwner
     {
         public IEnumerable<IHasAccessHash> GetAccessHashes()
@@ -6980,6 +8336,18 @@ namespace MyTelegram.Schema.Messages
                     yield return a;
                 }
             }
+            if (RichMessage is IHasAccessHash a3)
+            {
+                yield return a3;
+            }
+
+            if (RichMessage is IAccessHashOwner o3)
+            {
+                foreach (var a in o3.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
         }
     }
     public partial class RequestEditMessage : IAccessHashOwner
@@ -6994,6 +8362,18 @@ namespace MyTelegram.Schema.Messages
             if (Media is IAccessHashOwner o1)
             {
                 foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+            if (RichMessage is IHasAccessHash a2)
+            {
+                yield return a2;
+            }
+
+            if (RichMessage is IAccessHashOwner o2)
+            {
+                foreach (var a in o2.GetAccessHashes())
                 {
                     yield return a;
                 }
@@ -7126,6 +8506,24 @@ namespace MyTelegram.Schema.Messages
             }
         }
     }
+    public partial class RequestReportMusicListen : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Id is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Id is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
     public partial class RequestRequestAppWebView : IAccessHashOwner
     {
         public IEnumerable<IHasAccessHash> GetAccessHashes()
@@ -7156,6 +8554,18 @@ namespace MyTelegram.Schema.Messages
             if (Media is IAccessHashOwner o1)
             {
                 foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+            if (RichMessage is IHasAccessHash a2)
+            {
+                yield return a2;
+            }
+
+            if (RichMessage is IAccessHashOwner o2)
+            {
+                foreach (var a in o2.GetAccessHashes())
                 {
                     yield return a;
                 }
@@ -7252,6 +8662,24 @@ namespace MyTelegram.Schema.Messages
             }
         }
     }
+    public partial class RequestSendMessage : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (RichMessage is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (RichMessage is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
     public partial class RequestSendMultiMedia : IAccessHashOwner
     {
         public IEnumerable<IHasAccessHash> GetAccessHashes()
@@ -7274,6 +8702,24 @@ namespace MyTelegram.Schema.Messages
         }
     }
     public partial class RequestSendWebViewResultMessage : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Result is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Result is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class RequestSetBotGuestChatResult : IAccessHashOwner
     {
         public IEnumerable<IHasAccessHash> GetAccessHashes()
         {
@@ -7348,11 +8794,68 @@ namespace MyTelegram.Schema.Messages
             }
         }
     }
+    public partial class RequestSetShareTheme : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Theme is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Theme is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class RequestSetTyping : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Action is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Action is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
     public partial class RequestToggleStickerSets : IAccessHashOwner
     {
         public IEnumerable<IHasAccessHash> GetAccessHashes()
         {
             foreach (var item in Stickersets ?? [])
+            {
+                if (item is IHasAccessHash a1)
+                {
+                    yield return a1;
+                }
+
+                if (item is IAccessHashOwner o1)
+                {
+                    foreach (var a in o1.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+        }
+    }
+    public partial class RequestTranslateRichMessage : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            foreach (var item in Text ?? [])
             {
                 if (item is IHasAccessHash a1)
                 {
@@ -7735,6 +9238,45 @@ namespace MyTelegram.Schema.Messages
             }
         }
     }
+    public partial class TChatInviteJoinResultOk : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Updates is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Updates is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TChatInviteJoinResultWebView : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            foreach (var item in Users ?? [])
+            {
+                if (item is IHasAccessHash a1)
+                {
+                    yield return a1;
+                }
+
+                if (item is IAccessHashOwner o1)
+                {
+                    foreach (var a in o1.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+        }
+    }
     public partial class TChats : IAccessHashOwner
     {
         public IEnumerable<IHasAccessHash> GetAccessHashes()
@@ -7773,6 +9315,24 @@ namespace MyTelegram.Schema.Messages
                     {
                         yield return a;
                     }
+                }
+            }
+        }
+    }
+    public partial class TComposedRichMessageWithAI : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Result is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Result is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
                 }
             }
         }
@@ -9012,6 +10572,27 @@ namespace MyTelegram.Schema.Messages
         public IEnumerable<IHasAccessHash> GetAccessHashes()
         {
             foreach (var item in Stickers ?? [])
+            {
+                if (item is IHasAccessHash a1)
+                {
+                    yield return a1;
+                }
+
+                if (item is IAccessHashOwner o1)
+                {
+                    foreach (var a in o1.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+        }
+    }
+    public partial class TTranslatedRichMessage : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            foreach (var item in Result ?? [])
             {
                 if (item is IHasAccessHash a1)
                 {
@@ -11363,6 +12944,18 @@ namespace MyTelegram.Schema.Stories
                     yield return a;
                 }
             }
+            if (Music is IHasAccessHash a2)
+            {
+                yield return a2;
+            }
+
+            if (Music is IAccessHashOwner o2)
+            {
+                foreach (var a in o2.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
         }
     }
     public partial class RequestSendStory : IAccessHashOwner
@@ -11377,6 +12970,18 @@ namespace MyTelegram.Schema.Stories
             if (Media is IAccessHashOwner o1)
             {
                 foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+            if (Music is IHasAccessHash a2)
+            {
+                yield return a2;
+            }
+
+            if (Music is IAccessHashOwner o2)
+            {
+                foreach (var a in o2.GetAccessHashes())
                 {
                     yield return a;
                 }
@@ -12194,6 +13799,258 @@ namespace MyTelegram.Schema.Users
         }
     }
     public partial class TUsersSlice : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            foreach (var item in Users ?? [])
+            {
+                if (item is IHasAccessHash a1)
+                {
+                    yield return a1;
+                }
+
+                if (item is IAccessHashOwner o1)
+                {
+                    foreach (var a in o1.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+        }
+    }
+}
+namespace MyTelegram.Schema.Wallet
+{
+    public partial class TCard : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            foreach (var item in Stickers ?? [])
+            {
+                if (item is IHasAccessHash a1)
+                {
+                    yield return a1;
+                }
+
+                if (item is IAccessHashOwner o1)
+                {
+                    foreach (var a in o1.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+            if (BgNftItem is IHasAccessHash a2)
+            {
+                yield return a2;
+            }
+
+            if (BgNftItem is IAccessHashOwner o2)
+            {
+                foreach (var a in o2.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TCardSticker : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Nft is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Nft is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TNftItem : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Image is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Image is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+            if (ImageSmall is IHasAccessHash a2)
+            {
+                yield return a2;
+            }
+
+            if (ImageSmall is IAccessHashOwner o2)
+            {
+                foreach (var a in o2.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+            if (ContentUrl is IHasAccessHash a3)
+            {
+                yield return a3;
+            }
+
+            if (ContentUrl is IAccessHashOwner o3)
+            {
+                foreach (var a in o3.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+            if (Lottie is IHasAccessHash a4)
+            {
+                yield return a4;
+            }
+
+            if (Lottie is IAccessHashOwner o4)
+            {
+                foreach (var a in o4.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+            if (Gift is IHasAccessHash a5)
+            {
+                yield return a5;
+            }
+
+            if (Gift is IAccessHashOwner o5)
+            {
+                foreach (var a in o5.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TNftItems : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            foreach (var item in Items ?? [])
+            {
+                if (item is IHasAccessHash a1)
+                {
+                    yield return a1;
+                }
+
+                if (item is IAccessHashOwner o1)
+                {
+                    foreach (var a in o1.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+        }
+    }
+    public partial class TTonConnectPending : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            if (Session is IHasAccessHash a1)
+            {
+                yield return a1;
+            }
+
+            if (Session is IAccessHashOwner o1)
+            {
+                foreach (var a in o1.GetAccessHashes())
+                {
+                    yield return a;
+                }
+            }
+        }
+    }
+    public partial class TTonConnectSessions : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            foreach (var item in Sessions ?? [])
+            {
+                if (item is IHasAccessHash a1)
+                {
+                    yield return a1;
+                }
+
+                if (item is IAccessHashOwner o1)
+                {
+                    foreach (var a in o1.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+        }
+    }
+    public partial class TTransactions : IAccessHashOwner
+    {
+        public IEnumerable<IHasAccessHash> GetAccessHashes()
+        {
+            foreach (var item in Transactions ?? [])
+            {
+                if (item is IHasAccessHash a1)
+                {
+                    yield return a1;
+                }
+
+                if (item is IAccessHashOwner o1)
+                {
+                    foreach (var a in o1.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+            foreach (var item in Chats ?? [])
+            {
+                if (item is IHasAccessHash a2)
+                {
+                    yield return a2;
+                }
+
+                if (item is IAccessHashOwner o2)
+                {
+                    foreach (var a in o2.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+            foreach (var item in Users ?? [])
+            {
+                if (item is IHasAccessHash a3)
+                {
+                    yield return a3;
+                }
+
+                if (item is IAccessHashOwner o3)
+                {
+                    foreach (var a in o3.GetAccessHashes())
+                    {
+                        yield return a;
+                    }
+                }
+            }
+        }
+    }
+    public partial class TUserAddresses : IAccessHashOwner
     {
         public IEnumerable<IHasAccessHash> GetAccessHashes()
         {

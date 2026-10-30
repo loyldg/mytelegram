@@ -7,6 +7,21 @@ namespace MyTelegram.Schema.Extensions;
 
 public static class TlObjectExtensions
 {
+
+    public static TTextWithEntities? ToTextWithEntities(this string? text)
+    {
+        if (text == null)
+        {
+            return null;
+        }
+
+        return new TTextWithEntities
+        {
+            Text = text,
+            Entities = new TVector<IMessageEntity>()
+        };
+    }
+
     public static TRpcResult ToRpcResult(this IObject result, long reqMsgId)
     {
         return new TRpcResult

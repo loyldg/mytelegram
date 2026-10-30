@@ -14,10 +14,12 @@ namespace MyTelegram.Schema.Payments;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-[TlObject(0xd06e93a8)]
+[TlObject(0xc8ca817b)]
 public sealed partial class RequestGetStarGiftWithdrawalUrl : IRequest<MyTelegram.Schema.Payments.IStarGiftWithdrawalUrl>
 {
-    public uint ConstructorId => 0xd06e93a8;
+    public uint ConstructorId => 0xc8ca817b;
+
+    public int Flags { get; set; }
 
     /// <summary>
     /// The collectible gift to export.
@@ -25,23 +27,21 @@ public sealed partial class RequestGetStarGiftWithdrawalUrl : IRequest<MyTelegra
     /// </summary>
     public MyTelegram.Schema.IInputSavedStarGift Stargift { get; set; }
 
-    /// <summary>
-    /// The current user's 2FA password, passed as <a href="https://corefork.telegram.org/api/srp">specified here »</a>.
-    /// See <a href="https://corefork.telegram.org/type/InputCheckPasswordSRP" />
-    /// </summary>
-    public MyTelegram.Schema.IInputCheckPasswordSRP Password { get; set; }
+    public ReadOnlyMemory<byte> TmpPassword { get; set; }
 
 
     public void Serialize(IBufferWriter<byte> writer)
     {
         writer.Write(ConstructorId);
+        writer.Write(Flags);
         writer.Write(Stargift);
-        writer.Write(Password);
+        writer.Write(TmpPassword);
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
+        Flags = buffer.ReadInt32();
         Stargift = buffer.Read<MyTelegram.Schema.IInputSavedStarGift>();
-        Password = buffer.Read<MyTelegram.Schema.IInputCheckPasswordSRP>();
+        TmpPassword = buffer.ReadBytes();
     }
 }

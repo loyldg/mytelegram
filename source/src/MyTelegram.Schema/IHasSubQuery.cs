@@ -41,6 +41,8 @@ public enum AccessHashType2
     BotApp = 10,
     Game = 11,
     Call = 12,
+    AiComposeTone = 13,
+    Community=14
 }
 
 public interface IAccessHashOwner

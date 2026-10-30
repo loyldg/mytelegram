@@ -9,10 +9,10 @@ namespace MyTelegram.Schema.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-[TlObject(0x67a3f0de)]
+[TlObject(0x18dd4e92)]
 public sealed partial class RequestAcceptUrlAuth : IRequest<MyTelegram.Schema.IUrlAuthResult>
 {
-    public uint ConstructorId => 0x67a3f0de;
+    public uint ConstructorId => 0x18dd4e92;
 
     /// <summary>
     /// Flags, see <a href="https://corefork.telegram.org/mtproto/TL-combinators#conditional-fields">TL conditional fields</a>
@@ -55,6 +55,11 @@ public sealed partial class RequestAcceptUrlAuth : IRequest<MyTelegram.Schema.IU
     /// </summary>
     public string? MatchCode { get; set; }
 
+    /// <summary>
+    /// See <a href="https://corefork.telegram.org/type/InputTonConnectOauthSession" />
+    /// </summary>
+    public MyTelegram.Schema.IInputTonConnectOauthSession? TonconnectSession { get; set; }
+
     public int CalculateFlags()
     {
         var flags = 0;
@@ -65,6 +70,7 @@ public sealed partial class RequestAcceptUrlAuth : IRequest<MyTelegram.Schema.IU
         if (/*ButtonId != 0 && */ButtonId.HasValue) { flags = flags.SetBit(1); }
         if (Url != null) { flags = flags.SetBit(2); }
         if (MatchCode != null) { flags = flags.SetBit(4); }
+        if (TonconnectSession != null) { flags = flags.SetBit(5); }
         return flags;
     }
 
@@ -78,6 +84,7 @@ public sealed partial class RequestAcceptUrlAuth : IRequest<MyTelegram.Schema.IU
         if (flags.IsBitSet(1)) { writer.Write(ButtonId.Value); }
         if (flags.IsBitSet(2)) { writer.Write(Url); }
         if (flags.IsBitSet(4)) { writer.Write(MatchCode); }
+        if (flags.IsBitSet(5)) { writer.Write(TonconnectSession); }
     }
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
@@ -90,5 +97,6 @@ public sealed partial class RequestAcceptUrlAuth : IRequest<MyTelegram.Schema.IU
         if (Flags.IsBitSet(1)) { ButtonId = buffer.ReadInt32(); }
         if (Flags.IsBitSet(2)) { Url = buffer.ReadString(); }
         if (Flags.IsBitSet(4)) { MatchCode = buffer.ReadString(); }
+        if (Flags.IsBitSet(5)) { TonconnectSession = buffer.Read<MyTelegram.Schema.IInputTonConnectOauthSession>(); }
     }
 }

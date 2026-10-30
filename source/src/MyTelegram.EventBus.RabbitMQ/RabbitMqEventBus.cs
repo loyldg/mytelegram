@@ -20,9 +20,9 @@ public sealed class RabbitMqEventBus(
     private readonly ResiliencePipeline _pipeline = CreateResiliencePipeline(options.Value.RetryCount);
     private readonly string _queueName = options.Value.ClientName;
     private readonly EventBusSubscriptionInfo _subscriptionInfo = subscriptionOptions.Value;
-    private IConnection? _rabbitMqConnection;
+    private IConnection _rabbitMQConnection;
 
-    private IChannel? _consumerChannel;
+    private IChannel _consumerChannel;
 
     public async Task PublishAsync<TEventData>(TEventData eventData, string? eventType = null)
         where TEventData : class
@@ -34,7 +34,7 @@ public sealed class RabbitMqEventBus(
             logger.LogTrace("Creating RabbitMQ channel to publish event: ({EventName})", routingKey);
         }
 
-        await using var channel = await _rabbitMqConnection?.CreateChannelAsync()! ?? throw new InvalidOperationException("RabbitMQ connection is not open");
+        await using var channel = await _rabbitMQConnection?.CreateChannelAsync() ?? throw new InvalidOperationException("RabbitMQ connection is not open");
 
         if (logger.IsEnabled(LogLevel.Trace))
         {
@@ -43,9 +43,23 @@ public sealed class RabbitMqEventBus(
 
         await channel.ExchangeDeclareAsync(exchange: ExchangeName, type: "direct");
 
-        var writer = new ArrayPoolBufferWriter<byte>();
+        ReadOnlyMemory<byte> body;
+        ArrayPoolBufferWriter<byte>? writer = null;
+
+        //if (eventData is EventBusRawDataReceivedEvent eventBusRawDataReceivedEvent)
+        //{
+        //    body = eventBusRawDataReceivedEvent.RawData;
+        //}
+        //else
+        //{
+        //    writer = new ArrayPoolBufferWriter<byte>();
+        //    rabbitMqSerializer.Serialize(writer, eventData);
+        //    body = writer.WrittenMemory;
+        //}
+
+        writer = new ArrayPoolBufferWriter<byte>();
         rabbitMqSerializer.Serialize(writer, eventData);
-        var body = writer.WrittenMemory;
+        body = writer.WrittenMemory;
         
         await _pipeline.Execute(async () =>
         {
@@ -76,7 +90,7 @@ public sealed class RabbitMqEventBus(
             }
             finally
             {
-                writer.Dispose();
+                writer?.Dispose();
             }
         });
     }
@@ -101,14 +115,7 @@ public sealed class RabbitMqEventBus(
         // Even on exception we take the message off the queue.
         // in a REAL WORLD app this should be handled with a Dead Letter Exchange (DLX). 
         // For more information see: https://www.rabbitmq.com/dlx.html
-        if (_consumerChannel != null)
-        {
-            await _consumerChannel.BasicAckAsync(eventArgs.DeliveryTag, multiple: false);
-        }
-        else
-        {
-            logger.LogWarning("Consumer channel is null");
-        }
+        await _consumerChannel.BasicAckAsync(eventArgs.DeliveryTag, multiple: false);
     }
 
     private async Task ProcessEvent(string eventName, ReadOnlyMemory<byte> body)
@@ -173,8 +180,8 @@ public sealed class RabbitMqEventBus(
                         Password = rabbitmqOptions.CurrentValue.Password,
                         AutomaticRecoveryEnabled = true
                     };
-                    _rabbitMqConnection = await connectionFactory.CreateConnectionAsync(cancellationToken);// serviceProvider.GetRequiredService<IConnection>();
-                    if (!_rabbitMqConnection.IsOpen)
+                    _rabbitMQConnection = await connectionFactory.CreateConnectionAsync(cancellationToken);// serviceProvider.GetRequiredService<IConnection>();
+                    if (!_rabbitMQConnection.IsOpen)
                     {
                         return;
                     }
@@ -184,7 +191,7 @@ public sealed class RabbitMqEventBus(
                         logger.LogTrace("Creating RabbitMQ consumer channel");
                     }
 
-                    _consumerChannel = await _rabbitMqConnection.CreateChannelAsync(cancellationToken: cancellationToken);
+                    _consumerChannel = await _rabbitMQConnection.CreateChannelAsync(cancellationToken: cancellationToken);
                     _consumerChannel.CallbackExceptionAsync += (_, ea) =>
                     {
                         logger.LogWarning(ea.Exception, "Error with RabbitMQ consumer channel");

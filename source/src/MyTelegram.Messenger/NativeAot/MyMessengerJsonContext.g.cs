@@ -75,6 +75,7 @@ namespace MyTelegram.Messenger.NativeAot;
 [JsonSerializable(typeof(MyTelegram.Domain.Aggregates.Dialog.DialogFilterDeletedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Aggregates.Dialog.DialogFilterUpdatedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Aggregates.Dialog.DialogFolderUpdatedEvent))]
+[JsonSerializable(typeof(MyTelegram.Domain.Aggregates.Dialog.DialogLastMessageDateUpdatedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Aggregates.Dialog.DialogMsgIdPinnedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Aggregates.Dialog.DialogPinChangedEvent))]
 [JsonSerializable(typeof(MyTelegram.Domain.Aggregates.Dialog.DialogSnapshot))]

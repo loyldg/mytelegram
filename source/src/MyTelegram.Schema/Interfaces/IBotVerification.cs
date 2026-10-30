@@ -23,8 +23,5 @@ public partial interface IBotVerification : IObject
     /// </summary>
     long Icon { get; set; }
 
-    /// <summary>
-    /// Verification description
-    /// </summary>
-    string Description { get; set; }
+    MyTelegram.Schema.ITextWithEntities Description { get; set; }
 }
