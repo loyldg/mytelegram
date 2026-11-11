@@ -68,7 +68,7 @@ services:
 
   ### Minio
   minio:
-    image: minio/minio:latest
+    image: cleanstart/minio:latest
     restart: always
     networks:
       - tg-net

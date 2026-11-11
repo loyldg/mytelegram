@@ -1,7 +1,7 @@
 # =========================
 # Base
 # =========================
-FROM --platform=$TARGETARCH mcr.microsoft.com/dotnet/aspnet:10.0 AS base
+FROM --platform=$TARGETARCH mcr.microsoft.com/dotnet/aspnet:11.0 AS base
 
 USER $APP_UID
 WORKDIR /app
@@ -22,7 +22,7 @@ EXPOSE 30444
 # =========================
 # Restore
 # =========================
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0 AS restore
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:11.0 AS restore
 
 ARG TARGETARCH
 

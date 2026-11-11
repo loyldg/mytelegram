@@ -1,6 +1,7 @@
 <Project>
   <PropertyGroup>
     <InvariantGlobalization>true</InvariantGlobalization>
+    <Features>runtime-async=on</Features>
   </PropertyGroup>
 
   <PropertyGroup>
