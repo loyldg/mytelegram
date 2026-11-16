@@ -15,7 +15,9 @@ public class ClientDataSender(
             return Task.CompletedTask;
         }
 
-        d.UnencryptedMessageResponseQueue?.Writer.WriteAsync(data);
+        // TryWrite never blocks on an unbounded channel and does not create a faulted task when the
+        // channel has been completed because the connection is closing.
+        d.UnencryptedMessageResponseQueue?.Writer.TryWrite(data);
 
         return Task.CompletedTask;
     }
@@ -33,6 +35,33 @@ public class ClientDataSender(
         }
 
         d?.EncryptedMessageResponseQueue.Writer.TryWrite(data);
+
+        return Task.CompletedTask;
+    }
+
+    public Task SendAsync(QuickAckEvent data)
+    {
+        // A quick ACK only makes sense on the connection that received the payload, so there is no
+        // fallback to another connection of the same auth key.
+        if (!clientManager.TryGetClientData(data.ConnectionId, out var d))
+        {
+            logger.LogDebug("Quick ack {QuickAckToken:x8} dropped, the connection is closed. ConnectionId: {ConnectionId}",
+                data.QuickAckToken,
+                data.ConnectionId);
+            return Task.CompletedTask;
+        }
+
+        var result = d.TransportState.QuickAck.TryAccept(data.QuickAckToken);
+        if (result != QuickAckAcceptResult.Accepted)
+        {
+            logger.LogDebug("Quick ack {QuickAckToken:x8} dropped: {Reason}. ConnectionId: {ConnectionId}",
+                data.QuickAckToken,
+                result,
+                data.ConnectionId);
+            return Task.CompletedTask;
+        }
+
+        d.QuickAckQueue.Writer.TryWrite(data.QuickAckToken);
 
         return Task.CompletedTask;
     }
@@ -57,6 +86,11 @@ public class ClientDataSender(
         return messageEncoder.Encode(d, data, encodedBytes.Span);
     }
 
+    public int EncodeQuickAck(uint quickAckToken, ClientData d, Memory<byte> encodedBytes)
+    {
+        return messageEncoder.EncodeQuickAck(d, quickAckToken, encodedBytes.Span);
+    }
+
     public async Task SendAsync(ReadOnlyMemory<byte> encodedBytes,
         ClientData clientData)
     {
@@ -76,8 +110,8 @@ public class ClientDataSender(
 
     public int GetEncodedDataMaxLength(int messageDataLength)
     {
-        // LengthBytes=1~19 Abridged:1/4 | Intermediate:4 | Padded intermediate:4+(0~15) | Full:12
-        // length(use max length 20),authKeyId(8),messageId(8),messageDataLength(4),messageData
-        return 20 + 8 + 8 + 4 + messageDataLength;
+        // Transport overhead: Abridged 1/4 | Intermediate 4 | Padded intermediate 4 + (0~15) | Full 12
+        // plus the unencrypted header: authKeyId(8), messageId(8), messageDataLength(4), messageData
+        return MtpMessageEncoder.MaxTransportOverhead + 8 + 8 + 4 + messageDataLength;
     }
 }

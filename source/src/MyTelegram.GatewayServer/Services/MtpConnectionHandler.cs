@@ -101,6 +101,12 @@ public sealed class MtpConnectionHandler(
                     connection,
                     cancellationToken);
 
+            var processSendQuickAckTask =
+                ProcessSendQuickAckAsync(
+                    clientData,
+                    connection,
+                    cancellationToken);
+
             var processReceiveDataTask =
                 ProcessReceiveDataAsync(
                     clientData,
@@ -111,6 +117,7 @@ public sealed class MtpConnectionHandler(
             {
                 processSendUnencryptedDataTask,
                 processSendDataTask,
+                processSendQuickAckTask,
                 processReceiveDataTask
             };
 
@@ -118,8 +125,14 @@ public sealed class MtpConnectionHandler(
             await Task.WhenAny(tasks)
                 .ConfigureAwait(false);
 
+            // Stop the remaining workers deterministically (for example after a transport error the
+            // send loops would otherwise wait until Kestrel reports the connection as closed).
+            await cts.CancelAsync()
+                .ConfigureAwait(false);
+
             await StopConnectionAsync(
                     connection,
+                    clientData,
                     tasks)
                 .ConfigureAwait(false);
         }
@@ -147,6 +160,14 @@ public sealed class MtpConnectionHandler(
                 clientData.AuthKeyId);
         }
 
+        var pendingQuickAckCount = clientData.TransportState.QuickAck.Reset();
+        if (pendingQuickAckCount > 0)
+        {
+            logger.LogDebug("[ConnectionId: {ConnectionId}] {Count} pending quick ack request(s) discarded on close",
+                connection.ConnectionId,
+                pendingQuickAckCount);
+        }
+
         logger.ClientDisconnected(
             connection.ConnectionId,
             connectionTypeFeature?.DcId,
@@ -154,8 +175,9 @@ public sealed class MtpConnectionHandler(
             clientData.AuthKeyId);
     }
 
-    private static async Task StopConnectionAsync(
+    private async Task StopConnectionAsync(
         ConnectionContext connection,
+        ClientData clientData,
         Task[] tasks)
     {
         try
@@ -196,6 +218,12 @@ public sealed class MtpConnectionHandler(
         catch (ObjectDisposedException)
         {
             // Expected when the transport is already disposed.
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex,
+                "[ConnectionId: {ConnectionId}] Connection worker failed",
+                clientData.ConnectionId);
         }
     }
 
@@ -252,12 +280,15 @@ public sealed class MtpConnectionHandler(
 
                     if (!clientData.IsFirstPacketParsed)
                     {
+                        // Waits (consumes nothing) until enough bytes are received to detect the transport.
                         messageParser.ProcessFirstUnencryptedPacket(
                             ref buffer,
                             clientData);
                     }
 
-                    while (TryParseMessage(
+                    // A single read may contain several frames (sticky packets) or only a part of one;
+                    // the parser returns false and leaves the remaining bytes in the pipe until more data arrives.
+                    while (messageParser.TryParse(
                                ref buffer,
                                clientData,
                                out var mtpMessage))
@@ -270,6 +301,14 @@ public sealed class MtpConnectionHandler(
 
                     if (result.IsCompleted)
                     {
+                        if (!buffer.IsEmpty)
+                        {
+                            logger.LogDebug(
+                                "[ConnectionId: {ConnectionId}] Connection closed by the client with {Count} unprocessed byte(s)",
+                                clientData.ConnectionId,
+                                buffer.Length);
+                        }
+
                         break;
                     }
                 }
@@ -280,6 +319,14 @@ public sealed class MtpConnectionHandler(
                         buffer.End);
                 }
             }
+        }
+        catch (MtpTransportException ex)
+        {
+            // The byte stream cannot be resynchronized: close the connection.
+            logger.LogWarning(
+                "[ConnectionId: {ConnectionId}] Closing connection because of an MTProto transport error: {Message}",
+                clientData.ConnectionId,
+                ex.Message);
         }
         catch (OperationCanceledException)
             when (cancellationToken.IsCancellationRequested)
@@ -292,6 +339,12 @@ public sealed class MtpConnectionHandler(
         catch (ObjectDisposedException)
             when (cancellationToken.IsCancellationRequested)
         {
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex,
+                "[ConnectionId: {ConnectionId}] Failed to process received data, closing connection",
+                clientData.ConnectionId);
         }
         finally
         {
@@ -454,6 +507,71 @@ public sealed class MtpConnectionHandler(
         }
     }
 
+    private async Task ProcessSendQuickAckAsync(
+        ClientData clientData,
+        ConnectionContext connection,
+        CancellationToken cancellationToken)
+    {
+        var queue =
+            clientData.QuickAckQueue;
+        var encodedBytes = new byte[MtpMessageEncoder.MaxQuickAckLength];
+
+        try
+        {
+            while (await queue.Reader.WaitToReadAsync(
+                       cancellationToken)
+                   .ConfigureAwait(false))
+            {
+                while (queue.Reader.TryRead(
+                           out var quickAckToken))
+                {
+                    //await clientData.SendLock.WaitAsync(cancellationToken)
+                    //    .ConfigureAwait(false);
+                    //try
+                    //{
+                    var totalCount =
+                        clientDataSender.EncodeQuickAck(
+                            quickAckToken,
+                            clientData,
+                            encodedBytes);
+
+                    if (totalCount == 0)
+                    {
+                        continue;
+                    }
+
+                    await SendAsync(
+                            encodedBytes.AsMemory(0, totalCount),
+                            connection,
+                            cancellationToken)
+                        .ConfigureAwait(false);
+                    //}
+                    //finally
+                    //{
+                    //    clientData.SendLock.Release();
+                    //}
+
+                    logger.LogDebug(
+                        "[ConnectionId: {ConnectionId}] Quick ack {QuickAckToken:x8} sent",
+                        clientData.ConnectionId,
+                        quickAckToken);
+                }
+            }
+        }
+        catch (OperationCanceledException)
+            when (cancellationToken.IsCancellationRequested)
+        {
+        }
+        catch (IOException)
+            when (cancellationToken.IsCancellationRequested)
+        {
+        }
+        catch (ObjectDisposedException)
+            when (cancellationToken.IsCancellationRequested)
+        {
+        }
+    }
+
     private static async Task SendAsync(
         ReadOnlyMemory<byte> data,
         ConnectionContext connection,
@@ -480,6 +598,16 @@ public sealed class MtpConnectionHandler(
         mtpMessage.DcId =
             clientData.DcId;
 
+        if (mtpMessage is EncryptedMessage { QuickAckRequested: true } encryptedMessage &&
+            !clientData.TransportState.QuickAck.OnRequested())
+        {
+            // Too many unanswered requests: process the payload but do not acknowledge it.
+            encryptedMessage.QuickAckRequested = false;
+            logger.LogWarning(
+                "[ConnectionId: {ConnectionId}] Too many pending quick ack requests, request ignored",
+                clientData.ConnectionId);
+        }
+
         if (clientData.IsFirstPacketParsed)
         {
             mtpMessage.ConnectionId =
@@ -493,31 +621,5 @@ public sealed class MtpConnectionHandler(
         }
 
         return Task.CompletedTask;
-    }
-
-    private bool TryParseMessage(
-        ref ReadOnlySequence<byte> buffer,
-        ClientData clientData,
-        [NotNullWhen(true)] out IMtpMessage? mtpMessage)
-    {
-        if (buffer.Length == 0)
-        {
-            mtpMessage = null;
-            return false;
-        }
-
-        var reader = new SequenceReader<byte>(
-            buffer);
-
-        if (reader.Remaining < 4)
-        {
-            mtpMessage = null;
-            return false;
-        }
-
-        return messageParser.TryParse(
-            ref buffer,
-            clientData,
-            out mtpMessage);
     }
 }

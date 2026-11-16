@@ -95,6 +95,15 @@ public class WebSocketMiddleware(
     private Task ProcessDataAsync(IMtpMessage mtpMessage,
         ClientData clientData)
     {
+        if (mtpMessage is EncryptedMessage { QuickAckRequested: true } encryptedMessage &&
+            !clientData.TransportState.QuickAck.OnRequested())
+        {
+            // Too many unanswered requests: process the payload but do not acknowledge it.
+            encryptedMessage.QuickAckRequested = false;
+            logger.LogWarning("[ConnectionId: {ConnectionId}] Too many pending quick ack requests, request ignored",
+                clientData.ConnectionId);
+        }
+
         if (clientData.IsFirstPacketParsed)
         {
             mtpMessage.ConnectionId = clientData.ConnectionId;
@@ -116,9 +125,38 @@ public class WebSocketMiddleware(
         var readTask = ReadPipeAsync(pipe.Reader, clientData);
         var processResponseQueueTask = ProcessResponseQueueAsync(clientData);
         var processSendUnencryptedDataTask = ProcessSendUnencryptedDataAsync(clientData);
+        var processSendQuickAckTask = ProcessSendQuickAckAsync(clientData);
 
-        await Task.WhenAll(processSendUnencryptedDataTask, writeTask, readTask, processResponseQueueTask);
+        try
+        {
+            // The receive side ends when the client disconnects or sends invalid data.
+            await Task.WhenAll(writeTask, readTask);
+        }
+        catch (Exception ex)
+        {
+            logger.LogDebug(ex, "[ConnectionId: {ConnectionId}] WebSocket receive loop ended with an error",
+                clientData.ConnectionId);
+        }
+
+        _isWebSocketConnected = false;
         clientManager.RemoveClient(clientData.ConnectionId);
+
+        // Wake up the send loops; without this they would wait for new responses forever.
+        clientData.EncryptedMessageResponseQueue.Writer.TryComplete();
+        clientData.UnencryptedMessageResponseQueue.Writer.TryComplete();
+        clientData.QuickAckQueue.Writer.TryComplete();
+
+        try
+        {
+            await Task.WhenAll(processSendUnencryptedDataTask, processResponseQueueTask, processSendQuickAckTask);
+        }
+        catch (Exception ex)
+        {
+            logger.LogDebug(ex, "[ConnectionId: {ConnectionId}] WebSocket send loop ended with an error",
+                clientData.ConnectionId);
+        }
+
+        clientData.TransportState.QuickAck.Reset();
         messageQueueProcessor.Enqueue(new ClientDisconnectedEvent(clientData.ConnectionId, clientData.AuthKeyId, 0),
             clientData.AuthKeyId);
     }
@@ -142,7 +180,34 @@ public class WebSocketMiddleware(
                 finally
                 {
                     ArrayPool<byte>.Shared.Return(encodedBytes);
+                    response.MemoryOwner?.Dispose();
                 }
+            }
+        }
+    }
+
+    private async Task ProcessSendQuickAckAsync(ClientData clientData)
+    {
+        var queue = clientData.QuickAckQueue;
+        var encodedBytes = new byte[MtpMessageEncoder.MaxQuickAckLength];
+        while (await queue.Reader.WaitToReadAsync() && _isWebSocketConnected)
+        {
+            while (queue.Reader.TryRead(out var quickAckToken))
+            {
+                //await clientData.SendLock.WaitAsync();
+                //try
+                //{
+                var totalCount = clientDataSender.EncodeQuickAck(quickAckToken, clientData, encodedBytes);
+                if (totalCount > 0)
+                {
+                    await clientData.WebSocket!.SendAsync(encodedBytes.AsMemory()[..totalCount],
+                        WebSocketMessageType.Binary, true, default);
+                }
+                //}
+                //finally
+                //{
+                //    clientData.SendLock.Release();
+                //}
             }
         }
     }
@@ -150,83 +215,101 @@ public class WebSocketMiddleware(
     private async Task ReadPipeAsync(PipeReader reader,
         ClientData clientData)
     {
-        while (_isWebSocketConnected)
+        try
         {
-            var result = await reader.ReadAsync();
-            var buffer = result.Buffer;
-            if (result.IsCanceled)
+            while (_isWebSocketConnected)
             {
-                break;
-            }
+                var result = await reader.ReadAsync();
+                var buffer = result.Buffer;
+                if (result.IsCanceled)
+                {
+                    break;
+                }
 
-            if (result.Buffer.IsEmpty)
-            {
-                continue;
-            }
+                try
+                {
+                    if (!buffer.IsEmpty)
+                    {
+                        if (!clientData.IsFirstPacketParsed)
+                        {
+                            messageParser.ProcessFirstUnencryptedPacket(ref buffer, clientData);
+                        }
 
-            if (!clientData.IsFirstPacketParsed)
-            {
-                messageParser.ProcessFirstUnencryptedPacket(ref buffer, clientData);
-            }
+                        while (messageParser.TryParse(ref buffer, clientData, out var mtpMessage))
+                        {
+                            await ProcessDataAsync(mtpMessage, clientData);
+                        }
+                    }
+                }
+                finally
+                {
+                    reader.AdvanceTo(buffer.Start, buffer.End);
+                }
 
-            while (TryParseMessage(ref buffer, clientData, out var mtpMessage))
-            {
-                await ProcessDataAsync(mtpMessage, clientData);
-            }
-
-            reader.AdvanceTo(buffer.Start, buffer.End);
-
-            if (result.IsCompleted)
-            {
-                break;
+                if (result.IsCompleted)
+                {
+                    break;
+                }
             }
         }
-
-        await reader.CompleteAsync();
-    }
-
-    private bool TryParseMessage(ref ReadOnlySequence<byte> buffer,
-        ClientData clientData,
-        [NotNullWhen(true)] out IMtpMessage? mtpMessage)
-    {
-        if (buffer.Length == 0)
+        catch (MtpTransportException ex)
         {
-            mtpMessage = default;
-            return false;
+            logger.LogWarning("[ConnectionId: {ConnectionId}] Closing WebSocket because of an MTProto transport error: {Message}",
+                clientData.ConnectionId,
+                ex.Message);
+            // Stops WritePipeAsync (ReceiveAsync fails once the socket is aborted).
+            clientData.WebSocket?.Abort();
         }
-
-        var reader = new SequenceReader<byte>(buffer);
-
-        if (reader.Remaining < 4)
+        catch (Exception ex)
         {
-            mtpMessage = default;
-
-            return false;
+            logger.LogError(ex, "[ConnectionId: {ConnectionId}] Failed to process WebSocket data, closing connection",
+                clientData.ConnectionId);
+            clientData.WebSocket?.Abort();
         }
-
-        return messageParser.TryParse(ref buffer, clientData, out mtpMessage);
+        finally
+        {
+            await reader.CompleteAsync();
+        }
     }
 
     private async Task WritePipeAsync(WebSocket webSocket,
         PipeWriter writer)
     {
         const int minimumBufferSize = 8192 * 2;
-        while (webSocket.State == WebSocketState.Open)
+        try
         {
-            var memory = writer.GetMemory(minimumBufferSize);
-            var receiveResult = await webSocket.ReceiveAsync(memory, CancellationToken.None);
-            if (receiveResult.MessageType == WebSocketMessageType.Binary)
+            while (webSocket.State == WebSocketState.Open)
             {
-                writer.Advance(receiveResult.Count);
-                var flushResult = await writer.FlushAsync();
-                if (flushResult.IsCompleted || flushResult.IsCanceled)
+                var memory = writer.GetMemory(minimumBufferSize);
+                var receiveResult = await webSocket.ReceiveAsync(memory, CancellationToken.None);
+                if (receiveResult.MessageType == WebSocketMessageType.Close)
                 {
                     break;
                 }
+
+                if (receiveResult.MessageType == WebSocketMessageType.Binary)
+                {
+                    writer.Advance(receiveResult.Count);
+                    var flushResult = await writer.FlushAsync();
+                    if (flushResult.IsCompleted || flushResult.IsCanceled)
+                    {
+                        break;
+                    }
+                }
             }
         }
-
-        await writer.CompleteAsync();
-        _isWebSocketConnected = false;
+        catch (WebSocketException)
+        {
+            // The client disconnected without a close handshake, or the socket was aborted.
+        }
+        catch (OperationCanceledException)
+        {
+            // The socket was aborted.
+        }
+        finally
+        {
+            await writer.CompleteAsync();
+            _isWebSocketConnected = false;
+        }
     }
 }

@@ -15,5 +15,6 @@ public class ClientData : IClientData
     public byte[] ReceiveIv { get; set; } = [];
     public ulong ReceiveCount { get; set; }
     public ulong SendCount { get; set; }
+    public MtpTransportState TransportState { get; set; }
     public ArrayPool<byte> ArrayPool { get; set; } = ArrayPool<byte>.Shared;
 }

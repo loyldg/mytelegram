@@ -16,6 +16,21 @@ public class ClientData : IClientData
 
     public Channel<UnencryptedMessage> UnencryptedMessageQueue { get; set; } =
         Channel.CreateUnbounded<UnencryptedMessage>();
+
+    /// <summary>
+    /// Quick ACK tokens to send to the client (already validated by <see cref="MtpTransportState.QuickAck"/>).
+    /// </summary>
+    public Channel<uint> QuickAckQueue { get; set; } =
+        Channel.CreateUnbounded<uint>();
+
+    ///// <summary>
+    ///// Serializes "encode + write" of all outgoing frames of this connection.
+    ///// Encoding advances the obfuscation counter and the full transport seqno, so frames must reach the
+    ///// socket in the order they were encoded and must never interleave.
+    ///// </summary>
+    //public SemaphoreSlim SendLock { get; } = new(1, 1);
+
+    public MtpTransportState TransportState { get; } = new();
     public int DcId { get; set; }
     public ConnectionType ConnectionType { get; set; }
     public ProtocolType MtProtoType { get; set; }
@@ -25,8 +40,6 @@ public class ClientData : IClientData
     public long AuthKeyId { get; set; }
     public string ConnectionId { get; set; } = null!;
     public bool ObfuscationEnabled { get; set; }
-    public int CurrentPacketLength { get; set; }
-    public int SkipCount { get; set; }
     public byte[] SendIv { get; set; } = [];
     public byte[] ReceiveIv { get; set; } = [];
     public ulong ReceiveCount { get; set; }

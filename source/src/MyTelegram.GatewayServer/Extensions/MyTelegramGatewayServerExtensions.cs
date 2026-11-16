@@ -20,5 +20,6 @@ public static class MyTelegramGatewayServerExtensions
         services.AddSubscription<AuthKeyNotFoundEvent, AuthKeyNotFoundEventHandler>();
         services.AddSubscription<TransportErrorEvent, TransportErrorEventHandler>();
         services.AddSubscription<PingTimeoutEvent, PingTimeoutEventHandler>();
+        services.AddSubscription<QuickAckEvent, QuickAckEventHandler>();
     }
 }
