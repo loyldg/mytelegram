@@ -42,6 +42,16 @@ public class UserDomainEventHandler(
             userId));
         var user = await userConverterService.GetUserAsync(domainEvent.AggregateEvent.RequestInfo, userId);
         user.Self = true;
+        // Fix the issue where a user is successfully created, but the ReadModel data is still being saved and hasn't finished yet.
+        // When the Query server performs a query during this period, it returns an empty result, causing the client to display incorrect information.
+        if (user.Deleted)
+        {
+            user.Deleted = false;
+            user.FirstName = domainEvent.AggregateEvent.FirstName;
+            user.LastName = domainEvent.AggregateEvent.LastName;
+            user.Phone = domainEvent.AggregateEvent.PhoneNumber;
+        }
+
         var r = layeredAuthorizationService.GetConverter(domainEvent.AggregateEvent.RequestInfo.Layer)
             .CreateAuthorization(user);
         await SendRpcMessageToClientAsync(domainEvent.AggregateEvent.RequestInfo,
