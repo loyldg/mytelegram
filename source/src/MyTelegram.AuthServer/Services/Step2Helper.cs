@@ -1,4 +1,6 @@
-﻿namespace MyTelegram.AuthServer.Services;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace MyTelegram.AuthServer.Services;
 
 public class Step2Helper(
     ILogger<Step2Helper> logger,
@@ -6,7 +8,8 @@ public class Step2Helper(
     IMtpHelper mtpHelper,
     IMyRsaHelper myRsaHelper,
     ICacheManager<AuthCacheItem> cacheManager,
-    IRsaKeyProvider rsaKeyProvider
+    IRsaKeyProvider rsaKeyProvider,
+    IFingerprintHelper fingerprintHelper
 ) : Step1To3Helper, IStep2Helper, ISingletonDependency
 {
     public async Task<Step2Output> GetServerDhParamsAsync(RequestReqDHParams req)
@@ -27,9 +30,26 @@ public class Step2Helper(
         CheckRequestData(cachedAuthKey.P, req.P);
         CheckRequestData(cachedAuthKey.Q, req.Q);
 
+        if (cachedAuthKey.A != null)
+        {
+            // req_DH_params was already processed for this server_nonce. Generating a new a would make the
+            // first response unusable, and every repeat would cost another RSA private key operation.
+            // The client restarts the handshake after the -404 error.
+            throw new InvalidOperationException(
+                $"req_DH_params has already been processed, server_nonce: {req.ServerNonce.ToHexString()}");
+        }
+
+        if (req.PublicKeyFingerprint != fingerprintHelper.GetFingerprint())
+        {
+            throw new ArgumentException($"Unknown public key fingerprint: {req.PublicKeyFingerprint}");
+        }
+
         var tInnerData = DeserializeRequestTpqInnerData(req, rsaKeyProvider.GetRsaPrivateKey());
         CheckRequestData(cachedAuthKey.P, tInnerData.P);
         CheckRequestData(cachedAuthKey.Q, tInnerData.Q);
+        var expectedPq = (cachedAuthKey.P.ToBigEndianBigInteger() * cachedAuthKey.Q.ToBigEndianBigInteger())
+            .ToByteArray(true, true);
+        CheckRequestData(expectedPq, tInnerData.Pq);
         CheckRequestData(cachedAuthKey.ServerNonce, tInnerData.ServerNonce);
         CheckRequestData(cachedAuthKey.Nonce, tInnerData.Nonce);
 
@@ -88,36 +108,61 @@ public class Step2Helper(
         string privateKey
     )
     {
-        // It needs to be converted into a 256-byte array.
-        // sometimes the auth key data length is only 255, and 0 needs to be added to the first position.
-        var innerDataWithHash = myRsaHelper.Decrypt(reqDhParams.EncryptedData, privateKey);
-        if (innerDataWithHash.Length == 256)
+        // The decrypted value is always 256 bytes (left-padded with zeros, see MyRsaHelper.Decrypt).
+        // Previously a value with a leading zero byte (1/256 of RSA_PAD requests) was 255 bytes long
+        // and was parsed with the legacy format, which made the handshake fail.
+        var decrypted = myRsaHelper.Decrypt(reqDhParams.EncryptedData, privateKey);
+        try
         {
-            return ParsePqInnerData(innerDataWithHash);
+            if (TryParsePqInnerData(decrypted, out var pqInnerData))
+            {
+                return pqInnerData;
+            }
+
+            // Legacy RSA encryption (before RSA_PAD): SHA1(data) + data + random padding, 255 bytes.
+            if (decrypted[0] == 0 && TryParsePqInnerDataOld(decrypted.AsMemory(1), out pqInnerData))
+            {
+                logger.LogDebug("Legacy (non RSA_PAD) p_q_inner_data accepted");
+                return pqInnerData;
+            }
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(decrypted);
         }
 
-        return ParsePqInnerDataOld(innerDataWithHash);
+        logger.PqInnerDataSha1HashMismatch();
+        throw new ArgumentException("PQInnerData hash mismatch");
     }
 
-    private IPQInnerData ParsePqInnerDataOld(byte[] innerDataWithHash)
+    private bool TryParsePqInnerDataOld(ReadOnlyMemory<byte> innerDataWithHash, [NotNullWhen(true)] out IPQInnerData? pqInnerData)
     {
-        var span = innerDataWithHash.AsSpan();
+        pqInnerData = null;
+        var span = innerDataWithHash.Span;
         var shaHash = span[..20];
-        var innerData = span[20..];
-        ReadOnlyMemory<byte> buffer = innerDataWithHash.AsMemory(20, innerDataWithHash.Length - 20);
+        var buffer = innerDataWithHash[20..];
         var oldLength = buffer.Length;
-        var tPqInnerData = buffer.Read<IPQInnerData>();
-        var length = oldLength - buffer.Length;
-        var realInnerData = innerData[..length];
-
-        Span<byte> calcHash = stackalloc byte[20];
-        SHA1.HashData(realInnerData, calcHash);
-        if (!shaHash.SequenceEqual(calcHash))
+        IPQInnerData tPqInnerData;
+        try
         {
-            logger.PqInnerDataSha1HashMismatch();
+            tPqInnerData = buffer.Read<IPQInnerData>();
+        }
+        catch (Exception)
+        {
+            return false;
         }
 
-        return tPqInnerData;
+        var length = oldLength - buffer.Length;
+        Span<byte> calcHash = stackalloc byte[20];
+        SHA1.HashData(span.Slice(20, length), calcHash);
+        // The hash authenticates the data: never accept a mismatch.
+        if (!shaHash.SequenceEqual(calcHash))
+        {
+            return false;
+        }
+
+        pqInnerData = tPqInnerData;
+        return true;
     }
 
     private (byte[] a, byte[] ga) GenerateAAndGa()
@@ -137,14 +182,18 @@ public class Step2Helper(
         }
     }
 
-    private IPQInnerData ParsePqInnerData(ReadOnlySpan<byte> keyAesEncryptedBytes)
+    private bool TryParsePqInnerData(ReadOnlySpan<byte> keyAesEncryptedBytes, [NotNullWhen(true)] out IPQInnerData? pqInnerData)
     {
+        // https://core.telegram.org/mtproto/auth_key#41-rsa-paddata-server-public-key-mentioned-above-is-implemented-as-follows
         const int tempKeyLength = 32;
-        var tempBytes = ArrayPool<byte>.Shared.Rent(keyAesEncryptedBytes.Length + 32 + 32);
+        pqInnerData = null;
+        // data_with_hash (224) + SHA256(aes_encrypted) (32) + calculated hash (32)
+        var tempLength = keyAesEncryptedBytes.Length - tempKeyLength + 32 + 32;
+        var tempBytes = ArrayPool<byte>.Shared.Rent(tempLength);
 
         try
         {
-            var tempSpan = tempBytes.AsSpan(0, keyAesEncryptedBytes.Length + 32 + 32 + 32);
+            var tempSpan = tempBytes.AsSpan(0, tempLength);
             var startIndex = keyAesEncryptedBytes.Length - tempKeyLength;
             var dataWithHash = tempSpan[..(keyAesEncryptedBytes.Length - tempKeyLength)];
 
@@ -170,17 +219,17 @@ public class Step2Helper(
             if (!hash.SequenceEqual(calculatedHash))
             {
                 logger.PqInnerDataSha1HashMismatch();
-
-                throw new ArgumentException("PQInnerData hash mismatch");
+                return false;
             }
 
-            var tPqInnerData = tempBytes.ToTObject<IPQInnerData>();
+            pqInnerData = tempBytes.ToTObject<IPQInnerData>();
 
-            return tPqInnerData;
+            return true;
         }
         finally
         {
-            ArrayPool<byte>.Shared.Return(tempBytes);
+            // The buffer contains new_nonce.
+            ArrayPool<byte>.Shared.Return(tempBytes, clearArray: true);
         }
     }
 
@@ -223,6 +272,9 @@ public class Step2Helper(
             SHA1.HashData(writer.WrittenSpan, sha1Hash);
             sha1Hash.CopyTo(answerWithHashSpan);
             writer.WrittenSpan.CopyTo(answerWithHashSpan.Slice(20));
+            // answer_with_hash := SHA1(answer) + answer + (0-15 random bytes).
+            // The padding must be random: the rented buffer may contain data of other requests.
+            RandomNumberGenerator.Fill(answerWithHashSpan[(20 + writtenCount)..]);
             var aesKey = new byte[32];
             Span<byte> aesIv = stackalloc byte[32];
             mtpHelper.CalcTempAesKeyData(newNonce, serverNonce, aesKey, aesIv);
@@ -238,7 +290,7 @@ public class Step2Helper(
         }
         finally
         {
-            ArrayPool<byte>.Shared.Return(tempBytes);
+            ArrayPool<byte>.Shared.Return(tempBytes, clearArray: true);
         }
     }
 

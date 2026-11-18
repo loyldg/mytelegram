@@ -41,12 +41,22 @@ public class Step3Helper(
         CheckRequestData(cachedAuthKey.Nonce, dhInnerData.Nonce, "Nonce");
         CheckRequestData(cachedAuthKey.ServerNonce, dhInnerData.ServerNonce, "ServerNonce");
         var a = cachedAuthKey.A;
-        var gb = dhInnerData.GB;
+        var gb = dhInnerData.GB.ToBigEndianBigInteger();
+        // https://core.telegram.org/mtproto/auth_key: both sides must check that g_b is greater than 1 and less than
+        // dh_prime - 1 (and recommended: between 2^{2048-64} and dh_prime - 2^{2048-64}).
+        if (!IsGoodGaOrGb(gb, AuthConsts.DhPrime))
+        {
+            throw new ArgumentException("Invalid g_b");
+        }
 
         var authKeyBytes = BigInteger
-            .ModPow(gb.ToBigEndianBigInteger(), a.ToBigEndianBigInteger(), AuthConsts.DhPrime)
+            .ModPow(gb, a.ToBigEndianBigInteger(), AuthConsts.DhPrime)
             .ToByteArray(true, true)
             .ToBytes256();
+
+        // https://core.telegram.org/mtproto/auth_key: after dh_gen_ok the server forgets the temporary data.
+        // This also removes the DH secret a and new_nonce from the cache and prevents replays of this request.
+        await cacheManager.RemoveAsync(cacheKey);
 
         var dto = new Step3Output(
             authKeyIdHelper.GetAuthKeyId(authKeyBytes),
@@ -83,8 +93,14 @@ public class Step3Helper(
             ReadOnlyMemory<byte> buffer = tempBytes.AsMemory(20, answerWithHash.Length - 20);
             var oldLength = buffer.Length;
             var obj = buffer.Read<TClientDHInnerData>();
-            var consumed = oldLength-buffer.Length;
-            var paddingCount = (int)(answer.Length - consumed);
+            var consumed = oldLength - buffer.Length;
+            var paddingCount = (answer.Length - consumed);
+            // data_with_hash := SHA1(data) + data + (0-15 random bytes)
+            if (paddingCount is < 0 or > 15)
+            {
+                throw new ArgumentException($"Invalid client_DH_inner_data padding length: {paddingCount}");
+            }
+
             var data = answer[..^paddingCount];
             var calcHash = tempSpan[^20..];
             SHA1.HashData(data, calcHash);
@@ -98,7 +114,7 @@ public class Step3Helper(
         }
         finally
         {
-            ArrayPool<byte>.Shared.Return(tempBytes);
+            ArrayPool<byte>.Shared.Return(tempBytes, clearArray: true);
         }
     }
 

@@ -4,14 +4,38 @@ public class UnencryptedMessageHandler(
     ILogger<UnencryptedMessageHandler> logger,
     IHandlerHelper handlerHelper,
     IEventBus eventBus,
-    IOptionsMonitor<MyTelegramAuthServerOptions> options) : IEventHandler<UnencryptedMessage>, ITransientDependency
+    IOptionsMonitor<MyTelegramAuthServerOptions> options,
+    IHandshakeRateLimiter handshakeRateLimiter) : IEventHandler<UnencryptedMessage>, ITransientDependency
 {
+    // https://core.telegram.org/mtproto/auth_key: an incorrect query is answered with a -404 transport error
+    private const int InvalidRequestTransportErrorCode = -404;
+
+    private const uint ReqPqMultiConstructorId = 0xbe7e8ef1;
+    private const uint ReqPqConstructorId = 0x60469778;
+    private const uint ReqDhParamsConstructorId = 0xd712e4be;
+    private const uint SetClientDhParamsConstructorId = 0xf5045f1f;
+
     private static readonly ConcurrentDictionary<string, IResPQ> Step1Results = new();
 
     public async Task HandleEventAsync(UnencryptedMessage eventData)
     {
+        var isHandshakeRequest = false;
         try
         {
+            isHandshakeRequest = eventData.ObjectId is ReqPqMultiConstructorId or ReqPqConstructorId
+                or ReqDhParamsConstructorId or SetClientDhParamsConstructorId;
+            if (!isHandshakeRequest)
+            {
+                return;
+            }
+
+            var rateLimitKey = string.IsNullOrEmpty(eventData.ClientIp) ? eventData.ConnectionId : eventData.ClientIp;
+            if (!handshakeRateLimiter.TryAcquire(rateLimitKey))
+            {
+                // Dropped without a response: answering would let the client retry immediately.
+                return;
+            }
+
             if (!handlerHelper.TryGetHandler(eventData.ObjectId, out var handler))
             {
                 logger.LogWarning(
@@ -87,11 +111,18 @@ public class UnencryptedMessageHandler(
         catch (Exception ex)
         {
             logger.LogError(
-                "Process request failed, connectionId: {ConnectionId}, reqMsgId: {ReqMsgId}, error: {Error}",
+                ex,
+                "Process request failed, connectionId: {ConnectionId}, reqMsgId: {ReqMsgId}, objectId: {ObjectId:x2}",
                 eventData.ConnectionId,
                 eventData.MessageId,
-                ex
+                eventData.ObjectId
             );
+
+            if (isHandshakeRequest)
+            {
+                // The client must restart the handshake; without a response it would wait for a timeout.
+                await TrySendTransportErrorAsync(eventData);
+            }
         }
         finally
         {
@@ -104,6 +135,19 @@ public class UnencryptedMessageHandler(
                 "Process unencrypted message completed, reqMsgId: {ReqMsgId}",
                 eventData.MessageId
             );
+        }
+    }
+
+    private async Task TrySendTransportErrorAsync(UnencryptedMessage eventData)
+    {
+        try
+        {
+            await eventBus.PublishAsync(new TransportErrorEvent(eventData.AuthKeyId, eventData.ConnectionId,
+                InvalidRequestTransportErrorCode));
+        }
+        catch (Exception ex)
+        {
+            logger.LogWarning(ex, "Failed to send transport error, connectionId: {ConnectionId}", eventData.ConnectionId);
         }
     }
 

@@ -3,7 +3,8 @@
 public class MyTelegramAuthServerBackgroundService(
     ILogger<MyTelegramAuthServerBackgroundService> logger,
     IHandlerHelper handlerHelper,
-    IFingerprintHelper fingerprintHelper
+    IFingerprintHelper fingerprintHelper,
+    IOptions<MyTelegramAuthServerOptions> options
 ) : BackgroundService
 {
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -15,6 +16,11 @@ public class MyTelegramAuthServerBackgroundService(
         if (fingerprint == defaultFingerprint)
         {
             logger.DefaultPrivateKeyDetected();
+            if (options.Value.RejectDefaultPrivateKey)
+            {
+                throw new InvalidOperationException(
+                    "The default (public) RSA private key is configured and App:RejectDefaultPrivateKey is true. Configure your own private key.");
+            }
         }
 
         return Task.CompletedTask;

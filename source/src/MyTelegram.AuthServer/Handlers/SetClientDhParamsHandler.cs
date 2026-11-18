@@ -3,7 +3,6 @@
 public class SetClientDhParamsHandler(
     IStep3Helper step3ServerHelper,
     ILogger<SetClientDhParamsHandler> logger,
-    ICacheManager<AuthKeyCacheItem> cacheManager,
     IEventBus eventBus
 ) : BaseObjectHandler<RequestSetClientDHParams, ISetClientDHParamsAnswer>
 {
@@ -15,13 +14,8 @@ public class SetClientDhParamsHandler(
         var dto = await step3ServerHelper.SetClientDhParamsAnswerAsync(obj);
         logger.HandshakeStep3(dto.IsPermanent ? "Perm" : "Temp", input.ConnectionId, input.AuthKeyId, input.ReqMsgId, input.ConnectionType == ConnectionType.Media);
 
-        // Cached authentication data expires in 120 seconds
-        var cacheKey = AuthKeyCacheItem.GetCacheKey(dto.AuthKeyId);
-        await cacheManager.SetAsync(
-            cacheKey,
-            new AuthKeyCacheItem(dto.AuthKey, dto.ServerSalt, dto.IsPermanent),
-            120
-        );
+        // The auth key is no longer written to the distributed cache: the session server receives it with
+        // AuthKeyCreatedIntegrationEvent, and keeping a copy of the secret in Redis only increases the exposure.
         await eventBus.PublishAsync(
             new AuthKeyCreatedIntegrationEvent(
                 input.ConnectionId,
@@ -35,12 +29,9 @@ public class SetClientDhParamsHandler(
             )
         );
 
-        // The session server will send SetClientDhParamsAnswer to client if the perm auth key created on session server
-        if (!dto.IsPermanent)
-        {
-            return dto.SetClientDhParamsAnswer;
-        }
-
+        // The session server sends SetClientDhParamsAnswer (dh_gen_ok) to the client after it has registered the
+        // auth key, for both permanent and temporary keys. Otherwise the client may use the new key before the
+        // session server knows it and receive -404 (AUTH_KEY not found), which makes it drop the key.
         return null!;
     }
 }
