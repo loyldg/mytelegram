@@ -14,6 +14,7 @@ public class MessageAppService(
     IContactAppService contactAppService,
     IOffsetHelper offsetHelper,
     IDataEncryptionHelper dataEncryptionHelper,
+    ISlowModeAppService slowModeAppService,
     IOptionsMonitor<MyTelegramMessengerServerOptions> options,
     IIdGenerator idGenerator)
     : BaseAppService, IMessageAppService, ITransientDependency
@@ -178,6 +179,16 @@ public class MessageAppService(
         var firstInput = inputs.First();
         var requestInfo = firstInput.RequestInfo;
 
+        // Slow mode only applies to messages sent by users to supergroups right now
+        var shouldSaveSlowModeSendDate = false;
+        if (firstInput.ToPeer.PeerType == PeerType.Channel &&
+            firstInput.ScheduleDate == null &&
+            firstInput.SendMessageType != SendMessageType.MessageService &&
+            !firstInput.RequestInfo.IsSubRequest)
+        {
+            shouldSaveSlowModeSendDate = await slowModeAppService.CheckSlowModeAsync(firstInput.ToPeer.PeerId,
+                firstInput.SenderUserId, inputs.Count, firstInput.IsSendGroupedMessage);
+        }
         foreach (var input in inputs)
         {
             CheckBotPermission(input.RequestInfo.UserId, input.ToPeer);
@@ -188,8 +199,12 @@ public class MessageAppService(
         var command = new StartSendMessageCommand(TempId.New, requestInfo,
             sendMessageItems,
             firstInput.ClearDraft,
-            firstInput.IsSendGroupedMessage,
-            firstInput.IsSendQuickReplyMessage);
+            firstInput.IsSendGroupedMessage);
+        if (shouldSaveSlowModeSendDate)
+        {
+            await slowModeAppService.SaveLastSendDateAsync(firstInput.ToPeer.PeerId, firstInput.SenderUserId,
+                DateTime.UtcNow.ToTimestamp());
+        }
 
         await commandBus.PublishAsync(command);
     }
