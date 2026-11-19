@@ -37,7 +37,7 @@ MyTelegram is a self-hosted C# implementation of the Telegram server-side API, d
 - Email Login
 - Email Sender
 - Direct Messages
-- Push Server (Firebase)
+- Push Server (APNS/FCM/Web push)
 - Communities
 
 ---
