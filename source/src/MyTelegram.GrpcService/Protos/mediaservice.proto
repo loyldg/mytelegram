@@ -44,6 +44,10 @@ message SavePhotoRequest{
 	optional bytes videoEmojiMarkup=8;
 	int64 userId=9;
 	bool isProfilePhoto=10;
+	// Animated photo video, sent together with the static photo file (tdesktop, Android)
+	int64 videoFileId=11;
+	int32 videoParts=12;
+	string videoMd5=13;
 }
 
 message SavePhotoResponse{
