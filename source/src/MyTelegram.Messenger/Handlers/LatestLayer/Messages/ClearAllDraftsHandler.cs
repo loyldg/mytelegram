@@ -13,7 +13,7 @@ internal sealed class ClearAllDraftsHandler(IQueryProcessor queryProcessor, ICom
         var drafts = await queryProcessor.ProcessAsync(new GetAllDraftQuery(input.UserId));
         foreach (var draftReadModel in drafts)
         {
-            var command = new DeleteDraftCommand(TempId.New, draftReadModel.OwnerPeerId, draftReadModel.Peer);
+            var command = new ClearDraftCommand(DialogId.With(draftReadModel.Id));
             await commandBus.PublishAsync(command);
         }
 

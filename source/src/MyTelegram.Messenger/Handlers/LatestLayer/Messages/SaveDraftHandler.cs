@@ -33,6 +33,12 @@ internal sealed class SaveDraftHandler(ICommandBus commandBus, IPeerHelper peerH
 
         var peer = peerHelper.GetPeer(obj.Peer, input.UserId);
         var dialogId = DialogId.Create(input.UserId, peer);
+        // Passing empty values to messages.saveDraft clears the draft
+        if (string.IsNullOrEmpty(obj.Message) && obj.Media == null && obj.ReplyTo == null)
+        {
+            await commandBus.PublishAsync(new ClearDraftCommand(dialogId));
+            return new TBoolTrue();
+        }
         IMessageMedia? media = null;
         if (obj.Media != null)
         {
