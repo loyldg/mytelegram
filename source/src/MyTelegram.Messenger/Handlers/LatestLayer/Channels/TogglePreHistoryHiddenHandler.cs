@@ -21,7 +21,7 @@ internal sealed class TogglePreHistoryHiddenHandler(ICommandBus commandBus, ICha
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
-            await channelAdminRightsChecker.ThrowIfNotChannelOwnerAsync(obj.Channel, input.UserId);
+            await channelAdminRightsChecker.ThrowIfNotChannelOwnerAsync(obj.Channel,input.UserId);
             var command = new TogglePreHistoryHiddenCommand(ChannelId.Create(inputChannel.ChannelId), input.ToRequestInfo(), obj.Enabled, input.UserId);
             await commandBus.PublishAsync(command);
             return null!;

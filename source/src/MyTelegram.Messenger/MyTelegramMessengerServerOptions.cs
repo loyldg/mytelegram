@@ -43,6 +43,7 @@ public class MyTelegramMessengerServerOptions
     public bool EnableSearchNonContacts { get; set; }
     public int RpcResultExpirationMinutes { get; set; }
     public EncryptionConfig EncryptionConfig { get; set; }
+    public int MaxChannelCount { get; set; }
 }
 
 public class EncryptionConfig

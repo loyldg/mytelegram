@@ -28,18 +28,44 @@ internal sealed class EditBannedHandler(IPeerHelper peerHelper, ICommandBus comm
             var channel = peerHelper.GetChannel(obj.Channel);
             var peer = peerHelper.GetPeer(obj.Participant);
             var channelReadModel = await channelAppService.GetAsync(channel.PeerId);
-            await channelAdminRightsChecker.CheckAdminRightAsync(inputChannel.ChannelId, input.UserId, p => p.BanUsers && peer.PeerId != channelReadModel.CreatorId, RpcErrors.RpcErrors400.ChatAdminRequired);
+            await channelAdminRightsChecker.CheckAdminRightAsync(inputChannel.ChannelId, input.UserId, p => p.BanUsers, RpcErrors.RpcErrors400.ChatAdminRequired);
+
+            long memberUserId;
+            switch (peer.PeerType)
+            {
+                case PeerType.User:
+                    memberUserId = peer.PeerId;
+                    break;
+                case PeerType.Channel:
+                    {
+                        // Banning a send-as channel bans the user who owns that channel
+                        var sendAsChannelReadModel = await channelAppService.GetAsync(peer.PeerId);
+                        memberUserId = sendAsChannelReadModel.CreatorId;
+                    }
+                    break;
+                default:
+                    RpcErrors.RpcErrors400.ParticipantIdInvalid.ThrowRpcError();
+                    return null!;
+            }
+
+            // The checks below apply to the resolved user, so the owner of a send-as channel who is
+            // the creator/an admin of this channel can not be banned by other admins
+            if (memberUserId == channelReadModel.CreatorId || memberUserId == input.UserId)
+            {
+                RpcErrors.RpcErrors400.UserAdminInvalid.ThrowRpcError();
+            }
+
+            // Only the creator or the admin who promoted the target admin can restrict an admin
+            var targetAdmin = channelReadModel.AdminList.FirstOrDefault(p => p.UserId == memberUserId);
+            if (targetAdmin != null && channelReadModel.CreatorId != input.UserId && targetAdmin.PromotedBy != input.UserId)
+            {
+                RpcErrors.RpcErrors400.UserAdminInvalid.ThrowRpcError();
+            }
+
             if (obj.BannedRights.SendPlain)
             {
                 obj.BannedRights.SendMessages = true;
                 obj.BannedRights.Flags.SetBit(1);
-            }
-
-            var memberUserId = peer.PeerId;
-            if (peer.PeerType == PeerType.Channel)
-            {
-                var sendAsChannelReadModel = await channelAppService.GetAsync(peer.PeerId);
-                memberUserId = sendAsChannelReadModel.CreatorId;
             }
 
             var bannedRights = ChatBannedRights.FromValue(obj.BannedRights.Flags, obj.BannedRights.UntilDate);

@@ -30,14 +30,39 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// </remarks>
 internal sealed class InviteToChannelHandler(ICommandBus commandBus, IChannelAppService channelAppService, IUserAppService userAppService, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<RequestInviteToChannel, IInvitedUsers>
 {
+    private const int MaxBroadcastDirectInviteParticipantCount = 200;
+
     protected override async Task<IInvitedUsers> HandleCoreAsync(IRequestInput input, RequestInviteToChannel obj)
     {
+        if (obj.Users.Count > 20)
+        {
+            RpcErrors.RpcErrors400.UsersTooMuch.ThrowRpcError();
+        }
+
         if (obj.Channel is TInputChannel inputChannel)
         {
             await channelAdminRightsChecker.CheckAdminRightAsync(obj.Channel, input.UserId, adminRights => adminRights.ChangeInfo);
             var channelId = inputChannel.ChannelId;
             var channelReadModel = await channelAppService.GetAsync(inputChannel.ChannelId);
             channelReadModel.ThrowExceptionIfChannelDeleted();
+            // Admins with invite rights can invite users, supergroup members can invite users if the default rights allow it
+            var canInvite = await channelAdminRightsChecker.HasChatAdminRightAsync(channelId, input.UserId, adminRights => adminRights.InviteUsers);
+            if (!canInvite && !channelReadModel.Broadcast)
+            {
+                var defaultBannedRights = channelReadModel.DefaultBannedRights ?? ChatBannedRights.CreateDefaultBannedRights();
+                canInvite = !defaultBannedRights.InviteUsers && await channelAppService.IsChannelMemberAsync(input.UserId, channelId);
+            }
+
+            if (!canInvite)
+            {
+                RpcErrors.RpcErrors403.ChatAdminRequired.ThrowRpcError();
+            }
+
+            // Users can only be added directly to the first members of a broadcast channel
+            if (channelReadModel.Broadcast && channelReadModel.ParticipantsCount >= MaxBroadcastDirectInviteParticipantCount)
+            {
+                RpcErrors.RpcErrors400.ChatMemberAddFailed.ThrowRpcError();
+            }
             var userReadModel = await userAppService.GetAsync(input.UserId);
             var userIds = new List<long>();
             var botUserIds = new List<long>();

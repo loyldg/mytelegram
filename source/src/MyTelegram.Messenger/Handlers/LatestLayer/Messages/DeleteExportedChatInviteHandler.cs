@@ -27,7 +27,12 @@ internal sealed class DeleteExportedChatInviteHandler(IQueryProcessor queryProce
                         RpcErrors.RpcErrors400.PeerIdInvalid.ThrowRpcError();
                     }
 
-                    await channelAdminRightsChecker.CheckAdminRightAsync(inputPeerChannel.ChannelId, input.UserId, (p) => p.ChangeInfo, RpcErrors.RpcErrors403.ChatAdminRequired);
+                    await channelAdminRightsChecker.CheckAdminRightAsync(inputPeerChannel.ChannelId, input.UserId, (p) => p.InviteUsers, RpcErrors.RpcErrors403.ChatAdminRequired);
+                    // Non-creator admins can only delete their own invite links
+                    if (chatInviteReadModel!.AdminId != input.UserId)
+                    {
+                        await channelAdminRightsChecker.ThrowIfNotChannelOwnerAsync(inputPeerChannel.ChannelId, input.UserId);
+                    }
                     var command = new DeleteExportedInviteCommand(ChatInviteId.Create(inputPeerChannel.ChannelId, chatInviteReadModel!.InviteId), input.ToRequestInfo());
                     await commandBus.PublishAsync(command);
                 }

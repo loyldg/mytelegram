@@ -1,3 +1,4 @@
+// ReSharper disable All
 using MyTelegram.Messenger.Converters.ConverterServices;
 using IExportedChatInvite = MyTelegram.Schema.IExportedChatInvite;
 
@@ -20,22 +21,27 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// </remarks>
 internal sealed class GetExportedChatInvitesHandler(IPeerHelper peerHelper, IQueryProcessor queryProcessor, IChannelAppService channelAppService, IUserConverterService userConverterService, IChatInviteExportedConverterService chatInviteExportedConverterService) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestGetExportedChatInvites, MyTelegram.Schema.Messages.IExportedChatInvites>
 {
-    protected override async Task<MyTelegram.Schema.Messages.IExportedChatInvites> HandleCoreAsync(IRequestInput input, RequestGetExportedChatInvites obj)
+    protected async override Task<MyTelegram.Schema.Messages.IExportedChatInvites> HandleCoreAsync(IRequestInput input, RequestGetExportedChatInvites obj)
     {
         var peer = peerHelper.GetPeer(obj.Peer, input.UserId);
-        var channelReadModel = await channelAppService.GetAsync(peer.PeerId, false);
-        if (channelReadModel == null!)
+        var channelReadModel = await channelAppService.GetAsync(peer.PeerId);
+        if (channelReadModel == null)
         {
             RpcErrors.RpcErrors400.PeerIdInvalid.ThrowRpcError();
         }
 
-        if (channelReadModel!.AdminList.All(p => p.UserId != input.UserId))
+        if (!channelReadModel!.AdminList.Any(p => p.UserId == input.UserId))
         {
             RpcErrors.RpcErrors400.ChatAdminRequired.ThrowRpcError();
         }
 
         var admin = peerHelper.GetPeer(obj.AdminId, input.UserId);
-        var invites = await queryProcessor.ProcessAsync(new GetChatInvitesQuery(obj.Revoked, peer.PeerId, admin.PeerId, obj.OffsetDate, obj.OffsetLink ?? string.Empty, obj.Limit));
+        // Non-creator admins can only get their own invite links
+        if (admin.PeerId != input.UserId && channelReadModel.CreatorId != input.UserId)
+        {
+            RpcErrors.RpcErrors400.ChatAdminRequired.ThrowRpcError();
+        }
+        var invites = await queryProcessor.ProcessAsync(new GetChatInvitesQuery(obj.Revoked, peer.PeerId, admin.PeerId, obj.OffsetDate, obj.OffsetLink ?? string.Empty, obj.Limit is > 0 and <= 100 ? obj.Limit : 100));
         var userIds = invites.Select(p => p.AdminId).ToList();
         var users = await userConverterService.GetUserListAsync(input, userIds, false, false);
         //var tInvites = invites.Select(p => objectMapper.Map<IChatInviteReadModel, TChatInviteExported>(p)).ToList();

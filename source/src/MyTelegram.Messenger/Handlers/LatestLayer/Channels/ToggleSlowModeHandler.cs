@@ -19,7 +19,7 @@ internal sealed class ToggleSlowModeHandler(ICommandBus commandBus, IChannelAdmi
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
-            await channelAdminRightsChecker.CheckAdminRightAsync(obj.Channel, input.UserId, p => p.ChangeInfo);
+            await channelAdminRightsChecker.CheckAdminRightAsync(obj.Channel, input.UserId, p => p.BanUsers);
             var command = new ToggleSlowModeCommand(ChannelId.Create(inputChannel.ChannelId), input.ToRequestInfo(), obj.Seconds, input.UserId);
             await commandBus.PublishAsync(command, CancellationToken.None);
             return null!;

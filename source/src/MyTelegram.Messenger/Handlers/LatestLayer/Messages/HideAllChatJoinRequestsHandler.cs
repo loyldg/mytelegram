@@ -17,7 +17,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class HideAllChatJoinRequestsHandler(IQueryProcessor queryProcessor, IPeerHelper peerHelper, IChannelAppService channelAppService, IChatConverterService chatConverterService, IChannelAdminRightsChecker channelAdminRightsChecker, ICommandBus commandBus) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestHideAllChatJoinRequests, MyTelegram.Schema.IUpdates>
+internal sealed class HideAllChatJoinRequestsHandler(IQueryProcessor queryProcessor, IPeerHelper peerHelper, IChannelAppService channelAppService, IChatConverterService chatConverterService, IChannelAdminRightsChecker channelAdminRightsChecker, ICommandBus commandBus, IChatInviteLinkHelper chatInviteLinkHelper) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestHideAllChatJoinRequests, MyTelegram.Schema.IUpdates>
 {
     protected override async Task<MyTelegram.Schema.IUpdates> HandleCoreAsync(IRequestInput input, MyTelegram.Schema.Messages.RequestHideAllChatJoinRequests obj)
     {
@@ -32,8 +32,8 @@ internal sealed class HideAllChatJoinRequestsHandler(IQueryProcessor queryProces
         long? inviteId = null;
         if (!string.IsNullOrEmpty(obj.Link))
         {
-            var chatInviteReadModel = await queryProcessor.ProcessAsync(new GetChatInviteByLinkQuery(obj.Link));
-            if (chatInviteReadModel == null)
+            var chatInviteReadModel = await queryProcessor.ProcessAsync(new GetChatInviteByLinkQuery(chatInviteLinkHelper.GetHashFromLink(obj.Link)));
+            if (chatInviteReadModel == null || chatInviteReadModel.PeerId != channelId)
             {
                 RpcErrors.RpcErrors400.InviteHashInvalid.ThrowRpcError();
             }
@@ -71,21 +71,26 @@ internal sealed class HideAllChatJoinRequestsHandler(IQueryProcessor queryProces
     {
         var pageSize = 1000;
         var hasMoreData = true;
+        // The read model is updated asynchronously, track processed users to avoid processing them again (and looping forever)
+        var processedUserIds = new HashSet<long>();
         while (hasMoreData)
         {
             var chatInviteImporters = await queryProcessor.ProcessAsync(new GetChatInviteImportersQuery(channelId, ChatInviteRequestState.WaitingForApproval, inviteId, null, null, null, pageSize));
+            var hasNewItem = false;
             foreach (var joinChannelRequestReadModel in chatInviteImporters)
             {
-                if (joinChannelRequestReadModel.IsJoinRequestProcessed)
+                if (joinChannelRequestReadModel.IsJoinRequestProcessed || !processedUserIds.Add(joinChannelRequestReadModel.UserId))
                 {
                     continue;
                 }
+
+                hasNewItem = true;
 
                 var command = new HideChatJoinRequestCommand(JoinChannelId.Create(channelId, joinChannelRequestReadModel.UserId), requestInfo, joinChannelRequestReadModel.UserId, approved, topMessageId, channelHistoryMinId, broadcast);
                 await commandBus.PublishAsync(command);
             }
 
-            hasMoreData = chatInviteImporters.Count == pageSize;
+            hasMoreData = hasNewItem && chatInviteImporters.Count == pageSize;
         }
     }
 }

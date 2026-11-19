@@ -81,6 +81,7 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
 
     public void Apply(ChannelAboutEditedEvent aggregateEvent)
     {
+
     }
 
     public void Apply(ChannelAdminRightsEditedEvent aggregateEvent)
@@ -170,6 +171,7 @@ public class ChannelState : AggregateState<ChannelAggregate, ChannelId, ChannelS
 
     public void Apply(ChannelTitleEditedEvent aggregateEvent)
     {
+        Title = aggregateEvent.Title;
     }
 
     public void Apply(ChannelUserNameChangedEvent aggregateEvent)

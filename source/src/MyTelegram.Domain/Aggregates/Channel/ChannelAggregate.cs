@@ -3,6 +3,7 @@
 [EnableAutoGeneration]
 public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate, ChannelId, ChannelSnapshot>
 {
+    private static readonly int[] AllowedSlowModeSeconds = [0, 10, 30, 60, 300, 900, 3600];
     private readonly ChannelState _state = new();
 
     public ChannelAggregate(ChannelId id) : base(id,
@@ -15,9 +16,7 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
         var channelId = _state.ChannelId;
-        var chatAdmins = _state.ChatAdmins;
-        chatAdmins.Remove(adminUserId, out _);
-        var adminList = chatAdmins.Values.ToList();
+        var adminList = _state.ChatAdmins.Values.Where(p => p.UserId != adminUserId).ToList();
 
         Emit(new ChannelAdminRemovedEvent(channelId, adminUserId, adminList));
     }
@@ -70,52 +69,42 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
 
-        var admin = _state.GetAdmin(senderPeerId);
-        if (_state.Broadcast && _state.CreatorId != senderPeerId)
+        if (_state.IsDeleted)
         {
-            if (admin == null || !admin.AdminRights.PostMessages)
-            {
-                if (messageSubType != MessageSubType.InviteToChannel)
-                {
-                    //ThrowHelper.ThrowUserFriendlyException(RpcErrorMessages.ChatWriteForbidden);
-                    RpcErrors.RpcErrors403.ChatWriteForbidden.ThrowRpcError();
-                }
-            }
+            RpcErrors.RpcErrors400.ChannelPrivate.ThrowRpcError();
         }
+
+        var admin = _state.GetAdmin(senderPeerId);
+        var isCreator = _state.CreatorId == senderPeerId;
+        // Sending as the channel itself is only allowed for (anonymous) admins
+        var isAdmin = isCreator || admin != null || senderPeerId == _state.ChannelId;
 
         if (messageSubType != MessageSubType.InviteToChannel)
         {
             if (_state.Broadcast)
             {
-                CheckAdminRights(senderPeerId, r => r.PostMessages, RpcErrors.RpcErrors403.ChatWriteForbidden);
-            }
-
-            CheckBannedRights(senderPeerId, _state.GetDefaultBannedRights().SendMessages,
-                RpcErrors.RpcErrors403.ChatWriteForbidden);
-        }
-
-        if (_state.SlowModeSeconds > 0)
-        {
-            if (senderPeerId == _state.LatestNonBotSenderPeerId && senderPeerId != _state.CreatorId)
-            {
-                var nextSendDate = _state.SlowModeSeconds + _state.LastSendDate;
-                var now = DateTime.UtcNow.ToTimestamp();
-                var waitForX = nextSendDate - now;
-                if (waitForX > 0)
+                if (!isCreator && (admin == null || !admin.AdminRights.PostMessages))
                 {
-                    //ThrowHelper.ThrowUserFriendlyException(string.Format(RpcErrorMessages.SlowModeWait, waitForX));
-                    RpcErrors.RpcErrors420.SlowModeWaitX.ThrowRpcError(waitForX);
+                    RpcErrors.RpcErrors403.ChatWriteForbidden.ThrowRpcError();
                 }
             }
+            else if (!isAdmin && _state.GetDefaultBannedRights().SendMessages)
+            {
+                // Admins are not affected by default banned rights
+                RpcErrors.RpcErrors403.ChatWriteForbidden.ThrowRpcError();
+            }
         }
 
+        // Slow mode is checked per user before sending (see SlowModeAppService)
+
+        int views = _state.Broadcast ? 1 : 0;
         Emit(new CheckChannelStateCompletedEvent(
             requestInfo,
             senderPeerId,
             messageId,
             date,
             _state.Broadcast,
-            _state.Broadcast ? 1 : 0,
+            views,
             _state.BotUserIdList,
             _state.LinkedChannelId));
     }
@@ -199,16 +188,37 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
     )
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        if (_state.ChatAdmins.Count > MyTelegramConsts.ChannelAdminMaxCount)
-        {
-            RpcErrors.RpcErrors400.AdminsTooMuch.ThrowRpcError();
-        }
-
         CheckAdminRights(requestInfo, r => r.AddAdmins);
+
+        // The rights of the creator can not be changed, the creator can only change his own rank/anonymous flag
+        if (userId == _state.CreatorId)
+        {
+            if (requestInfo.UserId != _state.CreatorId)
+            {
+                RpcErrors.RpcErrors400.UserCreator.ThrowRpcError();
+            }
+
+            var creatorRights = ChatAdminRights.GetCreatorRights();
+            creatorRights.Anonymous = adminRights.Anonymous;
+            adminRights = creatorRights;
+        }
 
         // flags value==0 means no rights(should remove member from admin list)
         var removeAdminFromList = adminRights.GetFlags().ToInt32() == 0;
         var isNewAdmin = !_state.ChatAdmins.ContainsKey(userId);
+
+        // Only check the admin count limit when adding a new admin
+        if (isNewAdmin && !removeAdminFromList && _state.ChatAdmins.Count >= MyTelegramConsts.ChannelAdminMaxCount)
+        {
+            RpcErrors.RpcErrors400.AdminsTooMuch.ThrowRpcError();
+        }
+
+        // A non-creator admin can only edit admins promoted by himself
+        if (!isNewAdmin && requestInfo.UserId != _state.CreatorId &&
+            _state.GetAdmin(userId)?.PromotedBy != requestInfo.UserId)
+        {
+            RpcErrors.RpcErrors400.UserAdminInvalid.ThrowRpcError();
+        }
         var isBroadcast = _state.Broadcast;
 
         Emit(new ChannelAdminRightsEditedEvent(requestInfo,
@@ -233,8 +243,14 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         long selfUserId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        CheckAdminRights(requestInfo, r => r.Other);
-        Emit(new ChannelDefaultBannedRightsEditedEvent(requestInfo, defaultBannedRights, _state.ChannelId));
+        CheckAdminRights(requestInfo, r => r.BanUsers);
+        if (_state.Broadcast)
+        {
+            RpcErrors.RpcErrors400.MegagroupRequired.ThrowRpcError();
+        }
+
+        var oldDefaultBannedRights = _state.DefaultBannedRights;
+        Emit(new ChannelDefaultBannedRightsEditedEvent(requestInfo, oldDefaultBannedRights, defaultBannedRights, _state.ChannelId));
     }
 
     public void EditChannelPhoto(RequestInfo requestInfo,
@@ -358,8 +374,17 @@ public class ChannelAggregate : MyInMemorySnapshotAggregateRoot<ChannelAggregate
         long selfUserId)
     {
         Specs.AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
-        CheckBannedRights(selfUserId, _state.GetDefaultBannedRights().ChangeInfo,
-            RpcErrors.RpcErrors400.ChatAdminRequired);
+        // Slow mode requires the ban users admin right
+        CheckAdminRights(selfUserId, r => r.BanUsers, RpcErrors.RpcErrors400.ChatAdminRequired);
+        if (_state.Broadcast)
+        {
+            RpcErrors.RpcErrors400.MegagroupRequired.ThrowRpcError();
+        }
+
+        if (!AllowedSlowModeSeconds.Contains(seconds))
+        {
+            RpcErrors.RpcErrors400.SecondsInvalid.ThrowRpcError();
+        }
 
         Emit(new SlowModeChangedEvent(requestInfo, _state.ChannelId, seconds));
     }

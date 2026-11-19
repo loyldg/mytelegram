@@ -27,7 +27,12 @@ internal sealed class CheckChatInviteHandler(IQueryProcessor queryProcessor, IPh
             RpcErrors.RpcErrors400.InviteHashInvalid.ThrowRpcError();
         }
 
-        if (chatInviteReadModel!.ExpireDate > 0)
+        if (chatInviteReadModel!.Revoked)
+        {
+            RpcErrors.RpcErrors400.InviteHashInvalid.ThrowRpcError();
+        }
+
+        if (chatInviteReadModel.ExpireDate > 0)
         {
             if (chatInviteReadModel.ExpireDate.Value < CurrentDate)
             {

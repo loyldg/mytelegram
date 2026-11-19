@@ -351,14 +351,8 @@ public class ChatConverterService(
             channelFull.CanDeleteChannel = true;
         }
 
-        if (channelFull.SlowmodeSeconds > 0)
-        {
-            if (request.UserId != channelReadModel.CreatorId && request.UserId == channelReadModel.LastSenderPeerId)
-            {
-                var nextSendDate = channelReadModel.LastSendDate + channelFull.SlowmodeSeconds;
-                channelFull.SlowmodeNextSendDate = nextSendDate;
-            }
-        }
+        // SlowmodeNextSendDate is set by the caller (per user, stored in the distributed cache)
+        channelFull.SlowmodeNextSendDate = null;
 
         if (chatInviteReadModel != null && channelReadModel.AdminList.Any(p => p.UserId == request.UserId))
         {
@@ -498,7 +492,7 @@ public class ChatConverterService(
         //if (admin != null)
         if (channelMemberReadModel.IsAdmin)
         {
-            return new TChannelParticipantAdmin
+            var channelParticipantAdmin = new TChannelParticipantAdmin
             {
                 //AdminRights = admin.AdminRights.ToChatAdminRights(),
                 AdminRights = new ChatAdminRights(channelMemberReadModel.AdminRights).ToChatAdminRights(),
@@ -510,12 +504,22 @@ public class ChatConverterService(
                 CanEdit = channelMemberReadModel.CanEdit,
                 PromotedBy = channelMemberReadModel.PromotedBy ?? 0
             };
+            if (!channelParticipantAdmin.Self)
+            {
+                channelParticipantAdmin.InviterId = null;
+            }
+
+            if (channelReadModel.CreatorId == request.UserId)
+            {
+                channelParticipantAdmin.CanEdit = true;
+            }
+
+            return channelParticipantAdmin;
         }
 
         if (channelMemberReadModel.UserId == request.UserId)
         {
-            return channelParticipantSelfConverter
-                .ToChannelParticipantSelf(channelMemberReadModel);
+            return channelParticipantSelfConverter.ToChannelParticipantSelf(channelMemberReadModel);
         }
 
         return channelParticipantConverter.ToChatParticipant(channelMemberReadModel);

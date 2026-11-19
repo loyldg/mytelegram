@@ -21,6 +21,16 @@ internal sealed class EditTitleHandler(ICommandBus commandBus, IRandomHelper ran
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
+            if (string.IsNullOrWhiteSpace(obj.Title))
+            {
+                RpcErrors.RpcErrors400.ChatTitleEmpty.ThrowRpcError();
+            }
+
+            if (obj.Title.Length > 64)
+            {
+                RpcErrors.RpcErrors400.TitleInvalid.ThrowRpcError();
+            }
+
             await channelAdminRightsChecker.CheckAdminRightAsync(obj.Channel, input.UserId, adminRights => adminRights.ChangeInfo);
             var command = new EditChannelTitleCommand(ChannelId.Create(inputChannel.ChannelId), input.ToRequestInfo(), obj.Title, new TMessageActionChatEditTitle { Title = obj.Title }, randomHelper.NextInt64());
             await commandBus.PublishAsync(command, CancellationToken.None);

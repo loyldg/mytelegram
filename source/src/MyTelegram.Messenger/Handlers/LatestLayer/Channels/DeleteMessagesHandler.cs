@@ -19,6 +19,12 @@ internal sealed class DeleteMessagesHandler(ICommandBus commandBus, IPtsHelper p
     {
         if (obj.Channel is TInputChannel inputChannel)
         {
+            // At most 100 messages can be deleted at once
+            if (obj.Id.Count > 100)
+            {
+                RpcErrors.RpcErrors400.LimitInvalid.ThrowRpcError();
+            }
+
             if (obj.Id.Count > 0)
             {
                 var ids = obj.Id.ToList();

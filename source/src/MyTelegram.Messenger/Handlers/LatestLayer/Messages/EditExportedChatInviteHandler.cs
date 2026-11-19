@@ -26,7 +26,7 @@ internal sealed class EditExportedChatInviteHandler(IQueryProcessor queryProcess
         {
             case TInputPeerChannel inputPeerChannel:
                 {
-                    var link = obj.Link.Substring(obj.Link.LastIndexOf("/") + 2);
+                    var link = chatInviteLinkHelper.GetHashFromLink(obj.Link);
                     var chatInviteReadModel = await queryProcessor.ProcessAsync(new GetChatInviteQuery(inputPeerChannel.ChannelId, link));
                     if (chatInviteReadModel == null)
                     {
@@ -39,8 +39,15 @@ internal sealed class EditExportedChatInviteHandler(IQueryProcessor queryProcess
                         RpcErrors.RpcErrors400.ChannelIdInvalid.ThrowRpcError();
                     }
 
-                    var admin = channelReadModel!.AdminList.FirstOrDefault(p => p.UserId == input.UserId);
-                    if (admin == null || !admin.AdminRights.ChangeInfo)
+                    var isCreator = channelReadModel!.CreatorId == input.UserId;
+                    var admin = channelReadModel.AdminList.FirstOrDefault(p => p.UserId == input.UserId);
+                    if (!isCreator && (admin == null || !admin.AdminRights.InviteUsers))
+                    {
+                        RpcErrors.RpcErrors400.ChatAdminRequired.ThrowRpcError();
+                    }
+
+                    // Non-creator admins can only edit their own invite links
+                    if (!isCreator && chatInviteReadModel!.AdminId != input.UserId)
                     {
                         RpcErrors.RpcErrors400.ChatAdminRequired.ThrowRpcError();
                     }

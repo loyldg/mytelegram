@@ -9,10 +9,14 @@ public class ChannelMemberSnapshot(
     bool isBot,
     bool broadcast,
     int untilDate,
-    string? rank
+    string? rank,
+    bool isAdmin = false,
+    int version = 0
     )
     : ISnapshot
 {
+    public bool IsAdmin { get; } = isAdmin;
+    public int Version { get; } = version;
     public bool Banned { get; } = banned;
 
     public ChatBannedRights? BannedRights { get; } = bannedRights;

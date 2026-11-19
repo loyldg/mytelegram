@@ -16,15 +16,40 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class CreateChannelHandler(ICommandBus commandBus, IIdGenerator idGenerator, IRandomHelper randomHelper) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestCreateChannel, MyTelegram.Schema.IUpdates>
+internal sealed class CreateChannelHandler(ICommandBus commandBus, IIdGenerator idGenerator, IRandomHelper randomHelper,
+    IQueryProcessor queryProcessor,
+    IOptionsMonitor<MyTelegramMessengerServerOptions> optionsMonitor) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestCreateChannel, MyTelegram.Schema.IUpdates>
 {
+    private const int MaxTitleLength = 64;
+
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestCreateChannel obj)
     {
+        if (string.IsNullOrWhiteSpace(obj.Title))
+        {
+            RpcErrors.RpcErrors400.ChatTitleEmpty.ThrowRpcError();
+        }
+
+        if (obj.Title.Length > MaxTitleLength)
+        {
+            RpcErrors.RpcErrors400.TitleInvalid.ThrowRpcError();
+        }
+
+        if (obj.About?.Length > MyTelegramConsts.ChatAboutMaxLength)
+        {
+            RpcErrors.RpcErrors400.ChatAboutTooLong.ThrowRpcError();
+        }
+
         var ttl = obj.TtlPeriod;
         var ttlFromDefaultSetting = false;
         if (ttl == null || ttl == 0)
         {
             ttlFromDefaultSetting = ttl.HasValue;
+        }
+
+        var createdChannelCount = await queryProcessor.ProcessAsync(new GetChannelCountByUserIdQuery(input.UserId));
+        if (optionsMonitor.CurrentValue.MaxChannelCount > 0 && createdChannelCount >= optionsMonitor.CurrentValue.MaxChannelCount)
+        {
+            RpcErrors.RpcErrors400.ChannelsTooMuch.ThrowRpcError();
         }
 
         var channelId = await idGenerator.NextLongIdAsync(IdType.ChannelId);
@@ -46,6 +71,6 @@ internal sealed class CreateChannelHandler(ICommandBus commandBus, IIdGenerator 
 
         var command = new CreateChannelCommand(ChannelId.Create(channelId), input.ToRequestInfo(), channelId, input.UserId, obj.Broadcast, megagroup, obj.Title, obj.About ?? string.Empty, geoPoint, obj.Address, accessHash, date, randomHelper.NextInt64(), new TMessageActionChannelCreate { Title = obj.Title }, ttl, false, null, null, null, ttlFromDefaultSetting: ttlFromDefaultSetting);
         await commandBus.PublishAsync(command);
-        return null !;
+        return null!;
     }
 }

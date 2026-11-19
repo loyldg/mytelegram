@@ -41,6 +41,7 @@ public class ChannelMemberState : AggregateState<ChannelMemberAggregate, Channel
         KickedBy = aggregateEvent.KickedBy;
         Left = aggregateEvent.Left;
         Banned = aggregateEvent.Banned;
+        UntilDate = aggregateEvent.BannedRights.UntilDate;
     }
 
     public void Apply(ChannelMemberCreatedEvent aggregateEvent)
@@ -72,6 +73,8 @@ public class ChannelMemberState : AggregateState<ChannelMemberAggregate, Channel
         Broadcast = snapshot.Broadcast;
         UntilDate = snapshot.UntilDate;
         Rank = snapshot.Rank;
+        IsAdmin = snapshot.IsAdmin;
+        Version = snapshot.Version;
     }
 
     public void Apply(ChannelMemberLeftEvent2 aggregateEvent)

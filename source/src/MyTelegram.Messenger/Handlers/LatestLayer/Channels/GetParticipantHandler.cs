@@ -22,6 +22,22 @@ internal sealed class GetParticipantHandler(IQueryProcessor queryProcessor, IPee
         var peer = peerHelper.GetPeer(obj.Participant, input.UserId);
         if (obj.Channel is TInputChannel inputChannel)
         {
+            var channelReadModel = await channelAppService.GetAsync(inputChannel.ChannelId);
+            
+            // Non-members can not query participants of private channels
+            if (await channelAppService.SendRpcErrorIfNotChannelMemberAsync(input, channelReadModel))
+            {
+                return null!;
+            }
+
+            // In broadcast channels non-admins can only get themselves
+            if (peer.PeerId != input.UserId && channelReadModel.Broadcast &&
+                channelReadModel.CreatorId != input.UserId &&
+                channelReadModel.AdminList.All(p => p.UserId != input.UserId))
+            {
+                RpcErrors.RpcErrors400.ChatAdminRequired.ThrowRpcError();
+            }
+
             var channelMemberReadModel = await queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(inputChannel.ChannelId, peer.PeerId));
             if (channelMemberReadModel == null)
             {
@@ -29,7 +45,6 @@ internal sealed class GetParticipantHandler(IQueryProcessor queryProcessor, IPee
             }
 
             var userId = channelMemberReadModel?.UserId ?? input.UserId;
-            var channelReadModel = await channelAppService.GetAsync(inputChannel.ChannelId);
             channelReadModel.ThrowExceptionIfChannelDeleted();
             var user = await userConverterService.GetUserAsync(input, userId, false, false);
             var photoReadModel = await photoAppService.GetAsync(channelReadModel!.PhotoId);

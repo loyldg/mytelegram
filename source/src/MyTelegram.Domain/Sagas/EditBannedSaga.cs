@@ -10,12 +10,15 @@ public class EditBannedSaga(
         ISagaContext sagaContext,
         CancellationToken cancellationToken)
     {
-        // view message rights is banned,should remove from bots
         if (domainEvent.AggregateEvent.BannedRights.ViewMessages)
         {
 
-            var updateParticipantCountCommand = new UpdateParticipantCountCommand(ChannelId.Create(domainEvent.AggregateEvent.ChannelId), -1);
-            Publish(updateParticipantCountCommand);
+            // Only decrease the participant count when an active member is kicked
+            if (domainEvent.AggregateEvent.WasActiveMember)
+            {
+                var updateParticipantCountCommand = new UpdateParticipantCountCommand(ChannelId.Create(domainEvent.AggregateEvent.ChannelId), -1);
+                Publish(updateParticipantCountCommand);
+            }
         }
 
         if (domainEvent.AggregateEvent.Banned && domainEvent.AggregateEvent.IsAdmin)

@@ -64,7 +64,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class ForwardMessagesHandler(ICommandBus commandBus, IPeerHelper peerHelper, IChannelAppService channelAppService, IMessageAppService messageAppService, IQueryProcessor queryProcessor) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestForwardMessages, MyTelegram.Schema.IUpdates>
+internal sealed class ForwardMessagesHandler(ICommandBus commandBus, IPeerHelper peerHelper, IChannelAppService channelAppService, IMessageAppService messageAppService, IQueryProcessor queryProcessor, ISlowModeAppService slowModeAppService) : RpcResultObjectHandler<MyTelegram.Schema.Messages.RequestForwardMessages, MyTelegram.Schema.IUpdates>
 {
     protected override async Task<IUpdates> HandleCoreAsync(IRequestInput input, RequestForwardMessages obj)
     {
@@ -110,7 +110,8 @@ internal sealed class ForwardMessagesHandler(ICommandBus commandBus, IPeerHelper
                         RpcErrors.RpcErrors403.ChatWriteForbidden.ThrowRpcError();
                     }
                 }
-                else
+                // Admins are not affected by default banned rights
+                else if (admin == null)
                 {
                     var bannedDefaultRights = channelReadModel.DefaultBannedRights ?? ChatBannedRights.CreateDefaultBannedRights();
                     if (bannedDefaultRights.SendMessages)
@@ -121,8 +122,23 @@ internal sealed class ForwardMessagesHandler(ICommandBus commandBus, IPeerHelper
             }
         }
 
+        //var ownerPeerId = input.UserId;
+        //if (fromPeer.PeerType == PeerType.Channel)
+        //{
+        //    ownerPeerId = fromPeer.PeerId;
+        //}
+
+        // Check slow mode before charging paid messages
+        var shouldSaveSlowModeSendDate = toPeer.PeerType == PeerType.Channel && obj.ScheduleDate == null &&
+                                         await slowModeAppService.CheckSlowModeAsync(toPeer.PeerId, input.UserId, obj.Id.Count, false);
+
+
         var command = new StartForwardMessagesCommand(TempId.New, input.ToRequestInfo(), obj.Silent, obj.Background, obj.WithMyScore, obj.DropAuthor, obj.DropMediaCaptions, obj.Noforwards, fromPeer, toPeer, obj.Id.ToList(), obj.RandomId.ToList(), obj.ScheduleDate, sendAs, false, post);
         await commandBus.PublishAsync(command);
+        if (shouldSaveSlowModeSendDate)
+        {
+            await slowModeAppService.SaveLastSendDateAsync(toPeer.PeerId, input.UserId, CurrentDate);
+        }
         return null!;
     }
 }

@@ -111,7 +111,11 @@ internal sealed class GetParticipantsHandler(IQueryProcessor queryProcessor, ICh
                     if (p is { IsAdmin: true, IsBot: false })
                     {
                         var anonymous = (p.AdminRights & (1 << 10)) != 0;
-                        participantCount--;
+                        if (anonymous)
+                        {
+                            participantCount--;
+                        }
+
                         return anonymous;
                     }
 

@@ -19,7 +19,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Messages;
 /// </remarks>
 internal sealed class GetChatInviteImportersHandler(IQueryProcessor queryProcessor,
     IChannelAdminRightsChecker channelAdminRightsChecker,
-    IPeerHelper peerHelper, IUserConverterService userConverterService) : RpcResultObjectHandler<RequestGetChatInviteImporters, IChatInviteImporters>
+    IPeerHelper peerHelper, IUserConverterService userConverterService, IChatInviteLinkHelper chatInviteLinkHelper) : RpcResultObjectHandler<RequestGetChatInviteImporters, IChatInviteImporters>
 {
     protected override async Task<IChatInviteImporters> HandleCoreAsync(IRequestInput input, RequestGetChatInviteImporters obj)
     {
@@ -31,14 +31,18 @@ internal sealed class GetChatInviteImportersHandler(IQueryProcessor queryProcess
             long? inviteId = null;
             if (!string.IsNullOrEmpty(obj.Link))
             {
-                var chatInviteReadModel = await queryProcessor.ProcessAsync(new GetChatInviteByLinkQuery(obj.Link));
-                inviteId = chatInviteReadModel?.InviteId;
+                var chatInviteReadModel = await queryProcessor.ProcessAsync(new GetChatInviteByLinkQuery(chatInviteLinkHelper.GetHashFromLink(obj.Link)));
+                if (chatInviteReadModel == null || chatInviteReadModel.PeerId != inputPeerChannel.ChannelId)
+                {
+                    RpcErrors.RpcErrors400.InviteHashInvalid.ThrowRpcError();
+                }
+
+                inviteId = chatInviteReadModel!.InviteId;
             }
 
-            var inviteImporterReadModels = await queryProcessor.ProcessAsync(new GetChatInviteImportersQuery(inputPeerChannel.ChannelId, obj.Requested ? ChatInviteRequestState.WaitingForApproval : null, inviteId, obj.OffsetDate, userPeer.PeerId, obj.Q, obj.Limit));
+            var inviteImporterReadModels = await queryProcessor.ProcessAsync(new GetChatInviteImportersQuery(inputPeerChannel.ChannelId, obj.Requested ? ChatInviteRequestState.WaitingForApproval : null, inviteId, obj.OffsetDate, userPeer.PeerId, obj.Q, obj.Limit is > 0 and <= 100 ? obj.Limit : 100));
             var importers = new List<TChatInviteImporter>();
             var userIds = new List<long>();
-            var users = await userConverterService.GetUserListAsync(input, userIds, false, false);
             //var userDict = users.ToDictionary(k => k.Id);
             foreach (var readModel in inviteImporterReadModels)
             {
@@ -56,6 +60,8 @@ internal sealed class GetChatInviteImportersHandler(IQueryProcessor queryProcess
                 userIds.Add(readModel.UserId);
             }
 
+            // Load users after collecting the importer user ids
+            var users = await userConverterService.GetUserListAsync(input, userIds, false, false);
             return new TChatInviteImporters
             {
                 Importers = [.. importers],

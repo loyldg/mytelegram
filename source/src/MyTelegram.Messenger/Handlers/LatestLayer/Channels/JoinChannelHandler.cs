@@ -31,6 +31,25 @@ internal sealed class JoinChannelHandler(ICommandBus commandBus, IChannelAppServ
         {
             var channelReadModel = await channelAppService.GetAsync(inputChannel.ChannelId);
             channelReadModel.ThrowExceptionIfChannelDeleted();
+
+            // Private channels can only be joined via invite links,
+            // except discussion groups whose linked channel is public or joined by the user
+            if (string.IsNullOrEmpty(channelReadModel.UserName))
+            {
+                var canJoin = false;
+                if (channelReadModel is { Broadcast: false, LinkedChatId: > 0 })
+                {
+                    var linkedChannelReadModel = await channelAppService.GetAsync(channelReadModel.LinkedChatId.Value, false);
+                    canJoin = linkedChannelReadModel != null! &&
+                              (!string.IsNullOrEmpty(linkedChannelReadModel.UserName) ||
+                               await channelAppService.IsChannelMemberAsync(input.UserId, linkedChannelReadModel.ChannelId));
+                }
+
+                if (!canJoin)
+                {
+                    RpcErrors.RpcErrors400.ChannelPrivate.ThrowRpcError();
+                }
+            }
             var channelMemberReadModel = await queryProcessor.ProcessAsync(new GetChannelMemberByUserIdQuery(channelReadModel.ChannelId, input.UserId));
             if (channelMemberReadModel != null)
             {

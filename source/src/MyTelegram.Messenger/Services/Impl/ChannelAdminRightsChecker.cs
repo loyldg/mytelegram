@@ -44,14 +44,19 @@ public class ChannelAdminRightsChecker(IChannelAppService channelAppService) : I
         switch (channel)
         {
             case TInputChannel inputChannel:
-                var channelReadModel = await channelAppService.GetAsync(inputChannel.ChannelId);
-                if (channelReadModel.CreatorId != userId)
-                {
-                    RpcErrors.RpcErrors400.ChatAdminRequired.ThrowRpcError();
-                }
+                await ThrowIfNotChannelOwnerAsync(inputChannel.ChannelId, userId);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(channel));
+        }
+    }
+
+    public async Task ThrowIfNotChannelOwnerAsync(long channelId, long userId)
+    {
+        var channelReadModel = await channelAppService.GetAsync(channelId);
+        if (channelReadModel.CreatorId != userId)
+        {
+            RpcErrors.RpcErrors400.ChatAdminRequired.ThrowRpcError();
         }
     }
 }

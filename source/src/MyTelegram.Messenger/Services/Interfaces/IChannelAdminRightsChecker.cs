@@ -8,4 +8,5 @@ public interface IChannelAdminRightsChecker
     Task CheckAdminRightAsync(long channelId, long userId, Func<ChatAdminRights, bool> checkAdminRightsFunc, RpcError? rpcError = null);
 
     Task ThrowIfNotChannelOwnerAsync(IInputChannel channel, long userId);
+    Task ThrowIfNotChannelOwnerAsync(long channelId, long userId);
 }

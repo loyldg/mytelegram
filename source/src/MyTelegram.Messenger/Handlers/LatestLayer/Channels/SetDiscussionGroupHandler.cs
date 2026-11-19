@@ -15,14 +15,19 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Channels;
 /// <remarks>
 /// Access: [User ✔] [Bot ✖] [Anonymous ✖]
 /// </remarks>
-internal sealed class SetDiscussionGroupHandler(ICommandBus commandBus, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestSetDiscussionGroup, IBool>
+internal sealed class SetDiscussionGroupHandler(ICommandBus commandBus, IChannelAppService channelAppService, IChannelAdminRightsChecker channelAdminRightsChecker) : RpcResultObjectHandler<MyTelegram.Schema.Channels.RequestSetDiscussionGroup, IBool>
 {
     protected override async Task<IBool> HandleCoreAsync(IRequestInput input, RequestSetDiscussionGroup obj)
     {
         var broadcastChannel = obj.Broadcast.ToChannelPeer();
+        var broadcastChannelReadModel = await channelAppService.GetAsync(broadcastChannel.PeerId);
+        if (!broadcastChannelReadModel.Broadcast)
+        {
+            RpcErrors.RpcErrors400.BroadcastIdInvalid.ThrowRpcError();
+        }
 
-        await channelAdminRightsChecker.ThrowIfNotChannelOwnerAsync(obj.Broadcast, input.UserId);
-        await channelAdminRightsChecker.ThrowIfNotChannelOwnerAsync(obj.Group, input.UserId);
+        await channelAdminRightsChecker.CheckAdminRightAsync(broadcastChannel.PeerId, input.UserId, p => p.ChangeInfo);
+
         long? groupId = null;
 
         switch (obj.Group)
@@ -32,10 +37,36 @@ internal sealed class SetDiscussionGroupHandler(ICommandBus commandBus, IChannel
                 break;
             case TInputChannelEmpty _:
                 break;
-            case TInputChannelFromMessage _:
-                break;
             default:
-                throw new ArgumentOutOfRangeException();
+                RpcErrors.RpcErrors400.MegagroupIdInvalid.ThrowRpcError();
+                break;
+        }
+
+        if (groupId.HasValue)
+        {
+            var groupReadModel = await channelAppService.GetAsync(groupId.Value);
+            if (groupReadModel.Broadcast || groupReadModel.Forum)
+            {
+                RpcErrors.RpcErrors400.MegagroupIdInvalid.ThrowRpcError();
+            }
+
+            // The group is already linked to another channel
+            if (groupReadModel.LinkedChatId.HasValue && groupReadModel.LinkedChatId != broadcastChannel.PeerId)
+            {
+                RpcErrors.RpcErrors400.MegagroupIdInvalid.ThrowRpcError();
+            }
+
+            if (groupReadModel.HiddenPreHistory)
+            {
+                RpcErrors.RpcErrors400.MegagroupPrehistoryHidden.ThrowRpcError();
+            }
+
+            await channelAdminRightsChecker.CheckAdminRightAsync(groupId.Value, input.UserId, p => p.ChangeInfo);
+        }
+
+        if (broadcastChannelReadModel.LinkedChatId == groupId)
+        {
+            RpcErrors.RpcErrors400.LinkNotModified.ThrowRpcError();
         }
 
         var command = new StartSetChannelDiscussionGroupCommand(TempId.New, input.ToRequestInfo(), broadcastChannel.PeerId, groupId);

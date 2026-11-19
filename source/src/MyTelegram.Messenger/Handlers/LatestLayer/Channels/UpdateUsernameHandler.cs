@@ -37,12 +37,16 @@ internal sealed class UpdateUsernameHandler(ICommandBus commandBus, IChannelAppS
             await channelAdminRightsChecker.ThrowIfNotChannelOwnerAsync(obj.Channel, input.UserId);
             var channelReadModel = await channelAppService.GetAsync(inputChannel.ChannelId);
             var oldUserName = channelReadModel.UserName;
-            if (string.Equals(obj.Username, oldUserName, StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(obj.Username ?? string.Empty, oldUserName ?? string.Empty, StringComparison.OrdinalIgnoreCase))
             {
                 RpcErrors.RpcErrors400.UsernameNotModified.ThrowRpcError();
             }
 
-            var command = new UpdateUserNameCommand(UserNameId.Create(obj.Username.ToLower()), input.ToRequestInfo(), inputChannel.ChannelId.ToChannelPeer(), obj.Username, oldUserName);
+            // Removing the username: use the aggregate of the old username instead of a shared empty username aggregate
+            var userNameId = string.IsNullOrEmpty(obj.Username)
+                ? UserNameId.Create(oldUserName!.ToLower())
+                : UserNameId.Create(obj.Username.ToLower());
+            var command = new UpdateUserNameCommand(userNameId, input.ToRequestInfo(), inputChannel.ChannelId.ToChannelPeer(), obj.Username, oldUserName);
             await commandBus.PublishAsync(command);
             return new TBoolTrue();
         }
