@@ -1,4 +1,6 @@
-﻿namespace MyTelegram.ReadModel.ReadModelLocators;
+﻿using MyTelegram.Domain.Events.Temp;
+
+namespace MyTelegram.ReadModel.ReadModelLocators;
 
 public class DialogReadModelLocator : IDialogReadModelLocator, ITransientDependency
 {
@@ -51,6 +53,12 @@ public class DialogReadModelLocator : IDialogReadModelLocator, ITransientDepende
                         yield return DialogId.Create(sendOutboxMessageCompletedEvent2.MessageItem.SenderPeer.PeerId,
                             sendOutboxMessageCompletedEvent2.MessageItem.ToPeer).Value;
                     }
+                    break;
+                case DraftClearedEvent:
+                    yield return domainEvent.GetIdentity().Value;
+                    break;
+                case DraftDeletedEvent draftDeletedEvent:
+                    yield return DialogId.Create(draftDeletedEvent.OwnerPeerId, draftDeletedEvent.ToPeer).Value;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(
