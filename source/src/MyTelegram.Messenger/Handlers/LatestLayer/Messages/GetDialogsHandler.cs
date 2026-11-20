@@ -33,7 +33,9 @@ internal sealed class GetDialogsHandler(IDialogAppService dialogAppService, IPee
             Pinned = pinned, //Pinned = !obj.ExcludePinned,
                              //ExcludePinned = obj.ExcludePinned,
             OwnerId = userId,
-            OffsetPeer = offsetPeer
+            OffsetPeer = offsetPeer,
+            OffsetDate = obj.OffsetDate,
+            OffsetId = obj.OffsetId
         });
         return await dialogConverterService.ToDialogsAsync(input, getDialogOutput);
     }

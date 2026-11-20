@@ -4,6 +4,11 @@ public class GetPagedListInput
 {
     public int AddOffset { get; set; }
     public int OffsetId { get; set; }
+
+    /// <summary>
+    /// Used as the pagination anchor when offset_id is 0
+    /// </summary>
+    public int OffsetDate { get; set; }
     public int Limit { get; set; }
 
     /// <summary>

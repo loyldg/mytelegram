@@ -26,12 +26,6 @@ internal sealed class GetHistoryConverterService(IUserConverterService userConve
 
         var hasMessages = messages.Count > 0;
 
-        var offsetId = hasMessages ? output.MessageList.Max(p => p.MessageId) : 0;
-        if (output.OffsetInfo?.LoadType == LoadType.Backward)
-        {
-            offsetId = hasMessages ? output.MessageList.Min(p => p.MessageId) : 0;
-        }
-
         if (hasMessages && output.MessageList.All(p => p.ToPeerType == PeerType.Channel) && !output.IsSearchGlobal)
         {
             var channelPts = output.ChannelList.FirstOrDefault()?.Pts ?? output.Pts;
@@ -42,24 +36,35 @@ internal sealed class GetHistoryConverterService(IUserConverterService userConve
                 Messages = [.. messages],
                 Users = [.. users],
                 Pts = channelPts,
-                Count = messages.Count,
-                OffsetIdOffset = offsetId,
+                Count = output.TotalCount ?? messages.Count,
+                OffsetIdOffset = output.OffsetIdOffset,
                 Topics = [],
                 Inexact = false
             };
         }
 
-        if (messages.Count == output.Limit)
+        var isSlice = output.TotalCount.HasValue
+            ? output.TotalCount.Value > messages.Count
+            : messages.Count == output.Limit;
+
+        if (isSlice)
         {
+            int? nextRate = null;
+            if (output.IsSearchGlobal && hasMessages)
+            {
+                // The client passes it back as offset_rate together with the peer and id of the last message
+                nextRate = output.MessageList.Min(p => p.Date);
+            }
+
             return new TMessagesSlice
             {
                 Chats = [.. channels],
-                Count = messages.Count,
-                Inexact = true,
-                NextRate = DateTime.UtcNow.AddSeconds(3).ToTimestamp(),
+                Count = output.TotalCount ?? messages.Count,
+                Inexact = !output.TotalCount.HasValue,
+                NextRate = nextRate,
                 Messages = [.. messages],
                 Users = [.. users],
-                OffsetIdOffset = offsetId,
+                OffsetIdOffset = output.OffsetIdOffset,
                 Topics = []
             };
         }

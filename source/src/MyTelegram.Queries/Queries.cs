@@ -115,7 +115,7 @@ public record GetDialogFiltersQuery(long OwnerUserId) : IQuery<IReadOnlyCollecti
 public record GetDialogsQuery(
     long OwnerId,
     bool? Pinned,
-    DateTime? OffsetDate,
+    int? OffsetDate,
     OffsetInfo Offset,
     int Limit,
     List<long>? PeerIdList,
@@ -211,13 +211,30 @@ public record GetMessagesQuery(
     bool BroadcastsOnly = false,
     bool GroupsOnly = false,
     bool UsersOnly = false,
-    List<long>? Tokens = null
+    List<long>? Tokens = null,
+	bool SortByPtsAscending = false
 )
     : IQuery<IReadOnlyCollection<IMessageReadModel>>
 {
     public bool IsSearchGlobal { get; set; }
     public OffsetInfo? Offset { get; set; } = Offset;
+
+    /// <summary>
+    /// messages.searchGlobal cursor: the date (next_rate) of the last returned message
+    /// </summary>
+    public int OffsetRate { get; set; }
+
+    /// <summary>
+    /// messages.searchGlobal cursor: the id of the last returned message, used to break ties of <see cref="OffsetRate"/>
+    /// </summary>
+    public int OffsetRateId { get; set; }
 }
+
+/// <summary>
+/// Counts the messages matching <paramref name="Query"/> (including min_id/max_id/min_date/max_date bounds), ignoring the pagination window.
+/// When <paramref name="GreaterThanMessageId"/> is greater than 0, only messages with a greater id are counted.
+/// </summary>
+public record GetMessagesCountQuery(GetMessagesQuery Query, int GreaterThanMessageId = 0) : IQuery<int>;
 
 public record GetMessagesReactionsQuery(long OwnerPeerId, List<int> MessageIds)
     : IQuery<IReadOnlyCollection<IReactionItem>>;
@@ -341,7 +358,7 @@ public record GetPeerSettingsQuery(long SelfUserId, long PeerId) : IQuery<IPeerS
 
 public record GetPhotosByUserIdQuery(long UserId, IList<long> PhotoIds) : IQuery<IReadOnlyCollection<IPhotoReadModel>>;
 
-public record GetUserProfilePhotosQuery(long UserId) : IQuery<IReadOnlyCollection<IPhotoReadModel>>;
+public record GetUserProfilePhotosQuery(long UserId, int Offset, int Limit) : IQuery<IReadOnlyCollection<IPhotoReadModel>>;
 
 //public record GetPhotosByPhotoIdLisQuery(IList<long> PhotoIds) : IQuery<IReadOnlyCollection<IPhotoReadModel>>;
 
@@ -683,6 +700,7 @@ public record GetPhotoByIdQuery(long PhotoId) : IQuery<IPhotoReadModel?>;
 public record GetPhotosByPhotoIdLisQuery(IList<long> PhotoIds) : IQuery<IReadOnlyCollection<IPhotoReadModel>>;
 public record GetUserConfigByKeyQuery(long UserId, string Key) : IQuery<IUserConfigReadModel?>;
 public record GetChannelMemberIdListQuery(long ChannelId, List<long> MemberUserIds) : IQuery<IReadOnlyCollection<long>>;
+public record GetUserProfilePhotoCountQuery(long UserId) : IQuery<int>;
 public record GetMessageByBatchIdQuery(Guid BatchId, long ExcludePeerId) : IQuery<IMessageReadModel?>;
 public record GetFutureCreatorAfterLeaveQuery(long ChannelId, long CurrentCreatorUserId) : IQuery<long?>;
 public record GetMaxChannelIdQuery : IQuery<long>;

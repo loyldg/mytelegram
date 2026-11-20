@@ -13,6 +13,11 @@ public class DialogAppService(
 {
     public async Task<GetDialogOutput> GetDialogsAsync(GetDialogInput input)
     {
+        if (input.Limit > 100 || input.Limit < 1)
+        {
+            input.Limit = 100;
+        }
+
         var dialogReadModels = await GetDialogListAsync(input);
         var (messageReadModels, channelReadModels) = await GetTopMessagesAndChannelsAsync(input, dialogReadModels);
 
@@ -194,12 +199,16 @@ public class DialogAppService(
     private async Task<IReadOnlyCollection<IDialogReadModel>> GetDialogListAsync(GetDialogInput input)
     {
         var offset = offsetHelper.GetOffsetInfo(input);
-        DateTime? offsetDate = null;
-        if (input.OffsetPeer != null && input.OffsetPeer.PeerType != PeerType.Empty)
+        int? offsetDate = input.OffsetDate > 0 ? input.OffsetDate : null;
+        if (offsetDate == null && input.OffsetPeer != null && input.OffsetPeer.PeerType != PeerType.Empty)
         {
             var dialogId = DialogId.Create(input.OwnerId, input.OffsetPeer.PeerType, input.OffsetPeer.PeerId);
             var dialog = await queryProcessor.ProcessAsync(new GetDialogByIdQuery(dialogId.Value));
-            offsetDate = dialog?.CreationTime;
+            offsetDate = null;//dialog?.LastMessageDate;
+            if (dialog != null && offset.OffsetId == 0)
+            {
+                offset.OffsetId = dialog.TopMessage;
+            }
         }
 
         var query = new GetDialogsQuery(input.OwnerId,

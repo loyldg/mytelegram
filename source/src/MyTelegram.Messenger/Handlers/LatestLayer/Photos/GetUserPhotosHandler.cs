@@ -14,7 +14,7 @@ namespace MyTelegram.Messenger.Handlers.LatestLayer.Photos;
 /// <remarks>
 /// Access: [User ✔] [Bot ✔] [Anonymous ✖]
 /// </remarks>
-internal sealed class GetUserPhotosHandler(IQueryProcessor queryProcessor, IUserAppService userAppService, ILayeredService<IPhotoConverter> photoLayeredService, IPrivacyAppService privacyAppService, IPeerHelper peerHelper) : RpcResultObjectHandler<Schema.Photos.RequestGetUserPhotos, Schema.Photos.IPhotos>
+internal sealed class GetUserPhotosHandler(IQueryProcessor queryProcessor, IUserConverterService userConverterService, IUserAppService userAppService, ILayeredService<IPhotoConverter> photoLayeredService, IPrivacyAppService privacyAppService, IPeerHelper peerHelper) : RpcResultObjectHandler<Schema.Photos.RequestGetUserPhotos, Schema.Photos.IPhotos>
 {
     protected override async Task<Schema.Photos.IPhotos> HandleCoreAsync(IRequestInput input, Schema.Photos.RequestGetUserPhotos obj)
     {
@@ -28,12 +28,20 @@ internal sealed class GetUserPhotosHandler(IQueryProcessor queryProcessor, IUser
             }, [PrivacyType.ProfilePhoto]);
         }
 
+        var limit = obj.Limit;
+        if (limit < 0 || limit > 100)
+        {
+            limit = 100;
+        }
+
         if (!shouldReturnEmptyProfilePhotos)
         {
-            var photoReadModels = await queryProcessor.ProcessAsync(new GetUserProfilePhotosQuery(peer.PeerId));
+            var user = await userConverterService.GetUserAsync(input, peer.PeerId, false, false);
+            var photoReadModels = await queryProcessor.ProcessAsync(new GetUserProfilePhotosQuery(peer.PeerId, obj.Offset, limit));
             if (photoReadModels.Count > 0)
             {
                 var photos = photoReadModels.Select(p => photoLayeredService.GetConverter(input.Layer).ToPhoto(p)).ToList();
+                var count = photos.Count;
                 if (photos.Count > 1)
                 {
                     // If photos.Count>1, set the user's main photo in the first position
@@ -58,10 +66,24 @@ internal sealed class GetUserPhotosHandler(IQueryProcessor queryProcessor, IUser
                     }
                 }
 
+                if (count == obj.Limit)
+                {
+                    var totalCount = await queryProcessor.ProcessAsync(new GetUserProfilePhotoCountQuery(peer.PeerId));
+                    if (totalCount > count)
+                    {
+                        return new TPhotosSlice
+                        {
+                            Count = totalCount,
+                            Photos = [.. photos],
+                            Users = [user]
+                        };
+                    }
+                }
+
                 return new TPhotos
                 {
                     Photos = [.. photos],
-                    Users = []
+                    Users = [user]
                 };
             }
         }

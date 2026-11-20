@@ -4,4 +4,7 @@ public interface IOffsetHelper
 {
     OffsetInfo GetOffsetInfo(GetPagedListInput input);
     OffsetInfo GetOffsetInfo(int addOffset, int offsetId, int limit, int minId, int maxId, int minDate, int maxDate);
+
+    OffsetInfo GetOffsetInfo(int addOffset, int offsetId, int limit, int minId, int maxId, int minDate, int maxDate,
+        int offsetDate);
 }

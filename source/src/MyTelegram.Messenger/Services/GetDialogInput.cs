@@ -6,7 +6,6 @@ public class GetDialogInput : GetPagedListInput
 
     //public int OffsetPeerId { get; set; }
     public Peer? OffsetPeer { get; set; }
-
     public long OwnerId { get; set; }
 
     //public bool ExcludePinned { get; set; }

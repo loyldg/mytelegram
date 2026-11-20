@@ -18,7 +18,7 @@ internal sealed class GetRepliesHandler(IPeerHelper peerHelper, IMessageAppServi
     protected override async Task<IMessages> HandleCoreAsync(IRequestInput input, RequestGetReplies obj)
     {
         var peer = peerHelper.GetPeer(obj.Peer);
-        var getMessageOutput = await messageAppService.GetRepliesAsync(new GetRepliesInput { ReplyToMsgId = obj.MsgId, OwnerPeerId = peer.PeerId, AddOffset = obj.AddOffset, Limit = obj.Limit, OffsetId = obj.OffsetId, MinDate = obj.OffsetDate, SelfUserId = input.UserId });
+        var getMessageOutput = await messageAppService.GetRepliesAsync(new GetRepliesInput { ReplyToMsgId = obj.MsgId, OwnerPeerId = peer.PeerId, AddOffset = obj.AddOffset, Limit = obj.Limit, OffsetId = obj.OffsetId, OffsetDate = obj.OffsetDate, MaxId = obj.MaxId, MinId = obj.MinId, SelfUserId = input.UserId });
         return await getHistoryConverterService.ToMessagesAsync(input, getMessageOutput);
     }
 }

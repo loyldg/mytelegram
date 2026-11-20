@@ -151,7 +151,8 @@ public class MessageAppService(
 
     public Task<GetMessageOutput> GetMessagesAsync(GetMessagesInput input)
     {
-        return GetMessagesCoreAsync(input);
+        // Messages are selected by id list, no pagination window is applied.
+        return GetMessagesInternalAsync(objectMapper.Map<GetMessagesInput, GetMessagesQuery>(input));
     }
 
     public Task<GetMessageOutput> GetRepliesAsync(GetRepliesInput input)
@@ -739,11 +740,61 @@ public class MessageAppService(
     private Task<GetMessageOutput> GetMessagesCoreAsync<TRequest>(TRequest input)
         where TRequest : GetPagedListInput
     {
-        var offset = offsetHelper.GetOffsetInfo(input);
         var query = objectMapper.Map<TRequest, GetMessagesQuery>(input);
-        query.Offset = offset;
+        if (input is SearchGlobalInput searchGlobalInput)
+        {
+            // Message ids of different peers are unrelated, so searchGlobal pages by (offset_rate, offset_id).
+            query.Offset = offsetHelper.GetOffsetInfo(0, 0, input.Limit, 0, 0, input.MinDate, input.MaxDate);
+            if (searchGlobalInput.OffsetRate > 0)
+            {
+                query.OffsetRate = searchGlobalInput.OffsetRate;
+                query.OffsetRateId = input.OffsetId > 0 ? input.OffsetId : int.MaxValue;
+            }
+        }
+        else
+        {
+            query.Offset = offsetHelper.GetOffsetInfo(input);
+        }
 
         return GetMessagesInternalAsync(query);
+    }
+
+    private async Task<(int? Count, int? OffsetIdOffset)> GetPaginationCountsAsync(GetMessagesQuery query,
+        IReadOnlyCollection<IMessageReadModel> messageList)
+    {
+        var offset = query.Offset;
+        if (offset == null || query.SortByPtsAscending)
+        {
+            return (null, null);
+        }
+
+        if (query.IsSearchGlobal)
+        {
+            if (query.OffsetRate == 0 && messageList.Count < offset.Limit)
+            {
+                return (messageList.Count, null);
+            }
+
+            return (await queryProcessor.ProcessAsync(new GetMessagesCountQuery(query)), null);
+        }
+
+        if (offset.StartsFromTop && messageList.Count < offset.OlderTake)
+        {
+            // All matched messages are returned
+            return (messageList.Count, 0);
+        }
+
+        var count = await queryProcessor.ProcessAsync(new GetMessagesCountQuery(query));
+        if (messageList.Count == 0)
+        {
+            return (count, null);
+        }
+
+        // offset_id_offset is the position of messages[0] (the newest returned message) in the whole list
+        var newestMessageId = messageList.Max(p => p.MessageId);
+        var offsetIdOffset = await queryProcessor.ProcessAsync(new GetMessagesCountQuery(query, newestMessageId));
+
+        return (count, offsetIdOffset);
     }
 
     private async Task<GetMessageOutput> GetMessagesInternalAsync(GetMessagesQuery query,
@@ -810,6 +861,8 @@ public class MessageAppService(
                 .ProcessAsync(new GetChosenVoteAnswersQuery(pollIdList, query.SelfUserId));
         }
 
+        var (totalCount, offsetIdOffset) = await GetPaginationCountsAsync(query, messageList);
+        var limit = query.Offset?.Limit ?? query.Limit;
         return new GetMessageOutput(channelList,
             channelMemberList,
             [],
@@ -822,13 +875,17 @@ public class MessageAppService(
             pollReadModels,
             chosenOptions,
             [],
-            query.Limit == messageList.Count,
+            limit == messageList.Count,
             query.IsSearchGlobal,
             pts,
             query.SelfUserId,
-            query.Limit,
+            limit,
             query.Offset
-        );
+        )
+        {
+            TotalCount = totalCount,
+            OffsetIdOffset = offsetIdOffset
+        };
     }
 
     public (HashSet<long> userIds, HashSet<long> channelIds) GetExtraPeerIds(

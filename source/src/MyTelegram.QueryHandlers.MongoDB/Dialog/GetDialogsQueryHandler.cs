@@ -9,7 +9,7 @@ public class GetDialogsQueryHandler(IQueryOnlyReadModelStore<DialogReadModel> st
         var needPinnedParameter = false;
         var needOffsetDate = false;
         var pinned = false;
-        var offsetDate = DateTime.UtcNow;
+        int? offsetDate = null;
         if (query.Pinned.HasValue)
         {
             needPinnedParameter = true;
@@ -22,9 +22,14 @@ public class GetDialogsQueryHandler(IQueryOnlyReadModelStore<DialogReadModel> st
             offsetDate = query.OffsetDate.Value;
         }
 
-        Expression<Func<DialogReadModel, bool>> predicate = x => x.OwnerId == query.OwnerId && !x.IsDeleted;
+        // Dialogs are sorted by (LastMessageDate, TopMessage) descending, offset_id breaks ties of offset_date
+        var offsetTopMessage = query.Offset?.OffsetId ?? 0;
+
+        Expression<Func<DialogReadModel, bool>> predicate = x => x.OwnerId == query.OwnerId &&
+                                                                 !x.IsDeleted
+                                                                 ;
         predicate = predicate
-                .WhereIf(needOffsetDate, p => p.CreationTime > offsetDate)
+                //.WhereIf(needOffsetDate, p => p.LastMessageDate < offsetDate || (p.LastMessageDate == offsetDate && p.TopMessage < offsetTopMessage))
                 .WhereIf(needPinnedParameter, p => p.Pinned == pinned)
                 .WhereIf(query.PeerIdList?.Count > 0, p => query.PeerIdList!.Contains(p.ToPeerId))
                 .WhereIf(query.FolderId.HasValue && query.FolderId != 0, p => p.FolderId == query.FolderId)

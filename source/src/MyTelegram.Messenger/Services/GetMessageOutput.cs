@@ -63,4 +63,14 @@ public class GetMessageOutput(
     public long SelfUserId { get; set; } = selfUserId;
     public int Limit { get; set; } = limit;
     public OffsetInfo? OffsetInfo { get; } = offsetInfo;
+
+    /// <summary>
+    /// Total number of messages matching the request (messages.messagesSlice/channelMessages count), null if unknown
+    /// </summary>
+    public int? TotalCount { get; set; }
+
+    /// <summary>
+    /// Number of matching messages newer than the first returned message, null if unknown
+    /// </summary>
+    public int? OffsetIdOffset { get; init; }
 }
