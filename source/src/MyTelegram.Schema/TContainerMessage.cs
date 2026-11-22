@@ -37,7 +37,15 @@ public sealed partial class TContainerMessage : IObject
         MsgId = buffer.ReadInt64();
         SeqNo = buffer.ReadInt32();
         Bytes = buffer.ReadInt32();
-        Body = buffer.Read<IObject>();
+        if (Bytes < 0 || Bytes > buffer.Length)
+        {
+            throw new InvalidDataException($"Invalid container message length {Bytes}, remaining bytes {buffer.Length}");
+        }
+
+        // Limit the body to its declared length, the body may end with a vector of bare items (e.g. rpc_result with Vector<int>)
+        var body = buffer[..Bytes];
+        Body = body.Read<IObject>();
+        buffer = buffer[Bytes..];
     }
 
     public int GetLength()

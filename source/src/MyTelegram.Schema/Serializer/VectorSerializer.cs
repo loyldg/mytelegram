@@ -15,6 +15,7 @@ public class VectorSerializer<T> : ISerializer<TVector<T>>
     public TVector<T> Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
         var count = buffer.ReadInt32();
+        TVectorCountGuard.Validate(count, buffer.Length);
         var serializer = SerializerFactory.CreateSerializer<T>();
         var result = new TVector<T>();
         for (var i = 0; i < count; i++)

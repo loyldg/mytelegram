@@ -30,15 +30,20 @@ public class SerializerFactory
 
     public static ISerializer<T> CreateObjectSerializer<T>() where T : IObject
     {
-        return new ObjectSerializer<T>();
+        return ObjectSerializerCache<T>.Instance;
     }
 
     public static ISerializer<TVector<T>> CreateVectorSerializer<T>()
     {
-        return new VectorSerializer<T>();
+        return VectorSerializerCache<T>.Instance;
     }
 
     public static ISerializer<T> CreateSerializer<T>()
+    {
+        return SerializerCache<T>.Instance ?? throw new NotImplementedException($"Not supported type:{typeof(T)}");
+    }
+
+    private static ISerializer<T>? CreateSerializerCore<T>()
     {
         var type = typeof(T);
         var typeName = type.Name;
@@ -66,6 +71,22 @@ public class SerializerFactory
 
         if (typeof(IObject).IsAssignableFrom(type)) return new ObjectSerializer<T>();
 
-        throw new NotImplementedException($"Not supported type:{type}");
+        return null;
+    }
+
+    // Serializers are stateless, create them once per type instead of on every read
+    private static class SerializerCache<T>
+    {
+        public static readonly ISerializer<T>? Instance = CreateSerializerCore<T>();
+    }
+
+    private static class ObjectSerializerCache<T> where T : IObject
+    {
+        public static readonly ISerializer<T> Instance = new ObjectSerializer<T>();
+    }
+
+    private static class VectorSerializerCache<T>
+    {
+        public static readonly ISerializer<TVector<T>> Instance = new VectorSerializer<T>();
     }
 }

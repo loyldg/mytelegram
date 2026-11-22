@@ -100,24 +100,14 @@ public class TVector<T> : IObject, IList<T>
 
     public void Deserialize(ref ReadOnlyMemory<byte> buffer)
     {
-        var tempBuffer = buffer;
-
         var count = buffer.ReadInt32();
+        TVectorCountGuard.Validate(count, buffer.Length);
         if (count > 0)
         {
             _list.Capacity = count;
             for (var i = 0; i < count; i++)
             {
-                try
-                {
-                    var item = Serializer.Deserialize(ref buffer);
-                    _list.Add(item);
-                }
-                catch
-                {
-                    Console.WriteLine($"Vector:Deserialize failed:{Convert.ToHexStringLower(tempBuffer.Span)}");
-                    throw;
-                }
+                _list.Add(Serializer.Deserialize(ref buffer));
             }
         }
     }
@@ -132,7 +122,7 @@ public class TVector<T> : IObject, IList<T>
                 case IObject obj:
                     length += obj.GetLength();
                     break;
-                case int or uint:
+                case int or uint or bool:
                     length += 4;
                     break;
                 case long or double:
@@ -155,5 +145,17 @@ public class TVector<T> : IObject, IList<T>
     public void AddRange(IEnumerable<T> items)
     {
         _list.AddRange(items);
+    }
+}
+internal static class TVectorCountGuard
+{
+    // Every vector element takes at least 4 bytes, so a count larger than remaining/4 is invalid.
+    // Checked before the list is pre-allocated with the (untrusted) count.
+    public static void Validate(int count, int remainingLength)
+    {
+        if (count < 0 || count > remainingLength / 4)
+        {
+            throw new InvalidDataException($"Invalid vector count {count}, remaining bytes {remainingLength}");
+        }
     }
 }
